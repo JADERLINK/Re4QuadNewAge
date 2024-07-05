@@ -1,0 +1,14 @@
+LICENSE: The Code Project Open License (CPOL) 1.02
+https://www.codeproject.com/info/cpol10.aspx
+
+Property Grid - Dynamic List ComboBox, Validation, and More
+https://www.codeproject.com/Articles/23242/Property-Grid-Dynamic-List-ComboBox-Validation-and
+
+Multiselect Treeview Implementation
+https://www.codeproject.com/Articles/20581/Multiselect-Treeview-Implementation
+
+Dynamic Properties for PropertyGrid
+https://www.codeproject.com/Articles/189521/Dynamic-Properties-for-PropertyGrid
+
+Customized Display of Collection Data in a PropertyGrid
+https://www.codeproject.com/Articles/4448/Customized-Display-of-Collection-Data-in-a-Propert

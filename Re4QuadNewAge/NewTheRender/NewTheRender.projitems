@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>20573470-c32b-4d09-ab07-f98f0f55d5f8</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>NewAgeTheRender</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AppModel3D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BoundingBoxLimit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Grid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelGroupConteiner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjModel3D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenderAppModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoomInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoomSelectedObj.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RspFix.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TheRender.cs" />
+  </ItemGroup>
+</Project>

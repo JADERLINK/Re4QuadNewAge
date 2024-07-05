@@ -1,0 +1,519 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+using Re4QuadExtremeEditor.src.JSON;
+using Re4QuadExtremeEditor.src.Class;
+using Re4QuadExtremeEditor.src.Class.Enums;
+using Re4QuadExtremeEditor.src.Class.TreeNodeObj;
+using Re4QuadExtremeEditor.src.Class.Shaders;
+using System.IO;
+using OpenTK;
+
+namespace Re4QuadExtremeEditor.src
+{
+    /// <summary>
+    /// Metodos uteis para serem usados;
+    /// </summary>
+    public static class Utils
+    {        
+
+        /// <summary>
+        /// carrega os modelos 3d dos objetos ao iniciar o programa
+        /// </summary>
+        public static void StartLoadObjsModels()
+        {
+            DataBase.ItemsModels = new NewAgeTheRender.ModelGroupConteiner(Consts.ItemsModelGroupName);
+            var ItemsObjModelJsonPaths = DataBase.ItemsIDs.List
+                .Where(x => x.Value.ObjectModel != null && x.Value.ObjectModel.Length > 0)
+                .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.ItemsDirectory, DataBase.ItemsIDs.Folder, x.Value.ObjectModel))
+                .ToHashSet().ToArray();
+            DataBase.ItemsModels.AddModelObjects(ItemsObjModelJsonPaths);
+
+
+            DataBase.EtcModels = new NewAgeTheRender.ModelGroupConteiner(Consts.EtcModelGroupName);
+            var EtcModelsObjModelJsonPaths = DataBase.EtcModelIDs.List
+               .Where(x => x.Value.ObjectModel != null && x.Value.ObjectModel.Length > 0)
+               .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.EtcModelsDirectory, DataBase.EtcModelIDs.Folder, x.Value.ObjectModel))
+               .ToHashSet().ToArray();
+            DataBase.EtcModels.AddModelObjects(EtcModelsObjModelJsonPaths);
+
+
+            DataBase.EnemiesModels = new NewAgeTheRender.ModelGroupConteiner(Consts.EnemiesModelGroupName);
+            var EnemiesObjModelJsonPaths = DataBase.EnemiesIDs.List
+              .Where(x => x.Value.ObjectModel != null && x.Value.ObjectModel.Length > 0)
+              .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.EnemiesDirectory, DataBase.EnemiesIDs.Folder, x.Value.ObjectModel))
+              .ToHashSet().ToArray();
+            DataBase.EnemiesModels.AddModelObjects(EnemiesObjModelJsonPaths);
+
+
+            DataBase.InternalModels = new NewAgeTheRender.ModelGroupConteiner(Consts.InternalModelGroupName);
+            var InternalObjModelJsonPaths = (new List<string> {
+            Consts.ModelKeyAshleyPoint,
+            Consts.ModelKeyGrappleGunPoint,
+            Consts.ModelKeyLadderError,
+            Consts.ModelKeyLadderObj,
+            Consts.ModelKeyLadderPoint,
+            Consts.ModelKeyLocalTeleportationPoint,
+            Consts.ModelKeyWarpPoint
+            })
+             .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.InternalModelsDirectory, x)).ToHashSet().ToArray();
+            DataBase.InternalModels.AddModelObjects(InternalObjModelJsonPaths);
+
+            //int finish = 0;
+        }
+
+
+        /// <summary>
+        /// carrega as lista de ObjInfo ao iniciar o programa
+        /// </summary>
+        public static void StartLoadObjsInfoLists() 
+        {
+            DataBase.ItemsIDs = new ObjectInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<ushort, ObjectInfo>());
+            DataBase.EtcModelIDs = new ObjectInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<ushort, ObjectInfo>());
+            DataBase.EnemiesIDs = new ObjectInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<ushort, ObjectInfo>());
+            try { DataBase.ItemsIDs = ObjectInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.ItemsDirectory, Globals.FileDiretoryItemsList), Consts.NameItemsList); } catch (Exception){}
+            try { DataBase.EtcModelIDs = ObjectInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.EtcModelsDirectory, Globals.FileDiretoryEtcModelsList), Consts.NameEtcModelsList); } catch (Exception){}
+            try { DataBase.EnemiesIDs = ObjectInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.EnemiesDirectory, Globals.FileDiretoryEnemiesList), Consts.NameEnemiesList); } catch (Exception){}
+        }
+
+        /// <summary>
+        /// na lista de enimigos os ids vão de 0x00 a 0x4F, depois disso se repete a ordem dos inimigos, porem eles não emitem som
+        /// </summary>
+        public static void StartEnemyExtraSegmentList() 
+        {
+            if (Globals.CreateEnemyExtraSegmentList)
+            {
+                // segund ExtraSegment
+                for (ushort i = 0; i < 0x50; i++)
+                {
+                    ushort originalId = (ushort)(i * 0x100);
+
+                    var list = (from obj in DataBase.EnemiesIDs.List
+                                where obj.Key >= originalId && obj.Key <= (originalId + 0xFF)
+                                select obj.Key).ToArray();
+
+                    if (list.Length != 0)
+                    {
+                        foreach (var Key in list)
+                        {
+                            ushort newId = (ushort)(Key + 0x5000);
+                            ObjectInfo obj;
+                            if (!DataBase.EnemiesIDs.List.ContainsKey(newId) && DataBase.EnemiesIDs.List.TryGetValue(Key, out obj))
+                            {
+                                ObjectInfo newObj = new ObjectInfo(newId,
+                                    obj.ObjectModel,
+                                    obj.Name + " " + Lang.GetText(eLang.EnemyExtraSegmentSegund),
+                                    obj.Description + " " + Lang.GetText(eLang.EnemyExtraSegmentSegund) + " " + Lang.GetText(eLang.EnemyExtraSegmentNoSound));
+                                DataBase.EnemiesIDs.List.Add(newId, newObj);
+                            }
+
+                        }
+                    }
+                }
+
+                //third ExtraSegment
+                for (ushort i = 0; i < 0x50; i++)
+                {
+                    ushort originalId = (ushort)(i * 0x100);
+
+                    var list = (from obj in DataBase.EnemiesIDs.List
+                                where obj.Key >= originalId && obj.Key <= (originalId + 0xFF)
+                                select obj.Key).ToArray();
+
+                    if (list.Length != 0)
+                    {
+                        foreach (var Key in list)
+                        {
+                            ushort newId = (ushort)(Key + 0xA000);
+                            ObjectInfo obj;
+                            if (!DataBase.EnemiesIDs.List.ContainsKey(newId) && DataBase.EnemiesIDs.List.TryGetValue(Key, out obj))
+                            {
+                                ObjectInfo newObj = new ObjectInfo(newId,
+                                    obj.ObjectModel,
+                                    obj.Name + " " + Lang.GetText(eLang.EnemyExtraSegmentThird),
+                                    obj.Description + " " + Lang.GetText(eLang.EnemyExtraSegmentThird) + " " + Lang.GetText(eLang.EnemyExtraSegmentNoSound));
+                                DataBase.EnemiesIDs.List.Add(newId, newObj);
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        
+        }
+
+
+        /// <summary>
+        /// carrega a lista de PromptMessage, em  ListBoxProperty.PromptMessageList
+        /// </summary>
+        public static void StartLoadPromptMessageList() 
+        {
+            try
+            {
+                ListBoxProperty.PromptMessageList = PromptMessageListFile.parsePromptMessageList(Path.Combine(AppContext.BaseDirectory, Consts.PromptMessageListFileDirectory));
+            }
+            catch (Exception)
+            {
+                ListBoxProperty.PromptMessageList = new Dictionary<byte, ByteObjForListBox>();
+            }
+           
+        }
+
+        /// <summary>
+        /// prenche ListBoxProperty
+        /// </summary>
+        public static void StartSetListBoxsProperty()
+        {
+            //ListBoxProperty.FloatTypeLis
+            Dictionary<bool, BoolObjForListBox> FloatType = new Dictionary<bool, BoolObjForListBox>();
+            FloatType.Add(false, new BoolObjForListBox(false, Lang.GetAttributeText(aLang.ListBoxFloatTypeDisable)));
+            FloatType.Add(true, new BoolObjForListBox(true, Lang.GetAttributeText(aLang.ListBoxFloatTypeEnable)));
+            ListBoxProperty.FloatTypeList = FloatType;
+
+
+            //ListBoxProperty.EnemyEnableList
+            Dictionary<byte, ByteObjForListBox> Enable = new Dictionary<byte, ByteObjForListBox>();
+            Enable.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxDisable)));
+            Enable.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxEnable)));
+            ListBoxProperty.EnemyEnableList = Enable;
+
+
+            //ListBoxProperty.SpecialZoneCategoryList
+            Dictionary<byte, ByteObjForListBox> SpecialZoneCategory = new Dictionary<byte, ByteObjForListBox>();
+            SpecialZoneCategory.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxSpecialZoneCategory00)));
+            SpecialZoneCategory.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxSpecialZoneCategory01)));
+            SpecialZoneCategory.Add(0x02, new ByteObjForListBox(0x02, "02: " + Lang.GetAttributeText(aLang.ListBoxSpecialZoneCategory02)));
+            ListBoxProperty.SpecialZoneCategoryList = SpecialZoneCategory;
+
+            //ListBoxProperty.Ref
+            //TypeList
+            Dictionary<byte, ByteObjForListBox> RefInteractionTypeList = new Dictionary<byte, ByteObjForListBox>();
+            RefInteractionTypeList.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxRefInteractionType00)));
+            RefInteractionTypeList.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxRefInteractionType01Enemy)));
+            RefInteractionTypeList.Add(0x02, new ByteObjForListBox(0x02, "02: " + Lang.GetAttributeText(aLang.ListBoxRefInteractionType02EtcModel)));
+            ListBoxProperty.RefInteractionTypeList = RefInteractionTypeList;
+
+
+            //ListBoxProperty.ItemAuraTypeList
+            Dictionary<ushort, UshortObjForListBox> ItemAuraType = new Dictionary<ushort, UshortObjForListBox>();
+            ItemAuraType.Add(0x00, new UshortObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType00)));
+            ItemAuraType.Add(0x01, new UshortObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType01)));
+            ItemAuraType.Add(0x02, new UshortObjForListBox(0x02, "02: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType02)));
+            ItemAuraType.Add(0x03, new UshortObjForListBox(0x03, "03: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType03)));
+            ItemAuraType.Add(0x04, new UshortObjForListBox(0x04, "04: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType04)));
+            ItemAuraType.Add(0x05, new UshortObjForListBox(0x05, "05: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType05)));
+            ItemAuraType.Add(0x06, new UshortObjForListBox(0x06, "06: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType06)));
+            ItemAuraType.Add(0x07, new UshortObjForListBox(0x07, "07: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType07)));
+            ItemAuraType.Add(0x08, new UshortObjForListBox(0x08, "08: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType08)));
+            ItemAuraType.Add(0x09, new UshortObjForListBox(0x09, "09: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType09)));
+            ListBoxProperty.ItemAuraTypeList = ItemAuraType;
+
+
+            //ListBoxProperty.SpecialTypeList
+            Dictionary<SpecialType, ByteObjForListBox> SpecialTypeList = new Dictionary<SpecialType, ByteObjForListBox>();
+            SpecialTypeList.Add(SpecialType.T00_GeneralPurpose, new ByteObjForListBox(0x00, Lang.GetAttributeText(aLang.SpecialType00_GeneralPurpose)));
+            SpecialTypeList.Add(SpecialType.T01_WarpDoor, new ByteObjForListBox(0x01, Lang.GetAttributeText(aLang.SpecialType01_WarpDoor)));
+            SpecialTypeList.Add(SpecialType.T02_CutSceneEvents, new ByteObjForListBox(0x02, Lang.GetAttributeText(aLang.SpecialType02_CutSceneEvents)));
+            SpecialTypeList.Add(SpecialType.T03_Items, new ByteObjForListBox(0x03, Lang.GetAttributeText(aLang.SpecialType03_Items)));
+            SpecialTypeList.Add(SpecialType.T04_GroupedEnemyTrigger, new ByteObjForListBox(0x04, Lang.GetAttributeText(aLang.SpecialType04_GroupedEnemyTrigger)));
+            SpecialTypeList.Add(SpecialType.T05_Message, new ByteObjForListBox(0x05, Lang.GetAttributeText(aLang.SpecialType05_Message)));
+            //SpecialTypeList.Add(SpecialType.T06_Unused, new ByteObjForListBox(0x06, Lang.GetAttributeText(aLang.SpecialType06_Unused)));
+            //SpecialTypeList.Add(SpecialType.T07_Unused, new ByteObjForListBox(0x07, Lang.GetAttributeText(aLang.SpecialType07_Unused)));
+            SpecialTypeList.Add(SpecialType.T08_TypeWriter, new ByteObjForListBox(0x08, Lang.GetAttributeText(aLang.SpecialType08_TypeWriter)));
+            //SpecialTypeList.Add(SpecialType.T09_Unused, new ByteObjForListBox(0x09, Lang.GetAttributeText(aLang.SpecialType09_Unused)));
+            SpecialTypeList.Add(SpecialType.T0A_DamagesThePlayer, new ByteObjForListBox(0x0A, Lang.GetAttributeText(aLang.SpecialType0A_DamagesThePlayer)));
+            SpecialTypeList.Add(SpecialType.T0B_FalseCollision, new ByteObjForListBox(0x0B, Lang.GetAttributeText(aLang.SpecialType0B_FalseCollision)));
+            //SpecialTypeList.Add(SpecialType.T0C_Unused, new ByteObjForListBox(0x0C, Lang.GetAttributeText(aLang.SpecialType0C_Unused)));
+            SpecialTypeList.Add(SpecialType.T0D_Unknown, new ByteObjForListBox(0x0D, Lang.GetAttributeText(aLang.SpecialType0D_Unknown)));
+            SpecialTypeList.Add(SpecialType.T0E_Crouch, new ByteObjForListBox(0x0E, Lang.GetAttributeText(aLang.SpecialType0E_Crouch)));
+            //SpecialTypeList.Add(SpecialType.T0F_Unused, new ByteObjForListBox(0x0F, Lang.GetAttributeText(aLang.SpecialType0F_Unused)));
+            SpecialTypeList.Add(SpecialType.T10_FixedLadderClimbUp, new ByteObjForListBox(0x10, Lang.GetAttributeText(aLang.SpecialType10_FixedLadderClimbUp)));
+            SpecialTypeList.Add(SpecialType.T11_ItemDependentEvents, new ByteObjForListBox(0x11, Lang.GetAttributeText(aLang.SpecialType11_ItemDependentEvents)));
+            SpecialTypeList.Add(SpecialType.T12_AshleyHideCommand, new ByteObjForListBox(0x12, Lang.GetAttributeText(aLang.SpecialType12_AshleyHideCommand)));
+            SpecialTypeList.Add(SpecialType.T13_LocalTeleportation, new ByteObjForListBox(0x13, Lang.GetAttributeText(aLang.SpecialType13_LocalTeleportation)));
+            SpecialTypeList.Add(SpecialType.T14_UsedForElevators, new ByteObjForListBox(0x14, Lang.GetAttributeText(aLang.SpecialType14_UsedForElevators)));
+            SpecialTypeList.Add(SpecialType.T15_AdaGrappleGun, new ByteObjForListBox(0x15, Lang.GetAttributeText(aLang.SpecialType15_AdaGrappleGun)));
+            ListBoxProperty.SpecialTypeList = SpecialTypeList;
+
+        }
+
+        /// <summary>
+        /// prenche EnemiesList, EtcmodelsList, ItemsList em ListBoxProperty class
+        /// </summary>
+        public static void StartSetListBoxsPropertybjsInfoLists()
+        {
+
+            //ListBoxProperty.EnemiesList
+            Dictionary<ushort, UshortObjForListBox> Enemies = new Dictionary<ushort, UshortObjForListBox>();
+            foreach (var item in DataBase.EnemiesIDs.List)
+            {
+                string ID = item.Value.HexID.ToString("X4");
+                if (ID[2] == 'F' && ID[3] == 'F'){ continue; }
+                if (ID == "FFFF") { continue; }
+                Enemies.Add(item.Value.HexID, new UshortObjForListBox(item.Value.HexID, item.Value.HexID.ToString("X4") + ": " + item.Value.Description));
+            }
+            Enemies = Enemies.OrderBy(o => o.Key).ToDictionary(p => p.Key, p => p.Value);
+            ListBoxProperty.EnemiesList = Enemies;
+
+
+
+            //ListBoxProperty.EtcmodelsList
+            Dictionary<ushort, UshortObjForListBox> EtcModels = new Dictionary<ushort, UshortObjForListBox>();
+            foreach (var item in DataBase.EtcModelIDs.List)
+            {
+                if (item.Value.HexID == ushort.MaxValue) { continue; }
+                EtcModels.Add(item.Value.HexID, new UshortObjForListBox(item.Value.HexID, item.Value.HexID.ToString("X4") + ": " + item.Value.Description));
+            }
+            EtcModels = EtcModels.OrderBy(o => o.Key).ToDictionary(p => p.Key, p => p.Value);
+            ListBoxProperty.EtcmodelsList = EtcModels;
+
+
+
+            //ListBoxProperty.ItemsList
+            Dictionary<ushort, UshortObjForListBox> Itens = new Dictionary<ushort, UshortObjForListBox>();
+            foreach (var item in DataBase.ItemsIDs.List)
+            {
+                if (item.Value.HexID == ushort.MaxValue) { continue; }
+                Itens.Add(item.Value.HexID, new UshortObjForListBox(item.Value.HexID, item.Value.HexID.ToString("X4") + ": " + item.Value.Description));
+            }
+            Itens = Itens.OrderBy(o => o.Key).ToDictionary(p => p.Key, p => p.Value);
+            ListBoxProperty.ItemsList = Itens;
+        }
+
+        /// <summary>
+        /// metodo destinado a instanciar os Nodes de Grupos;
+        /// </summary>
+        public static void StartCreateNodes() 
+        {
+            EnemyNodeGroup esl = new EnemyNodeGroup();
+            esl.Group = GroupType.ESL;
+            esl.Text = Lang.GetText(eLang.NodeESL);
+            esl.Name = Consts.NodeESL;
+            esl.ForeColor = Globals.NodeColorESL;
+            esl.NodeFont = Globals.TreeNodeFontText;
+
+            EtcModelNodeGroup ets = new EtcModelNodeGroup();
+            ets.Group = GroupType.ETS;
+            ets.Text = Lang.GetText(eLang.NodeETS);
+            ets.Name = Consts.NodeETS;
+            ets.ForeColor = Globals.NodeColorETS;
+            ets.NodeFont = Globals.TreeNodeFontText;
+
+            SpecialNodeGroup ita = new SpecialNodeGroup();
+            ita.Group = GroupType.ITA;
+            ita.Text = Lang.GetText(eLang.NodeITA);
+            ita.Name = Consts.NodeITA;
+            ita.ForeColor = Globals.NodeColorITA;
+            ita.NodeFont = Globals.TreeNodeFontText;
+
+            SpecialNodeGroup aev = new SpecialNodeGroup();
+            aev.Group = GroupType.AEV;
+            aev.Text = Lang.GetText(eLang.NodeAEV);
+            aev.Name = Consts.NodeAEV;
+            aev.ForeColor = Globals.NodeColorAEV;
+            aev.NodeFont = Globals.TreeNodeFontText;
+
+            ExtraNodeGroup extras = new ExtraNodeGroup();
+            extras.Group = GroupType.EXTRAS;
+            extras.Text = Lang.GetText(eLang.NodeEXTRAS);
+            extras.Name = Consts.NodeEXTRAS;
+            extras.ForeColor = Globals.NodeColorEXTRAS;
+            extras.NodeFont = Globals.TreeNodeFontText;
+
+            DataBase.NodeESL = esl;
+            DataBase.NodeETS = ets;
+            DataBase.NodeITA = ita;
+            DataBase.NodeAEV = aev;
+            DataBase.NodeEXTRAS = extras;
+        }
+
+        /// <summary>
+        /// metodo destinado a instanciar o node do ExtraGroup;
+        /// </summary>
+        public static void StartExtraGroup() 
+        {
+            DataBase.Extras = new Class.Files.ExtraGroup();
+            DataBase.NodeEXTRAS.DisplayMethods = DataBase.Extras.DisplayMethods;
+            DataBase.NodeEXTRAS.MoveMethods = DataBase.Extras.MoveMethods;
+        }
+
+        public static List<ushort> AllUshots() 
+        {
+            List<ushort> list = new List<ushort>(ushort.MaxValue);
+            for (ushort i = 0; i < ushort.MaxValue; i++)
+            {
+                list.Add(i);
+            }
+            return list;
+        }
+
+        public static OpenTK.Vector4 ColorToVector4(Color color) 
+        {
+            return new OpenTK.Vector4((float)color.R / byte.MaxValue, (float)color.G / byte.MaxValue, (float)color.B / byte.MaxValue, (float)color.A / byte.MaxValue);
+        }
+
+
+        public static Color Vector4ToColor(OpenTK.Vector4 color)
+        {
+            return Color.FromArgb((int)Math.Round(color.W * byte.MaxValue), (int)Math.Round(color.X * byte.MaxValue), (int)Math.Round(color.Y * byte.MaxValue), (int)Math.Round(color.Z * byte.MaxValue));
+        }
+
+        public static float EnemyAngleToRad(short EnemyAngle)
+        {
+            //return ((2 * (float)Math.PI) * EnemyAngle) / 32768;
+            return (MathHelper.TwoPi * EnemyAngle) / 32768;
+        }
+
+        public static short RadToEnemyAngle(float RadAngle)
+        {
+            //float temp = (32768 * RadAngle) / (2 * (float)Math.PI);
+            float temp = (32768 * RadAngle) / MathHelper.TwoPi;
+            if (temp > short.MaxValue) { temp = short.MaxValue; }
+            if (temp < short.MinValue) { temp = short.MinValue; }
+            return (short)temp;
+        }
+
+        public static float RadAngle1Scale(float RadAngle) 
+        {
+            float rad = RadAngle;
+            while (rad > MathHelper.TwoPi)
+            {
+                rad -= MathHelper.TwoPi;
+            }
+            while (rad < -MathHelper.TwoPi)
+            {
+                rad += MathHelper.TwoPi;
+            }
+            return rad;
+        }
+
+        public static SpecialFileFormat GroupTypeToSpecialFileFormat(GroupType group) 
+        {
+            switch (group)
+            {
+                case GroupType.ITA:
+                    return SpecialFileFormat.ITA;
+                case GroupType.AEV:
+                    return SpecialFileFormat.AEV;
+            }
+            return SpecialFileFormat.NULL;
+        }
+
+        public static SpecialType ToSpecialType(byte specialType)
+        {
+            if (specialType < 0x16)
+            {
+                return (SpecialType)specialType;
+            }
+            return SpecialType.UnspecifiedType;
+        }
+
+        public static void ToMoveCheckLimits(ref Vector3[] value)
+        {
+            for (int i = 0; i < value.Length; i++)
+            {
+                Vector3 vec = value[i];
+                if (float.IsNaN(vec.X) || float.IsInfinity(vec.X)) { vec.X = 0; }
+                if (float.IsNaN(vec.Y) || float.IsInfinity(vec.Y)) { vec.Y = 0; }
+                if (float.IsNaN(vec.Z) || float.IsInfinity(vec.Z)) { vec.Z = 0; }
+                if (vec.X > Consts.MyFloatMax) { vec.X = Consts.MyFloatMax; }
+                if (vec.X < -Consts.MyFloatMax) { vec.X = -Consts.MyFloatMax; }
+                if (vec.Y > Consts.MyFloatMax) { vec.Y = Consts.MyFloatMax; }
+                if (vec.Y < -Consts.MyFloatMax) { vec.Y = -Consts.MyFloatMax; }
+                if (vec.Z > Consts.MyFloatMax) { vec.Z = Consts.MyFloatMax; }
+                if (vec.Z < -Consts.MyFloatMax) { vec.Z = -Consts.MyFloatMax; }
+                value[i] = vec;
+            }
+        }
+
+        public static Vector3[] GetObjScale_ToMove_Null(ushort ID) { return null; }
+        public static void SetObjScale_ToMove_Null(ushort ID, Vector3[] value) { }
+
+        /// <summary>
+        /// Recarrega os arquivos Json e seus textos;
+        /// </summary>
+        public static void ReloadJsonFiles() 
+        {
+            StartLoadObjsInfoLists();
+            StartEnemyExtraSegmentList();
+            StartSetListBoxsPropertybjsInfoLists();
+            StartLoadPromptMessageList();
+        }
+
+        public static void StartReloadDirectoryDic()
+        {
+            DataBase.DirectoryDic = new Dictionary<string, string>();
+            DataBase.DirectoryDic.Add("", "");
+            DataBase.DirectoryDic.Add("app", AppContext.BaseDirectory + "\\");
+            DataBase.DirectoryDic.Add("xfile", Globals.DirectoryXFILE);
+            DataBase.DirectoryDic.Add("2007re4", Globals.Directory2007RE4);
+            DataBase.DirectoryDic.Add("ps2re4", Globals.DirectoryPS2RE4);
+            DataBase.DirectoryDic.Add("uhdre4", Globals.DirectoryUHDRE4);
+            DataBase.DirectoryDic.Add("custom1", Globals.DirectoryCustom1);
+            DataBase.DirectoryDic.Add("custom2", Globals.DirectoryCustom2);
+            DataBase.DirectoryDic.Add("custom3", Globals.DirectoryCustom3);
+        }
+
+
+        /// <summary>
+        /// Recarrega os modelos 3d;
+        /// </summary>
+        public static void ReloadModels()
+        {
+            DataBase.InternalModels?.ClearGL();
+            DataBase.ItemsModels?.ClearGL();
+            DataBase.EtcModels?.ClearGL();
+            DataBase.EnemiesModels?.ClearGL();
+            StartLoadObjsModels();
+            GC.Collect();
+        }
+
+
+        public static UshortObjForListBox[] ItemRotationOrderForListBox() 
+        {
+            UshortObjForListBox[] list = new UshortObjForListBox[15];
+            list[0] = new UshortObjForListBox(0, Lang.GetText(eLang.RotationXYZ));
+            list[1] = new UshortObjForListBox(1, Lang.GetText(eLang.RotationXZY));
+            list[2] = new UshortObjForListBox(2, Lang.GetText(eLang.RotationYXZ));
+            list[3] = new UshortObjForListBox(3, Lang.GetText(eLang.RotationYZX));
+            list[4] = new UshortObjForListBox(4, Lang.GetText(eLang.RotationZYX));
+            list[5] = new UshortObjForListBox(5, Lang.GetText(eLang.RotationZXY));
+            list[6] = new UshortObjForListBox(6, Lang.GetText(eLang.RotationXY));
+            list[7] = new UshortObjForListBox(7, Lang.GetText(eLang.RotationXZ));
+            list[8] = new UshortObjForListBox(8, Lang.GetText(eLang.RotationYX));
+            list[9] = new UshortObjForListBox(9, Lang.GetText(eLang.RotationYZ));
+            list[10] = new UshortObjForListBox(10, Lang.GetText(eLang.RotationZX));
+            list[11] = new UshortObjForListBox(11, Lang.GetText(eLang.RotationZY));
+            list[12] = new UshortObjForListBox(12, Lang.GetText(eLang.RotationX));
+            list[13] = new UshortObjForListBox(13, Lang.GetText(eLang.RotationY));
+            list[14] = new UshortObjForListBox(14, Lang.GetText(eLang.RotationZ));
+
+            return list;
+        }
+
+        /// <summary>
+        /// carrega o conteudo da tradução selecionada.
+        /// </summary>
+        public static void StartLoadLangFile() 
+        {
+            if (Globals.BackupConfigs.LoadLangTranslation)
+            {
+                string path = Path.Combine(AppContext.BaseDirectory, Consts.LangDirectory, Globals.BackupConfigs?.LangJsonFile ?? "");
+                if (File.Exists(path))
+                {
+                    Lang.LoadedTranslation = true;
+                    Lang.StartOthersTexts();
+                    LangFile.ParseFromFileLang(path);
+                }
+            }
+       
+        }
+
+    }
+
+
+}

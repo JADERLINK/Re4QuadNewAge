@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9de41597-43d9-4b40-a62b-05f79e6dd9a2</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>JSON</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Config\Configs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Config\ConfigsFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lang\LangFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lang\LangObjForList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectInfo\ObjectInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectInfo\ObjectInfoList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectInfo\ObjectInfoListFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectModel\ObjectModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectModel\ObjectModelFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Others\PromptMessageListFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomListObj.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomListObjFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomModelFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Config\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Lang\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Others\" />
+  </ItemGroup>
+</Project>

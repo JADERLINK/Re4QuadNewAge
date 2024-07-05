@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1CB4C2C5-4D8D-4DED-A6AD-79D908C9B22D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Re4QuadExtremeEditor</RootNamespace>
+    <AssemblyName>Re4QuadExtremeEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Re4QuadExtremeEditor.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.3.3.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.3.3\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.3.3.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.3.3.3\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="src\Class\Enums\aLang.cs" />
+    <Compile Include="src\Class\Enums\ConfigFrationalSymbol.cs" />
+    <Compile Include="src\Class\Enums\eLang.cs" />
+    <Compile Include="src\Class\Enums\GroupType.cs" />
+    <Compile Include="src\Class\Enums\ItemAuraType.cs" />
+    <Compile Include="src\Class\Enums\ObjRotationOrder.cs" />
+    <Compile Include="src\Class\Enums\MoveObjCombos.cs" />
+    <Compile Include="src\Class\Enums\MoveObjType.cs" />
+    <Compile Include="src\Class\Enums\RefInteractionType.cs" />
+    <Compile Include="src\Class\Enums\SpecialFileFormat.cs" />
+    <Compile Include="src\Class\Enums\SpecialType.cs" />
+    <Compile Include="src\Class\Enums\SpecialZoneCategory.cs" />
+    <Compile Include="src\Class\FileManager.cs" />
+    <Compile Include="src\Class\Files\ExtraGroup.cs" />
+    <Compile Include="src\Class\Files\FileEnemyEslGroup.cs" />
+    <Compile Include="src\Class\Files\FileEtcModelEtsGroup.cs" />
+    <Compile Include="src\Class\Files\FileSpecialGroup.cs" />
+    <Compile Include="src\Class\Interfaces\IDisplay.cs" />
+    <Compile Include="src\Class\Interfaces\INodeChangeAmount.cs" />
+    <Compile Include="src\Class\Interfaces\IInternalID.cs" />
+    <Compile Include="src\Class\KeysCheck.cs" />
+    <Compile Include="src\Class\MoveObj.cs" />
+    <Compile Include="src\Class\MultiSelectionObjects.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\AllowInMultiSelectAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\DecNegativeNumberAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\DecNumberAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\FloatNumberAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\HexNumberAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\NoKeyAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomCollection\GenericCollection.cs" />
+    <Compile Include="src\Class\MyProperty\CustomCollection\GenericCollectionPropertyDescriptor.cs" />
+    <Compile Include="src\Class\MyProperty\CustomCollection\GenericTypeConverter.cs" />
+    <Compile Include="src\Class\MyProperty\CustomTypeConverter\ByteArrayTypeConverter.cs" />
+    <Compile Include="src\Class\MyProperty\CustomTypeConverter\DecNumberTypeConverter.cs" />
+    <Compile Include="src\Class\MyProperty\CustomTypeConverter\NoneTypeConverter.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\EnemyEnableGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\EnemyIDGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomTypeConverter\FloatNumberTypeConverter.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\EtcModelIDGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\PromptMessageGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\RefObjTypeGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\GridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomTypeConverter\HexNumberTypeConverter.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\HexFloatEnableGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\ItemAuraTypeGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\ItemIDGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\MultiSelectUITypeEditor.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\NoneUITypeEditor.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\SpecialTypeGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\CustomUITypeEditor\ForGridComboBox\SpecialZoneCategoryGridComboBox.cs" />
+    <Compile Include="src\Class\MyProperty\DynamicTypeDescriptor\CustomComponentModel.cs" />
+    <Compile Include="src\Class\MyProperty\DynamicTypeDescriptor\DynamicTypeDescriptor.cs" />
+    <Compile Include="src\Class\MyProperty\NoneProperty.cs" />
+    <Compile Include="src\Class\ObjForListBox.cs" />
+    <Compile Include="src\Class\Enums\Re4Version.cs" />
+    <Compile Include="src\Class\ObjMethods\EnemyMethods.cs" />
+    <Compile Include="src\Class\ObjMethods\EtcModelMethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\EtcModelMethods.cs" />
+    <Compile Include="src\Class\ObjMethods\CustomDelegates.cs" />
+    <Compile Include="src\Class\ObjMethods\EnemyMethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\ExtrasMethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\NodeChangeAmountMethods.cs" />
+    <Compile Include="src\Class\ObjMethods\NodeDisplayMethods.cs" />
+    <Compile Include="src\Class\ObjMethods\NodeMoveMethods.cs" />
+    <Compile Include="src\Class\ObjMethods\SpecialMethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\SpecialMethods.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\CustomCategoryAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\CustomDescriptionAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\CustomAttribute\CustomDisplayNameAttribute.cs" />
+    <Compile Include="src\Class\MyProperty\EnemyProperty.cs" />
+    <Compile Include="src\Class\MyProperty\EtcModelProperty.cs" />
+    <Compile Include="src\Class\MyProperty\GenericProperty.cs" />
+    <Compile Include="src\Class\MyProperty\MultiSelectProperty.cs" />
+    <Compile Include="src\Class\MyProperty\SpecialProperty.cs" />
+    <Compile Include="src\Class\ObjMethods\UpdateMethods.cs" />
+    <Compile Include="src\Class\TreeNodeObj\EnemyNodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\EtcModelNodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\ExtraNodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\Object3D.cs" />
+    <Compile Include="src\Class\TreeNodeObj\SpecialNodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\TreeNodeGroup.cs" />
+    <Compile Include="src\Consts.cs" />
+    <Compile Include="src\Controls\Advertising2Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Controls\Advertising2Control.Designer.cs">
+      <DependentUpon>Advertising2Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Controls\Advertising1Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Controls\Advertising1Control.Designer.cs">
+      <DependentUpon>Advertising1Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Controls\CameraMoveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Controls\CameraMoveControl.Designer.cs">
+      <DependentUpon>CameraMoveControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Controls\ObjectMoveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Controls\ObjectMoveControl.Designer.cs">
+      <DependentUpon>ObjectMoveControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\DataBase.cs" />
+    <Compile Include="src\Forms\AddNewObjForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\AddNewObjForm.Designer.cs">
+      <DependentUpon>AddNewObjForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\CameraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\CameraForm.Designer.cs">
+      <DependentUpon>CameraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\CreditsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\CreditsForm.Designer.cs">
+      <DependentUpon>CreditsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\MultiSelectEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\MultiSelectEditorForm.Designer.cs">
+      <DependentUpon>MultiSelectEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\SelectRoomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\SelectRoomForm.Designer.cs">
+      <DependentUpon>SelectRoomForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\SplashScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\SplashScreenForm.Designer.cs">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Globals.cs" />
+    <Compile Include="src\Lang.cs" />
+    <Compile Include="src\ListBoxProperty.cs" />
+    <Compile Include="src\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\SplashScreen.cs" />
+    <Compile Include="src\Utils.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Controls\Advertising2Control.resx">
+      <DependentUpon>Advertising2Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Controls\Advertising1Control.resx">
+      <DependentUpon>Advertising1Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Controls\CameraMoveControl.resx">
+      <DependentUpon>CameraMoveControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Controls\ObjectMoveControl.resx">
+      <DependentUpon>ObjectMoveControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\AddNewObjForm.resx">
+      <DependentUpon>AddNewObjForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\CameraForm.resx">
+      <DependentUpon>CameraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\CreditsForm.resx">
+      <DependentUpon>CreditsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\MultiSelectEditorForm.resx">
+      <DependentUpon>MultiSelectEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\SelectRoomForm.resx">
+      <DependentUpon>SelectRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\SplashScreenForm.resx">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\Hex3D\Box.hex" />
+    <None Include="Resources\Hex3D\Circle.hex" />
+    <None Include="Resources\Hex3D\CylinderDown.hex" />
+    <None Include="Resources\Hex3D\CylinderDownX.hex" />
+    <None Include="Resources\Hex3D\CylinderFull.hex" />
+    <None Include="Resources\Hex3D\CylinderSides.hex" />
+    <None Include="Resources\Hex3D\CylinderTop.hex" />
+    <None Include="Resources\Hex3D\CylinderTopX.hex" />
+    <None Include="Resources\Hex3D\ItemTrigggerRadius.hex" />
+    <None Include="Resources\Hex3D\Plane.hex" />
+    <None Include="Resources\Shader\BoundaryBoxShaderFrag.frag" />
+    <None Include="Resources\Shader\BoundaryBoxShaderVert.vert" />
+    <None Include="Resources\Shader\CircleTriggerZoneShaderFrag.frag" />
+    <None Include="Resources\Shader\CircleTriggerZoneShaderVert.vert" />
+    <None Include="Resources\Shader\GridShaderFrag.frag" />
+    <None Include="Resources\Shader\GridShaderVert.vert" />
+    <None Include="Resources\Shader\ItemTrigggerRadiusShaderFrag.frag" />
+    <None Include="Resources\Shader\ItemTrigggerRadiusShaderVert.vert" />
+    <None Include="Resources\Shader\ObjModelShaderFrag.frag" />
+    <None Include="Resources\Shader\ObjModelShaderVert.vert" />
+    <None Include="Resources\Shader\PlaneZoneShaderFrag.frag" />
+    <None Include="Resources\Shader\PlaneZoneShaderVert.vert" />
+    <None Include="Resources\Shader\RoomSelectModeShaderFrag.frag" />
+    <None Include="Resources\Shader\RoomSelectModeShaderVert.vert" />
+    <None Include="Resources\Shader\RoomShaderFrag.frag" />
+    <None Include="Resources\Shader\RoomShaderVert.vert" />
+    <None Include="Resources\Shader\TriggerZoneShaderFrag.frag" />
+    <None Include="Resources\Shader\TriggerZoneShaderVert.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
+    <None Include="Resources\ImgGL\WhiteTexture.png" />
+    <None Include="Resources\ImgGL\Transparent.png" />
+    <None Include="Resources\ImgGL\NoTexture.png" />
+    <None Include="Resources\ImgGL\BlackTexture.png" />
+    <None Include="Resources\ImgControl\VerticalRed.png" />
+    <None Include="Resources\ImgControl\VerticalDisable.png" />
+    <None Include="Resources\ImgControl\SquareRedLookVertical.png" />
+    <None Include="Resources\ImgControl\SquareRedLookHorisontal.png" />
+    <None Include="Resources\ImgControl\SquareRed.png" />
+    <None Include="Resources\ImgControl\SquareDisable.png" />
+    <None Include="Resources\ImgControl\HorizontalYelow.png" />
+    <None Include="Resources\ImgControl\HorizontalDisable.png" />
+  </ItemGroup>
+  <Import Project="..\PMD_LIB\PMD_LIB.projitems" Label="Shared" />
+  <Import Project="..\TGA_LIB\TGA_LIB.projitems" Label="Shared" />
+  <Import Project="..\JSON\JSON.projitems" Label="Shared" />
+  <Import Project="..\MultiselectTree\MultiselectTree.projitems" Label="Shared" />
+  <Import Project="..\Camera\Camera.projitems" Label="Shared" />
+  <Import Project="..\DDS_LIB\DDS_LIB.projitems" Label="Shared" />
+  <Import Project="..\PS2_BIN\PS2_BIN.projitems" Label="Shared" />
+  <Import Project="..\PS2_TPL\PS2_TPL.projitems" Label="Shared" />
+  <Import Project="..\Ps2ScenarioSMD\Ps2ScenarioSMD.projitems" Label="Shared" />
+  <Import Project="..\ScenarioSMD2007\ScenarioSMD2007.projitems" Label="Shared" />
+  <Import Project="..\SMX\SMX.projitems" Label="Shared" />
+  <Import Project="..\UHD_BIN_TPL\UHD_BIN_TPL.projitems" Label="Shared" />
+  <Import Project="..\UhdScenarioSMD\UhdScenarioSMD.projitems" Label="Shared" />
+  <Import Project="..\ViewerBase\ViewerBase.projitems" Label="Shared" />
+  <Import Project="..\LoadSMX\LoadSMX.projitems" Label="Shared" />
+  <Import Project="..\ModelLoaderNewAge\ModelLoaderNewAge.projitems" Label="Shared" />
+  <Import Project="..\ModelNodeNewAge\ModelNodeNewAge.projitems" Label="Shared" />
+  <Import Project="..\IShader\IShader.projitems" Label="Shared" />
+  <Import Project="..\NewTheRender\NewTheRender.projitems" Label="Shared" />
+  <Import Project="..\Re4ViewerRender\Re4ViewerRender.projitems" Label="Shared" />
+  <Import Project="..\ControlUtils\ControlUtils.projitems" Label="Shared" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>adcb0c9e-1f54-4768-8cdf-5bebd772a596</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ViewerBase</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AttribLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Boundary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BoundaryCalculation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GLMeshPart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PreFix.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenderedObjModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Representations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ResponsibilityContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SmxEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SmdEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextureRef.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TreatedModel.cs" />
+  </ItemGroup>
+</Project>

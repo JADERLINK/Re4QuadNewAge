@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>d58c6bfb-53a1-426a-9a4c-423f675d523a</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ModelLoaderNewAge</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)LoadPmdModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadPs2BinModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadPs2ScenarioSMD.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadPs2Tpl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadScenarioSMD.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadTGA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadUhdBinModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadUhdPackCustomQuad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadUhdR100Custom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadUhdScenarioSMD.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadUhdTpl.cs" />
+  </ItemGroup>
+</Project>

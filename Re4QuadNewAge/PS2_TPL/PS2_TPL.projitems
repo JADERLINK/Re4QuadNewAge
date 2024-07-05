@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>ee41d693-71ed-4fc5-9290-f1cb41bba851</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PS2_TPL</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SimpleBitmap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TplExtractHeaders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TplImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TplImageHeader.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>083aaedd-fbf6-4f08-b930-1e37d4941dfc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ModelNodeNewAge</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Groups\GroupType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Groups\ModelNodeGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Groups\ScenarioNodeGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Groups\TexturePackNodeGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Groups\TreeNodeGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Itens\NodeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Itens\NodeMatRef.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Itens\NodeModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Itens\NodeScenario.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Itens\NodeTexture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelNodeLinker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelNodeOrder.cs" />
+  </ItemGroup>
+</Project>
