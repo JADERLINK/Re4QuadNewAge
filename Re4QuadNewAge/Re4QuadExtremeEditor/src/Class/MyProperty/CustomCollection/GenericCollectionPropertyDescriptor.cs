@@ -50,9 +50,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomCollection // from htt
                 if (this.collection[index] is Interfaces.IDisplay diplay)
                 {
 					return diplay.Text_Name;
-
 				}
-				return "";//this.collection[index].ToString(); // texto onde fica as numerações
+				return this.collection?[index]?.ToString() ?? "";
 			}
 		}
 
@@ -63,7 +62,6 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomCollection // from htt
 				if (this.collection[index] is Interfaces.IDisplay diplay)
 				{
 					return diplay.Text_Description;
-
 				}
 				return ""; // a descrição do objeto
 			}

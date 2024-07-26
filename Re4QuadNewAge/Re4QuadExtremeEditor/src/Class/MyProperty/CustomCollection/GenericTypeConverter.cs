@@ -18,11 +18,11 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomCollection //from http
             {
 				return display.Text_Value;
 			}
-			else if(destType == typeof(string))
+			else if(destType == typeof(string) && value != null)
             {
-				return "";
+				return value.ToString();
 			}
-			return base.ConvertTo(context, culture, value, destType);
+			return "ERROR"; // base.ConvertTo(context, culture, value, destType);
 		}
 	}
 
@@ -36,7 +36,11 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomCollection //from http
 			{
 				return Lang.GetAttributeText(aLang.MultiSelectAmountSelected) +": " + generic.Count.ToString();
 			}
-			return base.ConvertTo(context, culture, value, destType);
+			else if (destType == typeof(string) && value != null)
+			{
+				return value.ToString();
+			}
+			return "ERROR"; // base.ConvertTo(context, culture, value, destType);
 		}
 	}
 }

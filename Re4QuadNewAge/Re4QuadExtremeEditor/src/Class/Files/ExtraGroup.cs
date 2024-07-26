@@ -18,17 +18,17 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         /// <summary>
         /// listas de associações, dos objetos extras
         /// </summary>
-        public Dictionary<ushort, AssociationObj> AssociationList;
+        public Dictionary<ushort, AssociationObj> AssociationList { get; private set; }
 
         /// <summary>
         /// Id para ser usado para adicionar novos links de objetos;
         /// </summary>
-        public ushort IdForNewAssociation = 0;
+        private ushort IdForNewAssociation = 0;
 
         /// <summary>
         /// lista de associação dos eventos/itens com os inimigos/etcModel
         /// </summary>
-        public Dictionary<RefInteractionTypeKey,List<RefInteractionTypeValue>> RefInteractionTypeList;
+        private Dictionary<RefInteractionTypeKey,List<RefInteractionTypeValue>> RefInteractionTypeList;
 
 
         public ExtraGroup()
@@ -49,6 +49,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             MoveMethods.SetObjRotationAngles_ToMove = SetObjRotationAngles_ToMove;
             MoveMethods.GetObjScale_ToMove = Utils.GetObjScale_ToMove_Null;
             MoveMethods.SetObjScale_ToMove = Utils.SetObjScale_ToMove_Null;
+            MoveMethods.GetTriggerZoneCategory = Utils.GetTriggerZoneCategory_Null;
         }
 
         /// <summary>
@@ -64,18 +65,21 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         #region DisplayMethods
         public string GetNodeText(ushort ID)
         {
-            ushort TrueId = AssociationList[ID].LineID;
-            byte SubId = AssociationList[ID].SubObjID;
+            if (AssociationList.ContainsKey(ID))
+            {
+                ushort TrueId = AssociationList[ID].LineID;
+                byte SubId = AssociationList[ID].SubObjID;
 
-            if (AssociationList[ID].FileFormat == SpecialFileFormat.AEV)
-            {
-                return "Extra: " + TextSubPart(DataBase.NodeAEV.PropertyMethods, TrueId, SubId);
+                if (AssociationList[ID].FileFormat == SpecialFileFormat.AEV)
+                {
+                    return "Extra: " + TextSubPart(DataBase.NodeAEV.PropertyMethods, TrueId, SubId);
+                }
+                else if (AssociationList[ID].FileFormat == SpecialFileFormat.ITA)
+                {
+                    return "Extra: " + TextSubPart(DataBase.NodeITA.PropertyMethods, TrueId, SubId) + " (From ITA)";
+                }
             }
-            else if (AssociationList[ID].FileFormat == SpecialFileFormat.ITA)
-            {
-                return "Extra: " + TextSubPart(DataBase.NodeITA.PropertyMethods, TrueId, SubId) + " (From ITA)";
-            }
-            return "Extras Error";
+            return "Extras Error Association Code " + ID;
         }
 
         private string TextSubPart(SpecialMethods methods , ushort ID, byte SubId)
@@ -147,7 +151,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 return Globals.NodeColorHided;
             }
 
-            if (Globals.HideExtraExceptWarpDoor && AssociationList.ContainsKey(ID) && AssociationList[ID].FileFormat == SpecialFileFormat.AEV
+            else if (Globals.HideExtraExceptWarpDoor && AssociationList.ContainsKey(ID) && AssociationList[ID].FileFormat == SpecialFileFormat.AEV
                  && DataBase.FileAEV != null && DataBase.FileAEV.Lines.ContainsKey(AssociationList[ID].LineID) &&
                  DataBase.FileAEV.Methods.GetSpecialType(AssociationList[ID].LineID) != SpecialType.T01_WarpDoor)
             {
@@ -159,7 +163,8 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return Globals.NodeColorHided;
             }
-            return Color.Black;
+
+            return Globals.NodeColorEntry;
         }
 
         #endregion
@@ -189,7 +194,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 case SpecialType.T01_WarpDoor:
                 case SpecialType.T13_LocalTeleportation:
                 case SpecialType.T10_FixedLadderClimbUp:
-                    position = methods.GetFirtPosition(ID);
+                    position = methods.GetFirstPosition(ID);
                     break;
                 case SpecialType.T12_AshleyHideCommand:
                     position = methods.GetAshleyPoint(ID);
@@ -197,7 +202,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 case SpecialType.T15_AdaGrappleGun:
                     if (SubId == 0)
                     {
-                        position = methods.GetFirtPosition(ID);
+                        position = methods.GetFirstPosition(ID);
                     }
                     else if (SubId == 1)
                     {
@@ -549,11 +554,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private Object3D AddExtraNode(ushort ExtraID) 
         {
-            Object3D o = new Object3D();
-            o.Name = ExtraID.ToString();
-            o.Text = "";
-            o.Group = GroupType.EXTRAS;
-            o.ObjLineRef = ExtraID;
+            Object3D o = Object3D.CreateNewInstance(GroupType.EXTRAS, ExtraID);
             o.NodeFont = Globals.TreeNodeFontText;
             return o;
         }
@@ -857,8 +858,8 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                     return Lang.GetAttributeText(aLang.SpecialType0A_DamagesThePlayer);
                 case SpecialType.T0B_FalseCollision:
                     return Lang.GetAttributeText(aLang.SpecialType0B_FalseCollision);
-                case SpecialType.T0D_Unknown:
-                    return Lang.GetAttributeText(aLang.SpecialType0D_Unknown);
+                case SpecialType.T0D_FieldInfo:
+                    return Lang.GetAttributeText(aLang.SpecialType0D_FieldInfo);
                 case SpecialType.T0E_Crouch:
                     return Lang.GetAttributeText(aLang.SpecialType0E_Crouch);
                 case SpecialType.T10_FixedLadderClimbUp:

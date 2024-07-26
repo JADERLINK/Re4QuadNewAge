@@ -9,19 +9,9 @@ using System.Globalization;
 
 namespace Re4QuadExtremeEditor.src.Class.MyProperty
 {
-    //[DefaultPropertyAttribute("None")]
-    public class NoneProperty : GenericProperty
+    [DefaultProperty(nameof(Version))]
+    public class NoneProperty
     {
-        /*
-        [CategoryAttribute("None")]
-        [DescriptionAttribute("None")]
-        [DisplayNameAttribute("None")]
-        [DefaultValueAttribute(null)]
-        [ReadOnlyAttribute(true)]
-        [BrowsableAttribute(true)]
-        public string None { get => "None"; }
-        */
-
         //Info
 
         [CategoryAttribute("Info")]
@@ -30,7 +20,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [DefaultValueAttribute(null)]
         [ReadOnlyAttribute(true)]
         [BrowsableAttribute(true)]
-        public string Version { get => "Version: 1.2.0"; }
+        public string Version { get => "Version: 1.2.1"; }
 
         [CategoryAttribute("Info")]
         [DescriptionAttribute("")]
@@ -39,8 +29,6 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [ReadOnlyAttribute(true)]
         [BrowsableAttribute(true)]
         public string OpenGLVersion { get => "Version: " + Globals.OpenGLVersion; }
-
-
 
         //JADERLINK
 

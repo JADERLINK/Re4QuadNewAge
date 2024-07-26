@@ -106,7 +106,7 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.SpecialType0A_DamagesThePlayer, "0A: Damages The Player");
             AttributeText.Add(aLang.SpecialType0B_FalseCollision, "0B: False Collision");
             //AttributeText.Add(aLang.SpecialType0C_Unused, "0C: Unused");
-            AttributeText.Add(aLang.SpecialType0D_Unknown, "0D: Unknown");
+            AttributeText.Add(aLang.SpecialType0D_FieldInfo, "0D: FieldInfo");
             AttributeText.Add(aLang.SpecialType0E_Crouch, "0E: Crouch");
             //AttributeText.Add(aLang.SpecialType0F_Unused, "0F: Unused");
             AttributeText.Add(aLang.SpecialType10_FixedLadderClimbUp, "10: Fixed Ladder Climb Up");
@@ -125,12 +125,17 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.ListBoxUnknownEnemy, "Unknown Enemy");
             AttributeText.Add(aLang.ListBoxUnknownItem, "Unknown Item");
             AttributeText.Add(aLang.ListBoxUnknownEtcModel, "Unknown EtcModel");
+            AttributeText.Add(aLang.ListBoxUnknownQuadCustomPoint, "Unknown Custom Model");
 
             AttributeText.Add(aLang.ListBoxSpecialZoneCategory00, "Disable TriggerZone");
             AttributeText.Add(aLang.ListBoxSpecialZoneCategory01, "TriggerZone Use 4 Points");
             AttributeText.Add(aLang.ListBoxSpecialZoneCategory02, "TriggerZone Use 1 Point And Circle Radius");
             AttributeText.Add(aLang.ListBoxSpecialZoneCategoryAnotherValue, "Another Value: Disable TriggerZone");
 
+            AttributeText.Add(aLang.ListBoxQuadCustomPointStatus00, "Disable Point");
+            AttributeText.Add(aLang.ListBoxQuadCustomPointStatus01, "Use Arrow Point");
+            AttributeText.Add(aLang.ListBoxQuadCustomPointStatus02, "Use Custom Model");
+            AttributeText.Add(aLang.ListBoxQuadCustomPointStatusAnotherValue, "Another Value: Disable Point");
 
             AttributeText.Add(aLang.ListBoxItemAuraType00, "No sparkle and no light column (Default)");
             AttributeText.Add(aLang.ListBoxItemAuraType01, "Small glint (with sparkle)");
@@ -143,7 +148,6 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.ListBoxItemAuraType08, "Small white light column (with sparkle)");
             AttributeText.Add(aLang.ListBoxItemAuraType09, "BIG yellow light column (bonus time)");
             AttributeText.Add(aLang.ListBoxItemAuraTypeAnotherValue, "Another Value: Aka Default");
-
 
             AttributeText.Add(aLang.ListBoxRefInteractionType00, "Unassociated Object");
             AttributeText.Add(aLang.ListBoxRefInteractionType01Enemy, "Object associated to Enemy");
@@ -223,9 +227,6 @@ namespace Re4QuadExtremeEditor.src
 
 
             // EtcModelProperty
-            AttributeText.Add(aLang.EtcModel_InternalLineIDCategory, "Internal Line ID");
-            AttributeText.Add(aLang.EtcModel_InternalLineIDDisplayName, "Internal Line ID");
-            AttributeText.Add(aLang.EtcModel_InternalLineIDDescription, "It is the internal ID of the selected line (Does not correspond to the file save order).");
             AttributeText.Add(aLang.EtcModel_AssociatedSpecialEventCategory, "Associated Special Event");
             AttributeText.Add(aLang.EtcModel_AssociatedSpecialEventObjNameDisplayName, "Obj Name");
             AttributeText.Add(aLang.EtcModel_AssociatedSpecialEventObjNameDescription, "Associated object index, if it's item type, display the name.");
@@ -235,9 +236,6 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.EtcModel_AssociatedSpecialEventFromSpecialIndexFromDescription, "Special Index description");
             AttributeText.Add(aLang.EtcModel_AssociatedSpecialEventFromFileDisplayName, "From File");
             AttributeText.Add(aLang.EtcModel_AssociatedSpecialEventFromFileDescription, "Source file description (Informs which file the information is coming from).");
-            AttributeText.Add(aLang.EtcModel_LineArrayCategory, "All bytes of the line");
-            AttributeText.Add(aLang.EtcModel_LineArrayDisplayName, "Line Array [Hex] (Byte[<<Lenght>>])");  //classic 64, UHD 40
-            AttributeText.Add(aLang.EtcModel_LineArrayDescription, "Contains all line bytes. \r\nWarning: Be careful when editing, as it may shift the byte positions.");
             AttributeText.Add(aLang.EtcModelCategory, "EtcModel");
 
 
@@ -320,18 +318,7 @@ namespace Re4QuadExtremeEditor.src
           
 
 
-            // Spacial Property
-            AttributeText.Add(aLang.Special_InternalLineIDCategory, "Internal Line ID");
-            AttributeText.Add(aLang.Special_InternalLineIDDisplayName, "Internal Line ID");
-            AttributeText.Add(aLang.Special_InternalLineIDDescription, "It is the internal ID of the selected line (Does not correspond to the file save order).");
-            AttributeText.Add(aLang.Special_LineArrayCategory, "All bytes of the line");
-            // classic AEV: 160
-            // Classic ITA: 176
-            // UHD: 156
-            AttributeText.Add(aLang.Special_LineArrayDisplayName, "Line Array [Hex] (Byte[<<Lenght>>])");
-            AttributeText.Add(aLang.Special_LineArrayDescription, "Contains all line bytes. \r\nWarning: Be careful when editing, as it may shift the byte positions.");
-
-
+            // Special Property
             AttributeText.Add(aLang.SpecialCategory, "Special");
             AttributeText.Add(aLang.SpecialTypeCategory, "Special Type");
             AttributeText.Add(aLang.SpecialTriggerZoneCategory, "Trigger Zone");
@@ -345,66 +332,9 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.SpecialIndex_Byte_DisplayName, "Special Index [Hex] (Byte)");
             AttributeText.Add(aLang.SpecialIndex_Byte_Description, "Offset[0x36]  \r\nTAG: SPECIAL_INDEX  \r\n\r\n###############");
 
-            AttributeText.Add(aLang.Special_Category_Byte_DisplayName, "Category [Hex] (Byte)");
-            AttributeText.Add(aLang.Special_Category_List_DisplayName, "Category (List)");
-            AttributeText.Add(aLang.Special_Category_Byte_Description, "Offset[0x05]  \r\nTAG: Category  \r\n\r\n###############");
-
-
-            //TriggerZone
-            AttributeText.Add(aLang.TriggerZoneTrueY_Float_DisplayName, "TriggerZone True Y [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneTrueY_Hex_DisplayName, "TriggerZone True Y [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneTrueY_Description, "Offset[0x0B][0x0A][0x09][0x08]  \r\nTAG: TriggerZoneTrueY  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneMoreHeight_Float_DisplayName, "TriggerZone More Height [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneMoreHeight_Hex_DisplayName, "TriggerZone More Height [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneMoreHeight_Description, "Offset[0x0F][0x0E][0x0D][0x0C]  \r\nTAG: TriggerZoneMoreHeight  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCircleRadius_Float_DisplayName, "TriggerZone Circle Radius [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCircleRadius_Hex_DisplayName, "TriggerZone Circle Radius [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCircleRadius_Description, "Offset[0x13][0x12][0x11][0x10]  \r\nTAG: TriggerZoneCircleRadius  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner0_X_Float_DisplayName, "TriggerZone Corner0.X [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner0_X_Hex_DisplayName, "TriggerZone Corner0.X [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner0_X_Description, "Offset[0x17][0x16][0x15][0x14]  \r\nTAG: TZC_0.X  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner0_Z_Float_DisplayName, "TriggerZone Corner0.Z [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner0_Z_Hex_DisplayName, "TriggerZone Corner0.Z [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner0_Z_Description, "Offset[0x1B][0x1A][0x19][0x18]  \r\nTAG: TZC_0.Z  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner1_X_Float_DisplayName, "TriggerZone Corner1.X [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner1_X_Hex_DisplayName, "TriggerZone Corner1.X [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner1_X_Description, "Offset[0x1F][0x1E][0x1D][0x1C]  \r\nTAG: TZC_1.X  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner1_Z_Float_DisplayName, "TriggerZone Corner1.Z [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner1_Z_Hex_DisplayName, "TriggerZone Corner1.Z [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner1_Z_Description, "Offset[0x23][0x22][0x21][0x20]  \r\nTAG: TZC_1.Z  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner2_X_Float_DisplayName, "TriggerZone Corner2.X [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner2_X_Hex_DisplayName, "TriggerZone Corner2.X [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner2_X_Description, "Offset[0x27][0x26][0x25][0x24]  \r\nTAG: TZC_2.X  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner2_Z_Float_DisplayName, "TriggerZone Corner2.Z [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner2_Z_Hex_DisplayName, "TriggerZone Corner2.Z [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner2_Z_Description, "Offset[0x2B][0x2A][0x29][0x28]  \r\nTAG: TZC_2.Z  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner3_X_Float_DisplayName, "TriggerZone Corner3.X [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner3_X_Hex_DisplayName, "TriggerZone Corner3.X [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner3_X_Description, "Offset[0x2F][0x2E][0x2D][0x2C]  \r\nTAG: TZC_3.X  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.TriggerZoneCorner3_Z_Float_DisplayName, "TriggerZone Corner3.Z [Dec] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner3_Z_Hex_DisplayName, "TriggerZone Corner3.Z [Hex] (Float)");
-            AttributeText.Add(aLang.TriggerZoneCorner3_Z_Description, "Offset[0x33][0x32][0x31][0x30]  \r\nTAG: TZC_3.Z  \r\n\r\n###############");
-
             // GENERAL
             AttributeText.Add(aLang.Unknown_GG_ByteArray4_DisplayName, "Unknown GG [Hex] (Byte[4])");
             AttributeText.Add(aLang.Unknown_GG_ByteArray4_Description, "Offset[0x00][0x01][0x02][0x03]  \r\nTAG: U_GG  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.Unknown_GH_Byte_DisplayName, "Unknown GH [Hex] (Byte)");
-            AttributeText.Add(aLang.Unknown_GH_Byte_Description, "Offset[0x04]  \r\nTAG: U_GH  \r\n\r\n###############");
-
-            AttributeText.Add(aLang.Unknown_GK_ByteArray2_DisplayName, "Unknown GK [Hex] (Byte[2])");
-            AttributeText.Add(aLang.Unknown_GK_ByteArray2_Description, "Offset[0x06][0x07]  \r\nTAG: U_GK  \r\n\r\n###############");
-
 
             AttributeText.Add(aLang.Unknown_KG_Byte_DisplayName, "Unknown KG [Hex] (Byte)");
             AttributeText.Add(aLang.Unknown_KG_Byte_Description, "Offset[0x34]  \r\nTAG: U_KG  \r\n\r\n###############");
@@ -879,15 +809,226 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.MultiSelectInfoDisplayName, "MultiSelect Info");
             AttributeText.Add(aLang.MultiSelectInfoValueText, "Read-me");
             AttributeText.Add(aLang.MultiSelectInfoDescription, "Click on the 3 dots to access the multi-selection editor, use with care as changes cannot be undone.");
-            AttributeText.Add(aLang.MultiSelectEnemyDisplayName, "Enemies (ESL)");
-            AttributeText.Add(aLang.MultiSelectEtcmodelDisplayName, "EtcModels (ETS)");
-            AttributeText.Add(aLang.MultiSelectSpecialItaDisplayName, "Items (ITA)");
-            AttributeText.Add(aLang.MultiSelectSpecialAevDisplayName, "Events (AEV)");
             AttributeText.Add(aLang.MultiSelectAmountSelected, "Amount Selected");
 
+            //DSE Property
+            AttributeText.Add(aLang.NewAge_DSE_Category, "DSE");
 
+            AttributeText.Add(aLang.DSE_HX00_Ushort_DisplayName, "Destiny Room [Hex] (Ushort)");
+            AttributeText.Add(aLang.DSE_HX00_Ushort_Description, "Offset[0x01][0x00] \r\n\r\n###############");
+
+            AttributeText.Add(aLang.DSE_HX02_Ushort_DisplayName, "Doorse ID [Hex] (Ushort)");
+            AttributeText.Add(aLang.DSE_HX02_Ushort_Description, "Offset[0x03][0x02] \r\n\r\n###############");
+
+            AttributeText.Add(aLang.DSE_HX04_Ushort_DisplayName, "Unknown Hx04 [Hex] (Ushort)");
+            AttributeText.Add(aLang.DSE_HX04_Ushort_Description, "Offset[0x05][0x04] \r\n\r\n###############");
+
+            AttributeText.Add(aLang.DSE_HX06_Ushort_DisplayName, "Unknown Hx06 [Hex] (Ushort)");
+            AttributeText.Add(aLang.DSE_HX06_Ushort_Description, "Offset[0x07][0x06] \r\n\r\n###############");
+
+            AttributeText.Add(aLang.DSE_HX08_Ushort_DisplayName, "Unknown Hx08 [Hex] (Ushort)");
+            AttributeText.Add(aLang.DSE_HX08_Ushort_Description, "Offset[0x09][0x08] \r\n\r\n###############");
+
+            AttributeText.Add(aLang.DSE_HX0A_Ushort_DisplayName, "Unknown Hx0A [Hex] (Ushort)");
+            AttributeText.Add(aLang.DSE_HX0A_Ushort_Description, "Offset[0x0B][0x0A] \r\n\r\n###############");
+
+
+            AttributeText.Add(aLang.UnderDevelopment_Category, "Property Under Development");
+            AttributeText.Add(aLang.UnderDevelopment_DisplayName, "Under Development");
+            AttributeText.Add(aLang.UnderDevelopment_Description, "Property Under Development");
+            AttributeText.Add(aLang.UnderDevelopment_Value, "Under Development");
+
+            // Property gerais para todos
+            AttributeText.Add(aLang.NewAge_InternalLineIDCategory, "Internal Line ID");
+            AttributeText.Add(aLang.NewAge_InternalLineIDDisplayName, "Internal Line ID");
+            AttributeText.Add(aLang.NewAge_InternalLineIDDescription, "It is the internal ID of the selected line (Does not correspond to the file save order).");
+
+            AttributeText.Add(aLang.NewAge_LineArrayCategory, "All bytes of the line");
+            AttributeText.Add(aLang.NewAge_LineArrayDisplayName, "Line Array [Hex] (Byte[<<Lenght>>])");
+            AttributeText.Add(aLang.NewAge_LineArrayDescription, "Contains all line bytes. \r\nWarning: Be careful when editing, as it may shift the byte positions.");
+
+
+            //TriggerZoneCategory
+
+            AttributeText.Add(aLang.Unknown_GH_Byte_DisplayName, "Unknown GH [Hex] (Byte)");
+            AttributeText.Add(aLang.Unknown_GH_Byte_Description, "Offset[<<Offset1>>]  \r\nTAG: U_GH  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCategory_Byte_DisplayName, "Category [Hex] (Byte)");
+            AttributeText.Add(aLang.TriggerZoneCategory_List_DisplayName, "Category (List)");
+            AttributeText.Add(aLang.TriggerZoneCategory_Byte_Description, "Offset[<<Offset1>>]  \r\nTAG: Category  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.Unknown_GK_ByteArray2_DisplayName, "Unknown GK [Hex] (Byte[2])");
+            AttributeText.Add(aLang.Unknown_GK_ByteArray2_Description, "Offset[<<Offset1>>][<<Offset2>>]  \r\nTAG: U_GK  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneTrueY_Float_DisplayName, "TriggerZone True Y [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneTrueY_Hex_DisplayName, "TriggerZone True Y [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneTrueY_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TriggerZoneTrueY  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneMoreHeight_Float_DisplayName, "TriggerZone More Height [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneMoreHeight_Hex_DisplayName, "TriggerZone More Height [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneMoreHeight_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TriggerZoneMoreHeight  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCircleRadius_Float_DisplayName, "TriggerZone Circle Radius [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCircleRadius_Hex_DisplayName, "TriggerZone Circle Radius [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCircleRadius_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TriggerZoneCircleRadius  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner0_X_Float_DisplayName, "TriggerZone Corner0.X [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner0_X_Hex_DisplayName, "TriggerZone Corner0.X [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner0_X_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_0.X  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner0_Z_Float_DisplayName, "TriggerZone Corner0.Z [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner0_Z_Hex_DisplayName, "TriggerZone Corner0.Z [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner0_Z_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_0.Z  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner1_X_Float_DisplayName, "TriggerZone Corner1.X [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner1_X_Hex_DisplayName, "TriggerZone Corner1.X [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner1_X_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_1.X  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner1_Z_Float_DisplayName, "TriggerZone Corner1.Z [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner1_Z_Hex_DisplayName, "TriggerZone Corner1.Z [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner1_Z_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_1.Z  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner2_X_Float_DisplayName, "TriggerZone Corner2.X [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner2_X_Hex_DisplayName, "TriggerZone Corner2.X [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner2_X_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_2.X  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner2_Z_Float_DisplayName, "TriggerZone Corner2.Z [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner2_Z_Hex_DisplayName, "TriggerZone Corner2.Z [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner2_Z_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_2.Z  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner3_X_Float_DisplayName, "TriggerZone Corner3.X [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner3_X_Hex_DisplayName, "TriggerZone Corner3.X [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner3_X_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_3.X  \r\n\r\n###############");
+
+            AttributeText.Add(aLang.TriggerZoneCorner3_Z_Float_DisplayName, "TriggerZone Corner3.Z [Dec] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner3_Z_Hex_DisplayName, "TriggerZone Corner3.Z [Hex] (Float)");
+            AttributeText.Add(aLang.TriggerZoneCorner3_Z_Description, "Offset[<<Offset1>>][<<Offset2>>][<<Offset3>>][<<Offset4>>]  \r\nTAG: TZC_3.Z  \r\n\r\n###############");
+
+            //QuadCustom
+            AttributeText.Add(aLang.QuadCustom_Category, "QuadCustom");
+            AttributeText.Add(aLang.QuadCustom_ObjectName_Category, "Object Name");
+            AttributeText.Add(aLang.QuadCustom_Point_Position_Category, "Point Position");
+            AttributeText.Add(aLang.QuadCustom_Point_Position_Div100_Category, "Point Position 1/100");
+            AttributeText.Add(aLang.QuadCustom_Point_Scale_Category, "Point Scale");
+            AttributeText.Add(aLang.QuadCustom_Point_Angle_Category, "Point Angle");
+            AttributeText.Add(aLang.QuadCustom_Point_Info_Category, "Point Info");
+            AttributeText.Add(aLang.QuadCustom_Color_Category, "Color");
+
+            AttributeText.Add(aLang.QuadCustom_PartArray_Category, "Part of the bytes of the line");
+
+            AttributeText.Add(aLang.QuadCustom_TriggerZoneArray_DisplayName, "TriggerZone Array [Hex] (Byte[48])");
+            AttributeText.Add(aLang.QuadCustom_TriggerZoneArray_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PositionArray_DisplayName, "Position Array [Hex] (Byte[12])");
+            AttributeText.Add(aLang.QuadCustom_PositionArray_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_AngleArray_DisplayName, "Angle Array [Hex] (Byte[12])");
+            AttributeText.Add(aLang.QuadCustom_angleArray_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_ScaleArray_DisplayName, "Scale Array [Hex] (Byte[12])");
+            AttributeText.Add(aLang.QuadCustom_ScaleArray_Description, "");
+
+
+            AttributeText.Add(aLang.QuadCustom_PointStatus_Byte_DisplayName, "Point Status [Hex] (Byte)");
+            AttributeText.Add(aLang.QuadCustom_PointStatus_List_DisplayName, "Point Status (List)");
+            AttributeText.Add(aLang.QuadCustom_PointStatus_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PointModelID_Uint_DisplayName, "Point ModelID [Dec] (Uint)");
+            AttributeText.Add(aLang.QuadCustom_PointModelID_List_DisplayName, "Point ModelID (List)");
+            AttributeText.Add(aLang.QuadCustom_PointModelID_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_ColorRGB_ByteArray_DisplayName, "Color RGB [Hex] (Byte[3])");
+            AttributeText.Add(aLang.QuadCustom_ColorRGB_ByteArray_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_ObjectName_String_DisplayName, "Object Name (String)");
+            AttributeText.Add(aLang.QuadCustom_ObjectName_String_Description, "");
+
+            //Scale
+            AttributeText.Add(aLang.QuadCustom_ScaleX_Float_DisplayName, "Scale.X [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_ScaleX_Hex_DisplayName, "Scale.X [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_ScaleX_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_ScaleY_Float_DisplayName, "Scale.Y [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_ScaleY_Hex_DisplayName, "Scale.Y [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_ScaleY_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_ScaleZ_Float_DisplayName, "Scale.Z [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_ScaleZ_Hex_DisplayName, "Scale.Z [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_ScaleZ_Description, "");
+
+            //Angle
+            AttributeText.Add(aLang.QuadCustom_AngleX_Float_DisplayName, "Angle.X [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_AngleX_Hex_DisplayName, "Angle.X [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_AngleX_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_AngleY_Float_DisplayName, "Angle.Y [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_AngleY_Hex_DisplayName, "Angle.Y [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_AngleY_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_AngleZ_Float_DisplayName, "Angle.Z [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_AngleZ_Hex_DisplayName, "Angle.Z [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_AngleZ_Description, "");
+
+            //Position
+            AttributeText.Add(aLang.QuadCustom_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionX_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionY_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionZ_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PositionX_Div100_Float_DisplayName, "Position.X 1/100 [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionX_Div100_Hex_DisplayName, "Position.X 1/100 [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionX_Div100_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PositionY_Div100_Float_DisplayName, "Position.Y 1/100 [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionY_Div100_Hex_DisplayName, "Position.Y 1/100 [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionY_Div100_Description, "");
+
+            AttributeText.Add(aLang.QuadCustom_PositionZ_Div100_Float_DisplayName, "Position.Z 1/100 [Dec] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionZ_Div100_Hex_DisplayName, "Position.Z 1/100 [Hex] (Float)");
+            AttributeText.Add(aLang.QuadCustom_PositionZ_Div100_Description, "");
+
+            //ESE
+
+            AttributeText.Add(aLang.ESE_Position_Category, "PositionXYZ");
+            AttributeText.Add(aLang.ESE_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.ESE_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.ESE_PositionX_Description, "");
+
+            AttributeText.Add(aLang.ESE_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.ESE_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.ESE_PositionY_Description, "");
+
+            AttributeText.Add(aLang.ESE_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.ESE_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.ESE_PositionZ_Description, "");
+
+            //EMI
+            AttributeText.Add(aLang.EMI_Position_Category, "PositionXYZ");
+            AttributeText.Add(aLang.EMI_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.EMI_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.EMI_PositionX_Description, "");
+
+            AttributeText.Add(aLang.EMI_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EMI_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EMI_PositionY_Description, "");
+
+            AttributeText.Add(aLang.EMI_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.EMI_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.EMI_PositionZ_Description, "");
+
+            AttributeText.Add(aLang.EMI_Angle_Category, "AngleY");
+            AttributeText.Add(aLang.EMI_AngleY_Float_DisplayName, "Angle.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EMI_AngleY_Hex_DisplayName, "Angle.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EMI_AngleY_Description, "");
             /*
-
+            
             */
 
             //AttributeText.Add(aLang.Null, "");
@@ -904,6 +1045,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.MessageBoxFile16MB, "Files bigger than 16Mb cannot be opened!");
             Text.Add(eLang.MessageBoxFile0MB, "Files without content cannot be opened!");
             Text.Add(eLang.MessageBoxFile16Bytes, "Files smaller than 16 bytes cannot be opened!");
+            Text.Add(eLang.MessageBoxFile4Bytes, "Files smaller than 4 bytes cannot be opened!");
             Text.Add(eLang.MessageBoxFileNotOpen, "Could not open file!");
 
             Text.Add(eLang.MessageBoxFormClosingTitle, "Warning:");
@@ -915,11 +1057,25 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.NodeITA, "Items (ITA)");
             Text.Add(eLang.NodeAEV, "Events (AEV)");
             Text.Add(eLang.NodeEXTRAS, "Extras");
+            Text.Add(eLang.NodeDSE, "Door Sound (DSE)");
+            Text.Add(eLang.NodeEMI, "Interaction Point (EMI)");
+            Text.Add(eLang.NodeSAR, "Ctrl Light Group (SAR)");
+            Text.Add(eLang.NodeEAR, "Ctrl Effect Group (EAR)");
+            Text.Add(eLang.NodeESE, "Environment Sound (ESE)");
+            Text.Add(eLang.NodeFSE, "Floor Sound (FSE)");
+            Text.Add(eLang.NodeQuadCustom, "Quad Custom");
 
+            Text.Add(eLang.AddNewNull, "None");
             Text.Add(eLang.AddNewETS, "Add new EtcModel object");
+            Text.Add(eLang.AddNewDSE, "Add new Door Sound DSE object");
+            Text.Add(eLang.AddNewFSE, "Add new Floor Sound FSE object");
+            Text.Add(eLang.AddNewSAR, "Add new Ctrl Light Group SAR object");
+            Text.Add(eLang.AddNewEAR, "Add new Ctrl Effect Group EAR object");
+            Text.Add(eLang.AddNewESE, "Add new Environment Sound ESE object");
+            Text.Add(eLang.AddNewEMI, "Add new Interaction Point EMI object");
+            Text.Add(eLang.AddNewQuadCustom, "Add new Quad Custom object");
             Text.Add(eLang.AddNewITA, "Add new Item ITA object");
             Text.Add(eLang.AddNewAEV, "Add new Event AEV object");
-            Text.Add(eLang.AddNewNull, "None");
 
             Text.Add(eLang.DeleteObjWarning, "Warning:");
             Text.Add(eLang.DeleteObjDialog, "Selected objects will be deleted, are you sure?\r\nThe action cannot be undone!");
@@ -940,10 +1096,17 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.labelObjSpeed, "Move speed:");
 
             // diretory Patch
-            Text.Add(eLang.DiretoryESL, "ESL File Patch:");
-            Text.Add(eLang.DiretoryETS, "ETS File Patch:");
-            Text.Add(eLang.DiretoryITA, "ITA File Patch:");
-            Text.Add(eLang.DiretoryAEV, "AEV File Patch:");
+            Text.Add(eLang.DirectoryESL, "ESL File Patch:");
+            Text.Add(eLang.DirectoryETS, "ETS File Patch:");
+            Text.Add(eLang.DirectoryITA, "ITA File Patch:");
+            Text.Add(eLang.DirectoryAEV, "AEV File Patch:");
+            Text.Add(eLang.DirectoryDSE, "DSE File Patch:");
+            Text.Add(eLang.DirectoryFSE, "FSE File Patch:");
+            Text.Add(eLang.DirectorySAR, "SAR File Patch:");
+            Text.Add(eLang.DirectoryEAR, "EAR File Patch:");
+            Text.Add(eLang.DirectoryEMI, "EMI File Patch:");
+            Text.Add(eLang.DirectoryESE, "ESE File Patch:");
+            Text.Add(eLang.DirectoryQuadCustom, "QuadCustom File Patch:");
 
             //room
             Text.Add(eLang.SelectedRoom, "Selected Room");
@@ -952,9 +1115,13 @@ namespace Re4QuadExtremeEditor.src
 
             // MoveMode
             Text.Add(eLang.MoveMode_Enemy_PositionAndRotationAll, "Enemy: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
+            Text.Add(eLang.MoveMode_EseEntry_PositionPoint, "ESE Point: Squad and Vertical = Position;");
+            Text.Add(eLang.MoveMode_EmiEntry_PositionAndAnglePoint, "EMI Point: Squad and Vertical = Position; Horizontal[2] = Rotation Y;");
             Text.Add(eLang.MoveMode_EtcModel_PositionAndRotationAll, "EtcModel: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
             Text.Add(eLang.MoveMode_EtcModel_Scale, "EtcModel: Vertical = Scale All; Horizontal [123] = Scale XYZ; Scale does not work in game;");
             Text.Add(eLang.MoveMode_Item_PositionAndRotationAll, "Item: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
+            Text.Add(eLang.MoveMode_QuadCustomPoint_PositionAndRotationAll, "QuadCustom Point: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
+            Text.Add(eLang.MoveMode_QuadCustomPoint_Scale, "QuadCustom Point: Vertical = Scale All; Horizontal [123] = Scale XYZ;");
             Text.Add(eLang.MoveMode_TriggerZone_MoveAll, "TriggerZone: Squad and Vertical = Position All; Horizontal[1] = Height; Horizontal[2] = Rotation; Horizontal[3] = Scale;");
             Text.Add(eLang.MoveMode_TriggerZone_Point0, "TriggerZone: Squad and Vertical = Position Point 0; Horizontal[1] = Height;");
             Text.Add(eLang.MoveMode_TriggerZone_Point1, "TriggerZone: Squad and Vertical = Position Point 1; Horizontal[1] = Height;");
@@ -968,6 +1135,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.MoveMode_Obj_PositionAndRotationAll, "Object: Squad and Vertical = Position; Horizontal 123 = Rotation XYZ;");
             Text.Add(eLang.MoveMode_Obj_PositionAndRotationY, "Object: Squad and Vertical = Position; Horizontal[2] = Rotation Y;");
             Text.Add(eLang.MoveMode_Obj_Position, "Object: Squad and Vertical = Position;");
+            Text.Add(eLang.MoveMode_TriggerZone_MoveAll_Obj_Position, "TriggerZone And Object: Squad and Vertical = Position;");
             Text.Add(eLang.MoveMode_Ashley_Position, "Ashley Point: Squad and Vertical = Position;");
             Text.Add(eLang.MoveMode_AshleyZone_MoveAll, "AshleyZone: Squad = Position All; Horizontal[2] = Rotation; Horizontal[3] = Scale;");
             Text.Add(eLang.MoveMode_AshleyZone_Point0, "AshleyZone: Squad = Position Point 0;");
@@ -1001,41 +1169,58 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveETS, "Save EtcModel ETS File");
             Text.Add(eLang.toolStripMenuItemSaveITA, "Save Itens ITA File");
             Text.Add(eLang.toolStripMenuItemSaveAEV, "Save Events AEV File");
+            Text.Add(eLang.toolStripMenuItemSaveEMI, "Save Interaction Point EMI File");
+            Text.Add(eLang.toolStripMenuItemSaveESE, "Save Environment Sound ESE File");
 
             Text.Add(eLang.toolStripMenuItemSaveETS_2007_PS2, "Save EtcModel ETS File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemSaveITA_2007_PS2, "Save Itens ITA File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemSaveAEV_2007_PS2, "Save Events AEV File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemSaveEMI_2007_PS2, "Save Interaction Point EMI File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemSaveESE_2007_PS2, "Save Environment Sound ESE File (2007/PS2)");
 
             Text.Add(eLang.toolStripMenuItemSaveETS_UHD, "Save EtcModel ETS File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveITA_UHD, "Save Itens ITA File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAEV_UHD, "Save Events AEV File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveEMI_UHD, "Save Interaction Point EMI File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveESE_UHD, "Save Environment Sound ESE File (UHD)");
 
             // subsubmenu Save As...
             Text.Add(eLang.toolStripMenuItemSaveAsETS, "Save As EtcModel ETS File");
             Text.Add(eLang.toolStripMenuItemSaveAsITA, "Save As Itens ITA File");
             Text.Add(eLang.toolStripMenuItemSaveAsAEV, "Save As Events AEV File");
+            Text.Add(eLang.toolStripMenuItemSaveAsEMI, "Save As Interaction Point EMI File");
+            Text.Add(eLang.toolStripMenuItemSaveAsESE, "Save As Environment Sound ESE File");
 
             Text.Add(eLang.toolStripMenuItemSaveAsETS_2007_PS2, "Save As EtcModel ETS File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemSaveAsITA_2007_PS2, "Save As Itens ITA File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemSaveAsAEV_2007_PS2, "Save As Events AEV File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemSaveAsEMI_2007_PS2, "Save As Interaction Point EMI File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemSaveAsESE_2007_PS2, "Save As Environment Sound ESE File (2007/PS2)");
 
             Text.Add(eLang.toolStripMenuItemSaveAsETS_UHD, "Save As EtcModel ETS File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAsITA_UHD, "Save As Itens ITA File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAsAEV_UHD, "Save As Events AEV File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveAsEMI_UHD, "Save As Interaction Point EMI File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveAsESE_UHD, "Save As Environment Sound ESE File (UHD)");
 
             // subsubmenu Save As (Convert)
             Text.Add(eLang.toolStripMenuItemSaveConverterETS, "Save As EtcModel ETS File, Convert To ...");
             Text.Add(eLang.toolStripMenuItemSaveConverterITA, "Save As Itens ITA File, Convert To ...");
             Text.Add(eLang.toolStripMenuItemSaveConverterAEV, "Save As Events AEV File, Convert To ...");
+            Text.Add(eLang.toolStripMenuItemSaveConverterEMI, "Save As Interaction Point EMI File, Convert To ...");
+            Text.Add(eLang.toolStripMenuItemSaveConverterESE, "Save As Environment Sound ESE File, Convert To ...");
 
             Text.Add(eLang.toolStripMenuItemSaveConverterETS_2007_PS2, "Save As EtcModel ETS File, Convert To 2007/PS2");
             Text.Add(eLang.toolStripMenuItemSaveConverterITA_2007_PS2, "Save As Itens ITA File, Convert To 2007/PS2");
             Text.Add(eLang.toolStripMenuItemSaveConverterAEV_2007_PS2, "Save As Events AEV File, Convert To 2007/PS2");
+            Text.Add(eLang.toolStripMenuItemSaveConverterEMI_2007_PS2, "Save As Interaction Point EMI File, Convert To 2007/PS2");
+            Text.Add(eLang.toolStripMenuItemSaveConverterESE_2007_PS2, "Save As Environment Sound ESE File, Convert To 2007/PS2");
 
             Text.Add(eLang.toolStripMenuItemSaveConverterETS_UHD, "Save As EtcModel ETS File, Convert To UHD");
             Text.Add(eLang.toolStripMenuItemSaveConverterITA_UHD, "Save As Itens ITA File, Convert To UHD");
             Text.Add(eLang.toolStripMenuItemSaveConverterAEV_UHD, "Save As Events AEV File, Convert To UHD");
-
+            Text.Add(eLang.toolStripMenuItemSaveConverterEMI_UHD, "Save As Interaction Point EMI File, Convert To UHD");
+            Text.Add(eLang.toolStripMenuItemSaveConverterESE_UHD, "Save As Environment Sound ESE File, Convert To UHD");
 
             // enemy groups
             Text.Add(eLang.EnemyExtraSegmentSegund, "{Segund Segment}");
@@ -1075,6 +1260,16 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemNewETS_UHD, "New EtcModel ETS File (UHD)");
             Text.Add(eLang.toolStripMenuItemNewITA_UHD, "New Itens ITA File (UHD)");
             Text.Add(eLang.toolStripMenuItemNewAEV_UHD, "New Events AEV File (UHD)");
+            Text.Add(eLang.toolStripMenuItemNewDSE, "New Door Sound DSE File");
+            Text.Add(eLang.toolStripMenuItemNewFSE, "New Floor Sound FSE File");
+            Text.Add(eLang.toolStripMenuItemNewSAR, "New Ctrl Light Group SAR File");
+            Text.Add(eLang.toolStripMenuItemNewEAR, "New Ctrl Effect Group EAR File");
+            Text.Add(eLang.toolStripMenuItemNewEMI_2007_PS2, "New Interaction Point EMI File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemNewESE_2007_PS2, "New Environment Sound ESE File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemNewEMI_UHD, "New Interaction Point EMI File (UHD)");
+            Text.Add(eLang.toolStripMenuItemNewESE_UHD, "New Environment Sound ESE File (UHD)");
+            Text.Add(eLang.toolStripMenuItemNewQuadCustom, "New Quad Custom File");
+          
             // subsubmenu Open
             Text.Add(eLang.toolStripMenuItemOpenESL, "Open Enemy ESL File");
             Text.Add(eLang.toolStripMenuItemOpenETS_2007_PS2, "Open EtcModel ETS File (2007/PS2)");
@@ -1083,16 +1278,45 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemOpenETS_UHD, "Open EtcModel ETS File (UHD)");
             Text.Add(eLang.toolStripMenuItemOpenITA_UHD, "Open Itens ITA File (UHD)");
             Text.Add(eLang.toolStripMenuItemOpenAEV_UHD, "Open Events AEV File (UHD)");
+            Text.Add(eLang.toolStripMenuItemOpenDSE, "Open Door Sound DSE File");
+            Text.Add(eLang.toolStripMenuItemOpenFSE, "Open Floor Sound FSE File");
+            Text.Add(eLang.toolStripMenuItemOpenSAR, "Open Ctrl Light Group SAR File");
+            Text.Add(eLang.toolStripMenuItemOpenEAR, "Open Ctrl Effect Group EAR File");
+            Text.Add(eLang.toolStripMenuItemOpenEMI_2007_PS2, "Open Interaction Point EMI File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemOpenESE_2007_PS2, "Open Environment Sound ESE File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemOpenEMI_UHD, "Open Interaction Point EMI File (UHD)");
+            Text.Add(eLang.toolStripMenuItemOpenESE_UHD, "Open Environment Sound ESE File (UHD)");
+            Text.Add(eLang.toolStripMenuItemOpenQuadCustom, "Open Quad Custom File");
+            
             // subsubmenu Save
             Text.Add(eLang.toolStripMenuItemSaveESL, "Save Enemy ESL File");
+            Text.Add(eLang.toolStripMenuItemSaveDSE, "Save Door Sound DSE File");
+            Text.Add(eLang.toolStripMenuItemSaveFSE, "Save Floor Sound FSE File");
+            Text.Add(eLang.toolStripMenuItemSaveSAR, "Save Ctrl Light Group SAR File");
+            Text.Add(eLang.toolStripMenuItemSaveEAR, "Save Ctrl Effect Group EAR File");
+            Text.Add(eLang.toolStripMenuItemSaveQuadCustom, "Save Quad Custom File");
             Text.Add(eLang.toolStripMenuItemSaveDirectories, "Directories");
+            
             // subsubmenu Save As...
             Text.Add(eLang.toolStripMenuItemSaveAsESL, "Save As Enemy ESL File");
+            Text.Add(eLang.toolStripMenuItemSaveAsDSE, "Save As Door Sound DSE File");
+            Text.Add(eLang.toolStripMenuItemSaveAsFSE, "Save As Floor Sound FSE File");
+            Text.Add(eLang.toolStripMenuItemSaveAsSAR, "Save As Ctrl Light Group SAR File");
+            Text.Add(eLang.toolStripMenuItemSaveAsEAR, "Save As Ctrl Effect Group EAR File");
+            Text.Add(eLang.toolStripMenuItemSaveAsQuadCustom, "Save As Quad Custom File");
+
             // subsubmenu Clear
             Text.Add(eLang.toolStripMenuItemClearESL, "Clear Enemy ESL List");
             Text.Add(eLang.toolStripMenuItemClearETS, "Clear EtcModel ETS List");
             Text.Add(eLang.toolStripMenuItemClearITA, "Clear Itens ITA List");
             Text.Add(eLang.toolStripMenuItemClearAEV, "Clear Events AEV List");
+            Text.Add(eLang.toolStripMenuItemClearDSE, "Clear Door Sound DSE List");
+            Text.Add(eLang.toolStripMenuItemClearFSE, "Clear Floor Sound FSE List");
+            Text.Add(eLang.toolStripMenuItemClearSAR, "Clear Ctrl Light Group SAR List");
+            Text.Add(eLang.toolStripMenuItemClearEAR, "Clear Ctrl Effect Group EAR List");
+            Text.Add(eLang.toolStripMenuItemClearEMI, "Clear Interaction Point EMI List");
+            Text.Add(eLang.toolStripMenuItemClearESE, "Clear Environment Sound ESE List");
+            Text.Add(eLang.toolStripMenuItemClearQuadCustom, "Clear Quad Custom List");
 
             // sub menu edit
             Text.Add(eLang.toolStripMenuItemAddNewObj, "Add New Object(s)");
@@ -1106,13 +1330,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemCredits, "Credits");
 
             // sub menu View
-            Text.Add(eLang.toolStripMenuItemHideRoomModel, "Hide Room Model");
-            Text.Add(eLang.toolStripMenuItemHideEnemyESL, "Hide Enemy .ESL");
-            Text.Add(eLang.toolStripMenuItemHideEtcmodelETS, "Hide Etcmodel .ETS");
-            Text.Add(eLang.toolStripMenuItemHideItemsITA, "Hide Items .ITA");
-            Text.Add(eLang.toolStripMenuItemHideEventsAEV, "Hide Events .AEV");
-            Text.Add(eLang.toolStripMenuItemHideLateralMenu, "Hide Lateral Menu");
-            Text.Add(eLang.toolStripMenuItemHideBottomMenu, "Hide Bottom Menu");
+            Text.Add(eLang.toolStripMenuItemSubMenuHide, "Hide Options");
             Text.Add(eLang.toolStripMenuItemSubMenuRoom, "Room Options");
             Text.Add(eLang.toolStripMenuItemSubMenuModels, "Models Options");
             Text.Add(eLang.toolStripMenuItemSubMenuEnemy, "Enemy Options");
@@ -1123,6 +1341,22 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemCameraMenu, "Camera Menu");
             Text.Add(eLang.toolStripMenuItemResetCamera, "Reset Camera");
             Text.Add(eLang.toolStripMenuItemRefresh, "Refresh Display");
+
+            // sub menu hide
+            Text.Add(eLang.toolStripMenuItemHideRoomModel, "Hide Room Model");
+            Text.Add(eLang.toolStripMenuItemHideEnemyESL, "Hide Enemy .ESL");
+            Text.Add(eLang.toolStripMenuItemHideEtcmodelETS, "Hide Etcmodel .ETS");
+            Text.Add(eLang.toolStripMenuItemHideItemsITA, "Hide Items .ITA");
+            Text.Add(eLang.toolStripMenuItemHideEventsAEV, "Hide Events .AEV");
+            Text.Add(eLang.toolStripMenuItemHideLateralMenu, "Hide Lateral Menu");
+            Text.Add(eLang.toolStripMenuItemHideBottomMenu, "Hide Bottom Menu");
+            Text.Add(eLang.toolStripMenuItemHideFileFSE, "Hide Floor Sound .FSE");
+            Text.Add(eLang.toolStripMenuItemHideFileSAR, "Hide Ctrl Light Group .SAR");
+            Text.Add(eLang.toolStripMenuItemHideFileEAR, "Hide Ctrl Effect Group .EAR");
+            Text.Add(eLang.toolStripMenuItemHideFileESE, "Hide Environment Sound .ESE");
+            Text.Add(eLang.toolStripMenuItemHideFileEMI, "Hide Interaction Point .EMI");
+            Text.Add(eLang.toolStripMenuItemHideQuadCustom, "Hide QuadCustom");
+
 
             // sub menus de view
             Text.Add(eLang.toolStripMenuItemHideDesabledEnemy, "Hide Desabled Enemy");
@@ -1137,6 +1371,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemHideExtraExceptWarpDoor, "Hide Extra Except Warp Door");
             Text.Add(eLang.toolStripMenuItemUseMoreSpecialColors, "Use More Special Colors");
             Text.Add(eLang.toolStripMenuItemEtcModelUseScale, "EtcModel Use Scale");
+            Text.Add(eLang.toolStripMenuItemSubMenuQuadCustom, "QuadCustom Options");
+            Text.Add(eLang.toolStripMenuItemUseCustomColors, "Use Custom Colors");
 
             // sub menu de view room and model
             Text.Add(eLang.toolStripMenuItemModelsHideTextures, "Hide Textures");
@@ -1158,12 +1394,30 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.openFileDialogETS, "Open EtcModel ETS File");
             Text.Add(eLang.openFileDialogITA, "Open Itens ITA File");
             Text.Add(eLang.saveFileDialogAEV, "Save Events AEV File");
+            Text.Add(eLang.openFileDialogDSE, "Open Door Sound DSE File");
+            Text.Add(eLang.openFileDialogFSE, "Open Floor Sound FSE File");
+            Text.Add(eLang.openFileDialogSAR, "Open Ctrl Light Group SAR File");
+            Text.Add(eLang.openFileDialogEAR, "Open Ctrl Effect Group EAR File");
+            Text.Add(eLang.openFileDialogEMI, "Open Interaction Point EMI File");
+            Text.Add(eLang.openFileDialogESE, "Open Environment Sound ESE File");
+            Text.Add(eLang.openFileDialogQuadCustom, "Open QuadCustom File");
+
             Text.Add(eLang.saveFileDialogConvertAEV, "Save Convert Events AEV File");
             Text.Add(eLang.saveFileDialogConvertETS, "Save Convert EtcModel ETS File");
             Text.Add(eLang.saveFileDialogConvertITA, "Save Convert Itens ITA File");
+            Text.Add(eLang.saveFileDialogConvertEMI, "Save Convert Interaction Point EMI File");
+            Text.Add(eLang.saveFileDialogConvertESE, "Save Convert Environment Sound ESE File");
+
             Text.Add(eLang.saveFileDialogESL, "Save Enemy ESL File");
             Text.Add(eLang.saveFileDialogETS, "Save EtcModel ETS File");
             Text.Add(eLang.saveFileDialogITA, "Save Itens ITA File");
+            Text.Add(eLang.saveFileDialogDSE, "Save Door Sound DSE File");
+            Text.Add(eLang.saveFileDialogFSE, "Save Floor Sound FSE File");
+            Text.Add(eLang.saveFileDialogSAR, "Save Ctrl Light Group SAR File");
+            Text.Add(eLang.saveFileDialogEAR, "Save Ctrl Effect Group EAR File");
+            Text.Add(eLang.saveFileDialogEMI, "Save Interaction Point EMI File");
+            Text.Add(eLang.saveFileDialogESE, "Save Environment Sound ESE File");
+            Text.Add(eLang.saveFileDialogQuadCustom, "Save QuadCustom File");
 
             //cameraMove
             Text.Add(eLang.buttonGrid, "Grid");
@@ -1181,7 +1435,8 @@ namespace Re4QuadExtremeEditor.src
 
             // objectMove
             Text.Add(eLang.buttonDropToGround, "Drop to ground");
-            Text.Add(eLang.checkBoxKeepOnGround, "Keep on ground");
+            Text.Add(eLang.checkBoxObjKeepOnGround, "Obj keep on ground");
+            Text.Add(eLang.checkBoxTriggerZoneKeepOnGround, "TriggerZone keep on ground");
             Text.Add(eLang.checkBoxLockMoveSquareHorizontal, "Lock move square horizontal");
             Text.Add(eLang.checkBoxLockMoveSquareVertical, "Lock move square vertical");
             Text.Add(eLang.checkBoxMoveRelativeCam, "Move relative to camera");
@@ -1189,8 +1444,8 @@ namespace Re4QuadExtremeEditor.src
 
             //AddNewObjForm
             Text.Add(eLang.AddNewObjForm, "Add New Object");
-            Text.Add(eLang.buttonCancel, "CANCEL");
-            Text.Add(eLang.buttonOK, "OK");
+            Text.Add(eLang.AddNewObjButtonCancel, "CANCEL");
+            Text.Add(eLang.AddNewObjButtonOK, "OK");
             Text.Add(eLang.labelAmountInfo, "<- Amount to be added");
             Text.Add(eLang.labelTypeInfo, "Select the type of object to be added:");
 
@@ -1214,8 +1469,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.labelInfo, "After click \"LOAD\", wait for the room to be loaded.");
             Text.Add(eLang.labelSelectAList, "Select a List:");
             Text.Add(eLang.labelSelectARoom, "Select a Room:");
-            Text.Add(eLang.buttonLoad, "LOAD");
-            Text.Add(eLang.buttonCancel2, "CANCEL");
+            Text.Add(eLang.SelectRoomButtonLoad, "LOAD");
+            Text.Add(eLang.SelectRoomButtonCancel, "CANCEL");
 
 
             //OptionsForm
@@ -1253,13 +1508,13 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.labelEnemies, "Enemies");
             Text.Add(eLang.labelEtcModels, "EtcModels");
             Text.Add(eLang.labelItems, "Items");
+            Text.Add(eLang.labelQuadCustom, "QuadCustom");
             Text.Add(eLang.groupBoxTheme, "Theme");
             Text.Add(eLang.labelThemeWarning, "Theme changes only take effect after program restart");
             Text.Add(eLang.checkBoxUseDarkerGrayTheme, "Use Darker Gray Theme");
 
 
             //SearchForm
-            //checkBoxFilterMode
             Text.Add(eLang.SearchForm, "Search");
             Text.Add(eLang.checkBoxFilterMode, "Filter Mode");
 

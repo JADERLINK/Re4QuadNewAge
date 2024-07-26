@@ -17,13 +17,23 @@ namespace Re4QuadExtremeEditor.src.Class.TreeNodeObj
     /// </summary>
     public class Object3D : TreeNode, NsMultiselectTreeView.IAltNode, NsMultiselectTreeView.IFastNode, IEquatable<Object3D>, NsCamera.IObject3D
     {
-        public Object3D() : base() {}
-        public Object3D(string text) : base(text){ }
-        public Object3D(string text, TreeNode[] children) : base(text, children) { }
+        public static Object3D CreateNewInstance(GroupType group, ushort objLineRef) 
+        {
+            Object3D o = new Object3D();
+            o.Name = objLineRef.ToString();
+            o.Text = "";
+            o.Group = group;
+            o.ObjLineRef = objLineRef;
+            return o;
+        }
 
-        public GroupType Group { get; set; }
+        protected Object3D() : base() {}
+        protected Object3D(string text) : base(text){ }
+        protected Object3D(string text, TreeNode[] children) : base(text, children) { }
 
-        public ushort ObjLineRef { get; set; }
+        public GroupType Group { get; protected set; }
+
+        public ushort ObjLineRef { get; protected set; }
 
         /// <summary>
         /// Retorna o texto do node;
@@ -145,6 +155,14 @@ namespace Re4QuadExtremeEditor.src.Class.TreeNodeObj
             }
         }
 
+        public TriggerZoneCategory GetTriggerZoneCategory() 
+        {
+            if (Parent is TreeNodeGroup parent)
+            {
+                return parent.MoveMethods.GetTriggerZoneCategory(ObjLineRef);
+            }
+            return TriggerZoneCategory.Disable;
+        }
 
         public int HashCodeID { get { return (int)(((uint)Group * 0x10000) + ObjLineRef); } } 
 

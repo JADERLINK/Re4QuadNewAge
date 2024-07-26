@@ -7,7 +7,7 @@ using Re4QuadExtremeEditor.src.Class.CustomDelegates;
 
 namespace Re4QuadExtremeEditor.src.Class.ObjMethods
 {
-    public class SpecialMethodsForGL
+    public class SpecialMethodsForGL : BaseTriggerZoneMethodsForGL
     {
         public ReturnSpecialType GetSpecialType;
         
@@ -17,14 +17,6 @@ namespace Re4QuadExtremeEditor.src.Class.ObjMethods
 
         public ReturnUshort GetItemModelID;
 
-        public ReturnVector2Array GetTriggerZone;
-
-        public ReturnVector2Array GetCircleTriggerZone;
-
-        public ReturnSpecialZoneCategory GetZoneCategory;
-
         public ReturnFloat GetItemTrigggerRadius;
-
-        public ReturnMatrix4 GetTriggerZoneMatrix4;
     }
 }

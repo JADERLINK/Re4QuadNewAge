@@ -16,13 +16,11 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomUITypeEditor
     {
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            //MultiSelectObjInfo
             if (value is MultiSelectObjInfoToProperty obj)
             {
                 MultiSelectEditorForm editor = new MultiSelectEditorForm(ref obj);
                 editor.ShowDialog();
             }
-
             return base.EditValue(context, provider, value);
         }
 

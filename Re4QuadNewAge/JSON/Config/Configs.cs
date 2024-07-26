@@ -26,6 +26,7 @@ namespace Re4QuadExtremeEditor.src.JSON
         public string FileDiretoryItemsList { get; set; }
         public string FileDiretoryEtcModelsList { get; set; }
         public string FileDiretoryEnemiesList { get; set; }
+        public string FileDiretoryQuadCustomList { get; set; }
 
         public Color SkyColor { get; set; }
 
@@ -67,6 +68,7 @@ namespace Re4QuadExtremeEditor.src.JSON
             configs.FileDiretoryEnemiesList = Consts.DefaultEnemiesListFileDirectory;
             configs.FileDiretoryEtcModelsList = Consts.DefaultEtcModelsListFileDirectory;
             configs.FileDiretoryItemsList = Consts.DefaultItemsListFileDirectory;
+            configs.FileDiretoryQuadCustomList = Consts.DefaultQuadCustomModelsListFileDirectory;
 
             configs.SkyColor = Color.FromArgb(0xFF, 0x94, 0xD2, 0xFF);
             // colocar novas configurões aqui;
@@ -109,6 +111,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                 Globals.FileDiretoryEnemiesList = configs.FileDiretoryEnemiesList;
                 Globals.FileDiretoryEtcModelsList = configs.FileDiretoryEtcModelsList;
                 Globals.FileDiretoryItemsList = configs.FileDiretoryItemsList;
+                Globals.FileDiretoryQuadCustomList = configs.FileDiretoryQuadCustomList;
 
                 Globals.SkyColor = configs.SkyColor;
 

@@ -27,6 +27,7 @@ namespace Re4QuadExtremeEditor.src.JSON
             entry["FileDiretoryEnemiesList"] = config.FileDiretoryEnemiesList;
             entry["FileDiretoryEtcModelsList"] = config.FileDiretoryEtcModelsList;
             entry["FileDiretoryItemsList"] = config.FileDiretoryItemsList;
+            entry["FileDiretoryQuadCustomList"] = config.FileDiretoryQuadCustomList;
 
 
             entry["SkyColor"] = config.SkyColor.ToArgb().ToString("X8");
@@ -81,6 +82,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                     config.FileDiretoryEnemiesList = oConfigs?["FileDiretoryEnemiesList"]?.ToString() ?? Consts.DefaultEnemiesListFileDirectory;
                     config.FileDiretoryEtcModelsList = oConfigs?["FileDiretoryEtcModelsList"]?.ToString() ?? Consts.DefaultEtcModelsListFileDirectory;
                     config.FileDiretoryItemsList = oConfigs?["FileDiretoryItemsList"]?.ToString() ?? Consts.DefaultItemsListFileDirectory;
+                    config.FileDiretoryQuadCustomList = oConfigs?["FileDiretoryQuadCustomList"]?.ToString() ?? Consts.DefaultQuadCustomModelsListFileDirectory;
 
                     if (oConfigs["SkyColor"] != null)
                     {

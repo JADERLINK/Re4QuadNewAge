@@ -12,7 +12,7 @@ namespace Re4QuadExtremeEditor.src.Class.ObjMethods
         public ReturnSpecialType GetSpecialType;
 
         // warp Door position, ladder up position, GrappleGun start positon 
-        public ReturnVector3 GetFirtPosition;
+        public ReturnVector3 GetFirstPosition;
 
         public ReturnMatrix4 GetWarpRotation;
 

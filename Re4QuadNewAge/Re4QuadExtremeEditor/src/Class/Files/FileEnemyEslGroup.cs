@@ -20,9 +20,9 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         /// <para>aqui contem o conteudo de todos os inimigos do arquivo;</para>
         /// <para>id da linha, sequencia de 32 bytes (para ambas as versões);</para>
         /// </summary>
-        public Dictionary<ushort, byte[]> Lines;
+        public Dictionary<ushort, byte[]> Lines { get; private set; }
         /// <summary>
-        /// aqui contem o resto to arquivo, a parte não usada
+        /// aqui contem o resto do arquivo, a parte não usada
         /// </summary>
         public byte[] EndFile;
 
@@ -82,6 +82,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             MoveMethods.SetObjRotationAngles_ToMove = SetObjRotationAngles_ToMove;
             MoveMethods.GetObjScale_ToMove = Utils.GetObjScale_ToMove_Null;
             MoveMethods.SetObjScale_ToMove = Utils.SetObjScale_ToMove_Null;
+            MoveMethods.GetTriggerZoneCategory = Utils.GetTriggerZoneCategory_Null;
 
             MethodsForGL = new EnemyMethodsForGL();
             MethodsForGL.GetEnemyModelID = ReturnEnemyID;
@@ -120,11 +121,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // texto do treeNode
         public string GetNodeText(ushort ID)
         {
-            if (Globals.TreeNodeRenderHexValues)
+            if (Lines.ContainsKey(ID) && Globals.TreeNodeRenderHexValues)
             {
-                return "[" + ID.ToString("X2") + "] " + BitConverter.ToString(Lines[ID]).Replace("-", "");
+                return "[" + ID.ToString("X2") + "] " + BitConverter.ToString(Lines[ID]).Replace("-", "_");
             }
-            else 
+            else if (Lines.ContainsKey(ID))
             {
                 byte enable = ReturnOffset0x00Enable(ID);
                 string r = "[" + ID.ToString("X2") + "] " + "0x" + enable.ToString("X2") + ": ";
@@ -174,6 +175,10 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
                 return r;
             }
+            else 
+            {
+                return "ESL Error Internal Line ID " + ID;
+            }
             
         }
 
@@ -183,15 +188,15 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return Globals.NodeColorHided;
             }
-            else if (!Globals.RenderDisabledEnemy && ReturnOffset0x00Enable(ID) == 00)
+            else if (!Globals.RenderDisabledEnemy && Lines.ContainsKey(ID) && ReturnOffset0x00Enable(ID) == 00)
             {
                 return Globals.NodeColorHided;
             }
-            if (!Globals.RenderDontShowOnlyDefinedRoom && ReturnRoomID(ID) != Globals.RenderEnemyFromDefinedRoom)
+            if (!Globals.RenderDontShowOnlyDefinedRoom && Lines.ContainsKey(ID) && ReturnRoomID(ID) != Globals.RenderEnemyFromDefinedRoom)
             {
                 return Globals.NodeColorHided;
             }
-            return Color.Black;
+            return Globals.NodeColorEntry;
         }
 
         #endregion
@@ -395,12 +400,12 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         }
 
 
-        private byte ReturnByteFromPosition(ushort ID, byte FromPostion) 
+        private byte ReturnByteFromPosition(ushort ID, int FromPostion) 
         {
             return Lines[ID][FromPostion];
         }
 
-        private void SetByteFromPosition(ushort ID, byte FromPostion, byte value)
+        private void SetByteFromPosition(ushort ID, int FromPostion, byte value)
         {
             Lines[ID][FromPostion] = value;
         }
@@ -412,7 +417,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetLine(ushort ID, byte[] value)
         {
-            Lines[ID] = value;
+            value.CopyTo(Lines[ID], 0);
         }
 
         #endregion

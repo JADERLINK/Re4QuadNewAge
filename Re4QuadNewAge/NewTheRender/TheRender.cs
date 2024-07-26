@@ -27,6 +27,9 @@ namespace NewAgeTheRender
         private static readonly Vector3 boundNoneEtcModel = new Vector3(3f, 3f, 3f);
         private static readonly Vector3 boundNoneItem = new Vector3(1.5f, 1.5f, 1.5f);
         private static readonly Vector3 boundNoneExtras = new Vector3(2f, 2f, 2f);
+        private static readonly Vector3 boundNoneQuadCustom = new Vector3(2f, 2f, 2f);
+        private static readonly Vector3 boundNoneESE = new Vector3(2f, 2f, 2f);
+        private static readonly Vector3 boundNoneEMI = new Vector3(2f, 2f, 2f);
 
         public static void AllRender(ref Matrix4 camMtx, ref Matrix4 ProjMatrix, Vector3 camPos, float objY, bool IsSelectMode = false)
         {
@@ -81,8 +84,18 @@ namespace NewAgeTheRender
             {
                 RenderEnemyESL(RenderMode.SelectMode);
                 RenderExtras(RenderMode.SelectMode);
+                RenderFileESE(RenderMode.SelectMode);
+                RenderFileEMI(RenderMode.SelectMode);
                 RenderITA_TriggerZone(RenderMode.SelectMode);
                 RenderAEV_TriggerZone(RenderMode.SelectMode);
+
+                RenderFileFSE_TriggerZone(RenderMode.SelectMode);
+                RenderFileEAR_TriggerZone(RenderMode.SelectMode);
+                RenderFileSAR_TriggerZone(RenderMode.SelectMode);
+                RenderFileQuadCustom_TriggerZone(RenderMode.SelectMode);
+
+                RenderQuadCustomPoint(RenderMode.SelectMode);
+
                 RenderITA_ItemObj(RenderMode.SelectMode);
                 RenderAEV_ItemObj(RenderMode.SelectMode);
                 RenderEtcModelETS(RenderMode.SelectMode);
@@ -91,8 +104,18 @@ namespace NewAgeTheRender
             {
                 RenderEnemyESL(RenderMode.BoxMode);
                 RenderExtras(RenderMode.BoxMode);
+                RenderFileESE(RenderMode.BoxMode);
+                RenderFileEMI(RenderMode.BoxMode);
                 RenderITA_TriggerZone(RenderMode.BoxMode);
                 RenderAEV_TriggerZone(RenderMode.BoxMode);
+
+                RenderFileFSE_TriggerZone(RenderMode.BoxMode);
+                RenderFileEAR_TriggerZone(RenderMode.BoxMode);
+                RenderFileSAR_TriggerZone(RenderMode.BoxMode);
+                RenderFileQuadCustom_TriggerZone(RenderMode.BoxMode);
+
+                RenderQuadCustomPoint(RenderMode.BoxMode);
+
                 RenderITA_ItemObj(RenderMode.BoxMode);
                 RenderAEV_ItemObj(RenderMode.BoxMode);
                 RenderEtcModelETS(RenderMode.BoxMode);
@@ -117,7 +140,10 @@ namespace NewAgeTheRender
 
                 ObjModel3D.PreRender();
 
+                RenderQuadCustomPoint(RenderMode.ModelMode);
                 RenderExtras(RenderMode.ModelMode);
+                RenderFileESE(RenderMode.ModelMode);
+                RenderFileEMI(RenderMode.ModelMode);
                 RenderEnemyESL(RenderMode.ModelMode);
                 RenderITA_ItemObj(RenderMode.ModelMode);
                 RenderAEV_ItemObj(RenderMode.ModelMode);
@@ -262,6 +288,123 @@ namespace NewAgeTheRender
             }
         }
 
+        private static void RenderFileESE(RenderMode mode) 
+        {
+            if (Globals.RenderFileESE)
+            {
+                foreach (TreeNode item in DataBase.NodeESE.Nodes)
+                {
+                    ushort ID = ((Object3D)item).ObjLineRef;
+                    
+                    byte[] partColor = BitConverter.GetBytes(ID);
+                    Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.ESE / 255f, 1f);
+
+                    if (mode == RenderMode.BoxMode)
+                    {
+                        useColor = Globals.GL_ColorESE;
+                        if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                        {
+                            useColor = Globals.GL_ColorSelected;
+                        }
+                    }
+
+                    RspFix rspFix = new RspFix(
+                        Vector3.One,
+                        DataBase.NodeESE.MethodsForGL.GetPosition(ID),
+                        Matrix4.Identity);
+
+                    if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_ESE_Point))
+                    {
+                        if (mode == RenderMode.ModelMode)
+                        {
+                            DataBase.InternalModels.RenderModel(Consts.ModelKey_ESE_Point, rspFix);
+                        }
+                        else if (mode == RenderMode.BoxMode)
+                        {
+                            RenderAppModel.BoundingBoxViewer(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_ESE_Point), rspFix, useColor);
+                        }
+                        else if (mode == RenderMode.SelectMode)
+                        {
+                            RenderAppModel.BoundingBoxToSelect(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_ESE_Point), rspFix, useColor);
+                        }
+
+                    }
+                    else
+                    {
+                        if (mode == RenderMode.BoxMode)
+                        {
+                            RenderAppModel.NoneBoundingBoxViewer(boundNoneESE, -boundNoneESE, rspFix, useColor);
+                        }
+                        else if (mode == RenderMode.SelectMode)
+                        {
+                            RenderAppModel.NoneBoundingBoxToSelect(boundNoneESE, -boundNoneESE, rspFix, useColor);
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+        private static void RenderFileEMI(RenderMode mode) 
+        {
+            if (Globals.RenderFileEMI)
+            {
+                foreach (TreeNode item in DataBase.NodeEMI.Nodes)
+                {
+                    ushort ID = ((Object3D)item).ObjLineRef;
+
+                    byte[] partColor = BitConverter.GetBytes(ID);
+                    Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EMI / 255f, 1f);
+
+                    if (mode == RenderMode.BoxMode)
+                    {
+                        useColor = Globals.GL_ColorEMI;
+                        if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                        {
+                            useColor = Globals.GL_ColorSelected;
+                        }
+                    }
+
+                    RspFix rspFix = new RspFix(
+                        Vector3.One,
+                        DataBase.NodeEMI.MethodsForGL.GetPosition(ID),
+                        DataBase.NodeEMI.MethodsForGL.GetAngle(ID));
+
+                    if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_EMI_Point))
+                    {
+                        if (mode == RenderMode.ModelMode)
+                        {
+                            DataBase.InternalModels.RenderModel(Consts.ModelKey_EMI_Point, rspFix);
+                        }
+                        else if (mode == RenderMode.BoxMode)
+                        {
+                            RenderAppModel.BoundingBoxViewer(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EMI_Point), rspFix, useColor);
+                        }
+                        else if (mode == RenderMode.SelectMode)
+                        {
+                            RenderAppModel.BoundingBoxToSelect(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EMI_Point), rspFix, useColor);
+                        }
+
+                    }
+                    else
+                    {
+                        if (mode == RenderMode.BoxMode)
+                        {
+                            RenderAppModel.NoneBoundingBoxViewer(boundNoneEMI, -boundNoneEMI, rspFix, useColor);
+                        }
+                        else if (mode == RenderMode.SelectMode)
+                        {
+                            RenderAppModel.NoneBoundingBoxToSelect(boundNoneEMI, -boundNoneEMI, rspFix, useColor);
+                        }
+
+                    }
+
+                }
+            }
+        }
+
 
         private static void RenderITA_TriggerZone(RenderMode mode)
         {
@@ -290,104 +433,49 @@ namespace NewAgeTheRender
             ushort ID = item.ObjLineRef;
             GroupType Group = item.Group;
 
-            byte[] partColor = BitConverter.GetBytes(ID);
-
-            Vector4 mColor = new Vector4(0, 0, 0, 1f);
-            Vector4 useColor = new Vector4(0, 0, 0, 1f);
-
-            if (Group == GroupType.ITA)
-            {
-                useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.ITA / 255f, 1f);
-            }
-            else if (Group == GroupType.AEV)
-            {
-                useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.AEV / 255f, 1f);
-            }
-
-            if (mode == RenderMode.BoxMode)
-            {
-                if (Group == GroupType.ITA)
-                {
-                    mColor = Globals.GL_ColorITA;
-                }
-                else if (Group == GroupType.AEV)
-                {
-                    mColor = Globals.GL_ColorAEV;
-                }
-
-                if (Globals.UseMoreSpecialColors)
-                {
-                    mColor = ReturnMoreSpecialColor(MethodsForGL.GetSpecialType(ID), mColor);
-                }
-            }
-
             if (MethodsForGL.GetSpecialType(ID) == SpecialType.T03_Items)
             {
                 if (Globals.RenderItemTriggerZone)
                 {
-                    if (mode == RenderMode.BoxMode)
-                    {
-                        Vector4 TriggerZoneColor = Globals.GL_ColorItemTriggerZone;
-                        if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
-                        {
-                            TriggerZoneColor = Globals.GL_ColorItemTriggerZoneSelected;
-                        }
+                    Vector4 TriggerZoneColor = Globals.GL_ColorItemTriggerZone;
 
-                        if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category01)
-                        {
-                            RenderAppModel.TriggerZoneBoxViewer(MethodsForGL.GetTriggerZoneMatrix4(ID), TriggerZoneColor);
-                        }
-                        else if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category02)
-                        {
-                            RenderAppModel.TriggerZoneCircleViewer(MethodsForGL.GetTriggerZoneMatrix4(ID), TriggerZoneColor);
-                        }
-
-                    }
-                    else if (mode == RenderMode.SelectMode)
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
                     {
-                        if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category01)
-                        {
-                            RenderAppModel.TriggerZoneBoxSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), useColor);
-                        }
-                        else if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category02)
-                        {
-                            RenderAppModel.TriggerZoneCircleSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), useColor);
-                        }
+                        TriggerZoneColor = Globals.GL_ColorItemTriggerZoneSelected;
                     }
 
+                    Render_Any_TriggerZone(ID, Group, MethodsForGL, mode, TriggerZoneColor);
                 }
             }
             else
             {
                 if (Globals.RenderSpecialTriggerZone)
                 {
+                    Vector4 mColor = new Vector4(0f, 0f, 0f, 1f);
+
                     if (mode == RenderMode.BoxMode)
                     {
-                        if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode())) 
-                        { 
-                            mColor = Globals.GL_ColorSelected; 
+                        if (Group == GroupType.ITA)
+                        {
+                            mColor = Globals.GL_ColorITA;
+                        }
+                        else if (Group == GroupType.AEV)
+                        {
+                            mColor = Globals.GL_ColorAEV;
                         }
 
-                        if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category01)
+                        if (Globals.UseMoreSpecialColors)
                         {
-                            RenderAppModel.TriggerZoneBoxViewer(MethodsForGL.GetTriggerZoneMatrix4(ID), mColor);
-                        }
-                        else if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category02)
-                        {
-                            RenderAppModel.TriggerZoneCircleViewer(MethodsForGL.GetTriggerZoneMatrix4(ID), mColor);
+                            mColor = ReturnMoreSpecialColor(MethodsForGL.GetSpecialType(ID), mColor);
                         }
                     }
-                    else if (mode == RenderMode.SelectMode)
+
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
                     {
-                        if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category01)
-                        {
-                            RenderAppModel.TriggerZoneBoxSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), useColor);
-                        }
-                        else if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category02)
-                        {
-                            RenderAppModel.TriggerZoneCircleSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), useColor);
-                        }
+                        mColor = Globals.GL_ColorSelected;
                     }
+
+                    Render_Any_TriggerZone(ID, Group, MethodsForGL, mode, mColor);
                 }
             }
         }
@@ -500,6 +588,112 @@ namespace NewAgeTheRender
 
         }
 
+        private static void RenderQuadCustomPoint(RenderMode mode) 
+        {
+            if (Globals.RenderFileQuadCustom)
+            {
+                foreach (TreeNode item in DataBase.NodeQuadCustom.Nodes)
+                {
+                    Vector4 mColor = Globals.GL_ColorQuadCustom;
+                    ushort ID = ((Object3D)item).ObjLineRef;
+
+                    if (mode == RenderMode.BoxMode && Globals.UseMoreQuadCustomColors)
+                    {
+                        mColor = DataBase.NodeQuadCustom.MethodsForGL.GetCustomColor(ID);
+                    }
+
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                    {
+                        mColor = Globals.GL_ColorSelected;
+                    }
+
+                    byte[] partColor = BitConverter.GetBytes(ID);
+                    Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.QUAD_CUSTOM / 255f, 1f);
+
+                    RspFix rspFix = new RspFix(
+                        DataBase.NodeQuadCustom.MethodsForGL.GetScale(ID), 
+                        DataBase.NodeQuadCustom.MethodsForGL.GetPosition(ID), 
+                        DataBase.NodeQuadCustom.MethodsForGL.GetAngle(ID));
+
+                    var status = DataBase.NodeQuadCustom.MethodsForGL.GetQuadCustomPointStatus(ID);
+                    if (status == QuadCustomPointStatus.ArrowPoint01)
+                    {
+
+                        if (DataBase.InternalModels.ContainsKey(Consts.ModelKeyQuadCustomPoint))
+                        {
+                            if (mode == RenderMode.ModelMode)
+                            {
+                                DataBase.InternalModels.RenderModel(Consts.ModelKeyQuadCustomPoint, rspFix);
+                            }
+                            else if (mode == RenderMode.BoxMode)
+                            {
+                                RenderAppModel.BoundingBoxViewer(
+                                    DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKeyQuadCustomPoint),
+                                    rspFix, mColor);
+                            }
+                            else if (mode == RenderMode.SelectMode)
+                            {
+                                RenderAppModel.BoundingBoxToSelect(
+                                    DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKeyQuadCustomPoint),
+                                    rspFix, useColor);
+                            }
+                        }
+                        else
+                        {
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                RenderAppModel.NoneBoundingBoxViewer(boundNoneQuadCustom, -boundNoneQuadCustom, rspFix, mColor);
+                            }
+                            else if (mode == RenderMode.SelectMode)
+                            {
+                                RenderAppModel.NoneBoundingBoxToSelect(boundNoneQuadCustom, -boundNoneQuadCustom, rspFix, useColor);
+                            }
+
+                        }
+
+                    }
+                    else if (status == QuadCustomPointStatus.CustomModel02)
+                    {
+                        uint CustomModelID = DataBase.NodeQuadCustom.MethodsForGL.GetPointModelID(ID);
+
+                        if (DataBase.QuadCustomIDs.List.ContainsKey(CustomModelID) && DataBase.QuadCustomModels.ContainsKey(DataBase.QuadCustomIDs.List[CustomModelID].ObjectModel))
+                        {
+                            if (mode == RenderMode.ModelMode)
+                            {
+                                DataBase.QuadCustomModels.RenderModel(DataBase.QuadCustomIDs.List[CustomModelID].ObjectModel, rspFix);
+                            }
+                            else if (mode == RenderMode.BoxMode)
+                            {
+                                RenderAppModel.BoundingBoxViewer(
+                                    DataBase.QuadCustomModels.GetBoundingBoxLimit(DataBase.QuadCustomIDs.List[CustomModelID].ObjectModel),
+                                    rspFix, mColor);
+                            }
+                            else if (mode == RenderMode.SelectMode)
+                            {
+                                RenderAppModel.BoundingBoxToSelect(
+                                    DataBase.QuadCustomModels.GetBoundingBoxLimit(DataBase.QuadCustomIDs.List[CustomModelID].ObjectModel),
+                                    rspFix, useColor);
+                            }
+                        }
+                        else
+                        {
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                RenderAppModel.NoneBoundingBoxViewer(boundNoneQuadCustom, -boundNoneQuadCustom, rspFix, mColor);
+                            }
+                            else if (mode == RenderMode.SelectMode)
+                            {
+                                RenderAppModel.NoneBoundingBoxToSelect(boundNoneQuadCustom, -boundNoneQuadCustom, rspFix, useColor);
+                            }
+                        }
+ 
+                    }
+
+                }
+            }
+
+        }
+
 
         private static void RenderExtras(RenderMode mode)
         {
@@ -529,7 +723,7 @@ namespace NewAgeTheRender
             ushort ExtraID = item.ObjLineRef;
             byte[] partColor = BitConverter.GetBytes(ExtraID);
 
-            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EXTRAS / 255f, 1f); // selectmod
+            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EXTRAS / 255f, 1f); // selectmode
             Vector4 mColor = Globals.GL_ColorEXTRAS;
 
             switch (specialType)
@@ -549,7 +743,7 @@ namespace NewAgeTheRender
 
                         RspFix rspFix = new RspFix(
                         Vector3.One, //scale
-                        MethodsForGL.GetFirtPosition(ID),
+                        MethodsForGL.GetFirstPosition(ID),
                         MethodsForGL.GetWarpRotation(ID));
 
                         if (DataBase.InternalModels.ContainsKey(Consts.ModelKeyWarpPoint))
@@ -600,7 +794,7 @@ namespace NewAgeTheRender
 
                         RspFix rspFix = new RspFix(
                         Vector3.One, //scale
-                        MethodsForGL.GetFirtPosition(ID),
+                        MethodsForGL.GetFirstPosition(ID),
                         MethodsForGL.GetLocationAndLadderRotation(ID));
 
                         if (DataBase.InternalModels.ContainsKey(Consts.ModelKeyLocalTeleportationPoint))
@@ -652,7 +846,7 @@ namespace NewAgeTheRender
 
                         RspFix rspFix = new RspFix(
                         Vector3.One, //scale
-                        MethodsForGL.GetFirtPosition(ID),
+                        MethodsForGL.GetFirstPosition(ID),
                         MethodsForGL.GetLocationAndLadderRotation(ID));
 
                         if (DataBase.InternalModels.ContainsKey(Consts.ModelKeyLadderPoint)
@@ -687,9 +881,9 @@ namespace NewAgeTheRender
 
                                     for (int i = 1; i < stepCount; i++)
                                     {
-                                        Vector3 position = new Vector3(MethodsForGL.GetFirtPosition(ID).X,
-                                            MethodsForGL.GetFirtPosition(ID).Y + maxHeight,
-                                            MethodsForGL.GetFirtPosition(ID).Z);
+                                        Vector3 position = new Vector3(MethodsForGL.GetFirstPosition(ID).X,
+                                            MethodsForGL.GetFirstPosition(ID).Y + maxHeight,
+                                            MethodsForGL.GetFirstPosition(ID).Z);
 
                                         RspFix irspFix = new RspFix(
                                         rspFix.Scale, //scale
@@ -724,9 +918,9 @@ namespace NewAgeTheRender
                                 {
                                     float minHeight = DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKeyLadderObj).UpperBoundary.Y;
                                     Vector3 position1 = new Vector3(
-                                          MethodsForGL.GetFirtPosition(ID).X,
-                                          MethodsForGL.GetFirtPosition(ID).Y - minHeight,
-                                          MethodsForGL.GetFirtPosition(ID).Z);
+                                          MethodsForGL.GetFirstPosition(ID).X,
+                                          MethodsForGL.GetFirstPosition(ID).Y - minHeight,
+                                          MethodsForGL.GetFirstPosition(ID).Z);
 
 
                                     RspFix inrspFix = new RspFix(
@@ -741,9 +935,9 @@ namespace NewAgeTheRender
                                         minHeight += DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKeyLadderObj).UpperBoundary.Y;
 
                                         Vector3 position = new Vector3(
-                                            MethodsForGL.GetFirtPosition(ID).X,
-                                            MethodsForGL.GetFirtPosition(ID).Y - minHeight,
-                                            MethodsForGL.GetFirtPosition(ID).Z);
+                                            MethodsForGL.GetFirstPosition(ID).X,
+                                            MethodsForGL.GetFirstPosition(ID).Y - minHeight,
+                                            MethodsForGL.GetFirstPosition(ID).Z);
 
                                         RspFix irspFix = new RspFix(
                                         rspFix.Scale, //scale
@@ -875,7 +1069,7 @@ namespace NewAgeTheRender
                     {
                         if (SubId == 0)
                         {
-                            RenderGrappleGun(item, MethodsForGL, ID, SubId, FileFormat, MethodsForGL.GetFirtPosition(ID), mode);
+                            RenderGrappleGun(item, MethodsForGL, ID, SubId, FileFormat, MethodsForGL.GetFirstPosition(ID), mode);
                         }
                         else if (SubId == 1)
                         {
@@ -952,56 +1146,87 @@ namespace NewAgeTheRender
         {
             if (Globals.RenderItemsITA)
             {
-                foreach (TreeNode item in DataBase.NodeITA.Nodes)
+                foreach (Object3D item in DataBase.NodeITA.Nodes)
                 {
-                    RenderPosTriggerZoneBoxSubPart((Object3D)item, DataBase.NodeITA.MethodsForGL);
+                    RenderPosTriggerZoneBoxSubPartSpecial(item, DataBase.NodeITA.MethodsForGL, Globals.GL_ColorITA);
                 }
             }
 
             if (Globals.RenderEventsAEV)
             {
-                foreach (TreeNode item in DataBase.NodeAEV.Nodes)
+                foreach (Object3D item in DataBase.NodeAEV.Nodes)
                 {
-                    RenderPosTriggerZoneBoxSubPart((Object3D)item, DataBase.NodeAEV.MethodsForGL);
+                    RenderPosTriggerZoneBoxSubPartSpecial(item, DataBase.NodeAEV.MethodsForGL, Globals.GL_ColorAEV);
+                }
+            }
+
+            if (Globals.RenderFileFSE)
+            {
+                foreach (Object3D item in DataBase.NodeFSE.Nodes)
+                {
+                    RenderPosTriggerZoneBoxSubPart(item, DataBase.NodeFSE.MethodsForGL, Globals.GL_ColorFSE);
+                }
+            }
+
+            if (Globals.RenderFileSAR)
+            {
+                foreach (Object3D item in DataBase.NodeSAR.Nodes)
+                {
+                    RenderPosTriggerZoneBoxSubPart(item, DataBase.NodeSAR.MethodsForGL, Globals.GL_ColorSAR);
+                }
+            }
+
+            if (Globals.RenderFileEAR)
+            {
+                foreach (Object3D item in DataBase.NodeEAR.Nodes)
+                {
+                    RenderPosTriggerZoneBoxSubPart(item, DataBase.NodeEAR.MethodsForGL, Globals.GL_ColorEAR);
+                }
+            }
+
+            if (Globals.RenderFileQuadCustom)
+            {
+                foreach (Object3D item in DataBase.NodeQuadCustom.Nodes)
+                {
+                    ushort ID = item.ObjLineRef;
+
+                    Vector4 mColor = Globals.GL_ColorQuadCustom;
+
+                    if (Globals.UseMoreQuadCustomColors)
+                    {
+                        mColor = DataBase.NodeQuadCustom.MethodsForGL.GetCustomColor(ID);
+                    }
+
+                    RenderPosTriggerZoneBoxSubPart(item, DataBase.NodeQuadCustom.MethodsForGL, mColor);
                 }
             }
         }
 
-        private static void RenderPosTriggerZoneBoxSubPart(Object3D item, SpecialMethodsForGL MethodsForGL)
+        private static void RenderPosTriggerZoneBoxSubPartSpecial(Object3D item, SpecialMethodsForGL MethodsForGL, Vector4 frontColor)
         {
-            Vector4 mColor = new Vector4(0, 0, 0, 0);
-
             ushort ID = item.ObjLineRef;
-            GroupType Group = item.Group;
-
-            if (Group == GroupType.ITA)
-            {
-                mColor = Globals.GL_ColorITA;
-            }
-            else if (Group == GroupType.AEV)
-            {
-                mColor = Globals.GL_ColorAEV;
-            }
-
-            if (Globals.UseMoreSpecialColors)
-            {
-                mColor = ReturnMoreSpecialColor(MethodsForGL.GetSpecialType(ID), mColor);
-            }
-
+         
             if (MethodsForGL.GetSpecialType(ID) != SpecialType.T03_Items && Globals.RenderSpecialTriggerZone)
             {
-                if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode())) { mColor = Globals.GL_ColorSelected; }
-                mColor.W = 0.1f;
+                if (Globals.UseMoreSpecialColors)
+                {
+                    frontColor = ReturnMoreSpecialColor(MethodsForGL.GetSpecialType(ID), frontColor);
+                }
 
-                if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category01)
-                {
-                    RenderAppModel.TriggerZoneBoxTransparentSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), mColor);
-                }
-                else if (MethodsForGL.GetZoneCategory(ID) == SpecialZoneCategory.Category02)
-                {
-                    RenderAppModel.TriggerZoneCircleTransparentSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), mColor);
-                }
+                RenderPosTriggerZoneBoxSubPart(item, MethodsForGL, frontColor);
             }
+        }
+
+        private static void RenderPosTriggerZoneBoxSubPart(Object3D item, BaseTriggerZoneMethodsForGL MethodsForGL, Vector4 frontColor)
+        {
+            ushort ID = item.ObjLineRef;
+
+            if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode())) { frontColor = Globals.GL_ColorSelected; }
+            frontColor.W = TriggerZoneTransparentLevel;
+
+            Vector4 backColor = TriggerZoneGetBackColor(frontColor);
+
+            TriggerZoneTransparentSolid(ID, MethodsForGL, frontColor, backColor);
         }
 
 
@@ -1017,7 +1242,7 @@ namespace NewAgeTheRender
                 case SpecialType.T08_TypeWriter: return Globals.GL_MoreColor_T08_TypeWriter;
                 case SpecialType.T0A_DamagesThePlayer: return Globals.GL_MoreColor_T0A_DamagesThePlayer;
                 case SpecialType.T0B_FalseCollision: return Globals.GL_MoreColor_T0B_FalseCollision;
-                case SpecialType.T0D_Unknown: return Globals.GL_MoreColor_T0D_Unknown;
+                case SpecialType.T0D_FieldInfo: return Globals.GL_MoreColor_T0D_FieldInfo;
                 case SpecialType.T0E_Crouch: return Globals.GL_MoreColor_T0E_Crouch;
                 case SpecialType.T10_FixedLadderClimbUp: return Globals.GL_MoreColor_T10_FixedLadderClimbUp;
                 case SpecialType.T11_ItemDependentEvents: return Globals.GL_MoreColor_T11_ItemDependentEvents;
@@ -1028,6 +1253,158 @@ namespace NewAgeTheRender
             }
             return color;
         }
+
+        private static void RenderFileFSE_TriggerZone(RenderMode mode) 
+        {
+            if (Globals.RenderFileFSE)
+            {
+                foreach (TreeNode item in DataBase.NodeFSE.Nodes)
+                {
+                    Vector4 mColor = Globals.GL_ColorFSE;
+                    ushort ID = ((Object3D)item).ObjLineRef;
+
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                    {
+                        mColor = Globals.GL_ColorSelected;
+                    }
+
+                    Render_Any_TriggerZone(ID, GroupType.FSE, DataBase.NodeFSE.MethodsForGL, mode, mColor);
+                }
+            }
+
+        }
+
+        private static void RenderFileSAR_TriggerZone(RenderMode mode)
+        {
+            if (Globals.RenderFileSAR)
+            {
+                foreach (TreeNode item in DataBase.NodeSAR.Nodes)
+                {
+                    Vector4 mColor = Globals.GL_ColorSAR;
+                    ushort ID = ((Object3D)item).ObjLineRef;
+
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                    {
+                        mColor = Globals.GL_ColorSelected;
+                    }
+
+                    Render_Any_TriggerZone(ID, GroupType.SAR, DataBase.NodeSAR.MethodsForGL, mode, mColor);
+                }
+            }
+
+        }
+
+        private static void RenderFileEAR_TriggerZone(RenderMode mode)
+        {
+            if (Globals.RenderFileEAR)
+            {
+                foreach (TreeNode item in DataBase.NodeEAR.Nodes)
+                {
+                    Vector4 mColor = Globals.GL_ColorEAR;
+                    ushort ID = ((Object3D)item).ObjLineRef;
+
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                    {
+                        mColor = Globals.GL_ColorSelected;
+                    }
+
+                    Render_Any_TriggerZone(ID, GroupType.EAR, DataBase.NodeEAR.MethodsForGL, mode, mColor);
+                }
+            }
+
+        }
+
+        private static void RenderFileQuadCustom_TriggerZone(RenderMode mode)
+        {
+            if (Globals.RenderFileQuadCustom)
+            {
+                foreach (TreeNode item in DataBase.NodeQuadCustom.Nodes)
+                {
+                    ushort ID = ((Object3D)item).ObjLineRef;
+
+                    Vector4 mColor = Globals.GL_ColorQuadCustom;
+
+                    if (mode == RenderMode.BoxMode && Globals.UseMoreQuadCustomColors)
+                    {
+                        mColor = DataBase.NodeQuadCustom.MethodsForGL.GetCustomColor(ID);
+                    }
+
+                    if (mode == RenderMode.BoxMode && DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                    {
+                        mColor = Globals.GL_ColorSelected;
+                    }
+
+                    Render_Any_TriggerZone(ID, GroupType.QUAD_CUSTOM, DataBase.NodeQuadCustom.MethodsForGL, mode, mColor);
+                }
+            }
+
+        }
+
+
+        private static void Render_Any_TriggerZone(ushort ID, GroupType groupType, BaseTriggerZoneMethodsForGL MethodsForGL, RenderMode mode, Vector4 mColor) 
+        {
+            byte[] partColor = BitConverter.GetBytes(ID);
+            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)groupType / 255f, 1f);
+
+            if (mode == RenderMode.BoxMode)
+            {
+                RenderTriggerZoneViewer(ID, MethodsForGL, mColor);
+            }
+            else if (mode == RenderMode.SelectMode)
+            {
+                RenderTriggerZoneSolid(ID, MethodsForGL, useColor);
+            }
+        }
+
+
+        // triggerZone
+        private static void RenderTriggerZoneViewer(ushort ID, BaseTriggerZoneMethodsForGL MethodsForGL, Vector4 color) 
+        {
+            if (MethodsForGL.GetZoneCategory(ID) == TriggerZoneCategory.Category01)
+            {
+                RenderAppModel.TriggerZoneBoxViewer(MethodsForGL.GetTriggerZoneMatrix4(ID), color);
+            }
+            else if (MethodsForGL.GetZoneCategory(ID) == TriggerZoneCategory.Category02)
+            {
+                RenderAppModel.TriggerZoneCircleViewer(MethodsForGL.GetTriggerZoneMatrix4(ID), color);
+            }
+        }
+
+        private static void RenderTriggerZoneSolid(ushort ID, BaseTriggerZoneMethodsForGL MethodsForGL, Vector4 useColor) 
+        {
+            if (MethodsForGL.GetZoneCategory(ID) == TriggerZoneCategory.Category01)
+            {
+                RenderAppModel.TriggerZoneBoxSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), useColor);
+            }
+            else if (MethodsForGL.GetZoneCategory(ID) == TriggerZoneCategory.Category02)
+            {
+                RenderAppModel.TriggerZoneCircleSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), useColor);
+            }
+        }
+
+        private static void TriggerZoneTransparentSolid(ushort ID, BaseTriggerZoneMethodsForGL MethodsForGL, Vector4 frontColor, Vector4 backColor)
+        {
+            if (MethodsForGL.GetZoneCategory(ID) == TriggerZoneCategory.Category01)
+            {
+                RenderAppModel.TriggerZoneBoxTransparentSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), frontColor, backColor);
+            }
+            else if (MethodsForGL.GetZoneCategory(ID) == TriggerZoneCategory.Category02)
+            {
+                RenderAppModel.TriggerZoneCircleTransparentSolid(MethodsForGL.GetTriggerZoneMatrix4(ID), frontColor, backColor);
+            }
+        }
+
+        private static Vector4 TriggerZoneGetBackColor(Vector4 frontColor) 
+        {
+            Vector4 backColor = new Vector4(frontColor.X - 0.4f, frontColor.Y - 0.4f, frontColor.Z - 0.4f, 0.4f);
+            backColor.X = backColor.X < 0 ? 0 : backColor.X;
+            backColor.Y = backColor.Y < 0 ? 0 : backColor.Y;
+            backColor.Z = backColor.Z < 0 ? 0 : backColor.Z;
+            return backColor;
+        }
+
+        private const float TriggerZoneTransparentLevel = 0.2f;
+
 
         private enum RenderMode : byte
         {

@@ -11,6 +11,6 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         AcceptsCommaAndPeriod_OutputPeriod = 0,
         AcceptsCommaAndPeriod_OutputComma = 1,
         OnlyAcceptComma = 2,
-        OnlyAcceptPeriod = 3,
+        OnlyAcceptPeriod = 3
     }
 }

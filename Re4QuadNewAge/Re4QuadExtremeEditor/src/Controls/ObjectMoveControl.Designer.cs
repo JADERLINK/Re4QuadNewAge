@@ -30,7 +30,12 @@ namespace Re4QuadExtremeEditor.src.Controls
         private void InitializeComponent()
         {
             this.panelMoveObject = new System.Windows.Forms.Panel();
+            this.moveObjSquare = new System.Windows.Forms.PictureBox();
+            this.moveObjVertical = new System.Windows.Forms.PictureBox();
             this.panelHorizontalObject = new System.Windows.Forms.Panel();
+            this.moveObjHorizontal3 = new System.Windows.Forms.PictureBox();
+            this.moveObjHorizontal2 = new System.Windows.Forms.PictureBox();
+            this.moveObjHorizontal1 = new System.Windows.Forms.PictureBox();
             this.labelObjSpeed = new System.Windows.Forms.Label();
             this.trackBarMoveSpeed = new System.Windows.Forms.TrackBar();
             this.comboBoxMoveMode = new System.Windows.Forms.ComboBox();
@@ -38,20 +43,16 @@ namespace Re4QuadExtremeEditor.src.Controls
             this.checkBoxMoveRelativeCam = new System.Windows.Forms.CheckBox();
             this.checkBoxLockMoveSquareHorizontal = new System.Windows.Forms.CheckBox();
             this.checkBoxLockMoveSquareVertical = new System.Windows.Forms.CheckBox();
-            this.checkBoxKeepOnGround = new System.Windows.Forms.CheckBox();
-            this.moveObjHorizontal3 = new System.Windows.Forms.PictureBox();
-            this.moveObjHorizontal2 = new System.Windows.Forms.PictureBox();
-            this.moveObjHorizontal1 = new System.Windows.Forms.PictureBox();
-            this.moveObjSquare = new System.Windows.Forms.PictureBox();
-            this.moveObjVertical = new System.Windows.Forms.PictureBox();
+            this.checkBoxObjKeepOnGround = new System.Windows.Forms.CheckBox();
+            this.checkBoxTriggerZoneKeepOnGround = new System.Windows.Forms.CheckBox();
             this.panelMoveObject.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.moveObjSquare)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moveObjVertical)).BeginInit();
             this.panelHorizontalObject.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMoveSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moveObjHorizontal3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moveObjHorizontal2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moveObjHorizontal1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.moveObjSquare)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.moveObjVertical)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMoveSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMoveObject
@@ -64,6 +65,35 @@ namespace Re4QuadExtremeEditor.src.Controls
             this.panelMoveObject.Size = new System.Drawing.Size(120, 98);
             this.panelMoveObject.TabIndex = 0;
             // 
+            // moveObjSquare
+            // 
+            this.moveObjSquare.BackgroundImage = global::Re4QuadExtremeEditor.Properties.Resources.SquareDisable;
+            this.moveObjSquare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.moveObjSquare.Location = new System.Drawing.Point(3, 3);
+            this.moveObjSquare.Name = "moveObjSquare";
+            this.moveObjSquare.Size = new System.Drawing.Size(96, 96);
+            this.moveObjSquare.TabIndex = 2;
+            this.moveObjSquare.TabStop = false;
+            this.moveObjSquare.MouseDown += new System.Windows.Forms.MouseEventHandler(this.moveObjSquare_MouseDown);
+            this.moveObjSquare.MouseLeave += new System.EventHandler(this.moveObjSquare_MouseLeave);
+            this.moveObjSquare.MouseMove += new System.Windows.Forms.MouseEventHandler(this.moveObjSquare_MouseMove);
+            this.moveObjSquare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moveObjSquare_MouseUp);
+            // 
+            // moveObjVertical
+            // 
+            this.moveObjVertical.BackgroundImage = global::Re4QuadExtremeEditor.Properties.Resources.VerticalDisable;
+            this.moveObjVertical.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.moveObjVertical.Location = new System.Drawing.Point(100, 3);
+            this.moveObjVertical.MinimumSize = new System.Drawing.Size(0, 10);
+            this.moveObjVertical.Name = "moveObjVertical";
+            this.moveObjVertical.Size = new System.Drawing.Size(20, 96);
+            this.moveObjVertical.TabIndex = 3;
+            this.moveObjVertical.TabStop = false;
+            this.moveObjVertical.MouseDown += new System.Windows.Forms.MouseEventHandler(this.moveObjVertical_MouseDown);
+            this.moveObjVertical.MouseLeave += new System.EventHandler(this.moveObjVertical_MouseLeave);
+            this.moveObjVertical.MouseMove += new System.Windows.Forms.MouseEventHandler(this.moveObjVertical_MouseMove);
+            this.moveObjVertical.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moveObjVertical_MouseUp);
+            // 
             // panelHorizontalObject
             // 
             this.panelHorizontalObject.Controls.Add(this.moveObjHorizontal3);
@@ -74,106 +104,6 @@ namespace Re4QuadExtremeEditor.src.Controls
             this.panelHorizontalObject.Name = "panelHorizontalObject";
             this.panelHorizontalObject.Size = new System.Drawing.Size(110, 70);
             this.panelHorizontalObject.TabIndex = 1;
-            // 
-            // labelObjSpeed
-            // 
-            this.labelObjSpeed.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelObjSpeed.Location = new System.Drawing.Point(239, 27);
-            this.labelObjSpeed.Name = "labelObjSpeed";
-            this.labelObjSpeed.Size = new System.Drawing.Size(155, 14);
-            this.labelObjSpeed.TabIndex = 3;
-            this.labelObjSpeed.Text = "Move speed: 100%";
-            this.labelObjSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // trackBarMoveSpeed
-            // 
-            this.trackBarMoveSpeed.LargeChange = 10;
-            this.trackBarMoveSpeed.Location = new System.Drawing.Point(233, 1);
-            this.trackBarMoveSpeed.Maximum = 100;
-            this.trackBarMoveSpeed.Name = "trackBarMoveSpeed";
-            this.trackBarMoveSpeed.Size = new System.Drawing.Size(165, 45);
-            this.trackBarMoveSpeed.SmallChange = 5;
-            this.trackBarMoveSpeed.TabIndex = 2;
-            this.trackBarMoveSpeed.TabStop = false;
-            this.trackBarMoveSpeed.TickFrequency = 10;
-            this.trackBarMoveSpeed.Value = 50;
-            this.trackBarMoveSpeed.Scroll += new System.EventHandler(this.trackBarMoveSpeed_Scroll);
-            // 
-            // comboBoxMoveMode
-            // 
-            this.comboBoxMoveMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMoveMode.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Bold);
-            this.comboBoxMoveMode.FormattingEnabled = true;
-            this.comboBoxMoveMode.Location = new System.Drawing.Point(3, 102);
-            this.comboBoxMoveMode.Name = "comboBoxMoveMode";
-            this.comboBoxMoveMode.Size = new System.Drawing.Size(424, 22);
-            this.comboBoxMoveMode.TabIndex = 9;
-            this.comboBoxMoveMode.TabStop = false;
-            this.comboBoxMoveMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxMoveMode_SelectedIndexChanged);
-            // 
-            // buttonDropToGround
-            // 
-            this.buttonDropToGround.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDropToGround.Location = new System.Drawing.Point(123, 73);
-            this.buttonDropToGround.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonDropToGround.Name = "buttonDropToGround";
-            this.buttonDropToGround.Size = new System.Drawing.Size(108, 24);
-            this.buttonDropToGround.TabIndex = 8;
-            this.buttonDropToGround.TabStop = false;
-            this.buttonDropToGround.Text = "Drop to ground";
-            this.buttonDropToGround.Click += new System.EventHandler(this.buttonDropToGround_Click);
-            // 
-            // checkBoxMoveRelativeCam
-            // 
-            this.checkBoxMoveRelativeCam.AutoSize = true;
-            this.checkBoxMoveRelativeCam.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
-            this.checkBoxMoveRelativeCam.Location = new System.Drawing.Point(235, 71);
-            this.checkBoxMoveRelativeCam.Name = "checkBoxMoveRelativeCam";
-            this.checkBoxMoveRelativeCam.Size = new System.Drawing.Size(141, 17);
-            this.checkBoxMoveRelativeCam.TabIndex = 6;
-            this.checkBoxMoveRelativeCam.TabStop = false;
-            this.checkBoxMoveRelativeCam.Text = "Move relative to camera";
-            this.checkBoxMoveRelativeCam.UseVisualStyleBackColor = true;
-            this.checkBoxMoveRelativeCam.CheckedChanged += new System.EventHandler(this.checkBoxMoveRelativeCam_CheckedChanged);
-            // 
-            // checkBoxLockMoveSquareHorizontal
-            // 
-            this.checkBoxLockMoveSquareHorizontal.AutoSize = true;
-            this.checkBoxLockMoveSquareHorizontal.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
-            this.checkBoxLockMoveSquareHorizontal.Location = new System.Drawing.Point(235, 43);
-            this.checkBoxLockMoveSquareHorizontal.Name = "checkBoxLockMoveSquareHorizontal";
-            this.checkBoxLockMoveSquareHorizontal.Size = new System.Drawing.Size(163, 17);
-            this.checkBoxLockMoveSquareHorizontal.TabIndex = 4;
-            this.checkBoxLockMoveSquareHorizontal.TabStop = false;
-            this.checkBoxLockMoveSquareHorizontal.Text = "Lock move square horizontal";
-            this.checkBoxLockMoveSquareHorizontal.UseVisualStyleBackColor = true;
-            this.checkBoxLockMoveSquareHorizontal.CheckedChanged += new System.EventHandler(this.checkBoxLockMoveSquareHorizontal_CheckedChanged);
-            // 
-            // checkBoxLockMoveSquareVertical
-            // 
-            this.checkBoxLockMoveSquareVertical.AutoSize = true;
-            this.checkBoxLockMoveSquareVertical.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
-            this.checkBoxLockMoveSquareVertical.Location = new System.Drawing.Point(235, 57);
-            this.checkBoxLockMoveSquareVertical.Name = "checkBoxLockMoveSquareVertical";
-            this.checkBoxLockMoveSquareVertical.Size = new System.Drawing.Size(150, 17);
-            this.checkBoxLockMoveSquareVertical.TabIndex = 5;
-            this.checkBoxLockMoveSquareVertical.TabStop = false;
-            this.checkBoxLockMoveSquareVertical.Text = "Lock move square vertical";
-            this.checkBoxLockMoveSquareVertical.UseVisualStyleBackColor = true;
-            this.checkBoxLockMoveSquareVertical.CheckedChanged += new System.EventHandler(this.checkBoxLockMoveSquareVertical_CheckedChanged);
-            // 
-            // checkBoxKeepOnGround
-            // 
-            this.checkBoxKeepOnGround.AutoSize = true;
-            this.checkBoxKeepOnGround.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
-            this.checkBoxKeepOnGround.Location = new System.Drawing.Point(235, 85);
-            this.checkBoxKeepOnGround.Name = "checkBoxKeepOnGround";
-            this.checkBoxKeepOnGround.Size = new System.Drawing.Size(101, 17);
-            this.checkBoxKeepOnGround.TabIndex = 7;
-            this.checkBoxKeepOnGround.TabStop = false;
-            this.checkBoxKeepOnGround.Text = "Keep on ground";
-            this.checkBoxKeepOnGround.UseVisualStyleBackColor = true;
-            this.checkBoxKeepOnGround.CheckedChanged += new System.EventHandler(this.checkBoxKeepOnGround_CheckedChanged);
             // 
             // moveObjHorizontal3
             // 
@@ -220,41 +150,127 @@ namespace Re4QuadExtremeEditor.src.Controls
             this.moveObjHorizontal1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.moveObjHorizontal1_MouseMove);
             this.moveObjHorizontal1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moveObjHorizontal1_MouseUp);
             // 
-            // moveObjSquare
+            // labelObjSpeed
             // 
-            this.moveObjSquare.BackgroundImage = global::Re4QuadExtremeEditor.Properties.Resources.SquareDisable;
-            this.moveObjSquare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.moveObjSquare.Location = new System.Drawing.Point(3, 3);
-            this.moveObjSquare.Name = "moveObjSquare";
-            this.moveObjSquare.Size = new System.Drawing.Size(96, 96);
-            this.moveObjSquare.TabIndex = 2;
-            this.moveObjSquare.TabStop = false;
-            this.moveObjSquare.MouseDown += new System.Windows.Forms.MouseEventHandler(this.moveObjSquare_MouseDown);
-            this.moveObjSquare.MouseLeave += new System.EventHandler(this.moveObjSquare_MouseLeave);
-            this.moveObjSquare.MouseMove += new System.Windows.Forms.MouseEventHandler(this.moveObjSquare_MouseMove);
-            this.moveObjSquare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moveObjSquare_MouseUp);
+            this.labelObjSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.labelObjSpeed.Font = new System.Drawing.Font("Courier New", 8F);
+            this.labelObjSpeed.Location = new System.Drawing.Point(239, 17);
+            this.labelObjSpeed.Name = "labelObjSpeed";
+            this.labelObjSpeed.Size = new System.Drawing.Size(155, 14);
+            this.labelObjSpeed.TabIndex = 3;
+            this.labelObjSpeed.Text = "Move speed: 100%";
+            this.labelObjSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // moveObjVertical
+            // trackBarMoveSpeed
             // 
-            this.moveObjVertical.BackgroundImage = global::Re4QuadExtremeEditor.Properties.Resources.VerticalDisable;
-            this.moveObjVertical.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.moveObjVertical.Location = new System.Drawing.Point(100, 3);
-            this.moveObjVertical.MinimumSize = new System.Drawing.Size(0, 10);
-            this.moveObjVertical.Name = "moveObjVertical";
-            this.moveObjVertical.Size = new System.Drawing.Size(20, 96);
-            this.moveObjVertical.TabIndex = 3;
-            this.moveObjVertical.TabStop = false;
-            this.moveObjVertical.MouseDown += new System.Windows.Forms.MouseEventHandler(this.moveObjVertical_MouseDown);
-            this.moveObjVertical.MouseLeave += new System.EventHandler(this.moveObjVertical_MouseLeave);
-            this.moveObjVertical.MouseMove += new System.Windows.Forms.MouseEventHandler(this.moveObjVertical_MouseMove);
-            this.moveObjVertical.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moveObjVertical_MouseUp);
+            this.trackBarMoveSpeed.LargeChange = 10;
+            this.trackBarMoveSpeed.Location = new System.Drawing.Point(233, -4);
+            this.trackBarMoveSpeed.Maximum = 100;
+            this.trackBarMoveSpeed.Name = "trackBarMoveSpeed";
+            this.trackBarMoveSpeed.Size = new System.Drawing.Size(165, 45);
+            this.trackBarMoveSpeed.SmallChange = 5;
+            this.trackBarMoveSpeed.TabIndex = 2;
+            this.trackBarMoveSpeed.TabStop = false;
+            this.trackBarMoveSpeed.TickFrequency = 10;
+            this.trackBarMoveSpeed.Value = 50;
+            this.trackBarMoveSpeed.Scroll += new System.EventHandler(this.trackBarMoveSpeed_Scroll);
+            // 
+            // comboBoxMoveMode
+            // 
+            this.comboBoxMoveMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMoveMode.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Bold);
+            this.comboBoxMoveMode.FormattingEnabled = true;
+            this.comboBoxMoveMode.Location = new System.Drawing.Point(3, 102);
+            this.comboBoxMoveMode.Name = "comboBoxMoveMode";
+            this.comboBoxMoveMode.Size = new System.Drawing.Size(424, 22);
+            this.comboBoxMoveMode.TabIndex = 9;
+            this.comboBoxMoveMode.TabStop = false;
+            this.comboBoxMoveMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxMoveMode_SelectedIndexChanged);
+            // 
+            // buttonDropToGround
+            // 
+            this.buttonDropToGround.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDropToGround.Location = new System.Drawing.Point(123, 73);
+            this.buttonDropToGround.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonDropToGround.Name = "buttonDropToGround";
+            this.buttonDropToGround.Size = new System.Drawing.Size(108, 24);
+            this.buttonDropToGround.TabIndex = 8;
+            this.buttonDropToGround.TabStop = false;
+            this.buttonDropToGround.Text = "Drop to ground";
+            this.buttonDropToGround.Click += new System.EventHandler(this.buttonDropToGround_Click);
+            // 
+            // checkBoxMoveRelativeCam
+            // 
+            this.checkBoxMoveRelativeCam.AutoSize = true;
+            this.checkBoxMoveRelativeCam.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxMoveRelativeCam.Location = new System.Drawing.Point(235, 58);
+            this.checkBoxMoveRelativeCam.Name = "checkBoxMoveRelativeCam";
+            this.checkBoxMoveRelativeCam.Size = new System.Drawing.Size(141, 17);
+            this.checkBoxMoveRelativeCam.TabIndex = 6;
+            this.checkBoxMoveRelativeCam.TabStop = false;
+            this.checkBoxMoveRelativeCam.Text = "Move relative to camera";
+            this.checkBoxMoveRelativeCam.UseVisualStyleBackColor = true;
+            this.checkBoxMoveRelativeCam.CheckedChanged += new System.EventHandler(this.checkBoxMoveRelativeCam_CheckedChanged);
+            // 
+            // checkBoxLockMoveSquareHorizontal
+            // 
+            this.checkBoxLockMoveSquareHorizontal.AutoSize = true;
+            this.checkBoxLockMoveSquareHorizontal.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxLockMoveSquareHorizontal.Location = new System.Drawing.Point(235, 30);
+            this.checkBoxLockMoveSquareHorizontal.Name = "checkBoxLockMoveSquareHorizontal";
+            this.checkBoxLockMoveSquareHorizontal.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxLockMoveSquareHorizontal.TabIndex = 4;
+            this.checkBoxLockMoveSquareHorizontal.TabStop = false;
+            this.checkBoxLockMoveSquareHorizontal.Text = "Lock move square horizontal";
+            this.checkBoxLockMoveSquareHorizontal.UseVisualStyleBackColor = true;
+            this.checkBoxLockMoveSquareHorizontal.CheckedChanged += new System.EventHandler(this.checkBoxLockMoveSquareHorizontal_CheckedChanged);
+            // 
+            // checkBoxLockMoveSquareVertical
+            // 
+            this.checkBoxLockMoveSquareVertical.AutoSize = true;
+            this.checkBoxLockMoveSquareVertical.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxLockMoveSquareVertical.Location = new System.Drawing.Point(235, 44);
+            this.checkBoxLockMoveSquareVertical.Name = "checkBoxLockMoveSquareVertical";
+            this.checkBoxLockMoveSquareVertical.Size = new System.Drawing.Size(150, 17);
+            this.checkBoxLockMoveSquareVertical.TabIndex = 5;
+            this.checkBoxLockMoveSquareVertical.TabStop = false;
+            this.checkBoxLockMoveSquareVertical.Text = "Lock move square vertical";
+            this.checkBoxLockMoveSquareVertical.UseVisualStyleBackColor = true;
+            this.checkBoxLockMoveSquareVertical.CheckedChanged += new System.EventHandler(this.checkBoxLockMoveSquareVertical_CheckedChanged);
+            // 
+            // checkBoxObjKeepOnGround
+            // 
+            this.checkBoxObjKeepOnGround.AutoSize = true;
+            this.checkBoxObjKeepOnGround.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxObjKeepOnGround.Location = new System.Drawing.Point(235, 72);
+            this.checkBoxObjKeepOnGround.Name = "checkBoxObjKeepOnGround";
+            this.checkBoxObjKeepOnGround.Size = new System.Drawing.Size(119, 17);
+            this.checkBoxObjKeepOnGround.TabIndex = 7;
+            this.checkBoxObjKeepOnGround.TabStop = false;
+            this.checkBoxObjKeepOnGround.Text = "Obj keep on ground";
+            this.checkBoxObjKeepOnGround.UseVisualStyleBackColor = true;
+            this.checkBoxObjKeepOnGround.CheckedChanged += new System.EventHandler(this.checkBoxKeepOnGround_CheckedChanged);
+            // 
+            // checkBoxTriggerZoneKeepOnGround
+            // 
+            this.checkBoxTriggerZoneKeepOnGround.AutoSize = true;
+            this.checkBoxTriggerZoneKeepOnGround.Font = new System.Drawing.Font("Corbel", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxTriggerZoneKeepOnGround.Location = new System.Drawing.Point(235, 86);
+            this.checkBoxTriggerZoneKeepOnGround.Name = "checkBoxTriggerZoneKeepOnGround";
+            this.checkBoxTriggerZoneKeepOnGround.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxTriggerZoneKeepOnGround.TabIndex = 10;
+            this.checkBoxTriggerZoneKeepOnGround.TabStop = false;
+            this.checkBoxTriggerZoneKeepOnGround.Text = "TriggerZone keep on group";
+            this.checkBoxTriggerZoneKeepOnGround.UseVisualStyleBackColor = true;
+            this.checkBoxTriggerZoneKeepOnGround.CheckedChanged += new System.EventHandler(this.checkBoxTriggerZoneKeepOnGround_CheckedChanged);
             // 
             // ObjectMoveControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.comboBoxMoveMode);
-            this.Controls.Add(this.checkBoxKeepOnGround);
+            this.Controls.Add(this.checkBoxTriggerZoneKeepOnGround);
+            this.Controls.Add(this.checkBoxObjKeepOnGround);
             this.Controls.Add(this.checkBoxMoveRelativeCam);
             this.Controls.Add(this.checkBoxLockMoveSquareVertical);
             this.Controls.Add(this.checkBoxLockMoveSquareHorizontal);
@@ -267,13 +283,13 @@ namespace Re4QuadExtremeEditor.src.Controls
             this.Size = new System.Drawing.Size(430, 126);
             this.Resize += new System.EventHandler(this.ObjectMoveControl_Resize);
             this.panelMoveObject.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.moveObjSquare)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.moveObjVertical)).EndInit();
             this.panelHorizontalObject.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMoveSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.moveObjHorizontal3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.moveObjHorizontal2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.moveObjHorizontal1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.moveObjSquare)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.moveObjVertical)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMoveSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,6 +311,7 @@ namespace Re4QuadExtremeEditor.src.Controls
         private System.Windows.Forms.CheckBox checkBoxMoveRelativeCam;
         private System.Windows.Forms.CheckBox checkBoxLockMoveSquareHorizontal;
         private System.Windows.Forms.CheckBox checkBoxLockMoveSquareVertical;
-        private System.Windows.Forms.CheckBox checkBoxKeepOnGround;
+        private System.Windows.Forms.CheckBox checkBoxObjKeepOnGround;
+        private System.Windows.Forms.CheckBox checkBoxTriggerZoneKeepOnGround;
     }
 }

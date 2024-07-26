@@ -129,11 +129,15 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomUITypeEditor
 			_listBox.Height = _listBox.PreferredHeight;
 			_listBox.Width = 150;
 
-			if (_listBox.PreferredHeight > (35 * _listBox.ItemHeight))
+			if (ListBox.HorizontalScrollbar && _listBox.Height < (2 * _listBox.ItemHeight) + 26)
 			{
-				_listBox.Height = (35 * _listBox.ItemHeight) - 7;
+				_listBox.Height = (2 * _listBox.ItemHeight) + 26;
 			}
 
+			if (_listBox.PreferredHeight > (35 * _listBox.ItemHeight))
+			{
+				_listBox.Height = (35 * _listBox.ItemHeight);
+			}
 		}
 
 

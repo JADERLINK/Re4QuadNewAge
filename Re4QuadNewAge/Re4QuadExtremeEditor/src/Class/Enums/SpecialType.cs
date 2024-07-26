@@ -23,7 +23,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         T0A_DamagesThePlayer = 0x0A,
         T0B_FalseCollision = 0x0B,
         T0C_Unused = 0x0C,
-        T0D_Unknown = 0x0D,
+        T0D_FieldInfo = 0x0D,
         T0E_Crouch = 0x0E,
         T0F_Unused = 0x0F,
         T10_FixedLadderClimbUp = 0x10,

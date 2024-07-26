@@ -11,7 +11,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
     /// <summary>
     /// Classe que representa os arquivos .ITA (Items) e .AEV (Eventos);
     /// </summary>
-    public class FileSpecialGroup
+    public class FileSpecialGroup : BaseTriggerZoneGroup
     {
         /// <summary>
         /// de qual versão do re4 que é o arquivo;
@@ -30,15 +30,15 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         /// </summary>
         public byte[] StartFile;
         /// <summary>
-        /// <para>aqui contem o conteudo de todos os "Speciais" do mapa;</para>
-        /// <para>id da linha, sequencia de 176 bytes (.ITA) para re4 classic;</para>
+        /// <para>aqui contem o conteudo de todos os "Speciais" do arquivo;</para>
+        /// <para>id da linha, sequencia de 176 bytes (.ITA) para re4 2007ps2;</para>
         /// <para>id da linha, sequencia de 156 bytes (.ITA) para re4 uhd;</para>
-        /// <para>id da linha, sequencia de 160 bytes (.AEV) para re4 classic;</para>
+        /// <para>id da linha, sequencia de 160 bytes (.AEV) para re4 2007ps2;</para>
         /// <para>id da linha, sequencia de 156 bytes (.AEV) para re4 uhd;</para>
         /// </summary>
-        public Dictionary<ushort, byte[]> Lines;
+        public Dictionary<ushort, byte[]> Lines { get; private set; }
         /// <summary>
-        /// aqui contem o resto to arquivo, a parte não usada;
+        /// aqui contem o resto do arquivo, a parte não usada;
         /// </summary>
         public byte[] EndFile;
         /// <summary>
@@ -47,16 +47,16 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         public ushort IdForNewLine = 0;
 
         /// <summary>
-        /// lista de FirtIndex offset[0x36]
+        /// lista de FirstIndex offset[0x36]
         /// <para>Specialindex, line</para>
         /// </summary>
-        public Dictionary<byte, List<ushort>> FirtIndexList;
+        private Dictionary<byte, List<ushort>> FirstIndexList;
 
         /// <summary>
         /// lista de SecundIndex, somente para o tipo item
         /// <para>SecundIndex, Line</para>
         /// </summary>
-        public Dictionary<ushort, List<ushort>> SecundIndexList;
+        private Dictionary<ushort, List<ushort>> SecundIndexList;
 
         public FileSpecialGroup(Re4Version version, SpecialFileFormat fileFormat)
         {
@@ -66,22 +66,19 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             Lines = new Dictionary<ushort, byte[]>();
             EndFile = new byte[0];
 
-            FirtIndexList = new Dictionary<byte, List<ushort>>();
+            FirstIndexList = new Dictionary<byte, List<ushort>>();
             SecundIndexList = new Dictionary<ushort, List<ushort>>();
 
             Methods = new SpecialMethods();
+            SetBaseMethods(Methods);
             Methods.ReturnRe4Version = ReturnRe4Version;
             Methods.GetSpecialFileFormat = GetSpecialFileFormatMethod;
 
             Methods.GetSpecialType = GetSpecialType;
-            Methods.GetSpecialZoneCategory = GetSpecialZoneCategory;
             Methods.GetRefInteractionType = GetRefInteractionType;
             
             Methods.ReturnLine = ReturnLine;
             Methods.SetLine = SetLine;
-
-            Methods.ReturnByteFromPosition = ReturnByteFromPosition;
-            Methods.SetByteFromPosition = SetByteFromPosition;
 
             Methods.ReturnSpecialType = ReturnSpecialType;
             Methods.SetSpecialType = SetSpecialType;
@@ -91,60 +88,8 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             #region PART1
             Methods.ReturnUnknown_GG = ReturnUnknown_GG;
             Methods.SetUnknown_GG = SetUnknown_GG;
-            Methods.ReturnUnknown_GH = ReturnUnknown_GH;
-            Methods.SetUnknown_GH = SetUnknown_GH;
-            Methods.ReturnCategoy = ReturnCategory;
-            Methods.SetCategoy = SetCategory;
-            Methods.ReturnUnknown_GK = ReturnUnknown_GK;
-            Methods.SetUnknown_GK = SetUnknown_GK;
-
-           
-            //TriggerZone
-            Methods.ReturnTriggerZoneCorner0_X = ReturnTriggerZoneCorner0_X;
-            Methods.ReturnTriggerZoneCorner0_Z = ReturnTriggerZoneCorner0_Z;
-            Methods.ReturnTriggerZoneCorner1_X = ReturnTriggerZoneCorner1_X;
-            Methods.ReturnTriggerZoneCorner1_Z = ReturnTriggerZoneCorner1_Z;
-            Methods.ReturnTriggerZoneCorner2_X = ReturnTriggerZoneCorner2_X;
-            Methods.ReturnTriggerZoneCorner2_Z = ReturnTriggerZoneCorner2_Z;
-            Methods.ReturnTriggerZoneCorner3_X = ReturnTriggerZoneCorner3_X;
-            Methods.ReturnTriggerZoneCorner3_Z = ReturnTriggerZoneCorner3_Z;
-            Methods.ReturnTriggerZoneTrueY = ReturnTriggerZoneTrueY;
-            Methods.ReturnTriggerZoneMoreHeight = ReturnTriggerZoneMoreHeight;
-            Methods.ReturnTriggerZoneCircleRadius = ReturnTriggerZoneCircleRadius;
-            Methods.ReturnTriggerZoneCorner0_X_Hex = ReturnTriggerZoneCorner0_X_Hex;
-            Methods.ReturnTriggerZoneCorner0_Z_Hex = ReturnTriggerZoneCorner0_Z_Hex;
-            Methods.ReturnTriggerZoneCorner1_X_Hex = ReturnTriggerZoneCorner1_X_Hex;
-            Methods.ReturnTriggerZoneCorner1_Z_Hex = ReturnTriggerZoneCorner1_Z_Hex;
-            Methods.ReturnTriggerZoneCorner2_X_Hex = ReturnTriggerZoneCorner2_X_Hex;
-            Methods.ReturnTriggerZoneCorner2_Z_Hex = ReturnTriggerZoneCorner2_Z_Hex;
-            Methods.ReturnTriggerZoneCorner3_X_Hex = ReturnTriggerZoneCorner3_X_Hex;
-            Methods.ReturnTriggerZoneCorner3_Z_Hex = ReturnTriggerZoneCorner3_Z_Hex;
-            Methods.ReturnTriggerZoneTrueY_Hex = ReturnTriggerZoneTrueY_Hex;
-            Methods.ReturnTriggerZoneMoreHeight_Hex = ReturnTriggerZoneMoreHeight_Hex;
-            Methods.ReturnTriggerZoneCircleRadius_Hex = ReturnTriggerZoneCircleRadius_Hex;
-            Methods.SetTriggerZoneCorner0_X = SetTriggerZoneCorner0_X;
-            Methods.SetTriggerZoneCorner0_Z = SetTriggerZoneCorner0_Z;
-            Methods.SetTriggerZoneCorner1_X = SetTriggerZoneCorner1_X;
-            Methods.SetTriggerZoneCorner1_Z = SetTriggerZoneCorner1_Z;
-            Methods.SetTriggerZoneCorner2_X = SetTriggerZoneCorner2_X;
-            Methods.SetTriggerZoneCorner2_Z = SetTriggerZoneCorner2_Z;
-            Methods.SetTriggerZoneCorner3_X = SetTriggerZoneCorner3_X;
-            Methods.SetTriggerZoneCorner3_Z = SetTriggerZoneCorner3_Z;
-            Methods.SetTriggerZoneTrueY = SetTriggerZoneTrueY;
-            Methods.SetTriggerZoneMoreHeight = SetTriggerZoneMoreHeight;
-            Methods.SetTriggerZoneCircleRadius = SetTriggerZoneCircleRadius;
-            Methods.SetTriggerZoneCorner0_X_Hex = SetTriggerZoneCorner0_X_Hex;
-            Methods.SetTriggerZoneCorner0_Z_Hex = SetTriggerZoneCorner0_Z_Hex;
-            Methods.SetTriggerZoneCorner1_X_Hex = SetTriggerZoneCorner1_X_Hex;
-            Methods.SetTriggerZoneCorner1_Z_Hex = SetTriggerZoneCorner1_Z_Hex;
-            Methods.SetTriggerZoneCorner2_X_Hex = SetTriggerZoneCorner2_X_Hex;
-            Methods.SetTriggerZoneCorner2_Z_Hex = SetTriggerZoneCorner2_Z_Hex;
-            Methods.SetTriggerZoneCorner3_X_Hex = SetTriggerZoneCorner3_X_Hex;
-            Methods.SetTriggerZoneCorner3_Z_Hex = SetTriggerZoneCorner3_Z_Hex;
-            Methods.SetTriggerZoneTrueY_Hex = SetTriggerZoneTrueY_Hex;
-            Methods.SetTriggerZoneMoreHeight_Hex = SetTriggerZoneMoreHeight_Hex;
-            Methods.SetTriggerZoneCircleRadius_Hex = SetTriggerZoneCircleRadius_Hex;
-
+          
+            // triggerZone entre esse campos
 
             Methods.ReturnUnknown_KG = ReturnUnknown_KG;
             Methods.SetUnknown_KG = SetUnknown_KG;
@@ -199,7 +144,6 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             Methods.ReturnUnknown_QU = ReturnUnknown_QU;
             Methods.SetUnknown_QU = SetUnknown_QU;
             #endregion
-
 
             #region part2 and itens
             // itens (ITA)
@@ -538,21 +482,18 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             MoveMethods.SetObjRotationAngles_ToMove = SetObjRotationAngles_ToMove;
             MoveMethods.GetObjScale_ToMove = Utils.GetObjScale_ToMove_Null;
             MoveMethods.SetObjScale_ToMove = Utils.SetObjScale_ToMove_Null;
+            MoveMethods.GetTriggerZoneCategory = GetSpecialZoneCategory;
 
             MethodsForGL = new SpecialMethodsForGL();
             MethodsForGL.GetSpecialType = GetSpecialType;
-            MethodsForGL.GetTriggerZoneMatrix4 = GetTriggerZoneMatrix4;
-            MethodsForGL.GetTriggerZone = GetTriggerZone;
-            MethodsForGL.GetCircleTriggerZone = GetCircleTriggerZone;
-            MethodsForGL.GetZoneCategory = GetSpecialZoneCategory;
             MethodsForGL.GetItemPosition = GetItemPosition;
             MethodsForGL.GetItemRotation = GetItemRotation;
             MethodsForGL.GetItemModelID = ReturnItemNumber;
             MethodsForGL.GetItemTrigggerRadius = GetItemTriggerRadiusToRender;
-
+           
             ExtrasMethodsForGL = new ExtrasMethodsForGL();
             ExtrasMethodsForGL.GetSpecialType = GetSpecialType;
-            ExtrasMethodsForGL.GetFirtPosition = GetFirtPosition;
+            ExtrasMethodsForGL.GetFirstPosition = GetFirstPosition;
             ExtrasMethodsForGL.GetWarpRotation = GetWarpRotation;
             ExtrasMethodsForGL.GetLocationAndLadderRotation = GetLocationAndLadderRotation;
             ExtrasMethodsForGL.GetLadderStepCount = ReturnLadderStepCount;
@@ -568,6 +509,8 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             ChangeAmountMethods.AddNewLineID = AddNewLineID;
             ChangeAmountMethods.RemoveLineID = RemoveLineID;
 
+            SetTriggerZoneMethods(Methods);
+            SetTriggerZoneMethodsForGL(MethodsForGL);
         }
 
 
@@ -607,7 +550,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private int FixOffset(int OffsetUHD)
         {
             int newOffset = OffsetUHD;
-            if (GetRe4Version == Re4Version.Classic && OffsetUHD >= 0x5C)
+            if (GetRe4Version == Re4Version.V2007PS2 && OffsetUHD >= 0x5C)
             {
                 newOffset += 0x4;
             }
@@ -618,7 +561,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private int ItemFixOffset(int OffsetUHD)
         {
             int newOffset = OffsetUHD;
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 if (OffsetUHD >= 0x5C)
                 {
@@ -636,7 +579,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private int LadderFixOffset(int OffsetUHD)
         {
             int newOffset = OffsetUHD;
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 if (OffsetUHD >= 0x5C)
                 {
@@ -658,7 +601,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private int AshleyFixOffset(int OffsetUHD)
         {
             int newOffset = OffsetUHD;
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 if (OffsetUHD >= 0x5C)
                 {
@@ -684,7 +627,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private int GrappleGunFixOffset(int OffsetUHD)
         {
             int newOffset = OffsetUHD;
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 if (OffsetUHD >= 0x5C)
                 {
@@ -714,12 +657,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // texto do treeNode
         public string GetNodeText(ushort ID)
         {
-
-            if (Globals.TreeNodeRenderHexValues)
+            if (Lines.ContainsKey(ID) && Globals.TreeNodeRenderHexValues)
             {
-                return BitConverter.ToString(Lines[ID]).Replace("-", "");
+                return BitConverter.ToString(Lines[ID]).Replace("-", "_");
             }
-            else
+            else if (Lines.ContainsKey(ID))
             {
                 string r = "[" + ReturnSpecialIndex(ID).ToString("X2") + "] ";
 
@@ -733,7 +675,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                         {
                             r += DataBase.ItemsIDs.List[itemId].Name;
                         }
-                        else 
+                        else
                         {
                             r += Lang.GetAttributeText(aLang.ListBoxUnknownItem);
                         }
@@ -745,7 +687,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                         {
                             r += "Default";
                         }
-                        else 
+                        else
                         {
                             r += amount;
                         }
@@ -779,7 +721,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                         r += "0x" + Lang.GetAttributeText(aLang.SpecialType04_GroupedEnemyTrigger) + " [" + ReturnUnknown_HK_Ushort(ID).ToString("X4") + "]";
                         break;
                     case SpecialType.T05_Message:
-                        r += "0x" + Lang.GetAttributeText(aLang.SpecialType05_Message) 
+                        r += "0x" + Lang.GetAttributeText(aLang.SpecialType05_Message)
                             + " [" + ReturnUnknown_HK_Ushort(ID).ToString("X4") + "] [" +
                             ReturnMessageCutSceneID(ID).ToString("X4") + "] [" +
                             ReturnMessageID(ID).ToString("X4") + "]";
@@ -791,14 +733,14 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                         r += "0x" + Lang.GetAttributeText(aLang.SpecialType0A_DamagesThePlayer) +
                           "; Activation Type: 0x" + ReturnActivationType(ID).ToString("X2") +
                           " Damage Type: 0x" + ReturnDamageType(ID).ToString("X2") +
-                          " Blocking Type: 0x" +ReturnBlockingType(ID).ToString("X2") +
+                          " Blocking Type: 0x" + ReturnBlockingType(ID).ToString("X2") +
                           " Damage Amount: " + ReturnDamageAmount(ID);
                         break;
                     case SpecialType.T0B_FalseCollision:
                         r += "0x" + Lang.GetAttributeText(aLang.SpecialType0B_FalseCollision);
                         break;
-                    case SpecialType.T0D_Unknown:
-                        r += "0x" + Lang.GetAttributeText(aLang.SpecialType0D_Unknown);
+                    case SpecialType.T0D_FieldInfo:
+                        r += "0x" + Lang.GetAttributeText(aLang.SpecialType0D_FieldInfo);
                         break;
                     case SpecialType.T0E_Crouch:
                         r += "0x" + Lang.GetAttributeText(aLang.SpecialType0E_Crouch);
@@ -861,7 +803,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 }
 
                 return r;
-            }              
+            }
+            else 
+            {
+                return "Special Error Internal Line ID " + ID;
+            }
         }
 
         public Color GetNodeColor(ushort ID)
@@ -874,14 +820,14 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return Globals.NodeColorHided;
             }
-            else if (!Globals.RenderSpecialTriggerZone && GetSpecialType(ID) != SpecialType.T03_Items)
+            else if (!Globals.RenderSpecialTriggerZone && Lines.ContainsKey(ID) && GetSpecialType(ID) != SpecialType.T03_Items)
             {
                 return Globals.NodeColorHided;
             }
-            return Color.Black;
+            return Globals.NodeColorEntry;
         }
 
-        private ushort AddNewLineID()
+        private ushort AddNewLineID(byte initType)
         {
             ushort newID = IdForNewLine;
             if (IdForNewLine == ushort.MaxValue)
@@ -897,9 +843,9 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             }
 
             byte newFirstIndex = 0;
-            if (FirtIndexList.Count > 0)
+            if (FirstIndexList.Count > 0)
             {
-                newFirstIndex = FirtIndexList.Max(o => o.Key);
+                newFirstIndex = FirstIndexList.Max(o => o.Key);
             }
             if (newFirstIndex != byte.MaxValue)
             {
@@ -918,7 +864,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             byte[] newSecundIndex_Bytes = BitConverter.GetBytes(newSecundIndex);
 
             byte[] content = null;
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 if (GetSpecialFileFormat == SpecialFileFormat.AEV)
                 {
@@ -927,9 +873,12 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 else if (GetSpecialFileFormat == SpecialFileFormat.ITA)
                 {
                     content = new byte[176];
+                }
 
-                    content[0x35] = 0x03; // type, item
+                content[0x35] = initType; //type
 
+                if (initType == 0x03)
+                {
                     content[0x6C] = 0x3F;
                     content[0x6D] = 0x80;
 
@@ -940,18 +889,32 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                     content[0x8B] = newSecundIndex_Bytes[1];
                     AddNewSecundIndexList(newID, newSecundIndex);
                 }
+                else if (initType == 0x10)
+                {
+                    content[0x6C] = 0x3F;
+                    content[0x6D] = 0x80;
+
+                    content[0x74] = 0x02; // tamanho
+                    content[0x76] = 0x01; // fixo
+                }
+                
             }
             else if (GetRe4Version == Re4Version.UHD)
             {
                 content = new byte[156];
 
-                if (GetSpecialFileFormat == SpecialFileFormat.ITA)
-                {
-                    content[0x35] = 0x03; // type, item
+                content[0x35] = initType; //type
 
+                if (initType == 0x03)
+                {
                     content[0x7E] = newSecundIndex_Bytes[0];
                     content[0x7F] = newSecundIndex_Bytes[1];
                     AddNewSecundIndexList(newID, newSecundIndex);
+                }
+                else if (initType == 0x10)
+                {
+                    content[0x6C] = 0x02; // tamanho
+                    content[0x6E] = 0x01; // fixo
                 }
             }
 
@@ -1028,7 +991,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 content[0x49] = 0x2D;
             }
 
-            AddNewFirtIndexList(newID, newFirstIndex);
+            AddNewFirstIndexList(newID, newFirstIndex);
             Lines.Add(newID, content);
             return newID;
         }
@@ -1036,7 +999,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void RemoveLineID(ushort ID)
         {
             DataBase.Extras.RefInteractionTypeListRemove(GetRefInteractionType(ID), ReturnRefInteractionIndex(ID), GetSpecialFileFormat, ID);
-            RemoveFirtIndexList(ID, ReturnSpecialIndex(ID));
+            RemoveFirstIndexList(ID, ReturnSpecialIndex(ID));
             if (GetSpecialType(ID) == SpecialType.T03_Items)
             {
                 RemoveSecundIndexList(ID, ReturnSecundIndex(ID));
@@ -1056,52 +1019,15 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             if (GetSpecialType(ID) == SpecialType.T03_Items)
             {
                 position = GetItemPosition(ID);
+                Utils.ToCameraCheckValue(ref position);
             }
             else
             {
-                var TriggerZone = GetTriggerZone(ID);
-                float Xmin = TriggerZone[0].X;
-                float Zmin = TriggerZone[0].Y;
-                float Xmax = TriggerZone[0].X;
-                float Zmax = TriggerZone[0].Y;
-                for (int i = 1; i <= 3; i++)
-                {
-                    if (TriggerZone[i].X < Xmin)
-                    {
-                        Xmin = TriggerZone[i].X;
-                    }
-                    if (TriggerZone[i].Y < Zmin)
-                    {
-                        Zmin = TriggerZone[i].Y;
-                    }
-                    if (TriggerZone[i].X > Xmax)
-                    {
-                        Xmax = TriggerZone[i].X;
-                    }
-                    if (TriggerZone[i].Y > Zmax)
-                    {
-                        Zmax = TriggerZone[i].Y;
-                    }
-                }
-
-                position.X = Xmin + ((Xmax - Xmin) / 2);
-                position.Z = Zmin + ((Zmax - Zmin) / 2);
-
-                float Ymin = TriggerZone[4].X;
-                float Ymax = TriggerZone[4].Y;
-                if (TriggerZone[4].Y < Ymin)
-                {
-                    Ymin = TriggerZone[4].Y;
-                    Ymax = TriggerZone[4].X;
-                }
-                position.Y = Ymin + ((Ymax - Ymin) / 2);
+                position = GetTriggerZonePos_ToCamera(ID);
             }
-            if (float.IsNaN(position.X) || float.IsInfinity(position.X)) { position.X = 0; }
-            if (float.IsNaN(position.Y) || float.IsInfinity(position.Y)) { position.Y = 0; }
-            if (float.IsNaN(position.Z) || float.IsInfinity(position.Z)) { position.Z = 0; }
+
             return position;
         }
-
 
         private float GetObjAngleY_ToCamera(ushort ID)
         {
@@ -1127,60 +1053,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 pos[0] = Vector3.Zero;
             }
 
-            pos[5] = new Vector3(ReturnTriggerZoneCircleRadius(ID), ReturnTriggerZoneTrueY(ID), ReturnTriggerZoneMoreHeight(ID));
-
-            SpecialZoneCategory category = GetSpecialZoneCategory(ID);
-
-            if (category == SpecialZoneCategory.Category01)
-            {
-                pos[1] = new Vector3(ReturnTriggerZoneCorner0_X(ID), 0, ReturnTriggerZoneCorner0_Z(ID));
-                pos[2] = new Vector3(ReturnTriggerZoneCorner1_X(ID), 0, ReturnTriggerZoneCorner1_Z(ID));
-                pos[3] = new Vector3(ReturnTriggerZoneCorner2_X(ID), 0, ReturnTriggerZoneCorner2_Z(ID));
-                pos[4] = new Vector3(ReturnTriggerZoneCorner3_X(ID), 0, ReturnTriggerZoneCorner3_Z(ID));
-            }
-            else if (category == SpecialZoneCategory.Category02)
-            {
-                pos[1] = new Vector3(ReturnTriggerZoneCorner0_X(ID), 0, ReturnTriggerZoneCorner0_Z(ID));
-                pos[2] = pos[1];
-                pos[3] = pos[1];
-                pos[4] = pos[1];
-            }
-            else 
-            {
-                pos[1] = Vector3.Zero;
-                pos[2] = Vector3.Zero;
-                pos[3] = Vector3.Zero;
-                pos[4] = Vector3.Zero;
-            }
-
-            // center
-            float Xmin = pos[1].X;
-            float Zmin = pos[1].Z;
-            float Xmax = pos[1].X;
-            float Zmax = pos[1].Z;
-            for (int i = 2; i <= 4; i++)
-            {
-                if (pos[i].X < Xmin)
-                {
-                    Xmin = pos[i].X;
-                }
-                if (pos[i].Z < Zmin)
-                {
-                    Zmin = pos[i].Z;
-                }
-                if (pos[i].X > Xmax)
-                {
-                    Xmax = pos[i].X;
-                }
-                if (pos[i].Z > Zmax)
-                {
-                    Zmax = pos[i].Z;
-                }
-            }
-            Vector3 center = Vector3.Zero;
-            center.X = Xmin + ((Xmax - Xmin) / 2);
-            center.Z = Zmin + ((Zmax - Zmin) / 2);
-            pos[6] = center;
+            GetTriggerZonePos_ToMove_General(ID, ref pos);
 
             Utils.ToMoveCheckLimits(ref pos);
             return pos;
@@ -1198,28 +1071,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                     SetObjPositionZ(ID, value[0].Z);
                 }
 
-                SpecialZoneCategory category = GetSpecialZoneCategory(ID);
-
-                if (category == SpecialZoneCategory.Category01 || category == SpecialZoneCategory.Category02)
-                {
-                    SetTriggerZoneCircleRadius(ID, value[5].X);
-                    SetTriggerZoneTrueY(ID, value[5].Y);
-                    SetTriggerZoneMoreHeight(ID, value[5].Z);
-
-                    SetTriggerZoneCorner0_X(ID, value[1].X);
-                    SetTriggerZoneCorner0_Z(ID, value[1].Z);
-
-                    if (category == SpecialZoneCategory.Category01)
-                    {
-                        SetTriggerZoneCorner1_X(ID, value[2].X);
-                        SetTriggerZoneCorner1_Z(ID, value[2].Z);
-                        SetTriggerZoneCorner2_X(ID, value[3].X);
-                        SetTriggerZoneCorner2_Z(ID, value[3].Z);
-                        SetTriggerZoneCorner3_X(ID, value[4].X);
-                        SetTriggerZoneCorner3_Z(ID, value[4].Z);
-                    }
-                }
-
+                SetTriggerZonePos_ToMove_General(ID, value);
             }
         
         }
@@ -1231,7 +1083,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             if (GetSpecialType(ID) == SpecialType.T03_Items)
             {
                 float AngleZ = 0;
-                if (!(GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.AEV))
+                if (!(GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.AEV))
                 {
                     AngleZ = ReturnItemAngleZ(ID);
                 }
@@ -1253,7 +1105,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 {
                     SetItemAngleX(ID, value[0].X);
                     SetItemAngleY(ID, value[0].Y);
-                    if (!(GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.AEV))
+                    if (!(GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.AEV))
                     {
                         SetItemAngleZ(ID, value[0].Z);
                     }
@@ -1276,16 +1128,6 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             return GetSpecialFileFormat;
         }
 
-        private byte ReturnByteFromPosition(ushort ID, byte FromPostion)
-        {
-            return Lines[ID][FromPostion];
-        }
-
-        private void SetByteFromPosition(ushort ID, byte FromPostion, byte value)
-        {
-            Lines[ID][FromPostion] = value;
-        }
-
         private byte[] ReturnLine(ushort ID)
         {
             return (byte[])Lines[ID].Clone();
@@ -1301,7 +1143,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             ushort oldRefInteractionIndex = ReturnRefInteractionIndex(ID);
 
             //
-            Lines[ID] = value;
+            value.CopyTo(Lines[ID], 0);
             //
 
             if (oldType == 0x03)
@@ -1313,7 +1155,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 AddNewSecundIndexList(ID, ReturnSecundIndex(ID));
             }
 
-            UpdateFirtIndexList(ID, OldIndex, ReturnSpecialIndex(ID));
+            UpdateFirstIndexList(ID, OldIndex, ReturnSpecialIndex(ID));
 
             //
             DataBase.Extras.RefInteractionTypeListRemove(oldRefInteractionType, oldRefInteractionIndex, GetSpecialFileFormat, ID);
@@ -1360,7 +1202,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         {
             byte OldIndex = ReturnSpecialIndex(ID);
             Lines[ID][0x36] = value;
-            UpdateFirtIndexList(ID, OldIndex, value);
+            UpdateFirstIndexList(ID, OldIndex, value);
         }
 
 
@@ -1387,370 +1229,6 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             Lines[ID][0x02] = value[2];
             Lines[ID][0x03] = value[3];
         }
-
-        private byte ReturnUnknown_GH(ushort ID)
-        {
-            return Lines[ID][0x04];
-        }
-
-        private void SetUnknown_GH(ushort ID, byte value)
-        {
-            Lines[ID][0x04] = value;
-        }
-
-        private byte ReturnCategory(ushort ID)
-        {
-            return Lines[ID][0x05];
-        }
-
-        private SpecialZoneCategory GetSpecialZoneCategory(ushort ID) 
-        {
-            byte Category = Lines[ID][0x05];
-            if (Category < 3)
-            {
-                return (SpecialZoneCategory)Category;
-            }
-            return SpecialZoneCategory.AnotherValue;
-        }
-
-
-        private void SetCategory(ushort ID, byte value)
-        {
-            Lines[ID][0x05] = value;
-        }
-
-
-        private byte[] ReturnUnknown_GK(ushort ID)
-        {
-            byte[] b = new byte[2];
-            b[0] = Lines[ID][0x06];
-            b[1] = Lines[ID][0x07];
-            return b;
-        }
-
-        private void SetUnknown_GK(ushort ID, byte[] value)
-        {
-            Lines[ID][0x06] = value[0];
-            Lines[ID][0x07] = value[1];
-        }
-
-
-        #endregion
-
-
-        #region TriggerZone
-        //TriggerZone Return uint
-        private uint ReturnTriggerZoneTrueY_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x08);
-        }
-
-        private uint ReturnTriggerZoneMoreHeight_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x0C);
-        }
-
-        private uint ReturnTriggerZoneCircleRadius_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x10);
-        }
-
-        private uint ReturnTriggerZoneCorner0_X_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x14);
-        }
-
-        private uint ReturnTriggerZoneCorner0_Z_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x18);
-        }
-
-        private uint ReturnTriggerZoneCorner1_X_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x1C);
-        }
-
-        private uint ReturnTriggerZoneCorner1_Z_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x20);
-        }
-
-        private uint ReturnTriggerZoneCorner2_X_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x24);
-        }
-
-        private uint ReturnTriggerZoneCorner2_Z_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x28);
-        }
-
-        private uint ReturnTriggerZoneCorner3_X_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x2C);
-        }
-
-        private uint ReturnTriggerZoneCorner3_Z_Hex(ushort ID)
-        {
-            return BitConverter.ToUInt32(Lines[ID], 0x30);
-        }
-
-        //TriggerZone Set uint
-        private void SetTriggerZoneTrueY_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x08] = b[0];
-            Lines[ID][0x09] = b[1];
-            Lines[ID][0x0A] = b[2];
-            Lines[ID][0x0B] = b[3];
-        }
-
-        private void SetTriggerZoneMoreHeight_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x0C] = b[0];
-            Lines[ID][0x0D] = b[1];
-            Lines[ID][0x0E] = b[2];
-            Lines[ID][0x0F] = b[3];
-        }
-
-        private void SetTriggerZoneCircleRadius_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x10] = b[0];
-            Lines[ID][0x11] = b[1];
-            Lines[ID][0x12] = b[2];
-            Lines[ID][0x13] = b[3];
-        }
-
-        private void SetTriggerZoneCorner0_X_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x14] = b[0];
-            Lines[ID][0x15] = b[1];
-            Lines[ID][0x16] = b[2];
-            Lines[ID][0x17] = b[3];
-        }
-
-        private void SetTriggerZoneCorner0_Z_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x18] = b[0];
-            Lines[ID][0x19] = b[1];
-            Lines[ID][0x1A] = b[2];
-            Lines[ID][0x1B] = b[3];
-        }
-
-        private void SetTriggerZoneCorner1_X_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x1C] = b[0];
-            Lines[ID][0x1D] = b[1];
-            Lines[ID][0x1E] = b[2];
-            Lines[ID][0x1F] = b[3];
-        }
-
-        private void SetTriggerZoneCorner1_Z_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x20] = b[0];
-            Lines[ID][0x21] = b[1];
-            Lines[ID][0x22] = b[2];
-            Lines[ID][0x23] = b[3];
-        }
-
-        private void SetTriggerZoneCorner2_X_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x24] = b[0];
-            Lines[ID][0x25] = b[1];
-            Lines[ID][0x26] = b[2];
-            Lines[ID][0x27] = b[3];
-        }
-
-        private void SetTriggerZoneCorner2_Z_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x28] = b[0];
-            Lines[ID][0x29] = b[1];
-            Lines[ID][0x2A] = b[2];
-            Lines[ID][0x2B] = b[3];
-        }
-
-        private void SetTriggerZoneCorner3_X_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x2C] = b[0];
-            Lines[ID][0x2D] = b[1];
-            Lines[ID][0x2E] = b[2];
-            Lines[ID][0x2F] = b[3];
-        }
-
-        private void SetTriggerZoneCorner3_Z_Hex(ushort ID, uint value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x30] = b[0];
-            Lines[ID][0x31] = b[1];
-            Lines[ID][0x32] = b[2];
-            Lines[ID][0x33] = b[3];
-        }
-
-        //TriggerZone Return float
-        private float ReturnTriggerZoneTrueY(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x08);
-        }
-
-        private float ReturnTriggerZoneMoreHeight(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x0C);
-        }
-
-        private float ReturnTriggerZoneCircleRadius(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x10);
-        }
-
-        private float ReturnTriggerZoneCorner0_X(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x14);
-        }
-
-        private float ReturnTriggerZoneCorner0_Z(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x18);
-        }
-
-        private float ReturnTriggerZoneCorner1_X(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x1C);
-        }
-
-        private float ReturnTriggerZoneCorner1_Z(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x20);
-        }
-
-        private float ReturnTriggerZoneCorner2_X(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x24);
-        }
-
-        private float ReturnTriggerZoneCorner2_Z(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x28);
-        }
-
-        private float ReturnTriggerZoneCorner3_X(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x2C);
-        }
-
-        private float ReturnTriggerZoneCorner3_Z(ushort ID)
-        {
-            return BitConverter.ToSingle(Lines[ID], 0x30);
-        }
-
-        //TriggerZone Set float
-        private void SetTriggerZoneTrueY(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x08] = b[0];
-            Lines[ID][0x09] = b[1];
-            Lines[ID][0x0A] = b[2];
-            Lines[ID][0x0B] = b[3];
-        }
-
-        private void SetTriggerZoneMoreHeight(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x0C] = b[0];
-            Lines[ID][0x0D] = b[1];
-            Lines[ID][0x0E] = b[2];
-            Lines[ID][0x0F] = b[3];
-        }
-
-        private void SetTriggerZoneCircleRadius(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x10] = b[0];
-            Lines[ID][0x11] = b[1];
-            Lines[ID][0x12] = b[2];
-            Lines[ID][0x13] = b[3];
-        }
-
-        private void SetTriggerZoneCorner0_X(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x14] = b[0];
-            Lines[ID][0x15] = b[1];
-            Lines[ID][0x16] = b[2];
-            Lines[ID][0x17] = b[3];
-        }
-
-        private void SetTriggerZoneCorner0_Z(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x18] = b[0];
-            Lines[ID][0x19] = b[1];
-            Lines[ID][0x1A] = b[2];
-            Lines[ID][0x1B] = b[3];
-        }
-
-        private void SetTriggerZoneCorner1_X(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x1C] = b[0];
-            Lines[ID][0x1D] = b[1];
-            Lines[ID][0x1E] = b[2];
-            Lines[ID][0x1F] = b[3];
-        }
-
-        private void SetTriggerZoneCorner1_Z(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x20] = b[0];
-            Lines[ID][0x21] = b[1];
-            Lines[ID][0x22] = b[2];
-            Lines[ID][0x23] = b[3];
-        }
-
-        private void SetTriggerZoneCorner2_X(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x24] = b[0];
-            Lines[ID][0x25] = b[1];
-            Lines[ID][0x26] = b[2];
-            Lines[ID][0x27] = b[3];
-        }
-
-        private void SetTriggerZoneCorner2_Z(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x28] = b[0];
-            Lines[ID][0x29] = b[1];
-            Lines[ID][0x2A] = b[2];
-            Lines[ID][0x2B] = b[3];
-        }
-
-        private void SetTriggerZoneCorner3_X(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x2C] = b[0];
-            Lines[ID][0x2D] = b[1];
-            Lines[ID][0x2E] = b[2];
-            Lines[ID][0x2F] = b[3];
-        }
-
-        private void SetTriggerZoneCorner3_Z(ushort ID, float value)
-        {
-            byte[] b = BitConverter.GetBytes(value);
-            Lines[ID][0x30] = b[0];
-            Lines[ID][0x31] = b[1];
-            Lines[ID][0x32] = b[2];
-            Lines[ID][0x33] = b[3];
-        }
-
 
         #endregion
 
@@ -2070,7 +1548,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic
         private byte[] ReturnUnknown_QU(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x5C];
@@ -2085,7 +1563,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic
         private void SetUnknown_QU(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x5C] = value[0];
                 Lines[ID][0x5D] = value[1];
@@ -2432,7 +1910,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private byte[] ReturnUnknown_RI_W(ushort ID) // Somente para o Classic
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x7C];
@@ -2446,7 +1924,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetUnknown_RI_W(ushort ID, byte[] value) // Somente para o Classic
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x7C] = value[0];
                 Lines[ID][0x7D] = value[1];
@@ -2457,7 +1935,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private byte[] ReturnUnknown_RO(ushort ID) // Somente para o Classic
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x80];
@@ -2471,7 +1949,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetUnknown_RO(ushort ID, byte[] value) // Somente para o Classic
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x80] = value[0];
                 Lines[ID][0x81] = value[1];
@@ -2629,7 +2107,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic ITA
         private byte[] ReturnUnknown_VS(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0xA0];
@@ -2644,7 +2122,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic  ITA
         private void SetUnknown_VS(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 Lines[ID][0xA0] = value[0];
                 Lines[ID][0xA1] = value[1];
@@ -2656,7 +2134,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic ITA
         private byte[] ReturnUnknown_VT(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0xA4];
@@ -2671,7 +2149,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic  ITA
         private void SetUnknown_VT(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 Lines[ID][0xA4] = value[0];
                 Lines[ID][0xA5] = value[1];
@@ -2683,7 +2161,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic ITA
         private byte[] ReturnUnknown_VI(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0xA8];
@@ -2698,7 +2176,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic  ITA
         private void SetUnknown_VI(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 Lines[ID][0xA8] = value[0];
                 Lines[ID][0xA9] = value[1];
@@ -2710,7 +2188,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic ITA
         private byte[] ReturnUnknown_VO(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0xAC];
@@ -2725,7 +2203,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // Somente para o Classic  ITA
         private void SetUnknown_VO(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.ITA)
+            if (GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.ITA)
             {
                 Lines[ID][0xAC] = value[0];
                 Lines[ID][0xAD] = value[1];
@@ -3312,7 +2790,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private byte[] ReturnObjPointW_onlyClassic(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x6C];
@@ -3327,7 +2805,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetObjPointW_onlyClassic(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x6C] = value[0];
                 Lines[ID][0x6D] = value[1];
@@ -4066,7 +3544,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         //GrappleGunThirdPointW
         private byte[] ReturnGrappleGunThirdPointW(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x8C];
@@ -4079,7 +3557,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         }
         private void SetGrappleGunThirdPointW(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x8C] = value[0];
                 Lines[ID][0x8D] = value[1];
@@ -4169,107 +3647,6 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         #region MethodsForGL
 
-        /// <summary>
-        /// <para>ordem dos valores na matrix</para>
-        /// <para>[0] x = Corner0.x, y = TrueY, z = Corner0.z, w = ?</para>
-        /// <para>[1] x = Corner1.x, y = MoreHeight, z = Corner1.z, w = ?</para>
-        /// <para>[2] x = Corner2.x, y = CircleRadius, z = Corner2.z, w = ?</para>
-        /// <para>[3] x = Corner3.x, y = MoreHeight + TrueY, z = Corner3.z, w = ?</para>
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        private Matrix4 GetTriggerZoneMatrix4(ushort ID) 
-        {
-            return new Matrix4(
-                ReturnTriggerZoneCorner0_X(ID) / 100f,
-                ReturnTriggerZoneTrueY(ID) / 100f,
-                ReturnTriggerZoneCorner0_Z(ID) / 100f,
-                0f,
-                ReturnTriggerZoneCorner1_X(ID) / 100f,
-                ReturnTriggerZoneMoreHeight(ID) / 100f,
-                ReturnTriggerZoneCorner1_Z(ID) / 100f,
-                0f,
-                ReturnTriggerZoneCorner2_X(ID) / 100f,
-                ReturnTriggerZoneCircleRadius(ID) / 100f,
-                ReturnTriggerZoneCorner2_Z(ID) / 100f,
-                0f,
-                ReturnTriggerZoneCorner3_X(ID) / 100f,
-                (ReturnTriggerZoneMoreHeight(ID) + ReturnTriggerZoneTrueY(ID)) / 100f,
-                ReturnTriggerZoneCorner3_Z(ID) / 100f,
-                0f);
-        }
-
-        /// <summary>
-        /// <para>ordem dos vector2</para>
-        /// <para>[0] point0</para>
-        /// <para>[1] point1</para>
-        /// <para>[2] point2</para>
-        /// <para>[3] point3</para>
-        /// <para>[4] X = ReturnTriggerZoneTrueY, Y = ReturnTriggerZoneTrueY + ReturnTriggerZoneMoreHeight</para>
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        private Vector2[] GetTriggerZone(ushort ID) 
-        {
-            Vector2[] v = new Vector2[5];
-            SpecialZoneCategory category = GetSpecialZoneCategory(ID);
-            if (category == SpecialZoneCategory.Category01)
-            {
-                v[0] = new Vector2(ReturnTriggerZoneCorner0_X(ID) / 100f, ReturnTriggerZoneCorner0_Z(ID) / 100f);
-                v[1] = new Vector2(ReturnTriggerZoneCorner1_X(ID) / 100f, ReturnTriggerZoneCorner1_Z(ID) / 100f);
-                v[2] = new Vector2(ReturnTriggerZoneCorner2_X(ID) / 100f, ReturnTriggerZoneCorner2_Z(ID) / 100f);
-                v[3] = new Vector2(ReturnTriggerZoneCorner3_X(ID) / 100f, ReturnTriggerZoneCorner3_Z(ID) / 100f);
-                v[4] = new Vector2(ReturnTriggerZoneTrueY(ID) / 100f, (ReturnTriggerZoneMoreHeight(ID) + ReturnTriggerZoneTrueY(ID)) / 100f);
-            }
-            else if (category == SpecialZoneCategory.Category02)
-            {
-                Vector2 temp = new Vector2(ReturnTriggerZoneCorner0_X(ID) / 100f, ReturnTriggerZoneCorner0_Z(ID) / 100f);
-                float Dist = (ReturnTriggerZoneCircleRadius(ID) / 100f);
-                v[0] = new Vector2(temp.X - Dist, temp.Y - Dist);
-                v[1] = new Vector2(temp.X - Dist, temp.Y + Dist);
-                v[2] = new Vector2(temp.X + Dist, temp.Y + Dist);
-                v[3] = new Vector2(temp.X + Dist, temp.Y - Dist);
-                v[4] = new Vector2(ReturnTriggerZoneTrueY(ID) / 100f, (ReturnTriggerZoneMoreHeight(ID) + ReturnTriggerZoneTrueY(ID)) / 100f);
-            }
-            else 
-            {
-                v[0] = Vector2.Zero;
-                v[1] = Vector2.Zero;
-                v[2] = Vector2.Zero;
-                v[3] = Vector2.Zero;
-                v[4] = Vector2.Zero;
-            }
-            return v;
-        }
-
-        /// <summary>
-        /// <para>ordem dos vector2</para>
-        /// <para>[0] Center Point</para>
-        /// <para>[1] X = ReturnTriggerZoneTrueY, Y = ReturnTriggerZoneTrueY + ReturnTriggerZoneMoreHeight</para>
-        /// <para>[2] X = ReturnTriggerZoneCircleRadius, Y = 0</para>
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        private Vector2[] GetCircleTriggerZone(ushort ID) 
-        {
-            Vector2[] v = new Vector2[3];
-            SpecialZoneCategory category = GetSpecialZoneCategory(ID);
-            if (category == SpecialZoneCategory.Category02)
-            {
-                v[0] = new Vector2(ReturnTriggerZoneCorner0_X(ID) / 100f, ReturnTriggerZoneCorner0_Z(ID) / 100f);
-                v[1] = new Vector2(ReturnTriggerZoneTrueY(ID) / 100f, (ReturnTriggerZoneMoreHeight(ID) + ReturnTriggerZoneTrueY(ID)) / 100f);
-                v[2] = new Vector2(ReturnTriggerZoneCircleRadius(ID) / 100f, 0);
-            }
-            else
-            {
-                v[0] = Vector2.Zero;
-                v[1] = Vector2.Zero;
-                v[2] = Vector2.Zero;
-            }
-            return v;
-        }
-
-
         public float GetItemTriggerRadiusToRender(ushort ID) 
         {
             return ReturnItemTriggerRadius(ID) / 100f;
@@ -4306,7 +3683,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             float AngleY = ReturnItemAngleY(ID);
             float AngleZ = 0;
 
-            if (!(GetRe4Version == Re4Version.Classic && GetSpecialFileFormat == SpecialFileFormat.AEV))
+            if (!(GetRe4Version == Re4Version.V2007PS2 && GetSpecialFileFormat == SpecialFileFormat.AEV))
             {
                 AngleZ = ReturnItemAngleZ(ID);
             }
@@ -4376,7 +3753,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         #region ExtraMethodsForGL
 
-        private Vector3 GetFirtPosition(ushort ID)
+        private Vector3 GetFirstPosition(ushort ID)
         {
             return new Vector3(ReturnObjPositionX(ID) / 100f, ReturnObjPositionY(ID) / 100f, ReturnObjPositionZ(ID) / 100f);
         }
@@ -4455,7 +3832,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         public void SetStartIdexContent() 
         {
-            FirtIndexList.Clear();
+            FirstIndexList.Clear();
             SecundIndexList.Clear();
 
             ushort[] Keys = Lines.Keys.ToArray();
@@ -4464,15 +3841,15 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 ushort ID = Keys[i];
                 byte index = ReturnSpecialIndex(ID);
 
-                if (FirtIndexList.ContainsKey(index))
+                if (FirstIndexList.ContainsKey(index))
                 {
-                    FirtIndexList[index].Add(ID);
+                    FirstIndexList[index].Add(ID);
                 }
                 else 
                 {
                     List<ushort> internalLines = new List<ushort>();
                     internalLines.Add(ID);
-                    FirtIndexList.Add(index, internalLines);
+                    FirstIndexList.Add(index, internalLines);
                 }
 
                 var specialType = GetSpecialType(ID);
@@ -4497,25 +3874,25 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         }
 
-        private void UpdateFirtIndexList(ushort LineID, byte OldIndex, byte NewIndex) 
+        private void UpdateFirstIndexList(ushort LineID, byte OldIndex, byte NewIndex) 
         {
-            if (FirtIndexList.ContainsKey(OldIndex) && FirtIndexList[OldIndex].Contains(LineID))
+            if (FirstIndexList.ContainsKey(OldIndex) && FirstIndexList[OldIndex].Contains(LineID))
             {
-                FirtIndexList[OldIndex].Remove(LineID);
-                if (FirtIndexList[OldIndex].Count == 0)
+                FirstIndexList[OldIndex].Remove(LineID);
+                if (FirstIndexList[OldIndex].Count == 0)
                 {
-                    FirtIndexList.Remove(OldIndex);
+                    FirstIndexList.Remove(OldIndex);
                 }
             }
-            if (!FirtIndexList.ContainsKey(NewIndex))
+            if (!FirstIndexList.ContainsKey(NewIndex))
             {
                 var List = new List<ushort>();
                 List.Add(LineID);
-                FirtIndexList.Add(NewIndex, List);
+                FirstIndexList.Add(NewIndex, List);
             }
             else
             {
-                FirtIndexList[NewIndex].Add(LineID);
+                FirstIndexList[NewIndex].Add(LineID);
             }
         }
 
@@ -4542,14 +3919,14 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         }
 
-        private void RemoveFirtIndexList(ushort LineID, byte OldIndex)
+        private void RemoveFirstIndexList(ushort LineID, byte OldIndex)
         {
-            if (FirtIndexList.ContainsKey(OldIndex) && FirtIndexList[OldIndex].Contains(LineID))
+            if (FirstIndexList.ContainsKey(OldIndex) && FirstIndexList[OldIndex].Contains(LineID))
             {
-                FirtIndexList[OldIndex].Remove(LineID);
-                if (FirtIndexList[OldIndex].Count == 0)
+                FirstIndexList[OldIndex].Remove(LineID);
+                if (FirstIndexList[OldIndex].Count == 0)
                 {
-                    FirtIndexList.Remove(OldIndex);
+                    FirstIndexList.Remove(OldIndex);
                 }
             }
 
@@ -4568,17 +3945,17 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         }
 
-        private void AddNewFirtIndexList(ushort LineID, byte NewIndex)
+        private void AddNewFirstIndexList(ushort LineID, byte NewIndex)
         {
-            if (!FirtIndexList.ContainsKey(NewIndex))
+            if (!FirstIndexList.ContainsKey(NewIndex))
             {
                 var List = new List<ushort>();
                 List.Add(LineID);
-                FirtIndexList.Add(NewIndex, List);
+                FirstIndexList.Add(NewIndex, List);
             }
             else
             {
-                FirtIndexList[NewIndex].Add(LineID);
+                FirstIndexList[NewIndex].Add(LineID);
             }
 
         }
@@ -4598,8 +3975,18 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         }
 
-
         #endregion
+
+
+        protected override byte[] GetInternalLine(ushort ID)
+        {
+            return Lines[ID];
+        }
+
+        protected override int GetTriggerZoneStartIndex()
+        {
+            return 0x04;
+        }
 
     }
 }

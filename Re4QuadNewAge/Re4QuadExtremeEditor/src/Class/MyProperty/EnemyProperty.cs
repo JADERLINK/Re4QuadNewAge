@@ -5,6 +5,7 @@ using Re4QuadExtremeEditor.src.Class.MyProperty.CustomCollection;
 using Re4QuadExtremeEditor.src.Class.MyProperty.CustomTypeConverter;
 using Re4QuadExtremeEditor.src.Class.MyProperty.CustomUITypeEditor;
 using Re4QuadExtremeEditor.src.Class.ObjMethods;
+using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
@@ -12,13 +13,17 @@ using System.Linq;
 namespace Re4QuadExtremeEditor.src.Class.MyProperty
 {
 
-    [DefaultProperty("Order")]
-    [TypeConverter(typeof(GenericConverter))]
+    [DefaultProperty(nameof(Order))]
     public class EnemyProperty : GenericProperty, IInternalID
     {
-        private ushort InternalID = ushort.MaxValue;
-        private GroupType groupType = GroupType.ESL;
+        public override Type GetClassType() 
+        {
+            return typeof(EnemyProperty);
+        }
 
+        private const GroupType groupType = GroupType.ESL;
+
+        private ushort InternalID = ushort.MaxValue;
         private EnemyMethods Methods = null;
         private UpdateMethods updateMethods = null;
 
@@ -52,12 +57,6 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             {
                 SetThis(this);
             }
-           
-            // ForMultiSelection // a remover
-            ChangePropertyIsBrowsable("Category_OrderCategory", false);
-            ChangePropertyIsBrowsable("Category_AssociatedSpecialEventCategory", false);
-            ChangePropertyIsBrowsable("Category_LineArrayCategory", false);
-            ChangePropertyIsBrowsable("Category_EnemyCategory", false);
         }
 
         #region Category Ids
@@ -65,44 +64,6 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         private const int CategoryID1_AssociatedSpecialEvent = 1;
         private const int CategoryID2_LineArray = 2;
         private const int CategoryID3_Enemy = 3;
-        #endregion
-
-
-        #region Category property
-
-        [CustomCategory(aLang.Enemy_OrderCategory)]
-        [DisplayName("")]
-        [DefaultValue(null)]
-        [ReadOnly(true)]
-        [Browsable(false)]
-        [DynamicTypeDescriptor.Id(0, CategoryID0_Order)]
-        public string Category_OrderCategory { get => Lang.GetAttributeText(aLang.Enemy_OrderCategory); set { } }
-
-        [CustomCategory(aLang.Enemy_AssociatedSpecialEventCategory)]
-        [DisplayName("")]
-        [DefaultValue(null)]
-        [ReadOnly(true)]
-        [Browsable(false)]
-        [DynamicTypeDescriptor.Id(2, CategoryID1_AssociatedSpecialEvent)]
-        public string Category_AssociatedSpecialEventCategory { get => Lang.GetAttributeText(aLang.Enemy_AssociatedSpecialEventCategory); set { } }
-
-        [CustomCategory(aLang.Enemy_LineArrayCategory)]
-        [DisplayName("")]
-        [DefaultValue(null)]
-        [ReadOnly(true)]
-        [Browsable(false)]
-        [DynamicTypeDescriptor.Id(7, CategoryID2_LineArray)]
-        public string Category_LineArrayCategory { get => Lang.GetAttributeText(aLang.Enemy_LineArrayCategory); set { } }
-
-
-        [CustomCategory(aLang.EnemyCategory)]
-        [DisplayName("")]
-        [DefaultValue(null)]
-        [ReadOnly(true)]
-        [Browsable(false)]
-        [DynamicTypeDescriptor.Id(9, CategoryID3_Enemy)]
-        public string Category_EnemyCategory { get => Lang.GetAttributeText(aLang.EnemyCategory); set { } }
-
         #endregion
 
         #region parte1
@@ -173,6 +134,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
                 Line.CopyTo(_set, 0);
                 insert.CopyTo(_set, 0);
                 Methods.SetLine(InternalID, _set);
+                updateMethods.UpdateOrbitCamera();
                 updateMethods.UpdateGL();
             } 
         }
@@ -277,7 +239,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
                 string sv = v.ToString("X4");
                 string svff = sv[0].ToString() + sv[1].ToString() + "FF";
                 ushort vff = ushort.Parse(svff, System.Globalization.NumberStyles.HexNumber);
-                if (ListBoxProperty.EnemiesList.ContainsKey(v))
+                if (ListBoxProperty.EnemiesList.ContainsKey(v) && v != 0xFFFF)
                 {
                     return ListBoxProperty.EnemiesList[v];
                 }
@@ -474,6 +436,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             set
             {
                 Methods.SetPositionX(InternalID, value);
+                updateMethods.UpdateOrbitCamera();
                 updateMethods.UpdateGL();
             }
         }
@@ -494,6 +457,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             set
             {
                 Methods.SetPositionY(InternalID, value);
+                updateMethods.UpdateOrbitCamera();
                 updateMethods.UpdateGL();
             }
         }
@@ -514,6 +478,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             set
             {
                 Methods.SetPositionZ(InternalID, value);
+                updateMethods.UpdateOrbitCamera();
                 updateMethods.UpdateGL();
             }
         }
@@ -744,6 +709,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
                 Methods.SetEnemyID(InternalID, ushortObj.ID);
                 updateMethods.UpdateTreeViewObjs();
                 updateMethods.UpdatePropertyGrid();
+                updateMethods.UpdateOrbitCamera();
                 updateMethods.UpdateGL();
             }
         }

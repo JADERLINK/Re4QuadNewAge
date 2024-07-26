@@ -39,13 +39,16 @@ namespace Re4QuadExtremeEditor.src.Forms
             var EnemiesLists = GetEnemiesListJson();
             var EtcModelsLists = GetEtcModelsListJson();
             var ItemsLists = GetItemsListJson();
+            var QuadCustomLists = GetQuadCustomListJson();
             comboBoxEnemies.Items.AddRange(EnemiesLists);
             comboBoxEtcModels.Items.AddRange(EtcModelsLists);
             comboBoxItems.Items.AddRange(ItemsLists);
-            
+            comboBoxQuadCustom.Items.AddRange(QuadCustomLists);
+
             comboBoxEnemies.SelectedIndex = 0;
             comboBoxEtcModels.SelectedIndex = 0;
             comboBoxItems.SelectedIndex = 0;
+            comboBoxQuadCustom.SelectedIndex = 0;
 
             JSON.ObjectInfoList selectedEnemiesList = EnemiesLists.Where(x => x.JsonFileName == Globals.FileDiretoryEnemiesList).FirstOrDefault();
             if (selectedEnemiesList != null)
@@ -76,6 +79,17 @@ namespace Re4QuadExtremeEditor.src.Forms
                     comboBoxItems.SelectedIndex = index;
                 }
             }
+
+            JSON.QuadCustomInfoList selectedQuadCustomList = QuadCustomLists.Where(x => x.JsonFileName == Globals.FileDiretoryQuadCustomList).FirstOrDefault();
+            if (selectedQuadCustomList != null)
+            {
+                int index = comboBoxQuadCustom.Items.IndexOf(selectedQuadCustomList);
+                if (index > -1)
+                {
+                    comboBoxQuadCustom.SelectedIndex = index;
+                }
+            }
+
 
             //aba 3
             panelSkyColor.BackColor = Globals.SkyColor;
@@ -167,6 +181,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             Globals.FileDiretoryEnemiesList = ((JSON.ObjectInfoList)comboBoxEnemies.SelectedItem).JsonFileName;
             Globals.FileDiretoryEtcModelsList = ((JSON.ObjectInfoList)comboBoxEtcModels.SelectedItem).JsonFileName;
             Globals.FileDiretoryItemsList = ((JSON.ObjectInfoList)comboBoxItems.SelectedItem).JsonFileName;
+            Globals.FileDiretoryQuadCustomList = ((JSON.QuadCustomInfoList)comboBoxQuadCustom.SelectedItem).JsonFileName;
 
             Utils.StartReloadDirectoryDic();
 
@@ -210,6 +225,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             Globals.BackupConfigs.FileDiretoryEnemiesList = Globals.FileDiretoryEnemiesList;
             Globals.BackupConfigs.FileDiretoryEtcModelsList = Globals.FileDiretoryEtcModelsList;
             Globals.BackupConfigs.FileDiretoryItemsList = Globals.FileDiretoryItemsList;
+            Globals.BackupConfigs.FileDiretoryQuadCustomList = Globals.FileDiretoryQuadCustomList;
 
             Globals.BackupConfigs.SkyColor = Globals.SkyColor;
             Globals.BackupConfigs.FrationalAmount = Globals.FrationalAmount;
@@ -553,6 +569,43 @@ namespace Re4QuadExtremeEditor.src.Forms
             return lists.ToArray();
         }
 
+        private JSON.QuadCustomInfoList[] GetQuadCustomListJson()
+        {
+            List<JSON.QuadCustomInfoList> lists = new List<JSON.QuadCustomInfoList>();
+
+            string directory = Path.Combine(AppContext.BaseDirectory, Consts.QuadCustomDirectory);
+
+            string[] Files = new string[0];
+
+            if (Directory.Exists(directory))
+            {
+                Files = Directory.GetFiles(directory, "*.json");
+            }
+
+            for (int i = 0; i < Files.Length; i++)
+            {
+                try
+                {
+                    var file = JSON.QuadCustomInfoListFile.ParseFromFileForOptions(Files[i]);
+                    if (file != null && !lists.Contains(file))
+                    {
+                        lists.Add(file);
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            JSON.QuadCustomInfoList _default = new JSON.QuadCustomInfoList(Consts.DefaultQuadCustomModelsListFileDirectory, "Default List", "null", new Dictionary<uint, JSON.QuadCustomInfo>());
+            if (_default != null && !lists.Contains(_default))
+            {
+                lists.Add(_default);
+            }
+
+            return lists.ToArray();
+        }
+
 
         private void StartUpdateTranslation() 
         {
@@ -589,6 +642,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             labelEnemies.Text = Lang.GetText(eLang.labelEnemies);
             labelEtcModels.Text = Lang.GetText(eLang.labelEtcModels);
             labelItems.Text = Lang.GetText(eLang.labelItems);
+            labelQuadCustom.Text = Lang.GetText(eLang.labelQuadCustom);
             groupBoxTheme.Text = Lang.GetText(eLang.groupBoxTheme);
             labelThemeWarning.Text = Lang.GetText(eLang.labelThemeWarning);
             checkBoxUseDarkerGrayTheme.Text = Lang.GetText(eLang.checkBoxUseDarkerGrayTheme);

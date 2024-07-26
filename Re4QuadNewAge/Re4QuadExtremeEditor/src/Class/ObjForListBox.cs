@@ -7,6 +7,32 @@ using Re4QuadExtremeEditor.src.Class.Enums;
 
 namespace Re4QuadExtremeEditor.src.Class
 {
+    public class UintObjForListBox
+    {
+        public uint ID { get; }
+        public string Description { set; get; }
+        public UintObjForListBox(uint ID, string Description)
+        {
+            this.ID = ID;
+            this.Description = Description;
+        }
+
+        public override string ToString()
+        {
+            return Description;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is UintObjForListBox o && o.ID == ID);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)ID;
+        }
+    }
+
     public class UshortObjForListBox
     {
         public ushort ID { get; }
@@ -85,13 +111,15 @@ namespace Re4QuadExtremeEditor.src.Class
         }
     }
 
-    public class GroupTypeObjForListBox
+    public class NewEntryObjForListBox
     {
         public GroupType ID { get; }
+        public byte InitType { get; }
         public string Description { set; get; }
-        public GroupTypeObjForListBox(GroupType ID, string Description)
+        public NewEntryObjForListBox(GroupType ID, byte InitType, string Description)
         {
             this.ID = ID;
+            this.InitType = InitType;
             this.Description = Description;
         }
 
@@ -102,12 +130,12 @@ namespace Re4QuadExtremeEditor.src.Class
 
         public override bool Equals(object obj)
         {
-            return (obj is GroupTypeObjForListBox o && o.ID == ID);
+            return (obj is NewEntryObjForListBox o && o.ID == ID && o.InitType == InitType);
         }
 
         public override int GetHashCode()
         {
-            return ID.GetHashCode();
+            return (byte)ID * 0x100 + InitType;
         }
     }
 

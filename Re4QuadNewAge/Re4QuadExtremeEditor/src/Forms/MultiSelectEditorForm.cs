@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Re4QuadExtremeEditor.src.Class;
 using Re4QuadExtremeEditor.src.Class.MyProperty;
+using Re4QuadExtremeEditor.src.Class.TreeNodeObj;
 using Re4QuadExtremeEditor.src.Class.MyProperty.CustomAttribute;
 using Re4QuadExtremeEditor.src.Class.ObjMethods;
 using Re4QuadExtremeEditor.src.Class.Enums;
@@ -18,15 +19,10 @@ namespace Re4QuadExtremeEditor.src.Forms
 {
     public partial class MultiSelectEditorForm : Form
     {
-        const string ClassSourceESL = "ESL";
-        const string ClassSourceETS = "ETS";
-        const string ClassSourceSPECIAL = "SPECIAL";
 
-        EnemyProperty[] ESL = null;
-        EtcModelProperty[] ETS = null;
-        SpecialProperty[] SPECIAL = null;
+        GenericProperty[] ALL = new GenericProperty[0];
 
-        List<MultiSelectObj> multiSelectObjs = new List<MultiSelectObj>();
+        Dictionary<MultiSelectKey, MultiSelectObj> multiSelectObjs = new Dictionary<MultiSelectKey, MultiSelectObj>();
 
         bool ComboBoxPropertyListIsChanged_Enable = false;
         bool checkBoxHexadecimalIsChanged_Enable = false;
@@ -43,47 +39,116 @@ namespace Re4QuadExtremeEditor.src.Forms
         ///  Nota: o Centeudo dessa classe foi feito de modo provisorio permanente (Então tem a tal da "Gambiarra")
         /// </summary>
         /// <param name="obj"></param>
-        public MultiSelectEditorForm(ref MultiSelectObjInfoToProperty obj)
+        public MultiSelectEditorForm(ref MultiSelectObjInfoToProperty objM)
         {
             InitializeComponent();
 
             KeyPreview = true;
 
-            this.updateMethods = obj.updateMethods;
+            updateMethods = objM.updateMethods;
 
-            ESL = obj.propertyColetions.FindAll(o => o is EnemyProperty).Cast<EnemyProperty>().ToArray();
-            ETS = obj.propertyColetions.FindAll(o => o is EtcModelProperty).Cast<EtcModelProperty>().ToArray();
-            SPECIAL = obj.propertyColetions.FindAll(o => o is SpecialProperty).Cast<SpecialProperty>().ToArray();
+            List<GenericProperty> All_List = new List<GenericProperty>(objM.GetCount());
 
-            if (ESL.Length > 0)
+            var Selecteds = objM.GetObject3DList();
+
+            var Object3D_ESL = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESL).Cast<Object3D>();
+            var Object3D_ETS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ETS).Cast<Object3D>();
+            var Object3D_Sepecial = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && (g.Group == GroupType.ITA || g.Group == GroupType.AEV)).Cast<Object3D>();
+            var Object3D_DSE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.DSE).Cast<Object3D>();
+            var Object3D_FSE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.FSE).Cast<Object3D>();
+            var Object3D_ESAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && (g.Group == GroupType.SAR || g.Group == GroupType.EAR)).Cast<Object3D>();
+            var Object3D_ESE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESE).Cast<Object3D>();
+            var Object3D_EMI = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EMI).Cast<Object3D>();
+            var Object3D_QuadCustom = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.QUAD_CUSTOM).Cast<Object3D>();
+
+            var PropertyList_ESL = (from obj in Object3D_ESL select new EnemyProperty(obj.ObjLineRef, updateMethods, ((EnemyNodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_ETS = (from obj in Object3D_ETS select new EtcModelProperty(obj.ObjLineRef, updateMethods, ((EtcModelNodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_Special = (from obj in Object3D_Sepecial select new SpecialProperty(obj.ObjLineRef, updateMethods, ((SpecialNodeGroup)obj.Parent).PropertyMethods, false, true));
+            var PropertyList_DSE = (from obj in Object3D_DSE select new NewAge_DSE_Property(obj.ObjLineRef, updateMethods, ((NewAge_DSE_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_FSE = (from obj in Object3D_FSE select new NewAge_FSE_Property(obj.ObjLineRef, updateMethods, ((NewAge_FSE_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_ESAR = (from obj in Object3D_ESAR select new NewAge_ESAR_Property(obj.ObjLineRef, updateMethods, ((NewAge_ESAR_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_ESE = (from obj in Object3D_ESE select new NewAge_ESE_Property(obj.ObjLineRef, updateMethods, ((NewAge_ESE_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EMI = (from obj in Object3D_EMI select new NewAge_EMI_Property(obj.ObjLineRef, updateMethods, ((NewAge_EMI_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_QuadCustom = (from obj in Object3D_QuadCustom select new QuadCustomProperty(obj.ObjLineRef, updateMethods, ((QuadCustomNodeGroup)obj.Parent).PropertyMethods, true));
+            
+            All_List.AddRange(PropertyList_ESL);
+            All_List.AddRange(PropertyList_ETS);
+            All_List.AddRange(PropertyList_Special);
+            All_List.AddRange(PropertyList_DSE);
+            All_List.AddRange(PropertyList_FSE);
+            All_List.AddRange(PropertyList_ESAR);
+            All_List.AddRange(PropertyList_ESE);
+            All_List.AddRange(PropertyList_EMI);
+            All_List.AddRange(PropertyList_QuadCustom);
+            ALL = All_List.ToArray();
+
+
+            if (PropertyList_ESL.Count() > 0)
             {
-                EnemyProperty p = new EnemyProperty(ESL[0]);
+                EnemyProperty p = new EnemyProperty(PropertyList_ESL.First());
                 var prop = p.GetProperties();
-                PopulateMultiSelectObjsList(prop, ClassSourceESL);
+                PopulateMultiSelectObjsList(prop);
             }
 
-            if (ETS.Length > 0)
+            if (PropertyList_ETS.Count() > 0)
             {
-                EtcModelProperty p = new EtcModelProperty(ETS[0]);
+                EtcModelProperty p = new EtcModelProperty(PropertyList_ETS.First());
                 var prop = p.GetProperties();
-                PopulateMultiSelectObjsList(prop, ClassSourceETS);
+                PopulateMultiSelectObjsList(prop);
             }
 
-            if (SPECIAL.Length > 0)
+            if (PropertyList_Special.Count() > 0)
             {
-                SpecialProperty p = new SpecialProperty(SPECIAL[0]);
+                SpecialProperty p = new SpecialProperty(PropertyList_Special.First());
                 var prop = p.GetProperties();
-                PopulateMultiSelectObjsList(prop, ClassSourceSPECIAL);
+                PopulateMultiSelectObjsList(prop);
             }
 
-            //bug fix
-            ESL = ESL.Select(x => new EnemyProperty(x)).ToArray();
-            ETS = ETS.Select(x => new EtcModelProperty(x)).ToArray();
-            SPECIAL = SPECIAL.Select(x => new SpecialProperty(x)).ToArray();
-            //----
+            if (PropertyList_DSE.Count() > 0)
+            {
+                NewAge_DSE_Property p = new NewAge_DSE_Property(PropertyList_DSE.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+
+            if (PropertyList_FSE.Count() > 0)
+            {
+                NewAge_FSE_Property p = new NewAge_FSE_Property(PropertyList_FSE.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_ESAR.Count() > 0)
+            {
+                NewAge_ESAR_Property p = new NewAge_ESAR_Property(PropertyList_ESAR.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_ESE.Count() > 0)
+            {
+                NewAge_ESE_Property p = new NewAge_ESE_Property(PropertyList_ESE.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EMI.Count() > 0)
+            {
+                NewAge_EMI_Property p = new NewAge_EMI_Property(PropertyList_EMI.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_QuadCustom.Count() > 0)
+            {
+                QuadCustomProperty p = new QuadCustomProperty(PropertyList_QuadCustom.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
 
             comboBoxPropertyList.Items.Add("");
-            comboBoxPropertyList.Items.AddRange(multiSelectObjs.Cast<object>().ToArray());
+            comboBoxPropertyList.Items.AddRange(multiSelectObjs.Values.ToList().Cast<object>().ToArray());
             comboBoxPropertyList.SelectedIndex = 0;
 
             //
@@ -106,7 +171,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             }
         }
 
-        private void PopulateMultiSelectObjsList(PropertyDescriptorCollection collection, string ClassSource) 
+        private void PopulateMultiSelectObjsList(PropertyDescriptorCollection collection) 
         {
             foreach (DynamicTypeDescriptor.CustomPropertyDescriptor item in collection)
             {
@@ -122,8 +187,13 @@ namespace Re4QuadExtremeEditor.src.Forms
                         var itemvalue = item.GetValue(item.m_owner);
                         ByteLenght = ((byte[])itemvalue).Length;       
                     }
-                    MultiSelectObj o = new MultiSelectObj(Name, DisplayName, Description, type, ByteLenght, ClassSource);
-                    multiSelectObjs.Add(o);
+                    MultiSelectObj obj = new MultiSelectObj(Name, DisplayName, Description, type, ByteLenght);
+                    MultiSelectKey key = new MultiSelectKey(Name, type, ByteLenght);
+
+                    if (!multiSelectObjs.ContainsKey(key))
+                    {
+                        multiSelectObjs.Add(key, obj);
+                    }
                 }
                
             }
@@ -188,7 +258,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     value = bList.ToArray();
                 }
 
-                if (obj.PropertyType == typeof(byte))
+                else if (obj.PropertyType == typeof(byte))
                 {
                     if (Ishex)
                     {
@@ -236,7 +306,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                 }
 
-                if (obj.PropertyType == typeof(sbyte))
+                else if (obj.PropertyType == typeof(sbyte))
                 {
                     if (Ishex)
                     {
@@ -284,8 +354,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                 }
 
-
-                if (obj.PropertyType == typeof(short))
+                else if (obj.PropertyType == typeof(short))
                 {
                     if (Ishex)
                     {
@@ -332,8 +401,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                 }
 
-
-                if (obj.PropertyType == typeof(ushort))
+                else if (obj.PropertyType == typeof(ushort))
                 {
                     if (Ishex)
                     {
@@ -379,7 +447,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                 }
 
-                if (obj.PropertyType == typeof(int))
+                else if (obj.PropertyType == typeof(int))
                 {
                     if (Ishex)
                     {
@@ -428,7 +496,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                 }
 
-                if (obj.PropertyType == typeof(uint))
+                else if (obj.PropertyType == typeof(uint))
                 {
                     if (Ishex)
                     {
@@ -477,7 +545,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                 }
 
-                if (obj.PropertyType == typeof(float))
+                else if (obj.PropertyType == typeof(float))
                 {
                     if (Ishex)
                     {
@@ -529,34 +597,25 @@ namespace Re4QuadExtremeEditor.src.Forms
                 }
 
 
+                // aqui
                 if (value != null || CurrentPlusToAdd)
                 {
-                    if (obj.ClassSource == ClassSourceESL)
+                    foreach (var item in ALL)
                     {
-                        foreach (var item in ESL)
+                        var prop = item.GetProperty(obj.PropertyName);
+                       
+                        if (prop != null && prop.PropertyType == obj.PropertyType)
                         {
-                            if (!CurrentPlusToAdd)
+                            if (prop.PropertyType == typeof(byte[]))
                             {
-                                item.SetPropertyValue(obj.PropertyName, value);
-
-                                if (Sum)
+                                var itemvalue = item.GetPropertyValue(obj.PropertyName);
+                                int ByteLenght = ((byte[])itemvalue).Length;
+                                if (ByteLenght != obj.ByteLenght)
                                 {
-                                    value = SumObject(value, Sumvalue);
+                                    continue;
                                 }
                             }
-                            else 
-                            {
-                                object oldValue = item.GetPropertyValue(obj.PropertyName);
-                                value = SumObject(oldValue, ToAddvalue);
-                                item.SetPropertyValue(obj.PropertyName, value);
-                            }
 
-                        }
-                    }
-                    else if (obj.ClassSource == ClassSourceETS)
-                    {
-                        foreach (var item in ETS)
-                        {
                             if (!CurrentPlusToAdd)
                             {
                                 item.SetPropertyValue(obj.PropertyName, value);
@@ -569,27 +628,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                             else
                             {
                                 object oldValue = item.GetPropertyValue(obj.PropertyName);
-                                value = SumObject(oldValue, ToAddvalue);
-                                item.SetPropertyValue(obj.PropertyName, value);
-                            }
-                        }
-                    }
-                    else if (obj.ClassSource == ClassSourceSPECIAL)
-                    {
-                        foreach (var item in SPECIAL)
-                        {
-                            if (!CurrentPlusToAdd)
-                            {
-                                item.SetPropertyValue(obj.PropertyName, value);
 
-                                if (Sum)
-                                {
-                                    value = SumObject(value, Sumvalue);
-                                }
-                            }
-                            else
-                            {
-                                object oldValue = item.GetPropertyValue(obj.PropertyName);
                                 value = SumObject(oldValue, ToAddvalue);
                                 item.SetPropertyValue(obj.PropertyName, value);
                             }
@@ -598,9 +637,11 @@ namespace Re4QuadExtremeEditor.src.Forms
                 }
 
                 updateMethods.UpdateTreeViewObjs();
-                updateMethods.UpdateGL();
                 updateMethods.UpdatePropertyGrid();
-
+                updateMethods.UpdateMoveObjSelection();
+                updateMethods.UpdateOrbitCamera();
+                updateMethods.UpdateGL();
+            
                 MessageBox.Show(Lang.GetText(eLang.MultiSelectEditorFinishMessageBoxDialog), Lang.GetText(eLang.MultiSelectEditorFinishMessageBoxTitle));
             }
         }
@@ -676,7 +717,6 @@ namespace Re4QuadExtremeEditor.src.Forms
 
             return res;
         }
-
 
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -1256,7 +1296,11 @@ namespace Re4QuadExtremeEditor.src.Forms
             if (obj is UshortObjForListBox box)
             {
                 textBoxHexadecimal.Text = box.ID.ToString("X4");
-                numericUpDownDecimal.Value = box.ID;
+
+                if (box.ID >= numericUpDownDecimal.Minimum && box.ID <= numericUpDownDecimal.Maximum)
+                {
+                    numericUpDownDecimal.Value = box.ID;
+                }
             }
         }
 

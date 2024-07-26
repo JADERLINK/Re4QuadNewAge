@@ -8,8 +8,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
 {
     public enum Re4Version
     {
-        Null = 0,
-        Classic = 1,
+        NULL = 0,
+        V2007PS2 = 1,
         UHD = 2
     }
 }

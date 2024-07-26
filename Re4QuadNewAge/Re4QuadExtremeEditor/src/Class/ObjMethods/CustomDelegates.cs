@@ -45,9 +45,24 @@ namespace Re4QuadExtremeEditor.src.Class.CustomDelegates
     public delegate void SetUintArray(ushort ID, uint[] value);
     public delegate void SetFloatArray(ushort ID, float[] value);
 
+    //FromPosition
+    public delegate byte ReturnByteFromPosition(ushort ID, int FromPosition);
+    public delegate sbyte ReturnSbyteFromPosition(ushort ID, int FromPosition);
+    public delegate short ReturnShortFromPosition(ushort ID, int FromPosition);
+    public delegate ushort ReturnUshortFromPosition(ushort ID, int FromPosition);
+    public delegate int ReturnIntFromPosition(ushort ID, int FromPosition);
+    public delegate uint ReturnUintFromPosition(ushort ID, int FromPosition);
+    public delegate float ReturnFloatFromPosition(ushort ID, int FromPosition);
+    public delegate byte[] ReturnByteArrayFromPosition(ushort ID, int FromPosition, int Count);
 
-    public delegate byte ReturnByteFromPosition(ushort ID, byte FromPosition);
-    public delegate void SetByteFromPosition(ushort ID, byte FromPosition, byte value);
+    public delegate void SetByteFromPosition(ushort ID, int FromPosition, byte value);
+    public delegate void SetSbyteFromPosition(ushort ID, int FromPosition, sbyte value);
+    public delegate void SetShortFromPosition(ushort ID, int FromPosition, short value);
+    public delegate void SetUshortFromPosition(ushort ID, int FromPosition, ushort value);
+    public delegate void SetIntFromPosition(ushort ID, int FromPosition, int value);
+    public delegate void SetUintFromPosition(ushort ID, int FromPosition, uint value);
+    public delegate void SetFloatFromPosition(ushort ID, int FromPosition, float value);
+    public delegate void SetByteArrayFromPosition(ushort ID, int FromPosition, byte[] value);
 
     //OpenTK
     public delegate Vector3 ReturnVector3(ushort ID);
@@ -69,7 +84,7 @@ namespace Re4QuadExtremeEditor.src.Class.CustomDelegates
     // nodes
 
     // add novo objeto3D
-    public delegate ushort AddNewLineID();
+    public delegate ushort AddNewLineID(byte initType);
     // exclui objeto3D selecionado
     public delegate void RemoveLineID(ushort ID);
 
@@ -87,7 +102,9 @@ namespace Re4QuadExtremeEditor.src.Class.CustomDelegates
     // return enum
     public delegate Enums.Re4Version ReturnRe4Version();
     public delegate Enums.SpecialFileFormat ReturnSpecialFileFormat();
+    public delegate Enums.EsarFileFormat ReturnEsarFileFormat();
     public delegate Enums.SpecialType ReturnSpecialType(ushort ID);
-    public delegate Enums.SpecialZoneCategory ReturnSpecialZoneCategory(ushort ID);
+    public delegate Enums.TriggerZoneCategory ReturnTriggerZoneCategory(ushort ID);
+    public delegate Enums.QuadCustomPointStatus ReturnQuadCustomPointStatus(ushort ID);
     public delegate Enums.RefInteractionType ReturnRefInteractionType(ushort ID);
 }

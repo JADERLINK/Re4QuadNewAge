@@ -49,6 +49,15 @@ namespace Re4QuadExtremeEditor.src
             DataBase.EnemiesModels.AddModelObjects(EnemiesObjModelJsonPaths);
 
 
+            DataBase.QuadCustomModels = new NewAgeTheRender.ModelGroupConteiner(Consts.QuadCustomModelGroupName);
+            var QuadCustomObjModelJsonPaths = DataBase.QuadCustomIDs.List
+                .Where(x => x.Value.ObjectModel != null && x.Value.ObjectModel.Length > 0)
+                .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.QuadCustomDirectory, DataBase.QuadCustomIDs.Folder, x.Value.ObjectModel))
+                .ToHashSet().ToArray();
+            DataBase.QuadCustomModels.AddModelObjects(QuadCustomObjModelJsonPaths);
+
+
+
             DataBase.InternalModels = new NewAgeTheRender.ModelGroupConteiner(Consts.InternalModelGroupName);
             var InternalObjModelJsonPaths = (new List<string> {
             Consts.ModelKeyAshleyPoint,
@@ -57,7 +66,10 @@ namespace Re4QuadExtremeEditor.src
             Consts.ModelKeyLadderObj,
             Consts.ModelKeyLadderPoint,
             Consts.ModelKeyLocalTeleportationPoint,
-            Consts.ModelKeyWarpPoint
+            Consts.ModelKeyWarpPoint,
+            Consts.ModelKey_ESE_Point,
+            Consts.ModelKey_EMI_Point,
+            Consts.ModelKeyQuadCustomPoint
             })
              .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.InternalModelsDirectory, x)).ToHashSet().ToArray();
             DataBase.InternalModels.AddModelObjects(InternalObjModelJsonPaths);
@@ -74,9 +86,11 @@ namespace Re4QuadExtremeEditor.src
             DataBase.ItemsIDs = new ObjectInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<ushort, ObjectInfo>());
             DataBase.EtcModelIDs = new ObjectInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<ushort, ObjectInfo>());
             DataBase.EnemiesIDs = new ObjectInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<ushort, ObjectInfo>());
+            DataBase.QuadCustomIDs = new QuadCustomInfoList(Consts.NameNull, Consts.NameNull, Consts.NameNull, new Dictionary<uint, QuadCustomInfo>());
             try { DataBase.ItemsIDs = ObjectInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.ItemsDirectory, Globals.FileDiretoryItemsList), Consts.NameItemsList); } catch (Exception){}
             try { DataBase.EtcModelIDs = ObjectInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.EtcModelsDirectory, Globals.FileDiretoryEtcModelsList), Consts.NameEtcModelsList); } catch (Exception){}
             try { DataBase.EnemiesIDs = ObjectInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.EnemiesDirectory, Globals.FileDiretoryEnemiesList), Consts.NameEnemiesList); } catch (Exception){}
+            try { DataBase.QuadCustomIDs = QuadCustomInfoListFile.ParseFromFile(Path.Combine(AppContext.BaseDirectory, Consts.QuadCustomDirectory, Globals.FileDiretoryQuadCustomList)); } catch (Exception){}
         }
 
         /// <summary>
@@ -168,37 +182,34 @@ namespace Re4QuadExtremeEditor.src
         /// </summary>
         public static void StartSetListBoxsProperty()
         {
-            //ListBoxProperty.FloatTypeLis
             Dictionary<bool, BoolObjForListBox> FloatType = new Dictionary<bool, BoolObjForListBox>();
             FloatType.Add(false, new BoolObjForListBox(false, Lang.GetAttributeText(aLang.ListBoxFloatTypeDisable)));
             FloatType.Add(true, new BoolObjForListBox(true, Lang.GetAttributeText(aLang.ListBoxFloatTypeEnable)));
             ListBoxProperty.FloatTypeList = FloatType;
 
-
-            //ListBoxProperty.EnemyEnableList
             Dictionary<byte, ByteObjForListBox> Enable = new Dictionary<byte, ByteObjForListBox>();
             Enable.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxDisable)));
             Enable.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxEnable)));
             ListBoxProperty.EnemyEnableList = Enable;
 
-
-            //ListBoxProperty.SpecialZoneCategoryList
             Dictionary<byte, ByteObjForListBox> SpecialZoneCategory = new Dictionary<byte, ByteObjForListBox>();
             SpecialZoneCategory.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxSpecialZoneCategory00)));
             SpecialZoneCategory.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxSpecialZoneCategory01)));
             SpecialZoneCategory.Add(0x02, new ByteObjForListBox(0x02, "02: " + Lang.GetAttributeText(aLang.ListBoxSpecialZoneCategory02)));
             ListBoxProperty.SpecialZoneCategoryList = SpecialZoneCategory;
 
-            //ListBoxProperty.Ref
-            //TypeList
+            Dictionary<byte, ByteObjForListBox> QuadCustomPointStatusList = new Dictionary<byte, ByteObjForListBox>();
+            QuadCustomPointStatusList.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxQuadCustomPointStatus00)));
+            QuadCustomPointStatusList.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxQuadCustomPointStatus01)));
+            QuadCustomPointStatusList.Add(0x02, new ByteObjForListBox(0x02, "02: " + Lang.GetAttributeText(aLang.ListBoxQuadCustomPointStatus02)));
+            ListBoxProperty.QuadCustomPointStatusList = QuadCustomPointStatusList;
+
             Dictionary<byte, ByteObjForListBox> RefInteractionTypeList = new Dictionary<byte, ByteObjForListBox>();
             RefInteractionTypeList.Add(0x00, new ByteObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxRefInteractionType00)));
             RefInteractionTypeList.Add(0x01, new ByteObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxRefInteractionType01Enemy)));
             RefInteractionTypeList.Add(0x02, new ByteObjForListBox(0x02, "02: " + Lang.GetAttributeText(aLang.ListBoxRefInteractionType02EtcModel)));
             ListBoxProperty.RefInteractionTypeList = RefInteractionTypeList;
 
-
-            //ListBoxProperty.ItemAuraTypeList
             Dictionary<ushort, UshortObjForListBox> ItemAuraType = new Dictionary<ushort, UshortObjForListBox>();
             ItemAuraType.Add(0x00, new UshortObjForListBox(0x00, "00: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType00)));
             ItemAuraType.Add(0x01, new UshortObjForListBox(0x01, "01: " + Lang.GetAttributeText(aLang.ListBoxItemAuraType01)));
@@ -228,7 +239,7 @@ namespace Re4QuadExtremeEditor.src
             SpecialTypeList.Add(SpecialType.T0A_DamagesThePlayer, new ByteObjForListBox(0x0A, Lang.GetAttributeText(aLang.SpecialType0A_DamagesThePlayer)));
             SpecialTypeList.Add(SpecialType.T0B_FalseCollision, new ByteObjForListBox(0x0B, Lang.GetAttributeText(aLang.SpecialType0B_FalseCollision)));
             //SpecialTypeList.Add(SpecialType.T0C_Unused, new ByteObjForListBox(0x0C, Lang.GetAttributeText(aLang.SpecialType0C_Unused)));
-            SpecialTypeList.Add(SpecialType.T0D_Unknown, new ByteObjForListBox(0x0D, Lang.GetAttributeText(aLang.SpecialType0D_Unknown)));
+            SpecialTypeList.Add(SpecialType.T0D_FieldInfo, new ByteObjForListBox(0x0D, Lang.GetAttributeText(aLang.SpecialType0D_FieldInfo)));
             SpecialTypeList.Add(SpecialType.T0E_Crouch, new ByteObjForListBox(0x0E, Lang.GetAttributeText(aLang.SpecialType0E_Crouch)));
             //SpecialTypeList.Add(SpecialType.T0F_Unused, new ByteObjForListBox(0x0F, Lang.GetAttributeText(aLang.SpecialType0F_Unused)));
             SpecialTypeList.Add(SpecialType.T10_FixedLadderClimbUp, new ByteObjForListBox(0x10, Lang.GetAttributeText(aLang.SpecialType10_FixedLadderClimbUp)));
@@ -282,6 +293,17 @@ namespace Re4QuadExtremeEditor.src
             }
             Itens = Itens.OrderBy(o => o.Key).ToDictionary(p => p.Key, p => p.Value);
             ListBoxProperty.ItemsList = Itens;
+
+
+            //ListBoxProperty.QuadCustomModelIDList
+            Dictionary<uint, UintObjForListBox> QuadCustom = new Dictionary<uint, UintObjForListBox>();
+            foreach (var item in DataBase.QuadCustomIDs.List)
+            {
+                if (item.Value.ID == uint.MaxValue) { continue; }
+                QuadCustom.Add(item.Value.ID, new UintObjForListBox(item.Value.ID, item.Value.ID.ToString() + ": " + item.Value.Name));
+            }
+            QuadCustom = QuadCustom.OrderBy(o => o.Key).ToDictionary(p => p.Key, p => p.Value);
+            ListBoxProperty.QuadCustomModelIDList = QuadCustom;
         }
 
         /// <summary>
@@ -324,11 +346,67 @@ namespace Re4QuadExtremeEditor.src
             extras.ForeColor = Globals.NodeColorEXTRAS;
             extras.NodeFont = Globals.TreeNodeFontText;
 
+            NewAge_DSE_NodeGroup dse = new NewAge_DSE_NodeGroup();
+            dse.Group = GroupType.DSE;
+            dse.Text = Lang.GetText(eLang.NodeDSE);
+            dse.Name = Consts.NodeDSE;
+            dse.ForeColor = Globals.NodeColorDSE;
+            dse.NodeFont = Globals.TreeNodeFontText;
+
+            NewAge_EMI_NodeGroup emi = new NewAge_EMI_NodeGroup();
+            emi.Group = GroupType.EMI;
+            emi.Text = Lang.GetText(eLang.NodeEMI);
+            emi.Name = Consts.NodeEMI;
+            emi.ForeColor = Globals.NodeColorEMI;
+            emi.NodeFont = Globals.TreeNodeFontText;
+
+            NewAge_ESAR_NodeGroup sar = new NewAge_ESAR_NodeGroup();
+            sar.Group = GroupType.SAR;
+            sar.Text = Lang.GetText(eLang.NodeSAR);
+            sar.Name = Consts.NodeSAR;
+            sar.ForeColor = Globals.NodeColorSAR;
+            sar.NodeFont = Globals.TreeNodeFontText;
+
+            NewAge_ESAR_NodeGroup ear = new NewAge_ESAR_NodeGroup();
+            ear.Group = GroupType.EAR;
+            ear.Text = Lang.GetText(eLang.NodeEAR);
+            ear.Name = Consts.NodeEAR;
+            ear.ForeColor = Globals.NodeColorEAR;
+            ear.NodeFont = Globals.TreeNodeFontText;
+
+            NewAge_ESE_NodeGroup ese = new NewAge_ESE_NodeGroup();
+            ese.Group = GroupType.ESE;
+            ese.Text = Lang.GetText(eLang.NodeESE);
+            ese.Name = Consts.NodeESE;
+            ese.ForeColor = Globals.NodeColorESE;
+            ese.NodeFont = Globals.TreeNodeFontText;
+
+            NewAge_FSE_NodeGroup fse = new NewAge_FSE_NodeGroup();
+            fse.Group = GroupType.FSE;
+            fse.Text = Lang.GetText(eLang.NodeFSE);
+            fse.Name = Consts.NodeFSE;
+            fse.ForeColor = Globals.NodeColorFSE;
+            fse.NodeFont = Globals.TreeNodeFontText;
+
+            QuadCustomNodeGroup quad = new QuadCustomNodeGroup();
+            quad.Group = GroupType.QUAD_CUSTOM;
+            quad.Text = Lang.GetText(eLang.NodeQuadCustom);
+            quad.Name = Consts.NodeQuadCustom;
+            quad.ForeColor = Globals.NodeColorQuadCustom;
+            quad.NodeFont = Globals.TreeNodeFontText;
+
             DataBase.NodeESL = esl;
             DataBase.NodeETS = ets;
             DataBase.NodeITA = ita;
             DataBase.NodeAEV = aev;
             DataBase.NodeEXTRAS = extras;
+            DataBase.NodeDSE = dse;
+            DataBase.NodeEMI = emi;
+            DataBase.NodeSAR = sar;
+            DataBase.NodeEAR = ear;
+            DataBase.NodeESE = ese;
+            DataBase.NodeFSE = fse;
+            DataBase.NodeQuadCustom = quad;
         }
 
         /// <summary>
@@ -430,8 +508,13 @@ namespace Re4QuadExtremeEditor.src
             }
         }
 
-        public static Vector3[] GetObjScale_ToMove_Null(ushort ID) { return null; }
-        public static void SetObjScale_ToMove_Null(ushort ID, Vector3[] value) { }
+        public static void ToCameraCheckValue(ref Vector3 position) 
+        {
+            if (float.IsNaN(position.X) || float.IsInfinity(position.X)) { position.X = 0; }
+            if (float.IsNaN(position.Y) || float.IsInfinity(position.Y)) { position.Y = 0; }
+            if (float.IsNaN(position.Z) || float.IsInfinity(position.Z)) { position.Z = 0; }
+        }
+
 
         /// <summary>
         /// Recarrega os arquivos Json e seus textos;
@@ -468,6 +551,7 @@ namespace Re4QuadExtremeEditor.src
             DataBase.ItemsModels?.ClearGL();
             DataBase.EtcModels?.ClearGL();
             DataBase.EnemiesModels?.ClearGL();
+            DataBase.QuadCustomModels?.ClearGL();
             StartLoadObjsModels();
             GC.Collect();
         }
@@ -512,6 +596,24 @@ namespace Re4QuadExtremeEditor.src
             }
        
         }
+
+   
+        public static Vector3 GetObjPostion_ToCamera_Null(ushort ID)
+        {
+            return Vector3.Zero;
+        }
+        public static float GetObjAngleY_ToCamera_Null(ushort ID)
+        {
+            return 0;
+        }
+
+        public static Vector3[] GetObjPostion_ToMove_General_Null(ushort ID) { return null; }
+        public static void SetObjPostion_ToMove_General_Null(ushort ID, Vector3[] value) { }
+        public static Vector3[] GetObjRotationAngles_ToMove_Null(ushort ID) { return null; }
+        public static void SetObjRotationAngles_ToMove_Null(ushort ID, Vector3[] value) { }
+        public static Vector3[] GetObjScale_ToMove_Null(ushort ID) { return null; }
+        public static void SetObjScale_ToMove_Null(ushort ID, Vector3[] value) { }
+        public static TriggerZoneCategory GetTriggerZoneCategory_Null(ushort ID) { return TriggerZoneCategory.Disable; }
 
     }
 

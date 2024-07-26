@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Re4QuadExtremeEditor.src.Class.Enums
 {
-    public enum SpecialZoneCategory : byte
+    public enum TriggerZoneCategory : byte
     {
         Disable = 0x00, // Disable TriggerZone
         Category01 = 0x01, // TriggerZone Use 4 points

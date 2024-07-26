@@ -30,6 +30,7 @@ namespace Re4QuadExtremeEditor.src
         public static string FileDiretoryItemsList = Consts.DefaultItemsListFileDirectory;
         public static string FileDiretoryEtcModelsList = Consts.DefaultEtcModelsListFileDirectory;
         public static string FileDiretoryEnemiesList = Consts.DefaultEnemiesListFileDirectory;
+        public static string FileDiretoryQuadCustomList = Consts.DefaultQuadCustomModelsListFileDirectory;
 
         // a cor do ceu
         public static Color SkyColor = Color.FromArgb(0xFF, 0x94, 0xD2, 0xFF);
@@ -52,13 +53,20 @@ namespace Re4QuadExtremeEditor.src
         #region Colors
 
         // cores
+        public static Color NodeColorEntry = Color.Black;
+        public static Color NodeColorHided = Color.SlateGray;
         public static Color NodeColorESL = Color.FromArgb(192, 0, 0);
         public static Color NodeColorETS = Color.Maroon;
         public static Color NodeColorITA = Color.FromArgb(0, 0, 192);
         public static Color NodeColorAEV = Color.FromArgb(0, 192, 0);
         public static Color NodeColorEXTRAS = Color.FromArgb(0x0062707E);
-        public static Color NodeColorHided = Color.SlateGray;
-
+        public static Color NodeColorDSE = Color.FromArgb(192, 192, 0);
+        public static Color NodeColorEMI = Color.Goldenrod;
+        public static Color NodeColorSAR = Color.FromArgb(0, 192, 192); 
+        public static Color NodeColorEAR = Color.DodgerBlue;
+        public static Color NodeColorESE = Color.Violet;
+        public static Color NodeColorFSE = Color.FromArgb(161, 192, 192);
+        public static Color NodeColorQuadCustom = Color.DimGray;
 
         // color GL
         // cores
@@ -74,6 +82,13 @@ namespace Re4QuadExtremeEditor.src
         public static Vector4 GL_ColorItemTrigggerRadiusSelected = Utils.ColorToVector4(Color.Plum);
         public static Vector4 GL_ColorGrid = Utils.ColorToVector4(Color.DarkGray);
 
+        public static Vector4 GL_ColorFSE = Utils.ColorToVector4(Color.LightCyan);
+        public static Vector4 GL_ColorEAR = Utils.ColorToVector4(Color.DodgerBlue);
+        public static Vector4 GL_ColorSAR = Utils.ColorToVector4(Color.Cyan);
+        public static Vector4 GL_ColorEMI = Utils.ColorToVector4(Color.Goldenrod);
+        public static Vector4 GL_ColorESE = Utils.ColorToVector4(Color.Violet);
+        public static Vector4 GL_ColorQuadCustom = Utils.ColorToVector4(Color.DimGray);
+
         // more Colors
         public static Vector4 GL_MoreColor_T00_GeneralPurpose = Utils.ColorToVector4(Color.Green);
         public static Vector4 GL_MoreColor_T01_DoorWarp = Utils.ColorToVector4(Color.DarkOrange); //DarkOrange
@@ -83,7 +98,7 @@ namespace Re4QuadExtremeEditor.src
         public static Vector4 GL_MoreColor_T08_TypeWriter = Utils.ColorToVector4(Color.Indigo);
         public static Vector4 GL_MoreColor_T0A_DamagesThePlayer = Utils.ColorToVector4(Color.LightSteelBlue); //Tomato
         public static Vector4 GL_MoreColor_T0B_FalseCollision = Utils.ColorToVector4(Color.Crimson); //Crimson
-        public static Vector4 GL_MoreColor_T0D_Unknown = Utils.ColorToVector4(Color.DarkSeaGreen);
+        public static Vector4 GL_MoreColor_T0D_FieldInfo = Utils.ColorToVector4(Color.DarkSeaGreen);
         public static Vector4 GL_MoreColor_T0E_Crouch = Utils.ColorToVector4(Color.BlanchedAlmond); //DarkSlateGray //DarkSalmon
         public static Vector4 GL_MoreColor_T10_FixedLadderClimbUp = Utils.ColorToVector4(Color.SteelBlue); //Chocolate
         public static Vector4 GL_MoreColor_T11_ItemDependentEvents = Utils.ColorToVector4(Color.DarkViolet);//DarkViolet //BlueViolet //DarkSlateBlue //Goldenrod //BlanchedAlmond
@@ -106,6 +121,12 @@ namespace Re4QuadExtremeEditor.src
         public static bool RenderEtcmodelETS = true;
         public static bool RenderItemsITA = true;
         public static bool RenderEventsAEV = true;
+        public static bool RenderFileFSE = true;
+        public static bool RenderFileSAR = true;
+        public static bool RenderFileEAR = true;
+        public static bool RenderFileEMI = true;
+        public static bool RenderFileESE = true;
+        public static bool RenderFileQuadCustom = true;
 
         //enemy renders
         public static bool RenderDisabledEnemy = true;
@@ -124,6 +145,9 @@ namespace Re4QuadExtremeEditor.src
         public static bool UseMoreSpecialColors = false;
         public static bool RenderExtraWarpDoor = true;
         public static bool HideExtraExceptWarpDoor = false;
+
+        //QuadCustom
+        public static bool UseMoreQuadCustomColors = false;
 
         //Etcmodel
         public static bool RenderEtcmodelUsingScale = false;
@@ -147,7 +171,13 @@ namespace Re4QuadExtremeEditor.src
         public static string FilePathETS = null;
         public static string FilePathITA = null;
         public static string FilePathAEV = null;
-
+        public static string FilePathDSE = null;
+        public static string FilePathFSE = null;
+        public static string FilePathSAR = null;
+        public static string FilePathEAR = null;
+        public static string FilePathEMI = null;
+        public static string FilePathESE = null;
+        public static string FilePathQuadCustom = null;
         #endregion
 
         // Render Options

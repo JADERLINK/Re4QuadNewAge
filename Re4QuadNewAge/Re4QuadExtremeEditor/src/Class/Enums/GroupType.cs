@@ -13,7 +13,17 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         ETS = 0x02,
         ITA = 0x03,
         AEV = 0x04,
-        EXTRAS = 0x5,
-        END_UNUSED = 0xFF
+        EXTRAS = 0x05,
+        FSE = 0x06,
+        SAR = 0x07,
+        EAR = 0x08,
+        EMI = 0x09,
+        ESE = 0x10,
+
+        QUAD_CUSTOM = 0x50,
+
+        DSE = 0xAA,
+
+        END_BACKGROUND = 0xFF
     }
 }

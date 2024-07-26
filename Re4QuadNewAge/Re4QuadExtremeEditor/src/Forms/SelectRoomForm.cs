@@ -223,8 +223,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             labelInfo.Text = Lang.GetText(eLang.labelInfo);
             labelText1.Text = Lang.GetText(eLang.labelSelectAList);
             labelText2.Text = Lang.GetText(eLang.labelSelectARoom);
-            buttonLoad.Text = Lang.GetText(eLang.buttonLoad);
-            buttonCancel.Text = Lang.GetText(eLang.buttonCancel2);
+            buttonLoad.Text = Lang.GetText(eLang.SelectRoomButtonLoad);
+            buttonCancel.Text = Lang.GetText(eLang.SelectRoomButtonCancel);
         }
 
     }

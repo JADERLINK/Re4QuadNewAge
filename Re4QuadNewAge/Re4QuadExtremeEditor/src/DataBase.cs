@@ -27,12 +27,14 @@ namespace Re4QuadExtremeEditor.src
         public static ModelGroupConteiner ItemsModels; // modelos dos itens
         public static ModelGroupConteiner EtcModels; // modelos da pasta "etcmodel"
         public static ModelGroupConteiner InternalModels; // modelos proprios para o programa
+        public static ModelGroupConteiner QuadCustomModels; // QuadCustom File
 
 
         // Dicionarios com os ids dos objetos no jogo
         public static ObjectInfoList EnemiesIDs;
         public static ObjectInfoList ItemsIDs;
         public static ObjectInfoList EtcModelIDs;
+        public static QuadCustomInfoList QuadCustomIDs;
 
         // aqui são os objetos que representa os arquivos no programa
         public static FileEnemyEslGroup FileESL;
@@ -40,6 +42,13 @@ namespace Re4QuadExtremeEditor.src
         public static FileSpecialGroup FileITA;
         public static FileSpecialGroup FileAEV;
         public static ExtraGroup Extras;
+        public static File_DSE_Group FileDSE;
+        public static File_EMI_Group FileEMI;
+        public static File_ESAR_Group FileSAR;
+        public static File_ESAR_Group FileEAR;
+        public static File_ESE_Group FileESE;
+        public static File_FSE_Group FileFSE;
+        public static FileQuadCustomGroup FileQuadCustom;
 
         //conteudo do treeview
         public static EnemyNodeGroup NodeESL;
@@ -47,6 +56,13 @@ namespace Re4QuadExtremeEditor.src
         public static SpecialNodeGroup NodeITA;
         public static SpecialNodeGroup NodeAEV;
         public static ExtraNodeGroup NodeEXTRAS;
+        public static NewAge_DSE_NodeGroup NodeDSE;
+        public static NewAge_EMI_NodeGroup NodeEMI;
+        public static NewAge_ESAR_NodeGroup NodeSAR;
+        public static NewAge_ESAR_NodeGroup NodeEAR;
+        public static NewAge_ESE_NodeGroup NodeESE;
+        public static NewAge_FSE_NodeGroup NodeFSE;
+        public static QuadCustomNodeGroup NodeQuadCustom;
 
         // lista de objetos selecionados na treeview
         public static Dictionary<int, TreeNode> SelectedNodes;

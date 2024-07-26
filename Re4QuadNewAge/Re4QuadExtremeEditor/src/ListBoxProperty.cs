@@ -25,5 +25,7 @@ namespace Re4QuadExtremeEditor.src
         public static Dictionary<ushort, UshortObjForListBox> ItemAuraTypeList;
         public static Dictionary<byte, ByteObjForListBox> RefInteractionTypeList;
         public static Dictionary<byte, ByteObjForListBox> PromptMessageList;
+        public static Dictionary<byte, ByteObjForListBox> QuadCustomPointStatusList;
+        public static Dictionary<uint, UintObjForListBox> QuadCustomModelIDList;
     }
 }

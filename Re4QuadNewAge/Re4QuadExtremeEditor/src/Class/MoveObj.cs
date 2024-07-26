@@ -25,9 +25,10 @@ namespace Re4QuadExtremeEditor.src.Class
         public static bool MoveRelativeCamera = false;
         public static bool KeepOnGround = false;
 
+        public static bool TriggerZoneKeepOnGround = false;
 
         [Flags]
-        public enum MoveDirection
+        public enum MoveDirection : byte
         {
             Null = 0,
             X = 1,
@@ -52,7 +53,7 @@ namespace Re4QuadExtremeEditor.src.Class
             }
             public override int GetHashCode()
             {
-                return (Group.ToString() +"-" + ID.ToString()).GetHashCode();
+                return ((byte)Group * 0x10000) + ID;
             }
         }
 
@@ -134,7 +135,7 @@ namespace Re4QuadExtremeEditor.src.Class
                     }
                     else
                     {
-                        pos.Z = savedPos[0].Z - (MousePosY * sensitivity);
+                        pos.Z = savedPos[0].Z + (MousePosY * sensitivity);
                     }
                 }
                 else if (moveDirection == (MoveDirection.X | MoveDirection.Y))
@@ -159,7 +160,7 @@ namespace Re4QuadExtremeEditor.src.Class
                     else 
                     {
                         pos.X = savedPos[0].X + (MousePosX * sensitivity);
-                        pos.Z = savedPos[0].Z - (MousePosY * sensitivity);
+                        pos.Z = savedPos[0].Z + (MousePosY * sensitivity);
                     }
                 }
                 else if (moveDirection == (MoveDirection.Y | MoveDirection.Z))
@@ -179,21 +180,6 @@ namespace Re4QuadExtremeEditor.src.Class
                 Vector3[] PosArr = (Vector3[])savedPos.Clone();
                 PosArr[0] = pos;
 
-                if (obj.Parent is SpecialNodeGroup s && s.PropertyMethods.GetSpecialType(obj.ObjLineRef) != SpecialType.T03_Items)
-                {
-                    PosArr[1] = MoveZonePosition(savedPos[1], MousePosX, MousePosY, camera, moveDirection);
-                    PosArr[2] = MoveZonePosition(savedPos[2], MousePosX, MousePosY, camera, moveDirection);
-                    PosArr[3] = MoveZonePosition(savedPos[3], MousePosX, MousePosY, camera, moveDirection);
-                    PosArr[4] = MoveZonePosition(savedPos[4], MousePosX, MousePosY, camera, moveDirection);
-
-                    if (moveDirection.HasFlag(MoveDirection.Y))
-                    {
-                        Vector3 PosY = savedPos[5];
-                        PosY.Y += sensitivity * MousePosY;
-                        PosArr[5] = PosY;
-                    }
-                }
-
                 if (KeepOnGround && !(moveDirection == MoveDirection.Y) && DataBase.SelectedRoom != null)
                 {
                     PosArr[0].Y = DataBase.SelectedRoom.DropToGround(PosArr[0]);
@@ -201,6 +187,121 @@ namespace Re4QuadExtremeEditor.src.Class
 
                 obj.SetObjPostion_ToMove_General(PosArr);
 
+            }
+
+        }
+
+        public static void MoveTriggerZonePlusObjPositionXYZ(Object3D obj, MouseEventArgs e, Point oldMouseXY, Vector3[] savedPos, Camera camera, MoveDirection moveDirection, bool invert) 
+        {
+            if (savedPos != null && savedPos.Length >= 1)
+            {
+                int MousePosX = e.X - oldMouseXY.X;
+                int MousePosY = oldMouseXY.Y - e.Y; //invertido
+                if (invert)
+                {
+                    MousePosX = -MousePosX;
+                    MousePosY = -MousePosY;
+                }
+
+                float sensitivity = 10f * objSpeedMultiplier;
+
+                Vector3 pos = savedPos[0];
+
+                if (moveDirection == MoveDirection.X)
+                {
+                    if (MoveRelativeCamera)
+                    {
+                        pos = savedPos[0] + (camera.MoveObjRight * (MousePosX * sensitivity));
+                    }
+                    else
+                    {
+                        pos.X = savedPos[0].X + (MousePosX * sensitivity);
+                    }
+                }
+                else if (moveDirection == MoveDirection.Y)
+                {
+                    pos.Y = savedPos[0].Y + (MousePosY * sensitivity);
+                }
+                else if (moveDirection == MoveDirection.Z)
+                {
+                    if (MoveRelativeCamera)
+                    {
+                        pos = savedPos[0] + (camera.MoveObjFront * (MousePosY * sensitivity));
+                    }
+                    else
+                    {
+                        pos.Z = savedPos[0].Z + (MousePosY * sensitivity);
+                    }
+                }
+                else if (moveDirection == (MoveDirection.X | MoveDirection.Y))
+                {
+                    if (MoveRelativeCamera)
+                    {
+                        pos = savedPos[0] + (camera.MoveObjRight * (MousePosX * sensitivity));
+                        pos.Y = savedPos[0].Y + (MousePosY * sensitivity);
+                    }
+                    else
+                    {
+                        pos.X = savedPos[0].X + (MousePosX * sensitivity);
+                        pos.Y = savedPos[0].Y + (MousePosY * sensitivity);
+                    }
+                }
+                else if (moveDirection == (MoveDirection.X | MoveDirection.Z))
+                {
+                    if (MoveRelativeCamera)
+                    {
+                        pos = savedPos[0] + (camera.MoveObjRight * (MousePosX * sensitivity)) + (camera.MoveObjFront * (MousePosY * sensitivity));
+                    }
+                    else
+                    {
+                        pos.X = savedPos[0].X + (MousePosX * sensitivity);
+                        pos.Z = savedPos[0].Z + (MousePosY * sensitivity);
+                    }
+                }
+                else if (moveDirection == (MoveDirection.Y | MoveDirection.Z))
+                {
+                    if (MoveRelativeCamera)
+                    {
+                        pos = savedPos[0] + (camera.MoveObjRight * (MousePosX * sensitivity));
+                        pos.Y = savedPos[0].Y + (MousePosY * sensitivity);
+                    }
+                    else
+                    {
+                        pos.Y = savedPos[0].Y + (MousePosY * sensitivity);
+                        pos.Z = savedPos[0].Z + (MousePosX * sensitivity);
+                    }
+                }
+
+                Vector3[] PosArr = (Vector3[])savedPos.Clone();
+                PosArr[0] = pos;
+
+                if (KeepOnGround && !(moveDirection == MoveDirection.Y) && DataBase.SelectedRoom != null)
+                {
+                    PosArr[0].Y = DataBase.SelectedRoom.DropToGround(PosArr[0]);
+                }
+
+                if (savedPos.Length >= 7 && (obj.GetTriggerZoneCategory() == TriggerZoneCategory.Category01 || obj.GetTriggerZoneCategory() == TriggerZoneCategory.Category02))
+                {
+                    PosArr[1] = MoveZonePosition(savedPos[1], MousePosX, MousePosY, camera, moveDirection);
+                    PosArr[2] = MoveZonePosition(savedPos[2], MousePosX, MousePosY, camera, moveDirection);
+                    PosArr[3] = MoveZonePosition(savedPos[3], MousePosX, MousePosY, camera, moveDirection);
+                    PosArr[4] = MoveZonePosition(savedPos[4], MousePosX, MousePosY, camera, moveDirection);
+                    PosArr[6] = MoveZonePosition(savedPos[6], MousePosX, MousePosY, camera, moveDirection);
+
+                    if (moveDirection.HasFlag(MoveDirection.Y))
+                    {
+                        Vector3 PosY = savedPos[5];
+                        PosY.Y += sensitivity * MousePosY;
+                        PosArr[5] = PosY;
+                    }
+
+                    if (TriggerZoneKeepOnGround && !(moveDirection == MoveDirection.Y) && DataBase.SelectedRoom != null)
+                    {
+                        PosArr[5].Y = DataBase.SelectedRoom.DropToGround(new Vector3(PosArr[6].X, PosArr[5].Y, PosArr[6].Z));
+                    }
+                }
+
+                obj.SetObjPostion_ToMove_General(PosArr);
             }
 
         }
@@ -281,9 +382,9 @@ namespace Re4QuadExtremeEditor.src.Class
         }
 
         // triggerZone
-        public static void MoveTriggerZonePositionXZ(Object3D obj, MouseEventArgs e, Point oldMouseXY, Vector3[] savedPos, Camera camera, MoveDirection moveDirection, bool invert, MoveObjType MoveObjTypeSelected, SpecialZoneCategory category)
+        public static void MoveTriggerZonePositionXZ(Object3D obj, MouseEventArgs e, Point oldMouseXY, Vector3[] savedPos, Camera camera, MoveDirection moveDirection, bool invert, MoveObjType MoveObjTypeSelected, TriggerZoneCategory category)
         {
-            if (savedPos != null && savedPos.Length >= 5)
+            if (savedPos != null && savedPos.Length >= 7)
             {
                 int MousePosX = e.X - oldMouseXY.X;
                 int MousePosY = oldMouseXY.Y - e.Y; // invertido
@@ -295,7 +396,7 @@ namespace Re4QuadExtremeEditor.src.Class
 
                 Vector3[] PosArr = (Vector3[])savedPos.Clone();
 
-                if (category == SpecialZoneCategory.Category01)
+                if (category == TriggerZoneCategory.Category01)
                 {
                     if (MoveObjTypeSelected.HasFlag(MoveObjType.__AllPointsXZ))
                     {
@@ -303,6 +404,7 @@ namespace Re4QuadExtremeEditor.src.Class
                         PosArr[2] = MoveZonePosition(savedPos[2], MousePosX, MousePosY, camera, moveDirection);
                         PosArr[3] = MoveZonePosition(savedPos[3], MousePosX, MousePosY, camera, moveDirection);
                         PosArr[4] = MoveZonePosition(savedPos[4], MousePosX, MousePosY, camera, moveDirection);
+                        PosArr[6] = MoveZonePosition(savedPos[6], MousePosX, MousePosY, camera, moveDirection);
                     }
                     else if (MoveObjTypeSelected.HasFlag(MoveObjType.__Point0XZ))
                     {
@@ -322,85 +424,92 @@ namespace Re4QuadExtremeEditor.src.Class
                     }
                     else if (MoveObjTypeSelected.HasFlag(MoveObjType.__WallPoint01and12XZ))
                     {
-                        //MoveZoneWall(ref PosArr[1], ref PosArr[2], MousePosX);
+                        
                         if (moveDirection.HasFlag(MoveDirection.X) && !moveDirection.HasFlag(MoveDirection.Z))
                         {
                             MoveZoneWall(ref PosArr[1], ref PosArr[2], MousePosX);
                         }
                         else if (moveDirection.HasFlag(MoveDirection.Z) && !moveDirection.HasFlag(MoveDirection.X))
                         {
-                            MoveZoneWall(ref PosArr[2], ref PosArr[3], MousePosX);
+                            MoveZoneWall(ref PosArr[2], ref PosArr[3], MousePosY);
                         }
                         else if (moveDirection == (MoveDirection.X | MoveDirection.Z))
                         {
-                            MoveZoneWall(ref PosArr[1], ref PosArr[2], MousePosX);
-                            MoveZoneWall(ref PosArr[2], ref PosArr[3], MousePosX);
+                            MoveZoneWallScale(ref PosArr[1], ref PosArr[2], MousePosX, savedPos[1], savedPos[2]);
+                            MoveZoneWallScale(ref PosArr[2], ref PosArr[3], MousePosY, savedPos[2], savedPos[3]);
                         }
                     }
                     else if (MoveObjTypeSelected.HasFlag(MoveObjType.__WallPoint12and23XZ))
                     {
-                        //MoveZoneWall(ref PosArr[2], ref PosArr[3], MousePosX);
+                        
                         if (moveDirection.HasFlag(MoveDirection.X) && !moveDirection.HasFlag(MoveDirection.Z))
                         {
                             MoveZoneWall(ref PosArr[2], ref PosArr[3], MousePosX);
                         }
                         else if (moveDirection.HasFlag(MoveDirection.Z) && !moveDirection.HasFlag(MoveDirection.X))
                         {
-                            MoveZoneWall(ref PosArr[3], ref PosArr[4], MousePosX);
+                            MoveZoneWall(ref PosArr[3], ref PosArr[4], MousePosY);
                         }
                         else if (moveDirection == (MoveDirection.X | MoveDirection.Z))
                         {
-                            MoveZoneWall(ref PosArr[2], ref PosArr[3], MousePosX);
-                            MoveZoneWall(ref PosArr[3], ref PosArr[4], MousePosX);
+                            MoveZoneWallScale(ref PosArr[2], ref PosArr[3], MousePosX, savedPos[2], savedPos[3]);
+                            MoveZoneWallScale(ref PosArr[3], ref PosArr[4], MousePosY, savedPos[3], savedPos[4]);
                         }
                     }
                     else if (MoveObjTypeSelected.HasFlag(MoveObjType.__Wallpoint23and30XZ))
                     {
-                        //MoveZoneWall(ref PosArr[3], ref PosArr[4], MousePosX);
+                        
                         if (moveDirection.HasFlag(MoveDirection.X) && !moveDirection.HasFlag(MoveDirection.Z))
                         {
                             MoveZoneWall(ref PosArr[3], ref PosArr[4], MousePosX);
                         }
                         else if (moveDirection.HasFlag(MoveDirection.Z) && !moveDirection.HasFlag(MoveDirection.X))
                         {
-                            MoveZoneWall(ref PosArr[4], ref PosArr[1], MousePosX);
+                            MoveZoneWall(ref PosArr[4], ref PosArr[1], MousePosY);
                         }
                         else if (moveDirection == (MoveDirection.X | MoveDirection.Z))
                         {
-                            MoveZoneWall(ref PosArr[3], ref PosArr[4], MousePosX);
-                            MoveZoneWall(ref PosArr[4], ref PosArr[1], MousePosX);
+                            MoveZoneWallScale(ref PosArr[3], ref PosArr[4], MousePosX, savedPos[3], savedPos[4]);
+                            MoveZoneWallScale(ref PosArr[4], ref PosArr[1], MousePosY, savedPos[4], savedPos[1]);
                         }
                     }
                     else if (MoveObjTypeSelected.HasFlag(MoveObjType.__WallPoint30and01XZ))
                     {
-                        //MoveZoneWall(ref PosArr[4], ref PosArr[1], MousePosX);
+                        
                         if (moveDirection.HasFlag(MoveDirection.X) && !moveDirection.HasFlag(MoveDirection.Z))
                         {
                             MoveZoneWall(ref PosArr[4], ref PosArr[1], MousePosX);
                         }
                         else if (moveDirection.HasFlag(MoveDirection.Z) && !moveDirection.HasFlag(MoveDirection.X))
                         {
-                            MoveZoneWall(ref PosArr[1], ref PosArr[2], MousePosX);
+                            MoveZoneWall(ref PosArr[1], ref PosArr[2], MousePosY);
                         }
                         else if (moveDirection == (MoveDirection.X | MoveDirection.Z))
                         {
-                            MoveZoneWall(ref PosArr[4], ref PosArr[1], MousePosX);
-                            MoveZoneWall(ref PosArr[1], ref PosArr[2], MousePosX);
+                            MoveZoneWallScale(ref PosArr[4], ref PosArr[1], MousePosX, savedPos[4], savedPos[1]);
+                            MoveZoneWallScale(ref PosArr[1], ref PosArr[2], MousePosY, savedPos[1], savedPos[2]);
                         }
                     }
 
                     for (int i = 1; i <= 4; i++)
                     {
-                        if (float.IsNaN(PosArr[i].X) || float.IsNaN(PosArr[i].Y))
+                        if (float.IsNaN(PosArr[i].X) || float.IsNaN(PosArr[i].Z) || float.IsInfinity(PosArr[i].X) || float.IsInfinity(PosArr[i].Z))
                         {
                             PosArr[i] = savedPos[i];
                         }
                     }
                    
                 }
-                else if (category == SpecialZoneCategory.Category02)
+                else if (category == TriggerZoneCategory.Category02)
                 {
                    PosArr[1] = MoveZonePosition(savedPos[1], MousePosX, MousePosY, camera, moveDirection);
+                   PosArr[6] = MoveZonePosition(savedPos[6], MousePosX, MousePosY, camera, moveDirection);
+                }
+
+                if (TriggerZoneKeepOnGround && !(moveDirection == MoveDirection.Y) && DataBase.SelectedRoom != null
+                    && ((MoveObjTypeSelected.HasFlag(MoveObjType.__AllPointsXZ) && category == TriggerZoneCategory.Category01) || (category == TriggerZoneCategory.Category02)))
+                {
+                    PosArr[5].Y = DataBase.SelectedRoom.DropToGround(new Vector3(PosArr[6].X, PosArr[5].Y, PosArr[6].Z));
                 }
 
                 obj.SetObjPostion_ToMove_General(PosArr);
@@ -463,6 +572,20 @@ namespace Re4QuadExtremeEditor.src.Class
             pointB += front * sensitivity * MousePos;
         }
 
+        private static void MoveZoneWallScale(ref Vector3 pointA, ref Vector3 pointB, int MousePos, Vector3 oldPointA, Vector3 oldPointB)
+        {
+            float sensitivity = 10f * objSpeedMultiplier;
+            Vector3 direction = Vector3.Normalize((oldPointA - oldPointB) / 100);
+            float yaw = (float)Math.Atan2(direction.Z, direction.X);
+            Vector3 side = Vector3.Zero;
+            side.X = (float)Math.Cos(yaw);
+            side.Z = (float)Math.Sin(yaw);
+            side = Vector3.Normalize(side);
+            Vector3 front = Vector3.Normalize(Vector3.Cross(side, Vector3.UnitY));
+            pointA += front * sensitivity * MousePos;
+            pointB += front * sensitivity * MousePos;
+        }
+
         public static void MoveTriggerZonePositionY(Object3D obj, MouseEventArgs e, Point oldMouseXY, Vector3[] savedPos, bool invert)
         {
             if (savedPos != null && savedPos.Length >= 6)
@@ -480,6 +603,7 @@ namespace Re4QuadExtremeEditor.src.Class
 
                 Vector3[] Arr = (Vector3[])savedPos.Clone();
                 Arr[5] = PosY;
+
                 obj.SetObjPostion_ToMove_General(Arr);
             }
         }
@@ -531,7 +655,7 @@ namespace Re4QuadExtremeEditor.src.Class
             }
         }
 
-        public static void MoveTriggerZoneScale(Object3D obj, MouseEventArgs e, Point oldMouseXY, Vector3[] savedPos, bool invert, SpecialZoneCategory category)
+        public static void MoveTriggerZoneScale(Object3D obj, MouseEventArgs e, Point oldMouseXY, Vector3[] savedPos, bool invert, TriggerZoneCategory category)
         {
             if (savedPos != null && savedPos.Length >= 6)
             {
@@ -542,31 +666,22 @@ namespace Re4QuadExtremeEditor.src.Class
                 }
                 Vector3[] Arr = (Vector3[])savedPos.Clone();
 
-                if (category == SpecialZoneCategory.Category01)
+                if (category == TriggerZoneCategory.Category01)
                 {
-                    //float sensitivity = 2f * Globals.objSpeedMultiplier;
-                    //Arr[1].X = savedPos[1].X - (sensitivity * MousePosX);
-                    //Arr[1].Z = savedPos[1].Z - (sensitivity * MousePosX);
-                    //Arr[2].X = savedPos[2].X + (sensitivity * MousePosX);
-                    //Arr[2].Z = savedPos[2].Z - (sensitivity * MousePosX);
-                    //Arr[3].X = savedPos[3].X + (sensitivity * MousePosX);
-                    //Arr[3].Z = savedPos[3].Z + (sensitivity * MousePosX);
-                    //Arr[4].X = savedPos[4].X - (sensitivity * MousePosX);
-                    //Arr[4].Z = savedPos[4].Z + (sensitivity * MousePosX);
-                    MoveZoneWall(ref Arr[1], ref Arr[2], MousePosX);
-                    MoveZoneWall(ref Arr[2], ref Arr[3], MousePosX);
-                    MoveZoneWall(ref Arr[3], ref Arr[4], MousePosX);
-                    MoveZoneWall(ref Arr[4], ref Arr[1], MousePosX);
+                    MoveZoneWallScale(ref Arr[1], ref Arr[2], MousePosX, savedPos[1], savedPos[2]);
+                    MoveZoneWallScale(ref Arr[2], ref Arr[3], MousePosX, savedPos[2], savedPos[3]);
+                    MoveZoneWallScale(ref Arr[3], ref Arr[4], MousePosX, savedPos[3], savedPos[4]);
+                    MoveZoneWallScale(ref Arr[4], ref Arr[1], MousePosX, savedPos[4], savedPos[1]);
 
                     for (int i = 1; i <= 4; i++)
                     {
-                        if (float.IsNaN(Arr[i].X) || float.IsNaN(Arr[i].Z))
+                        if (float.IsNaN(Arr[i].X) || float.IsNaN(Arr[i].Z) || float.IsInfinity(Arr[i].X) || float.IsInfinity(Arr[i].Z))
                         {
                             Arr[i] = savedPos[i];
                         }
                     }
                 }
-                else if (category == SpecialZoneCategory.Category02)
+                else if (category == TriggerZoneCategory.Category02)
                 {
                     float sensitivity = 5f * objSpeedMultiplier;
                     Vector3 Scale = savedPos[5];
@@ -590,13 +705,13 @@ namespace Re4QuadExtremeEditor.src.Class
                     MousePosX = -MousePosX;
                 }
                 Vector3[] Arr = (Vector3[])savedPos.Clone();
-                MoveZoneWall(ref Arr[1], ref Arr[2], MousePosX);
-                MoveZoneWall(ref Arr[2], ref Arr[3], MousePosX);
-                MoveZoneWall(ref Arr[3], ref Arr[4], MousePosX);
-                MoveZoneWall(ref Arr[4], ref Arr[1], MousePosX);
+                MoveZoneWallScale(ref Arr[1], ref Arr[2], MousePosX, savedPos[1], savedPos[2]);
+                MoveZoneWallScale(ref Arr[2], ref Arr[3], MousePosX, savedPos[2], savedPos[3]);
+                MoveZoneWallScale(ref Arr[3], ref Arr[4], MousePosX, savedPos[3], savedPos[4]);
+                MoveZoneWallScale(ref Arr[4], ref Arr[1], MousePosX, savedPos[4], savedPos[0]);
                 for (int i = 1; i <= 4; i++)
                 {
-                    if (float.IsNaN(Arr[i].X) || float.IsNaN(Arr[i].Z))
+                    if (float.IsNaN(Arr[i].X) || float.IsNaN(Arr[i].Z) || float.IsInfinity(Arr[i].X) || float.IsInfinity(Arr[i].Z))
                     {
                         Arr[i] = savedPos[i];
                     }

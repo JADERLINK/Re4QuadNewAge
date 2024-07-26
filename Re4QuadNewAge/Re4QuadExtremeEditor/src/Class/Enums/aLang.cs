@@ -15,6 +15,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         ListBoxUnknownEnemy,
         ListBoxUnknownItem,
         ListBoxUnknownEtcModel,
+        ListBoxUnknownQuadCustomPoint,
 
         //ListBoxFloatType
         ListBoxFloatTypeEnable,
@@ -49,6 +50,13 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         //ListBoxPromptMessageType
         ListBoxPromptMessageTypeAnotherValue,
 
+        //ListBox QuadCustom
+        ListBoxQuadCustomPointStatus00,
+        ListBoxQuadCustomPointStatus01,
+        ListBoxQuadCustomPointStatus02,
+        ListBoxQuadCustomPointStatusAnotherValue,
+
+
 
         //FloatType
         FloatTypeCategory,
@@ -70,7 +78,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         SpecialType0A_DamagesThePlayer,
         SpecialType0B_FalseCollision,
         //SpecialType0C_Unused,
-        SpecialType0D_Unknown,
+        SpecialType0D_FieldInfo,
         SpecialType0E_Crouch,
         //SpecialType0F_Unused,
         SpecialType10_FixedLadderClimbUp,
@@ -149,9 +157,6 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         ESL_HX1F_Byte_Description,
         
         // EtcModelProperty
-        EtcModel_InternalLineIDCategory,
-        EtcModel_InternalLineIDDisplayName,
-        EtcModel_InternalLineIDDescription,
         EtcModel_AssociatedSpecialEventCategory,
         EtcModel_AssociatedSpecialEventObjNameDisplayName,
         EtcModel_AssociatedSpecialEventObjNameDescription,
@@ -161,9 +166,6 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         EtcModel_AssociatedSpecialEventFromSpecialIndexFromDescription,
         EtcModel_AssociatedSpecialEventFromFileDisplayName,
         EtcModel_AssociatedSpecialEventFromFileDescription,
-        EtcModel_LineArrayCategory,
-        EtcModel_LineArrayDisplayName,
-        EtcModel_LineArrayDescription,
         EtcModelCategory,
 
         EtcModelID_Ushort_DisplayName,
@@ -242,13 +244,6 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
 
         // Special
 
-        Special_InternalLineIDCategory,
-        Special_InternalLineIDDisplayName,
-        Special_InternalLineIDDescription,
-        Special_LineArrayCategory,
-        Special_LineArrayDisplayName,
-        Special_LineArrayDescription,
-
         SpecialCategory,
         SpecialTypeCategory,
         SpecialTriggerZoneCategory,
@@ -264,68 +259,11 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         SpecialIndex_Byte_DisplayName,
         SpecialIndex_Byte_Description,
 
-        Special_Category_Byte_DisplayName,
-        Special_Category_List_DisplayName,
-        Special_Category_Byte_Description,
-
-        //SpecialTriggerZoneCategory
-
-        TriggerZoneTrueY_Float_DisplayName,
-        TriggerZoneTrueY_Hex_DisplayName,
-        TriggerZoneTrueY_Description,
-
-        TriggerZoneMoreHeight_Float_DisplayName,
-        TriggerZoneMoreHeight_Hex_DisplayName,
-        TriggerZoneMoreHeight_Description,
-
-        TriggerZoneCircleRadius_Float_DisplayName,
-        TriggerZoneCircleRadius_Hex_DisplayName,
-        TriggerZoneCircleRadius_Description,
-
-        TriggerZoneCorner0_X_Float_DisplayName,
-        TriggerZoneCorner0_X_Hex_DisplayName,
-        TriggerZoneCorner0_X_Description,
-
-        TriggerZoneCorner0_Z_Float_DisplayName,
-        TriggerZoneCorner0_Z_Hex_DisplayName,
-        TriggerZoneCorner0_Z_Description,
-
-
-        TriggerZoneCorner1_X_Float_DisplayName,
-        TriggerZoneCorner1_X_Hex_DisplayName,
-        TriggerZoneCorner1_X_Description,
-
-        TriggerZoneCorner1_Z_Float_DisplayName,
-        TriggerZoneCorner1_Z_Hex_DisplayName,
-        TriggerZoneCorner1_Z_Description,
-
-        TriggerZoneCorner2_X_Float_DisplayName,
-        TriggerZoneCorner2_X_Hex_DisplayName,
-        TriggerZoneCorner2_X_Description,
-
-        TriggerZoneCorner2_Z_Float_DisplayName,
-        TriggerZoneCorner2_Z_Hex_DisplayName,
-        TriggerZoneCorner2_Z_Description,
-
-        TriggerZoneCorner3_X_Float_DisplayName,
-        TriggerZoneCorner3_X_Hex_DisplayName,
-        TriggerZoneCorner3_X_Description,
-
-        TriggerZoneCorner3_Z_Float_DisplayName,
-        TriggerZoneCorner3_Z_Hex_DisplayName,
-        TriggerZoneCorner3_Z_Description,
 
         //Special Geral //"general"
 
         Unknown_GG_ByteArray4_DisplayName,
         Unknown_GG_ByteArray4_Description,
-
-        Unknown_GH_Byte_DisplayName,
-        Unknown_GH_Byte_Description,
-
-        Unknown_GK_ByteArray2_DisplayName,
-        Unknown_GK_ByteArray2_Description,
-
 
         Unknown_KG_Byte_DisplayName,
         Unknown_KG_Byte_Description,
@@ -790,9 +728,6 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         Unknown_SL_ByteArray4_Description,
 
 
-
-
-
         //MultiSelect
         MultiSelectCategory,
         MultiSelectAmountSelected,
@@ -801,12 +736,223 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         MultiSelectInfoValueText,
         MultiSelectInfoDescription,
 
-        MultiSelectEnemyDisplayName,
-        MultiSelectEtcmodelDisplayName,
-        MultiSelectSpecialItaDisplayName,
-        MultiSelectSpecialAevDisplayName,
-    
+        //DSE Property
+        NewAge_DSE_Category,
 
+        DSE_HX00_Ushort_DisplayName,
+        DSE_HX00_Ushort_Description,
+
+        DSE_HX02_Ushort_DisplayName,
+        DSE_HX02_Ushort_Description,
+
+        DSE_HX04_Ushort_DisplayName,
+        DSE_HX04_Ushort_Description,
+
+        DSE_HX06_Ushort_DisplayName,
+        DSE_HX06_Ushort_Description,
+
+        DSE_HX08_Ushort_DisplayName,
+        DSE_HX08_Ushort_Description,
+
+        DSE_HX0A_Ushort_DisplayName,
+        DSE_HX0A_Ushort_Description,
+
+        // Property gerais para todos
+
+        UnderDevelopment_Category,
+        UnderDevelopment_DisplayName,
+        UnderDevelopment_Description,
+        UnderDevelopment_Value,
+
+        NewAge_InternalLineIDCategory,
+        NewAge_InternalLineIDDisplayName,
+        NewAge_InternalLineIDDescription,
+        NewAge_LineArrayCategory,
+        NewAge_LineArrayDisplayName,
+        NewAge_LineArrayDescription,
+
+        //TriggerZoneCategory
+
+        Unknown_GH_Byte_DisplayName,
+        Unknown_GH_Byte_Description,
+
+        TriggerZoneCategory_Byte_DisplayName,
+        TriggerZoneCategory_List_DisplayName,
+        TriggerZoneCategory_Byte_Description,
+
+        Unknown_GK_ByteArray2_DisplayName,
+        Unknown_GK_ByteArray2_Description,
+
+        TriggerZoneTrueY_Float_DisplayName,
+        TriggerZoneTrueY_Hex_DisplayName,
+        TriggerZoneTrueY_Description,
+
+        TriggerZoneMoreHeight_Float_DisplayName,
+        TriggerZoneMoreHeight_Hex_DisplayName,
+        TriggerZoneMoreHeight_Description,
+
+        TriggerZoneCircleRadius_Float_DisplayName,
+        TriggerZoneCircleRadius_Hex_DisplayName,
+        TriggerZoneCircleRadius_Description,
+
+        TriggerZoneCorner0_X_Float_DisplayName,
+        TriggerZoneCorner0_X_Hex_DisplayName,
+        TriggerZoneCorner0_X_Description,
+
+        TriggerZoneCorner0_Z_Float_DisplayName,
+        TriggerZoneCorner0_Z_Hex_DisplayName,
+        TriggerZoneCorner0_Z_Description,
+
+
+        TriggerZoneCorner1_X_Float_DisplayName,
+        TriggerZoneCorner1_X_Hex_DisplayName,
+        TriggerZoneCorner1_X_Description,
+
+        TriggerZoneCorner1_Z_Float_DisplayName,
+        TriggerZoneCorner1_Z_Hex_DisplayName,
+        TriggerZoneCorner1_Z_Description,
+
+        TriggerZoneCorner2_X_Float_DisplayName,
+        TriggerZoneCorner2_X_Hex_DisplayName,
+        TriggerZoneCorner2_X_Description,
+
+        TriggerZoneCorner2_Z_Float_DisplayName,
+        TriggerZoneCorner2_Z_Hex_DisplayName,
+        TriggerZoneCorner2_Z_Description,
+
+        TriggerZoneCorner3_X_Float_DisplayName,
+        TriggerZoneCorner3_X_Hex_DisplayName,
+        TriggerZoneCorner3_X_Description,
+
+        TriggerZoneCorner3_Z_Float_DisplayName,
+        TriggerZoneCorner3_Z_Hex_DisplayName,
+        TriggerZoneCorner3_Z_Description,
+
+        //quadCuston
+
+        QuadCustom_Category,
+        QuadCustom_ObjectName_Category,
+        QuadCustom_Point_Position_Category,
+        QuadCustom_Point_Position_Div100_Category,
+        QuadCustom_Point_Scale_Category,
+        QuadCustom_Point_Angle_Category,
+        QuadCustom_Point_Info_Category,
+        QuadCustom_Color_Category,
+
+        //Scale
+        QuadCustom_ScaleX_Float_DisplayName,
+        QuadCustom_ScaleX_Hex_DisplayName,
+        QuadCustom_ScaleX_Description,
+
+        QuadCustom_ScaleY_Float_DisplayName,
+        QuadCustom_ScaleY_Hex_DisplayName,
+        QuadCustom_ScaleY_Description,
+
+        QuadCustom_ScaleZ_Float_DisplayName,
+        QuadCustom_ScaleZ_Hex_DisplayName,
+        QuadCustom_ScaleZ_Description,
+
+        //Angle
+        QuadCustom_AngleX_Float_DisplayName,
+        QuadCustom_AngleX_Hex_DisplayName,
+        QuadCustom_AngleX_Description,
+
+        QuadCustom_AngleY_Float_DisplayName,
+        QuadCustom_AngleY_Hex_DisplayName,
+        QuadCustom_AngleY_Description,
+
+        QuadCustom_AngleZ_Float_DisplayName,
+        QuadCustom_AngleZ_Hex_DisplayName,
+        QuadCustom_AngleZ_Description,
+
+        //Position
+        QuadCustom_PositionX_Float_DisplayName,
+        QuadCustom_PositionX_Hex_DisplayName,
+        QuadCustom_PositionX_Description,
+
+        QuadCustom_PositionY_Float_DisplayName,
+        QuadCustom_PositionY_Hex_DisplayName,
+        QuadCustom_PositionY_Description,
+
+        QuadCustom_PositionZ_Float_DisplayName,
+        QuadCustom_PositionZ_Hex_DisplayName,
+        QuadCustom_PositionZ_Description,
+
+        //Position 1/100
+        QuadCustom_PositionX_Div100_Float_DisplayName,
+        QuadCustom_PositionX_Div100_Hex_DisplayName,
+        QuadCustom_PositionX_Div100_Description,
+
+        QuadCustom_PositionY_Div100_Float_DisplayName,
+        QuadCustom_PositionY_Div100_Hex_DisplayName,
+        QuadCustom_PositionY_Div100_Description,
+
+        QuadCustom_PositionZ_Div100_Float_DisplayName,
+        QuadCustom_PositionZ_Div100_Hex_DisplayName,
+        QuadCustom_PositionZ_Div100_Description,
+
+        //quadCuston outros
+        QuadCustom_PointStatus_Byte_DisplayName,
+        QuadCustom_PointStatus_List_DisplayName,
+        QuadCustom_PointStatus_Description,
+
+        QuadCustom_PointModelID_Uint_DisplayName,
+        QuadCustom_PointModelID_List_DisplayName,
+        QuadCustom_PointModelID_Description,
+
+        QuadCustom_ColorRGB_ByteArray_DisplayName,
+        QuadCustom_ColorRGB_ByteArray_Description,
+
+        QuadCustom_ObjectName_String_DisplayName,
+        QuadCustom_ObjectName_String_Description,
+
+        //lines
+        QuadCustom_PartArray_Category,
+
+        QuadCustom_TriggerZoneArray_DisplayName,
+        QuadCustom_TriggerZoneArray_Description,
+
+        QuadCustom_PositionArray_DisplayName,
+        QuadCustom_PositionArray_Description,
+
+        QuadCustom_AngleArray_DisplayName,
+        QuadCustom_angleArray_Description,
+
+        QuadCustom_ScaleArray_DisplayName,
+        QuadCustom_ScaleArray_Description,
+
+        //ESE
+        ESE_Position_Category,
+        ESE_PositionX_Float_DisplayName,
+        ESE_PositionX_Hex_DisplayName,
+        ESE_PositionX_Description,
+
+        ESE_PositionY_Float_DisplayName,
+        ESE_PositionY_Hex_DisplayName,
+        ESE_PositionY_Description,
+
+        ESE_PositionZ_Float_DisplayName,
+        ESE_PositionZ_Hex_DisplayName,
+        ESE_PositionZ_Description,
+
+        //EMI
+        EMI_Position_Category,
+        EMI_PositionX_Float_DisplayName,
+        EMI_PositionX_Hex_DisplayName,
+        EMI_PositionX_Description,
+
+        EMI_PositionY_Float_DisplayName,
+        EMI_PositionY_Hex_DisplayName,
+        EMI_PositionY_Description,
+
+        EMI_PositionZ_Float_DisplayName,
+        EMI_PositionZ_Hex_DisplayName,
+        EMI_PositionZ_Description,
+
+        EMI_Angle_Category,
+        EMI_AngleY_Float_DisplayName,
+        EMI_AngleY_Hex_DisplayName,
+        EMI_AngleY_Description,
 
         Null
     }

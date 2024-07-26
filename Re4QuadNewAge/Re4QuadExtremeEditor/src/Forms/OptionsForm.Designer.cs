@@ -63,6 +63,9 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelEtcModels = new System.Windows.Forms.Label();
             this.labelItems = new System.Windows.Forms.Label();
             this.tabPageOthers = new System.Windows.Forms.TabPage();
+            this.groupBoxTheme = new System.Windows.Forms.GroupBox();
+            this.labelThemeWarning = new System.Windows.Forms.Label();
+            this.checkBoxUseDarkerGrayTheme = new System.Windows.Forms.CheckBox();
             this.groupBoxLanguage = new System.Windows.Forms.GroupBox();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguageWarning = new System.Windows.Forms.Label();
@@ -97,15 +100,15 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.checkBoxForceReloadModels = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialogDiretory = new System.Windows.Forms.FolderBrowserDialog();
             this.colorDialogColors = new System.Windows.Forms.ColorDialog();
-            this.groupBoxTheme = new System.Windows.Forms.GroupBox();
-            this.checkBoxUseDarkerGrayTheme = new System.Windows.Forms.CheckBox();
-            this.labelThemeWarning = new System.Windows.Forms.Label();
+            this.comboBoxQuadCustom = new System.Windows.Forms.ComboBox();
+            this.labelQuadCustom = new System.Windows.Forms.Label();
             this.tabControlConfigs.SuspendLayout();
             this.tabPageDiretory.SuspendLayout();
             this.groupBoxDirectory.SuspendLayout();
             this.tabPageLists.SuspendLayout();
             this.groupBoxLists.SuspendLayout();
             this.tabPageOthers.SuspendLayout();
+            this.groupBoxTheme.SuspendLayout();
             this.groupBoxLanguage.SuspendLayout();
             this.groupBoxItemRotations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDivider)).BeginInit();
@@ -115,7 +118,6 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxOutputFractionalSymbol.SuspendLayout();
             this.groupBoxFractionalPart.SuspendLayout();
             this.groupBoxColors.SuspendLayout();
-            this.groupBoxTheme.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlConfigs
@@ -413,6 +415,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             // 
             this.groupBoxLists.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxLists.Controls.Add(this.comboBoxQuadCustom);
+            this.groupBoxLists.Controls.Add(this.labelQuadCustom);
             this.groupBoxLists.Controls.Add(this.labelEnemies);
             this.groupBoxLists.Controls.Add(this.comboBoxEtcModels);
             this.groupBoxLists.Controls.Add(this.comboBoxEnemies);
@@ -421,7 +425,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxLists.Controls.Add(this.labelItems);
             this.groupBoxLists.Location = new System.Drawing.Point(3, 3);
             this.groupBoxLists.Name = "groupBoxLists";
-            this.groupBoxLists.Size = new System.Drawing.Size(811, 158);
+            this.groupBoxLists.Size = new System.Drawing.Size(811, 200);
             this.groupBoxLists.TabIndex = 0;
             this.groupBoxLists.TabStop = false;
             this.groupBoxLists.Text = "Lists";
@@ -432,7 +436,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelEnemies.Location = new System.Drawing.Point(6, 19);
             this.labelEnemies.Name = "labelEnemies";
             this.labelEnemies.Size = new System.Drawing.Size(54, 13);
-            this.labelEnemies.TabIndex = 3;
+            this.labelEnemies.TabIndex = 0;
             this.labelEnemies.Text = "Enemies";
             // 
             // comboBoxEtcModels
@@ -445,7 +449,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.comboBoxEtcModels.Location = new System.Drawing.Point(9, 81);
             this.comboBoxEtcModels.Name = "comboBoxEtcModels";
             this.comboBoxEtcModels.Size = new System.Drawing.Size(796, 23);
-            this.comboBoxEtcModels.TabIndex = 1;
+            this.comboBoxEtcModels.TabIndex = 3;
             // 
             // comboBoxEnemies
             // 
@@ -457,7 +461,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.comboBoxEnemies.Location = new System.Drawing.Point(9, 36);
             this.comboBoxEnemies.Name = "comboBoxEnemies";
             this.comboBoxEnemies.Size = new System.Drawing.Size(796, 23);
-            this.comboBoxEnemies.TabIndex = 0;
+            this.comboBoxEnemies.TabIndex = 1;
             // 
             // comboBoxItems
             // 
@@ -469,7 +473,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.comboBoxItems.Location = new System.Drawing.Point(9, 125);
             this.comboBoxItems.Name = "comboBoxItems";
             this.comboBoxItems.Size = new System.Drawing.Size(796, 23);
-            this.comboBoxItems.TabIndex = 2;
+            this.comboBoxItems.TabIndex = 5;
             // 
             // labelEtcModels
             // 
@@ -477,7 +481,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelEtcModels.Location = new System.Drawing.Point(6, 64);
             this.labelEtcModels.Name = "labelEtcModels";
             this.labelEtcModels.Size = new System.Drawing.Size(66, 13);
-            this.labelEtcModels.TabIndex = 4;
+            this.labelEtcModels.TabIndex = 2;
             this.labelEtcModels.Text = "EtcModels";
             // 
             // labelItems
@@ -486,7 +490,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelItems.Location = new System.Drawing.Point(6, 108);
             this.labelItems.Name = "labelItems";
             this.labelItems.Size = new System.Drawing.Size(37, 13);
-            this.labelItems.TabIndex = 5;
+            this.labelItems.TabIndex = 4;
             this.labelItems.Text = "Items";
             // 
             // tabPageOthers
@@ -506,6 +510,37 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.tabPageOthers.Size = new System.Drawing.Size(822, 979);
             this.tabPageOthers.TabIndex = 1;
             this.tabPageOthers.Text = "Other";
+            // 
+            // groupBoxTheme
+            // 
+            this.groupBoxTheme.Controls.Add(this.labelThemeWarning);
+            this.groupBoxTheme.Controls.Add(this.checkBoxUseDarkerGrayTheme);
+            this.groupBoxTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.groupBoxTheme.Location = new System.Drawing.Point(5, 505);
+            this.groupBoxTheme.Name = "groupBoxTheme";
+            this.groupBoxTheme.Size = new System.Drawing.Size(779, 71);
+            this.groupBoxTheme.TabIndex = 4;
+            this.groupBoxTheme.TabStop = false;
+            this.groupBoxTheme.Text = "Theme";
+            // 
+            // labelThemeWarning
+            // 
+            this.labelThemeWarning.AutoSize = true;
+            this.labelThemeWarning.Location = new System.Drawing.Point(6, 21);
+            this.labelThemeWarning.Name = "labelThemeWarning";
+            this.labelThemeWarning.Size = new System.Drawing.Size(309, 13);
+            this.labelThemeWarning.TabIndex = 2;
+            this.labelThemeWarning.Text = "Theme changes only take effect after program restart";
+            // 
+            // checkBoxUseDarkerGrayTheme
+            // 
+            this.checkBoxUseDarkerGrayTheme.AutoSize = true;
+            this.checkBoxUseDarkerGrayTheme.Location = new System.Drawing.Point(11, 43);
+            this.checkBoxUseDarkerGrayTheme.Name = "checkBoxUseDarkerGrayTheme";
+            this.checkBoxUseDarkerGrayTheme.Size = new System.Drawing.Size(162, 17);
+            this.checkBoxUseDarkerGrayTheme.TabIndex = 0;
+            this.checkBoxUseDarkerGrayTheme.Text = "Use Darker Gray Theme";
+            this.checkBoxUseDarkerGrayTheme.UseVisualStyleBackColor = true;
             // 
             // groupBoxLanguage
             // 
@@ -896,36 +931,26 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.colorDialogColors.FullOpen = true;
             this.colorDialogColors.SolidColorOnly = true;
             // 
-            // groupBoxTheme
+            // comboBoxQuadCustom
             // 
-            this.groupBoxTheme.Controls.Add(this.labelThemeWarning);
-            this.groupBoxTheme.Controls.Add(this.checkBoxUseDarkerGrayTheme);
-            this.groupBoxTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.groupBoxTheme.Location = new System.Drawing.Point(5, 505);
-            this.groupBoxTheme.Name = "groupBoxTheme";
-            this.groupBoxTheme.Size = new System.Drawing.Size(779, 71);
-            this.groupBoxTheme.TabIndex = 4;
-            this.groupBoxTheme.TabStop = false;
-            this.groupBoxTheme.Text = "Theme";
+            this.comboBoxQuadCustom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxQuadCustom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxQuadCustom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxQuadCustom.FormattingEnabled = true;
+            this.comboBoxQuadCustom.Location = new System.Drawing.Point(9, 167);
+            this.comboBoxQuadCustom.Name = "comboBoxQuadCustom";
+            this.comboBoxQuadCustom.Size = new System.Drawing.Size(796, 23);
+            this.comboBoxQuadCustom.TabIndex = 7;
             // 
-            // checkBoxUseDarkerGrayTheme
+            // labelQuadCustom
             // 
-            this.checkBoxUseDarkerGrayTheme.AutoSize = true;
-            this.checkBoxUseDarkerGrayTheme.Location = new System.Drawing.Point(11, 43);
-            this.checkBoxUseDarkerGrayTheme.Name = "checkBoxUseDarkerGrayTheme";
-            this.checkBoxUseDarkerGrayTheme.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxUseDarkerGrayTheme.TabIndex = 0;
-            this.checkBoxUseDarkerGrayTheme.Text = "Use Darker Gray Theme";
-            this.checkBoxUseDarkerGrayTheme.UseVisualStyleBackColor = true;
-            // 
-            // labelThemeWarning
-            // 
-            this.labelThemeWarning.AutoSize = true;
-            this.labelThemeWarning.Location = new System.Drawing.Point(6, 21);
-            this.labelThemeWarning.Name = "labelThemeWarning";
-            this.labelThemeWarning.Size = new System.Drawing.Size(309, 13);
-            this.labelThemeWarning.TabIndex = 2;
-            this.labelThemeWarning.Text = "Theme changes only take effect after program restart";
+            this.labelQuadCustom.AutoSize = true;
+            this.labelQuadCustom.Location = new System.Drawing.Point(6, 151);
+            this.labelQuadCustom.Name = "labelQuadCustom";
+            this.labelQuadCustom.Size = new System.Drawing.Size(78, 13);
+            this.labelQuadCustom.TabIndex = 6;
+            this.labelQuadCustom.Text = "QuadCustom";
             // 
             // OptionsForm
             // 
@@ -955,6 +980,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxLists.ResumeLayout(false);
             this.groupBoxLists.PerformLayout();
             this.tabPageOthers.ResumeLayout(false);
+            this.groupBoxTheme.ResumeLayout(false);
+            this.groupBoxTheme.PerformLayout();
             this.groupBoxLanguage.ResumeLayout(false);
             this.groupBoxLanguage.PerformLayout();
             this.groupBoxItemRotations.ResumeLayout(false);
@@ -970,8 +997,6 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxFractionalPart.PerformLayout();
             this.groupBoxColors.ResumeLayout(false);
             this.groupBoxColors.PerformLayout();
-            this.groupBoxTheme.ResumeLayout(false);
-            this.groupBoxTheme.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1049,5 +1074,7 @@ namespace Re4QuadExtremeEditor.src.Forms
         private System.Windows.Forms.GroupBox groupBoxTheme;
         private System.Windows.Forms.Label labelThemeWarning;
         private System.Windows.Forms.CheckBox checkBoxUseDarkerGrayTheme;
+        private System.Windows.Forms.ComboBox comboBoxQuadCustom;
+        private System.Windows.Forms.Label labelQuadCustom;
     }
 }

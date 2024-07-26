@@ -57,5 +57,9 @@ namespace Re4QuadExtremeEditor.src.Class.ObjMethods
         /// </summary>
         public SetVector3Array SetObjScale_ToMove;
 
+        /// <summary>
+        /// caso for uma triggerZone retorna o tipo, caso não for, retorna Disable
+        /// </summary>
+        public ReturnTriggerZoneCategory GetTriggerZoneCategory;
     }
 }

@@ -15,7 +15,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         _SquareMoveObjXZ = 32,
         _SquareMoveTriggerZone = 64,
         _SquareMoveAshleyZone = 32768,
-        // 524288,
+        
         // addons:
         __AllPointsXZ = 65536,
         __Point0XZ = 128,
@@ -26,6 +26,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         __WallPoint12and23XZ = 2048, //SquareMoveTriggerZone
         __Wallpoint23and30XZ = 16384, //SquareMoveTriggerZone
         __WallPoint30and01XZ = 8192, //SquareMoveTriggerZone  
+        // combo TriggerZoneXYZ ObjXYZ
+        _AllMoveXYZ = 524288, //_TriggerZoneXYZ_ObjXYZ
         // Vertical
         _VerticalNone = 2,
         _VerticalMoveObjY = 1048576,
@@ -101,6 +103,9 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
             _SquareMoveAshleyZone | __Point2XZ | _VerticalNone | _Horizontal1None | _Horizontal2None | _Horizontal3None,
 
         SquareMoveAshleyPoint3XZ_VerticalNone_Horizontal123None =
-            _SquareMoveAshleyZone | __Point3XZ | _VerticalNone | _Horizontal1None | _Horizontal2None | _Horizontal3None
+            _SquareMoveAshleyZone | __Point3XZ | _VerticalNone | _Horizontal1None | _Horizontal2None | _Horizontal3None,
+
+        AllMoveXYZ_Horizontal123None =
+            _AllMoveXYZ | _Horizontal1None | _Horizontal2None | _Horizontal3None
     }
 }

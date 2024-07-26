@@ -19,56 +19,118 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
 {
     public class MultiSelectProperty : GenericProperty
     {
-        private UpdateMethods updateMethods = null;
+        public override Type GetClassType()
+        {
+            return typeof(MultiSelectProperty);
+        }
 
         public MultiSelectProperty(UpdateMethods updateMethods) : base()
         {
             SetThis(this);
 
-            this.updateMethods = updateMethods;
-
-            EnemyESL = 0;
-            EtcModelETS = 0;
-            SpecialITA = 0;
-            SpecialAEV = 0;
+            List_ESL = new GenericCollection();
+            List_ETS = new GenericCollection();
+            List_ITA = new GenericCollection();
+            List_AEV = new GenericCollection();
+            List_DSE = new GenericCollection();
+            List_FSE = new GenericCollection();
+            List_EAR = new GenericCollection();
+            List_SAR = new GenericCollection();
+            List_EMI = new GenericCollection();
+            List_ESE = new GenericCollection();
+            List_QuadCustom = new GenericCollection();
             MultiSelectInfo = new MultiSelectObjInfoToProperty(Lang.GetAttributeText(aLang.MultiSelectInfoValueText), updateMethods);
 
-            ChangePropertyIsBrowsable("MultiSelectInfo", false);
-            ChangePropertyIsBrowsable("EnemyESL", false);
-            ChangePropertyIsBrowsable("EtcModelETS", false);
-            ChangePropertyIsBrowsable("SpecialITA", false);
-            ChangePropertyIsBrowsable("SpecialAEV", false);
+            ChangePropertyIsBrowsable(nameof(MultiSelectInfo), false);
+            ChangePropertyIsBrowsable(nameof(List_ESL), false);
+            ChangePropertyIsBrowsable(nameof(List_ETS), false);
+            ChangePropertyIsBrowsable(nameof(List_ITA), false);
+            ChangePropertyIsBrowsable(nameof(List_AEV), false);
+            ChangePropertyIsBrowsable(nameof(List_DSE), false);
+            ChangePropertyIsBrowsable(nameof(List_FSE), false);
+            ChangePropertyIsBrowsable(nameof(List_EAR), false);
+            ChangePropertyIsBrowsable(nameof(List_SAR), false);
+            ChangePropertyIsBrowsable(nameof(List_EMI), false);
+            ChangePropertyIsBrowsable(nameof(List_ESE), false);
+            ChangePropertyIsBrowsable(nameof(List_QuadCustom), false);
+
+            ChangePropertyName(nameof(List_ESL), Lang.GetText(eLang.NodeESL));
+            ChangePropertyName(nameof(List_ETS), Lang.GetText(eLang.NodeETS));
+            ChangePropertyName(nameof(List_ITA), Lang.GetText(eLang.NodeITA));
+            ChangePropertyName(nameof(List_AEV), Lang.GetText(eLang.NodeAEV));
+            ChangePropertyName(nameof(List_DSE), Lang.GetText(eLang.NodeDSE));
+            ChangePropertyName(nameof(List_FSE), Lang.GetText(eLang.NodeFSE));
+            ChangePropertyName(nameof(List_EAR), Lang.GetText(eLang.NodeEAR));
+            ChangePropertyName(nameof(List_SAR), Lang.GetText(eLang.NodeSAR));
+            ChangePropertyName(nameof(List_EMI), Lang.GetText(eLang.NodeEMI));
+            ChangePropertyName(nameof(List_ESE), Lang.GetText(eLang.NodeESE));
+            ChangePropertyName(nameof(List_QuadCustom), Lang.GetText(eLang.NodeQuadCustom));
         }
 
-        public void LoadContent(List<TreeNode> Selecteds) 
+        public int LoadContent(List<TreeNode> Selecteds) 
         {
-            var Object3DEnemy = Selecteds.FindAll(o => o.Parent != null && o.Parent is EnemyNodeGroup).Cast<Object3D>().ToArray();
-            var EnemyPropertyList = (from obj in Object3DEnemy select new EnemyProperty(obj.ObjLineRef, updateMethods, ((EnemyNodeGroup)obj.Parent).PropertyMethods, true));
+            var Object3D_ESL = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESL).Cast<Object3D>();
+            var Object3D_ETS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ETS).Cast<Object3D>();
+            var Object3D_ITA = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ITA).Cast<Object3D>();
+            var Object3D_AEV = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.AEV).Cast<Object3D>();
+            var Object3D_DSE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.DSE).Cast<Object3D>();
+            var Object3D_FSE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.FSE).Cast<Object3D>();
+            var Object3D_SAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.SAR).Cast<Object3D>();
+            var Object3D_EAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EAR).Cast<Object3D>();
+            var Object3D_ESE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESE).Cast<Object3D>();
+            var Object3D_EMI = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EMI).Cast<Object3D>();
+            var Object3D_QuadCustom = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.QUAD_CUSTOM).Cast<Object3D>();
 
-            var Object3DEtcModel = Selecteds.FindAll(o => o.Parent != null && o.Parent is EtcModelNodeGroup).Cast<Object3D>().ToArray();
-            var EtcModelPropertyList = (from obj in Object3DEtcModel select new EtcModelProperty(obj.ObjLineRef, updateMethods, ((EtcModelNodeGroup)obj.Parent).PropertyMethods, true));
+            var EntryInfo_ESL = (from obj in Object3D_ESL select new MultiSelectEntryObj(obj));
+            var EntryInfo_ETS = (from obj in Object3D_ETS select new MultiSelectEntryObj(obj));
+            var EntryInfo_ITA = (from obj in Object3D_ITA select new MultiSelectEntryObj(obj));
+            var EntryInfo_AEV = (from obj in Object3D_AEV select new MultiSelectEntryObj(obj));
+            var EntryInfo_DSE = (from obj in Object3D_DSE select new MultiSelectEntryObj(obj));
+            var EntryInfo_FSE = (from obj in Object3D_FSE select new MultiSelectEntryObj(obj));
+            var EntryInfo_SAR = (from obj in Object3D_SAR select new MultiSelectEntryObj(obj));
+            var EntryInfo_EAR = (from obj in Object3D_EAR select new MultiSelectEntryObj(obj));
+            var EntryInfo_ESE = (from obj in Object3D_ESE select new MultiSelectEntryObj(obj));
+            var EntryInfo_EMI = (from obj in Object3D_EMI select new MultiSelectEntryObj(obj));
+            var EntryInfo_QuadCustom = (from obj in Object3D_QuadCustom select new MultiSelectEntryObj(obj));
 
-            var Object3DSpecialITA = Selecteds.FindAll(o => o.Parent != null && o.Parent is SpecialNodeGroup g && g.Group == GroupType.ITA).Cast<Object3D>().ToArray();
-            var SpecialITAPropertyList = (from obj in Object3DSpecialITA select new SpecialProperty(obj.ObjLineRef, updateMethods, ((SpecialNodeGroup)obj.Parent).PropertyMethods, false, true));
+            MultiSelectInfo.AddRange(EntryInfo_ESL);
+            MultiSelectInfo.AddRange(EntryInfo_ETS);
+            MultiSelectInfo.AddRange(EntryInfo_ITA);
+            MultiSelectInfo.AddRange(EntryInfo_AEV);
+            MultiSelectInfo.AddRange(EntryInfo_DSE);
+            MultiSelectInfo.AddRange(EntryInfo_FSE);
+            MultiSelectInfo.AddRange(EntryInfo_EAR);
+            MultiSelectInfo.AddRange(EntryInfo_SAR);
+            MultiSelectInfo.AddRange(EntryInfo_ESE);
+            MultiSelectInfo.AddRange(EntryInfo_EMI);
+            MultiSelectInfo.AddRange(EntryInfo_QuadCustom);
 
-            var Object3DSpecialAEV = Selecteds.FindAll(o => o.Parent != null && o.Parent is SpecialNodeGroup g && g.Group == GroupType.AEV).Cast<Object3D>().ToArray();
-            var SpecialAEVPropertyList = (from obj in Object3DSpecialAEV select new SpecialProperty(obj.ObjLineRef, updateMethods, ((SpecialNodeGroup)obj.Parent).PropertyMethods, false, true));
+            List_ESL.AddRange(EntryInfo_ESL);
+            List_ETS.AddRange(EntryInfo_ETS);
+            List_ITA.AddRange(EntryInfo_ITA);
+            List_AEV.AddRange(EntryInfo_AEV);
+            List_DSE.AddRange(EntryInfo_DSE);
+            List_FSE.AddRange(EntryInfo_FSE);
+            List_EAR.AddRange(EntryInfo_EAR);
+            List_SAR.AddRange(EntryInfo_SAR);
+            List_ESE.AddRange(EntryInfo_ESE);
+            List_EMI.AddRange(EntryInfo_EMI);
+            List_QuadCustom.AddRange(EntryInfo_QuadCustom);
 
-            MultiSelectInfo.AddRange(EnemyPropertyList);
-            MultiSelectInfo.AddRange(EtcModelPropertyList);
-            MultiSelectInfo.AddRange(SpecialITAPropertyList);
-            MultiSelectInfo.AddRange(SpecialAEVPropertyList);
+            ChangePropertyIsBrowsable(nameof(MultiSelectInfo), MultiSelectInfo.GetCount() != 0);
+            ChangePropertyIsBrowsable(nameof(List_ESL), List_ESL.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_ETS), List_ETS.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_ITA), List_ITA.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_AEV), List_AEV.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_DSE), List_DSE.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_FSE), List_FSE.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EAR), List_EAR.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_SAR), List_SAR.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EMI), List_EMI.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_ESE), List_ESE.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_QuadCustom), List_QuadCustom.Count != 0);
 
-            EnemyESL = Object3DEnemy.LongLength;
-            EtcModelETS = Object3DEtcModel.LongLength;
-            SpecialITA = Object3DSpecialITA.LongLength;
-            SpecialAEV = Object3DSpecialAEV.LongLength;
-
-            ChangePropertyIsBrowsable("MultiSelectInfo", true);
-            ChangePropertyIsBrowsable("EnemyESL", EnemyESL != 0);
-            ChangePropertyIsBrowsable("EtcModelETS", EtcModelETS != 0);
-            ChangePropertyIsBrowsable("SpecialITA", SpecialITA != 0);
-            ChangePropertyIsBrowsable("SpecialAEV", SpecialAEV != 0);
+            return MultiSelectInfo.GetCount();
         }
 
         [CustomCategory(aLang.MultiSelectCategory)]
@@ -82,56 +144,147 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         public MultiSelectObjInfoToProperty MultiSelectInfo { get; }
 
 
+
         [CustomCategory(aLang.MultiSelectCategory)]
-        [CustomDisplayName(aLang.MultiSelectEnemyDisplayName)]
+        [DisplayName("ERROR")]
         [Description("")]
         [DefaultValue(null)]
         [ReadOnly(false)]
         [Browsable(false)]
-        //[TypeConverter(typeof(GenericCollectionConverter))]
-        //[Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
         [DynamicTypeDescriptor.Id(1, 0)]
-        public long EnemyESL { get; private set; }
+        public GenericCollection List_ESL { get; private set; }
 
 
 
         [CustomCategory(aLang.MultiSelectCategory)]
-        [CustomDisplayName(aLang.MultiSelectEtcmodelDisplayName)]
+        [DisplayName("ERROR")]
         [Description("")]
         [DefaultValue(null)]
         [ReadOnly(false)]
         [Browsable(false)]
-        //[TypeConverter(typeof(GenericCollectionConverter))]
-        //[Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
         [DynamicTypeDescriptor.Id(2, 0)]
-        public long EtcModelETS { get; private set; }
+        public GenericCollection List_ETS { get; private set; }
 
 
 
         [CustomCategory(aLang.MultiSelectCategory)]
-        [CustomDisplayName(aLang.MultiSelectSpecialItaDisplayName)]
+        [DisplayName("ERROR")]
         [Description("")]
         [DefaultValue(null)]
         [ReadOnly(false)]
         [Browsable(false)]
-        //[TypeConverter(typeof(GenericCollectionConverter))]
-        //[Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
         [DynamicTypeDescriptor.Id(3, 0)]
-        public long SpecialITA { get; private set; }
+        public GenericCollection List_ITA { get; private set; }
 
 
 
         [CustomCategory(aLang.MultiSelectCategory)]
-        [CustomDisplayName(aLang.MultiSelectSpecialAevDisplayName)]
+        [DisplayName("ERROR")]
         [Description("")]
         [DefaultValue(null)]
         [ReadOnly(false)]
         [Browsable(false)]
-        //[TypeConverter(typeof(GenericCollectionConverter))]
-        //[Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
         [DynamicTypeDescriptor.Id(4, 0)]
-        public long SpecialAEV { get; private set; }
+        public GenericCollection List_AEV { get; private set; }
 
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(5, 0)]
+        public GenericCollection List_DSE { get; private set; }
+
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(6, 0)]
+        public GenericCollection List_FSE { get; private set; }
+
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(7, 0)]
+        public GenericCollection List_SAR { get; private set; }
+
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(8, 0)]
+        public GenericCollection List_EAR { get; private set; }
+
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(9, 0)]
+        public GenericCollection List_EMI { get; private set; }
+
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(10, 0)]
+        public GenericCollection List_ESE { get; private set; }
+
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(11, 0)]
+        public GenericCollection List_QuadCustom { get; private set; }
     }
 
 }

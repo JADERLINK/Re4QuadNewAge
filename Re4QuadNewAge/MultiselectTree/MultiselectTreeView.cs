@@ -44,7 +44,6 @@ namespace NsMultiselectTreeView // from https://github.com/DavidSM64/Quad64/blob
 				if (value != null)
 				{
 					m_SelectedNodes.Clear();
-                    //m_SelectedNodes.AddRange(value);
                     foreach (var item in value)
                     {
 						m_SelectedNodes.Add(item.Key, item.Value);
@@ -52,7 +51,6 @@ namespace NsMultiselectTreeView // from https://github.com/DavidSM64/Quad64/blob
 					m_SelectedNode = null;
 					if (m_SelectedNodes.Count != 0)
                     {
-						//m_SelectedNode = m_SelectedNodes[m_SelectedNodes.Count - 1];
 						m_SelectedNode = m_SelectedNodes.Last().Value;
 					}
 					OnAfterSelect(new TreeViewEventArgs(m_SelectedNode));
@@ -88,11 +86,17 @@ namespace NsMultiselectTreeView // from https://github.com/DavidSM64/Quad64/blob
 			}
 		}
 
+		public void SelectedNodesClearNoRedraw()
+		{
+			ClearSelectedNodes();
+		}
+
 		#endregion
 
 		public MultiselectTreeView()
 		{
 			m_SelectedNodes = new Dictionary<int, TreeNode>();
+			m_SelectedNode = null;
 			base.SelectedNode = null;
 			DrawMode = TreeViewDrawMode.OwnerDrawText;
 		}
@@ -454,44 +458,32 @@ namespace NsMultiselectTreeView // from https://github.com/DavidSM64/Quad64/blob
 			}
 		}
 
-		
+		public void EnableDrawNode() 
+		{
+			DrawNodeRender = true;
+		}
+		public void DisableDrawNode() 
+		{
+			DrawNodeRender = false;
+		}
+
+		private bool DrawNodeRender = true;
+
 		// devido de ao limpar nodes e colocar, fica selecinados no design, os que não estão selecionados, então subistitu-o a pintura
 		// tive muito problema com a propriedade "Text", que causave muito lag, no treeview.
 		// descobri que a melhor solução é pegar o texto de outro lugar e deixar o "Text" em branco. 
-        protected override void OnDrawNode(DrawTreeNodeEventArgs e)
+		protected override void OnDrawNode(DrawTreeNodeEventArgs e)
         {
 			//Console.WriteLine(e.Node.Name + ' ' + e.Bounds.Y);
-			e.DrawDefault = false;
-			if (e.Bounds.Y <= this.Height && e.Bounds.Y >= 0)
+			//base.OnDrawNode(e); // não usado
+
+			e.DrawDefault = false; // false o sistema não renderiza, true é renderizado o texto
+
+			if (DrawNodeRender)
 			{
-				//base.OnDrawNode(e);
-				//e.DrawDefault = false;
-				if (m_SelectedNodes.ContainsValue(e.Node) && e.Node.Parent != null)
+				if (e.Bounds.Y <= Height && e.Bounds.Y >= 0)
 				{
-					Font font = this.Font;
-					if (e.Node.NodeFont != null)
-					{
-						font = e.Node.NodeFont;
-					}
-
-					string altText = e.Node.Text;
-					Color altForeColor = e.Node.ForeColor;
-					if (e.Node is IAltNode obj)
-                    {
-						altText = obj.AltText;
-						altForeColor = obj.AltForeColor;
-					}
-
-					//e.Graphics.FillRectangle(new SolidBrush(selectedNodeBackColor), e.Bounds);
-					//e.Graphics.DrawString(altText, font, new SolidBrush(altForeColor), e.Bounds.Left, e.Bounds.Top);
-
-					e.Graphics.FillRectangle(new SolidBrush(selectedNodeBackColor), new Rectangle(e.Bounds.X, e.Bounds.Y, TextRenderer.MeasureText(altText, font).Width, e.Bounds.Height));
-					TextRenderer.DrawText(e.Graphics, altText, font, new Point(e.Bounds.Left, e.Bounds.Top), altForeColor, TextFormatFlags.GlyphOverhangPadding);
-				}
-				else
-				{
-					//e.DrawDefault = true;
-					Font font = this.Font;
+					Font font = Font;
 					if (e.Node.NodeFont != null)
 					{
 						font = e.Node.NodeFont;
@@ -505,11 +497,18 @@ namespace NsMultiselectTreeView // from https://github.com/DavidSM64/Quad64/blob
 						altForeColor = obj.AltForeColor;
 					}
 
+					//tampa o texto/seleção de fundo
 					e.Graphics.FillRectangle(new SolidBrush(BackColor), e.Bounds);
-					//e.Graphics.DrawString(altText, font, new SolidBrush(altForeColor), e.Bounds.Left, e.Bounds.Top);
 
-					//e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(e.Bounds.X, e.Bounds.Y, TextRenderer.MeasureText(altText, font).Width, e.Bounds.Height));
-					TextRenderer.DrawText(e.Graphics, altText, font, new Point(e.Bounds.Left, e.Bounds.Top), altForeColor, TextFormatFlags.GlyphOverhangPadding);		
+					//se é um node selecionado
+					if (m_SelectedNodes.ContainsValue(e.Node) && e.Node.Parent != null)
+					{
+						e.Graphics.FillRectangle(new SolidBrush(selectedNodeBackColor), 
+							new Rectangle(e.Bounds.X, e.Bounds.Y, TextRenderer.MeasureText(altText, font).Width, e.Bounds.Height));
+					}
+
+					//renderiza o texto
+					TextRenderer.DrawText(e.Graphics, altText, font, new Point(e.Bounds.Left, e.Bounds.Top), altForeColor, TextFormatFlags.GlyphOverhangPadding);
 				}
 			}
         }
@@ -543,7 +542,6 @@ namespace NsMultiselectTreeView // from https://github.com/DavidSM64/Quad64/blob
 					m_SelectedNodes.Remove(node.GetHashCode());
 					if (m_SelectedNodes.Count >= 1)
 					{
-						//m_SelectedNode = m_SelectedNodes[m_SelectedNodes.Count - 1];
 						m_SelectedNode = m_SelectedNodes.Last().Value;
 						m_SelectedNode.EnsureVisible();
 					}

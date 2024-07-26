@@ -113,20 +113,25 @@ namespace NewAgeTheRender
             DataShader.BoxModel.Render();
         }
 
-        public static void TriggerZoneBoxTransparentSolid(Matrix4 TriggerZone, Vector4 Color)
+        public static void TriggerZoneBoxTransparentSolid(Matrix4 TriggerZone, Vector4 frontColor, Vector4 backColor)
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             GL.Enable(EnableCap.AlphaTest);
             GL.AlphaFunc(AlphaFunction.Gequal, 0f);
 
-            GL.Disable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.Enable(EnableCap.CullFace);
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
             DataShader.ShaderTriggerZoneBox.Use();
-            DataShader.ShaderTriggerZoneBox.SetVector4("mColor", Color);
             DataShader.ShaderTriggerZoneBox.SetMatrix4("TriggerZone", TriggerZone);
+
+            GL.CullFace(CullFaceMode.Front);
+            DataShader.ShaderTriggerZoneBox.SetVector4("mColor", frontColor);
+            DataShader.BoxModel.Render();
+
+            GL.CullFace(CullFaceMode.Back);
+            DataShader.ShaderTriggerZoneBox.SetVector4("mColor", backColor);
             DataShader.BoxModel.Render();
 
             GL.Disable(EnableCap.Blend);
@@ -147,24 +152,40 @@ namespace NewAgeTheRender
             DataShader.CylinderTopXModel.Render();
         }
 
-        public static void TriggerZoneCircleTransparentSolid(Matrix4 TriggerZone, Vector4 Color)
+        public static void TriggerZoneCircleTransparentSolid(Matrix4 TriggerZone, Vector4 frontColor, Vector4 backColor)
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             GL.Enable(EnableCap.AlphaTest);
             GL.AlphaFunc(AlphaFunction.Gequal, 0f);
 
-            GL.Disable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.Enable(EnableCap.CullFace);
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
             DataShader.ShaderTriggerZoneCircle.Use();
-            DataShader.ShaderTriggerZoneCircle.SetVector4("mColor", Color);
             DataShader.ShaderTriggerZoneCircle.SetMatrix4("TriggerZone", TriggerZone);
-            DataShader.CylinderDownModel.Render();
-            DataShader.CylinderSidesModel.Render();
-            DataShader.CylinderTopModel.Render();
 
+            if (TriggerZone[2,1] < 0) //invertido
+            {
+                GL.CullFace(CullFaceMode.Back);
+                DataShader.ShaderTriggerZoneCircle.SetVector4("mColor", frontColor);
+                DataShader.CylinderFullModel.Render();
+
+                GL.CullFace(CullFaceMode.Front);
+                DataShader.ShaderTriggerZoneCircle.SetVector4("mColor", backColor);
+                DataShader.CylinderFullModel.Render();
+            }
+            else // renderização normal
+            {
+                GL.CullFace(CullFaceMode.Front);
+                DataShader.ShaderTriggerZoneCircle.SetVector4("mColor", frontColor);
+                DataShader.CylinderFullModel.Render();
+
+                GL.CullFace(CullFaceMode.Back);
+                DataShader.ShaderTriggerZoneCircle.SetVector4("mColor", backColor);
+                DataShader.CylinderFullModel.Render();
+            }
+  
             GL.Disable(EnableCap.Blend);
             GL.Disable(EnableCap.AlphaTest);
         }

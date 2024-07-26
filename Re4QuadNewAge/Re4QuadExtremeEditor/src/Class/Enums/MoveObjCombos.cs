@@ -10,19 +10,23 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
     public enum MoveObjCombos : uint
     {
         Null = 0,
-        Enemy = 1,
-        Etcmodel = 2,
-        Item = 4,
-        SpecialTriggerZone = 8,
-        ExtraSpecialWarpLadderGrappleGun = 16,
-        ExtraSpecialAshley = 32,
+        DisableMoveObject = 1,
+        Enemy = 2,
+        Etcmodel = 4,
+        Item = 8, // Item position angle
+        TriggerZone = 16, //only TriggerZone (aev, ita, sar, ear, fse, QuadCustom)
+        ExtraSpecialWarpLadderGrappleGun = 32,
+        ExtraSpecialAshley = 64,
+        QuadCustom = 128, //point position, angle, scale
+        EseEntry = 256,
+        EmiEntry = 512,
 
-        ComboEnemyEtcmodel = Enemy | Etcmodel,
-        ComboEnemyItem = Enemy | Item,
-        ComboEtcmodelItem = Etcmodel | Item,
-        ComboEnemyEtcmodelItem = Enemy | Etcmodel | Item,
-        ComboSpecialTriggerZoneAll = Item | SpecialTriggerZone,
-        ComboExtraSpecialAll = ExtraSpecialWarpLadderGrappleGun | ExtraSpecialAshley,
-        ComboAll = Enemy | Etcmodel | Item | SpecialTriggerZone | ExtraSpecialWarpLadderGrappleGun | ExtraSpecialAshley
+        //combos
+        Combo_Item_TriggerZone = Item | TriggerZone,
+        Combo_QuadCustom_TriggerZone = QuadCustom | TriggerZone,
+        Combo_Item_QuadCustom_TriggerZone = Item | QuadCustom | TriggerZone,
+        Combo_Item_QuadCustom = Item | QuadCustom,
+
+        ComboAll = Enemy | Etcmodel | Item | TriggerZone | ExtraSpecialWarpLadderGrappleGun | ExtraSpecialAshley | QuadCustom | EseEntry | EmiEntry
     }
 }

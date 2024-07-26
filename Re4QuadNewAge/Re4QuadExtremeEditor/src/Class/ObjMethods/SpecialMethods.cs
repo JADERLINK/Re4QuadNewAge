@@ -7,7 +7,7 @@ using Re4QuadExtremeEditor.src.Class.CustomDelegates;
 
 namespace Re4QuadExtremeEditor.src.Class.ObjMethods
 {
-    public class SpecialMethods
+    public class SpecialMethods : BaseTriggerZoneMethods
     {
 
         #region geral metodos
@@ -15,14 +15,11 @@ namespace Re4QuadExtremeEditor.src.Class.ObjMethods
         public ReturnSpecialFileFormat GetSpecialFileFormat;
 
         public ReturnSpecialType GetSpecialType; //[0x35]
-        public ReturnSpecialZoneCategory GetSpecialZoneCategory; //[0x05]
         public ReturnRefInteractionType GetRefInteractionType; //[0x46]
 
         public ReturnByteArray ReturnLine;
         public SetByteArray SetLine;
 
-        public ReturnByteFromPosition ReturnByteFromPosition;
-        public SetByteFromPosition SetByteFromPosition;
         #endregion
 
         // referente aos bytes
@@ -39,77 +36,6 @@ namespace Re4QuadExtremeEditor.src.Class.ObjMethods
 
         public ReturnByteArray ReturnUnknown_GG; //[0x00][0x01][0x02][0x03]
         public SetByteArray SetUnknown_GG;
-
-        public ReturnByte ReturnUnknown_GH; //[0x04]
-        public SetByte SetUnknown_GH;
-
-        public ReturnByte ReturnCategoy; //[0x05]
-        public SetByte SetCategoy;
-
-        public ReturnByteArray ReturnUnknown_GK; //[0x06][0x07]
-        public SetByteArray SetUnknown_GK;
-
-
-        //TriggerZone
-        public ReturnFloat ReturnTriggerZoneTrueY;
-        public SetFloat SetTriggerZoneTrueY;
-
-        public ReturnFloat ReturnTriggerZoneMoreHeight;
-        public SetFloat SetTriggerZoneMoreHeight;
-
-        public ReturnFloat ReturnTriggerZoneCircleRadius;
-        public SetFloat SetTriggerZoneCircleRadius;
-
-        public ReturnFloat ReturnTriggerZoneCorner0_X;
-        public SetFloat SetTriggerZoneCorner0_X;
-        public ReturnFloat ReturnTriggerZoneCorner0_Z;
-        public SetFloat SetTriggerZoneCorner0_Z;
-
-        public ReturnFloat ReturnTriggerZoneCorner1_X;
-        public SetFloat SetTriggerZoneCorner1_X;
-        public ReturnFloat ReturnTriggerZoneCorner1_Z;
-        public SetFloat SetTriggerZoneCorner1_Z;
-
-        public ReturnFloat ReturnTriggerZoneCorner2_X;
-        public SetFloat SetTriggerZoneCorner2_X;
-        public ReturnFloat ReturnTriggerZoneCorner2_Z;
-        public SetFloat SetTriggerZoneCorner2_Z;
-
-        public ReturnFloat ReturnTriggerZoneCorner3_X;
-        public SetFloat SetTriggerZoneCorner3_X;
-        public ReturnFloat ReturnTriggerZoneCorner3_Z;
-        public SetFloat SetTriggerZoneCorner3_Z;
-
-        // in Hex
-        public ReturnUint ReturnTriggerZoneTrueY_Hex;
-        public SetUint SetTriggerZoneTrueY_Hex;
-
-        public ReturnUint ReturnTriggerZoneMoreHeight_Hex;
-        public SetUint SetTriggerZoneMoreHeight_Hex;
-
-        public ReturnUint ReturnTriggerZoneCircleRadius_Hex;
-        public SetUint SetTriggerZoneCircleRadius_Hex;
-
-        public ReturnUint ReturnTriggerZoneCorner0_X_Hex;
-        public SetUint SetTriggerZoneCorner0_X_Hex;
-        public ReturnUint ReturnTriggerZoneCorner0_Z_Hex;
-        public SetUint SetTriggerZoneCorner0_Z_Hex;
-
-        public ReturnUint ReturnTriggerZoneCorner1_X_Hex;
-        public SetUint SetTriggerZoneCorner1_X_Hex;
-        public ReturnUint ReturnTriggerZoneCorner1_Z_Hex;
-        public SetUint SetTriggerZoneCorner1_Z_Hex;
-
-        public ReturnUint ReturnTriggerZoneCorner2_X_Hex;
-        public SetUint SetTriggerZoneCorner2_X_Hex;
-        public ReturnUint ReturnTriggerZoneCorner2_Z_Hex;
-        public SetUint SetTriggerZoneCorner2_Z_Hex;
-
-        public ReturnUint ReturnTriggerZoneCorner3_X_Hex;
-        public SetUint SetTriggerZoneCorner3_X_Hex;
-        public ReturnUint ReturnTriggerZoneCorner3_Z_Hex;
-        public SetUint SetTriggerZoneCorner3_Z_Hex;
-
 
         public ReturnByte ReturnUnknown_KG; //[0x34]
         public SetByte SetUnknown_KG;

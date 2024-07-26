@@ -19,6 +19,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ObjectModel\ObjectModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObjectModel\ObjectModelFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Others\PromptMessageListFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuadCustomInfo\QuadCustomInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuadCustomInfo\QuadCustomInfoList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuadCustomInfo\QuadCustomInfoListFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomListObj.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomListObjFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RoomModel\RoomModel.cs" />

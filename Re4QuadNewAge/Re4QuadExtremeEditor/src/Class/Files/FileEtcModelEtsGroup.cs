@@ -25,13 +25,13 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         /// </summary>
         public byte[] StartFile;
         /// <summary>
-        /// <para>aqui contem o conteudo de todos os ETS do mapa;</para>
-        /// <para>id da linha, sequencia de 64 bytes para re4 classic;</para>
+        /// <para>aqui contem o conteudo de todos os ETS do arquivo;</para>
+        /// <para>id da linha, sequencia de 64 bytes para re4 2007ps2;</para>
         /// <para>id da linha, sequencia de 40 bytes para re4 uhd;</para>
         /// </summary>
-        public Dictionary<ushort, byte[]> Lines;
+        public Dictionary<ushort, byte[]> Lines { get; private set; }
         /// <summary>
-        /// aqui contem o resto to arquivo, a parte não usada;
+        /// aqui contem o resto do arquivo, a parte não usada;
         /// </summary>
         public byte[] EndFile;
         /// <summary>
@@ -152,6 +152,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             MoveMethods.SetObjRotationAngles_ToMove = SetObjRotationAngles_ToMove;
             MoveMethods.GetObjScale_ToMove = GetObjScale_ToMove;
             MoveMethods.SetObjScale_ToMove = SetObjScale_ToMove;
+            MoveMethods.GetTriggerZoneCategory = Utils.GetTriggerZoneCategory_Null;
 
             MethodsForGL = new EtcModelMethodsForGL();
             MethodsForGL.GetEtcModelID = ReturnEtcModelID;
@@ -196,11 +197,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         // texto do treeNode
         public string GetNodeText(ushort ID)
         {
-            if (Globals.TreeNodeRenderHexValues)
+            if (Lines.ContainsKey(ID) && Globals.TreeNodeRenderHexValues)
             {
-                return BitConverter.ToString(Lines[ID]).Replace("-", "");
+                return BitConverter.ToString(Lines[ID]).Replace("-", "_");
             }
-            else 
+            else if (Lines.ContainsKey(ID))
             {
                 ushort ETS_ID = ReturnETS_ID(ID);
                 string r = "[" + ETS_ID.ToString("X4") + "] 0x";
@@ -226,6 +227,10 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
                 return r;
             }
+            else 
+            {
+                return "ETS Error Internal Line ID " + ID;
+            }
         }
 
         public Color GetNodeColor(ushort ID)
@@ -234,10 +239,10 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return Globals.NodeColorHided;
             }
-            return Color.Black;
+            return Globals.NodeColorEntry;
         }
 
-        private ushort AddNewLineID() 
+        private ushort AddNewLineID(byte initType) 
         {
             ushort newID = IdForNewLine;
             if (IdForNewLine == ushort.MaxValue)
@@ -264,7 +269,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             byte[] newETS_ID_Bytes = BitConverter.GetBytes(newETS_ID);
 
             byte[] content = null;
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 content = new byte[64];
                 content[0x30] = 0x01; // crate
@@ -398,12 +403,12 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         }
 
 
-        private byte ReturnByteFromPosition(ushort ID, byte FromPostion)
+        private byte ReturnByteFromPosition(ushort ID, int FromPostion)
         {
             return Lines[ID][FromPostion];
         }
 
-        private void SetByteFromPosition(ushort ID, byte FromPostion, byte value)
+        private void SetByteFromPosition(ushort ID, int FromPostion, byte value)
         {
             Lines[ID][FromPostion] = value;
         }
@@ -417,7 +422,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         {
             ushort OldEtsID = ReturnETS_ID(ID);
 
-            Lines[ID] = value;
+            value.CopyTo(Lines[ID], 0);
 
             UpdateETS_ID_List(ID, OldEtsID, ReturnETS_ID(ID));
         }
@@ -432,7 +437,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 b[1] = Lines[ID][0x01];
                 return BitConverter.ToUInt16(b, 0);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[2];
                 b[0] = Lines[ID][0x30];
@@ -450,7 +455,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x00] = b[0];
                 Lines[ID][0x01] = b[1];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x30] = b[0];
                 Lines[ID][0x31] = b[1];
@@ -466,7 +471,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 b[1] = Lines[ID][0x03];
                 return BitConverter.ToUInt16(b, 0);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[2];
                 b[0] = Lines[ID][0x32];
@@ -485,7 +490,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x02] = b[0];
                 Lines[ID][0x03] = b[1];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x32] = b[0];
                 Lines[ID][0x33] = b[1];
@@ -500,7 +505,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x04);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x00);
             }
@@ -517,7 +522,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x06] = b[2];
                 Lines[ID][0x07] = b[3];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x00] = b[0];
                 Lines[ID][0x01] = b[1];
@@ -532,7 +537,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x08);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x04);
             }
@@ -549,7 +554,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x0A] = b[2];
                 Lines[ID][0x0B] = b[3];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x04] = b[0];
                 Lines[ID][0x05] = b[1];
@@ -564,7 +569,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x0C);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x08);
             }
@@ -581,7 +586,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x0E] = b[2];
                 Lines[ID][0x0F] = b[3];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x08] = b[0];
                 Lines[ID][0x09] = b[1];
@@ -592,7 +597,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private uint ReturnScaleW_Hex(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x0C);
             }
@@ -602,7 +607,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void SetScaleW_Hex(ushort ID, uint value)
         {
             byte[] b = BitConverter.GetBytes(value);
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x0C] = b[0];
                 Lines[ID][0x0D] = b[1];
@@ -613,7 +618,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private uint ReturnAngleX_Hex(ushort ID)
         {
-            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x10);
             }
@@ -623,7 +628,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void SetAngleX_Hex(ushort ID, uint value)
         {
             byte[] b = BitConverter.GetBytes(value);
-            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x10] = b[0];
                 Lines[ID][0x11] = b[1];
@@ -634,7 +639,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private uint ReturnAngleY_Hex(ushort ID)
         {
-            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x14);
             }
@@ -644,7 +649,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void SetAngleY_Hex(ushort ID, uint value)
         {
             byte[] b = BitConverter.GetBytes(value);
-            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x14] = b[0];
                 Lines[ID][0x15] = b[1];
@@ -655,7 +660,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private uint ReturnAngleZ_Hex(ushort ID)
         {
-            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x18);
             }
@@ -665,7 +670,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void SetAngleZ_Hex(ushort ID, uint value)
         {
             byte[] b = BitConverter.GetBytes(value);
-            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.UHD || GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x18] = b[0];
                 Lines[ID][0x19] = b[1];
@@ -676,7 +681,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private uint ReturnAngleW_Hex(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x1C);
             }
@@ -686,7 +691,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void SetAngleW_Hex(ushort ID, uint value)
         {
             byte[] b = BitConverter.GetBytes(value);
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x1C] = b[0];
                 Lines[ID][0x1D] = b[1];
@@ -701,7 +706,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x1C);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x20);
             }
@@ -718,7 +723,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x1E] = b[2];
                 Lines[ID][0x1F] = b[3];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x20] = b[0];
                 Lines[ID][0x21] = b[1];
@@ -733,7 +738,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x20);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x24);
             }
@@ -750,7 +755,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x22] = b[2];
                 Lines[ID][0x23] = b[3];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x24] = b[0];
                 Lines[ID][0x25] = b[1];
@@ -765,7 +770,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x24);
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x28);
             }
@@ -782,7 +787,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
                 Lines[ID][0x26] = b[2];
                 Lines[ID][0x27] = b[3];
             }
-            else if (GetRe4Version == Re4Version.Classic)
+            else if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x28] = b[0];
                 Lines[ID][0x29] = b[1];
@@ -793,7 +798,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private uint ReturnPositionW_Hex(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 return BitConverter.ToUInt32(Lines[ID], 0x2C);
             }
@@ -803,7 +808,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         private void SetPositionW_Hex(ushort ID, uint value)
         {
             byte[] b = BitConverter.GetBytes(value);
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x2C] = b[0];
                 Lines[ID][0x2D] = b[1];
@@ -941,7 +946,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private byte[] ReturnUnknown_TTJ(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x34];
@@ -955,7 +960,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetUnknown_TTJ(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x34] = value[0];
                 Lines[ID][0x35] = value[1];
@@ -966,7 +971,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private byte[] ReturnUnknown_TTH(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x38];
@@ -980,7 +985,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetUnknown_TTH(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x38] = value[0];
                 Lines[ID][0x39] = value[1];
@@ -991,7 +996,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private byte[] ReturnUnknown_TTG(ushort ID)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 byte[] b = new byte[4];
                 b[0] = Lines[ID][0x3C];
@@ -1005,7 +1010,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         private void SetUnknown_TTG(ushort ID, byte[] value)
         {
-            if (GetRe4Version == Re4Version.Classic)
+            if (GetRe4Version == Re4Version.V2007PS2)
             {
                 Lines[ID][0x3C] = value[0];
                 Lines[ID][0x3D] = value[1];

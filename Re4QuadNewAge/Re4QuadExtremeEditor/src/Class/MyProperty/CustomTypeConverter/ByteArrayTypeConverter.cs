@@ -80,11 +80,6 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomTypeConverter
                     }
                 }
 
-                if (input.Length == 0)
-                {
-                    input = "00";
-                }
-
                 if (input.Length % 2 != 0)
                 {
                     input+= "0";
@@ -95,12 +90,16 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty.CustomTypeConverter
                     List<byte> bList = new List<byte>();
                     for (int i = 0; i < input.Length; i+=2)
                     {
-                        string b = input[i].ToString() + input[i + 1];
+                        string b = input[i].ToString() + input[i + 1].ToString();
                         bList.Add(byte.Parse(b, NumberStyles.HexNumber, CultureInfo.InvariantCulture.NumberFormat));
                     }
                     return bList.ToArray(); 
                 }
-                
+
+                if (input.Length == 0)
+                {
+                    input = "00";
+                }
 
                 if (input.Length > 2)
                 {
