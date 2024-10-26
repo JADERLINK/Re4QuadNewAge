@@ -31,6 +31,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             textBoxDirectory2007RE4.Text = Globals.Directory2007RE4;
             textBoxDirectoryPS2RE4.Text = Globals.DirectoryPS2RE4;
             textBoxDirectoryUHDRE4.Text = Globals.DirectoryUHDRE4;
+            textBoxDirectoryPS4NSRE4.Text = Globals.DirectoryPS4NSRE4;
             textBoxDirectoryCustom1.Text = Globals.DirectoryCustom1;
             textBoxDirectoryCustom2.Text = Globals.DirectoryCustom2;
             textBoxDirectoryCustom3.Text = Globals.DirectoryCustom3;
@@ -140,6 +141,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             comboBoxItemRotationOrder.SelectedIndex = (int)Globals.ItemRotationOrder;
 
             checkBoxUseDarkerGrayTheme.Checked = Globals.BackupConfigs.UseDarkerGrayTheme;
+            checkBoxUseInvertedMouseButtons.Checked = Globals.BackupConfigs.UseInvertedMouseButtons;
 
             EnableRadioButtons = true;
 
@@ -174,6 +176,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             Globals.Directory2007RE4 = FixDirectory(textBoxDirectory2007RE4.Text);
             Globals.DirectoryPS2RE4 = FixDirectory(textBoxDirectoryPS2RE4.Text);
             Globals.DirectoryUHDRE4 = FixDirectory(textBoxDirectoryUHDRE4.Text);
+            Globals.DirectoryPS4NSRE4 = FixDirectory(textBoxDirectoryPS4NSRE4.Text);
             Globals.DirectoryCustom1 = FixDirectory(textBoxDirectoryCustom1.Text);
             Globals.DirectoryCustom2 = FixDirectory(textBoxDirectoryCustom2.Text);
             Globals.DirectoryCustom3 = FixDirectory(textBoxDirectoryCustom3.Text);
@@ -218,6 +221,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             Globals.BackupConfigs.Directory2007RE4 = Globals.Directory2007RE4;
             Globals.BackupConfigs.DirectoryPS2RE4 = Globals.DirectoryPS2RE4;
             Globals.BackupConfigs.DirectoryUHDRE4 = Globals.DirectoryUHDRE4;
+            Globals.BackupConfigs.DirectoryPS4NSRE4 = Globals.DirectoryPS4NSRE4;
             Globals.BackupConfigs.DirectoryCustom1 = Globals.DirectoryCustom1;
             Globals.BackupConfigs.DirectoryCustom2 = Globals.DirectoryCustom2;
             Globals.BackupConfigs.DirectoryCustom3 = Globals.DirectoryCustom3;
@@ -238,6 +242,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             Globals.BackupConfigs.ItemRotationOrder = Globals.ItemRotationOrder;
 
             Globals.BackupConfigs.UseDarkerGrayTheme = checkBoxUseDarkerGrayTheme.Checked;
+            Globals.BackupConfigs.UseInvertedMouseButtons = checkBoxUseInvertedMouseButtons.Checked;
 
             if (comboBoxLanguage.SelectedIndex <= 0)
             {
@@ -382,6 +387,20 @@ namespace Re4QuadExtremeEditor.src.Forms
             if (folderBrowserDialogDiretory.ShowDialog() == DialogResult.OK)
             {
                 textBoxDirectoryUHDRE4.Text = folderBrowserDialogDiretory.SelectedPath;
+            }
+        }
+
+        private void buttonDirectoryPS4NSRE4_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialogDiretory.Description = Lang.GetText(eLang.OptionsFormSelectDiretory) + " RE4 PS4/NS";
+            folderBrowserDialogDiretory.SelectedPath = "";
+            if (Directory.Exists(textBoxDirectoryPS4NSRE4.Text))
+            {
+                folderBrowserDialogDiretory.SelectedPath = textBoxDirectoryPS4NSRE4.Text;
+            }
+            if (folderBrowserDialogDiretory.ShowDialog() == DialogResult.OK)
+            {
+                textBoxDirectoryPS4NSRE4.Text = folderBrowserDialogDiretory.SelectedPath;
             }
         }
 
@@ -646,17 +665,19 @@ namespace Re4QuadExtremeEditor.src.Forms
             groupBoxTheme.Text = Lang.GetText(eLang.groupBoxTheme);
             labelThemeWarning.Text = Lang.GetText(eLang.labelThemeWarning);
             checkBoxUseDarkerGrayTheme.Text = Lang.GetText(eLang.checkBoxUseDarkerGrayTheme);
+            groupBoxInvertedMouseButtons.Text = Lang.GetText(eLang.groupBoxInvertedMouseButtons);
+            labelInvertedMouseButtonsWarning.Text = Lang.GetText(eLang.labelInvertedMouseButtonsWarning);
+            checkBoxUseInvertedMouseButtons.Text = Lang.GetText(eLang.checkBoxUseInvertedMouseButtons);
 
 
             labelDirectoryXFILE.Text = "XFILE " + Lang.GetText(eLang.labelOptionsDirectory);
             labelDirectory2007RE4.Text = "RE4 2007 " + Lang.GetText(eLang.labelOptionsDirectory);
             labelDirectoryPS2RE4.Text = "RE4 PS2 " + Lang.GetText(eLang.labelOptionsDirectory);
             labelDirectoryUHDRE4.Text = "RE4 UHD " + Lang.GetText(eLang.labelOptionsDirectory);
+            labelDirectoryPS4NSRE4.Text = "RE4 PS4/NS " + Lang.GetText(eLang.labelOptionsDirectory);
             labelDirectoryCustom1.Text = "Custom1 " + Lang.GetText(eLang.labelOptionsDirectory);
             labelDirectoryCustom2.Text = "Custom2 " + Lang.GetText(eLang.labelOptionsDirectory);
             labelDirectoryCustom3.Text = "Custom3 " + Lang.GetText(eLang.labelOptionsDirectory);
         }
-
-  
     }
 }

@@ -20,6 +20,10 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         EMI = 0x09,
         ESE = 0x10,
 
+        LIT = 0x20,
+        LIT_GROUPS = 0x21,
+        LIT_ENTRYS = 0x22,
+
         QUAD_CUSTOM = 0x50,
 
         DSE = 0xAA,

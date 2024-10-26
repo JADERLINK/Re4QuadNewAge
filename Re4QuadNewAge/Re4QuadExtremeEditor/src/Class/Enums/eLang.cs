@@ -34,6 +34,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         NodeEAR,
         NodeESE,
         NodeFSE,
+        NodeLIT_GROUPS,
+        NodeLIT_ENTRYS,
         NodeQuadCustom,
 
         // add new object
@@ -153,6 +155,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemSaveAEV_UHD,
         toolStripMenuItemSaveEMI_UHD,
         toolStripMenuItemSaveESE_UHD,
+        toolStripMenuItemSaveITA_PS4_NS,
+        toolStripMenuItemSaveAEV_PS4_NS,
 
         // subsubmenu Save As...,
         toolStripMenuItemSaveAsETS,
@@ -170,6 +174,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemSaveAsAEV_UHD,
         toolStripMenuItemSaveAsEMI_UHD,
         toolStripMenuItemSaveAsESE_UHD,
+        toolStripMenuItemSaveAsITA_PS4_NS,
+        toolStripMenuItemSaveAsAEV_PS4_NS,
 
         // subsubmenu Save As (Convert),
         toolStripMenuItemSaveConverterETS,
@@ -233,6 +239,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemNewEMI_UHD,
         toolStripMenuItemNewESE_UHD,
         toolStripMenuItemNewQuadCustom,
+        toolStripMenuItemNewITA_PS4_NS,
+        toolStripMenuItemNewAEV_PS4_NS,
         // subsubmenu Open,
         toolStripMenuItemOpenESL,
         toolStripMenuItemOpenDSE,
@@ -250,6 +258,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemOpenEMI_UHD,
         toolStripMenuItemOpenESE_UHD,
         toolStripMenuItemOpenQuadCustom,
+        toolStripMenuItemOpenITA_PS4_NS,
+        toolStripMenuItemOpenAEV_PS4_NS,
         // subsubmenu Save,
         toolStripMenuItemSaveESL,
         toolStripMenuItemSaveDSE,
@@ -346,6 +356,12 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemRoomOnlyFrontFace,
         toolStripMenuItemRoomVertexColor,
         toolStripMenuItemRoomAlphaChannel,
+
+        toolStripMenuItemRoomTextureIsNearest,
+        toolStripMenuItemRoomTextureIsLinear,
+        toolStripMenuItemModelsTextureIsNearest,
+        toolStripMenuItemModelsTextureIsLinear,
+
 
         //save and open windows
 
@@ -472,6 +488,9 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         groupBoxTheme,
         labelThemeWarning,
         checkBoxUseDarkerGrayTheme,
+        groupBoxInvertedMouseButtons,
+        labelInvertedMouseButtonsWarning,
+        checkBoxUseInvertedMouseButtons,
 
 
         //SearchForm

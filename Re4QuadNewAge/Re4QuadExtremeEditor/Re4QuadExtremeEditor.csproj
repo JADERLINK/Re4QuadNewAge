@@ -421,5 +421,6 @@
   <Import Project="..\NewTheRender\NewTheRender.projitems" Label="Shared" />
   <Import Project="..\Re4ViewerRender\Re4ViewerRender.projitems" Label="Shared" />
   <Import Project="..\ControlUtils\ControlUtils.projitems" Label="Shared" />
+  <Import Project="..\ScarletLibrary\ScarletLibrary.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

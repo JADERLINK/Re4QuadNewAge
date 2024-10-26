@@ -22,6 +22,7 @@ namespace NewAgeTheRender
         public static bool RenderOnlyFrontFace = false;
         public static bool RenderVertexColor = true;
         public static bool RenderAlphaChannel = true;
+        public static bool LoadTextureLinear = true;
 
         private RoomModel roomModel;
         private RoomListObj mainListobj;
@@ -61,6 +62,8 @@ namespace NewAgeTheRender
 
         private void Load(RoomModel roomModel) 
         {
+            TextureRef.LoadTextureLinear = LoadTextureLinear;
+
             if (roomModel is RoomModel2007 roomModel2007)
             {
                 Load2007(roomModel2007);
@@ -143,6 +146,8 @@ namespace NewAgeTheRender
 
         private void LoadUHD(RoomModelUhd roomModelUhd)
         {
+            bool IsPS4NS = roomModelUhd.Type == RoomModel.EType.PS4NS;
+
             string BaseDirectory = "";
             if (DataBase.DirectoryDic.ContainsKey(roomModelUhd.PathKey))
             {
@@ -152,7 +157,7 @@ namespace NewAgeTheRender
             string smdPath = BaseDirectory + roomModelUhd.SmdFile;
             string smxPath = BaseDirectory + roomModelUhd.SmxFile;
 
-            RE4_UHD_MODEL_VIEWER.src.LoadUhdScenarioSMD loadScenarioSMD = new RE4_UHD_MODEL_VIEWER.src.LoadUhdScenarioSMD(modelGroup, sng);
+            LoadUhdPs4Ns.src.LoadUhdScenarioSMD loadScenarioSMD = new LoadUhdPs4Ns.src.LoadUhdScenarioSMD(modelGroup, sng, IsPS4NS);
             loadScenarioSMD.ExternalAddTreatedModel = extraContainer.AddTreatedModel;
             loadScenarioSMD.LoadScenario(smdPath);
 
@@ -183,19 +188,34 @@ namespace NewAgeTheRender
                 }
             }
 
-            RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad loadUhdPack = new RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad(modelGroup, tpng);
-            foreach (var item in packIds)
+            if (IsPS4NS == false) // UHD
             {
-                var Packyz2Filepath = Path.Combine(BaseDirectory, roomModelUhd.PackFolder, item + ".pack.yz2");
-                var PackFilepath = Path.Combine(BaseDirectory, roomModelUhd.PackFolder, item + ".pack");
+                RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad loadUhdPack = new RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad(modelGroup, tpng);
+                foreach (var item in packIds)
+                {
+                    var Packyz2Filepath = Path.Combine(BaseDirectory, roomModelUhd.PackFolder, item + ".pack.yz2");
+                    var PackFilepath = Path.Combine(BaseDirectory, roomModelUhd.PackFolder, item + ".pack");
 
-                if (File.Exists(Packyz2Filepath))
-                {
-                    loadUhdPack.LoadPack(Packyz2Filepath, packId_texId[item].ToArray());
+                    if (File.Exists(Packyz2Filepath))
+                    {
+                        loadUhdPack.LoadPack(Packyz2Filepath, packId_texId[item].ToArray());
+                    }
+                    if (File.Exists(PackFilepath))
+                    {
+                        loadUhdPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    }
                 }
-                if (File.Exists(PackFilepath))
+            }
+            else // PS4NS
+            {
+                RE4_PS4NS_MODEL_VIEWER.src.LoadPs4NsPackCustomQuad loadPack = new RE4_PS4NS_MODEL_VIEWER.src.LoadPs4NsPackCustomQuad(modelGroup, tpng);
+                foreach (var item in packIds)
                 {
-                    loadUhdPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    var PackFilepath = Path.Combine(BaseDirectory, roomModelUhd.PackFolder, item + ".pack");
+                    if (File.Exists(PackFilepath))
+                    {
+                        loadPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    }
                 }
             }
 
@@ -207,6 +227,8 @@ namespace NewAgeTheRender
 
         private void LoadR100UHD(RoomModelR100Uhd roomModelR100Uhd)
         {
+            bool IsPS4NS = roomModelR100Uhd.Type == RoomModel.EType.R100PS4NS;
+
             string BaseDirectory = "";
             if (DataBase.DirectoryDic.ContainsKey(roomModelR100Uhd.PathKey))
             {
@@ -219,7 +241,7 @@ namespace NewAgeTheRender
 
             int binCount = 0;
             int smdCount = 0;
-            ModelLoaderNewAge.LoadUhdR100Custom loadScenarioSMD = new ModelLoaderNewAge.LoadUhdR100Custom(modelGroup, sng);
+            ModelLoaderNewAge.LoadUhdR100Custom loadScenarioSMD = new ModelLoaderNewAge.LoadUhdR100Custom(modelGroup, sng, IsPS4NS);
             loadScenarioSMD.ExternalAddTreatedModel = extraContainer.AddTreatedModel;
             loadScenarioSMD.LoadScenarioShared(SharedSmd, out binCount);
 
@@ -267,19 +289,34 @@ namespace NewAgeTheRender
                 }
             }
 
-            RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad loadUhdPack = new RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad(modelGroup, tpng);
-            foreach (var item in packIds)
+            if (IsPS4NS == false) // UHD
             {
-                var Packyz2Filepath = Path.Combine(BaseDirectory, roomModelR100Uhd.PackFolder, item + ".pack.yz2");
-                var PackFilepath = Path.Combine(BaseDirectory, roomModelR100Uhd.PackFolder, item + ".pack");
+                RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad loadUhdPack = new RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad(modelGroup, tpng);
+                foreach (var item in packIds)
+                {
+                    var Packyz2Filepath = Path.Combine(BaseDirectory, roomModelR100Uhd.PackFolder, item + ".pack.yz2");
+                    var PackFilepath = Path.Combine(BaseDirectory, roomModelR100Uhd.PackFolder, item + ".pack");
 
-                if (File.Exists(Packyz2Filepath))
-                {
-                    loadUhdPack.LoadPack(Packyz2Filepath, packId_texId[item].ToArray());
+                    if (File.Exists(Packyz2Filepath))
+                    {
+                        loadUhdPack.LoadPack(Packyz2Filepath, packId_texId[item].ToArray());
+                    }
+                    if (File.Exists(PackFilepath))
+                    {
+                        loadUhdPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    }
                 }
-                if (File.Exists(PackFilepath))
+            }
+            else // PS4NS
+            {
+                RE4_PS4NS_MODEL_VIEWER.src.LoadPs4NsPackCustomQuad loadPack = new RE4_PS4NS_MODEL_VIEWER.src.LoadPs4NsPackCustomQuad(modelGroup, tpng);
+                foreach (var item in packIds)
                 {
-                    loadUhdPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    var PackFilepath = Path.Combine(BaseDirectory, roomModelR100Uhd.PackFolder, item + ".pack");
+                    if (File.Exists(PackFilepath))
+                    {
+                        loadPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    }
                 }
             }
 
@@ -531,6 +568,27 @@ namespace NewAgeTheRender
         public ushort GetRoomId() 
         {
             return roomModel.HexID;
+        }
+
+        public void ChangeTextureType()
+        {
+            if (modelGroup?.TextureRefDic?.Values != null)
+            {
+                if (LoadTextureLinear)
+                {
+                    foreach (var item in modelGroup?.TextureRefDic?.Values)
+                    {
+                        item.SetLinear();
+                    }
+                }
+                else
+                {
+                    foreach (var item in modelGroup?.TextureRefDic?.Values)
+                    {
+                        item.SetNearest();
+                    }
+                }
+            }  
         }
 
 

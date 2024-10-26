@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4cb24a8b-c71f-48c9-aa4e-7038ebfca3ce</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ScarletLibrary</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.Drawing\Compression\DXTxRGTC.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.Drawing\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.Drawing\ExtensionMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.Drawing\ImageBinary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.IO\EndianBinaryReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.IO\FileFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.IO\ImageFormats\DDS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.IO\ImageFormats\GNF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.IO\ImageFormats\ImageFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scarlet.IO\MagicNumberAttribute.cs" />
+  </ItemGroup>
+</Project>

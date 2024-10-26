@@ -33,6 +33,9 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.tabControlConfigs = new System.Windows.Forms.TabControl();
             this.tabPageDiretory = new System.Windows.Forms.TabPage();
             this.groupBoxDirectory = new System.Windows.Forms.GroupBox();
+            this.buttonDirectoryPS4NSRE4 = new System.Windows.Forms.Button();
+            this.textBoxDirectoryPS4NSRE4 = new System.Windows.Forms.TextBox();
+            this.labelDirectoryPS4NSRE4 = new System.Windows.Forms.Label();
             this.buttonDirectoryCustom3 = new System.Windows.Forms.Button();
             this.buttonDirectoryCustom2 = new System.Windows.Forms.Button();
             this.buttonDirectoryCustom1 = new System.Windows.Forms.Button();
@@ -56,6 +59,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelDirectoryXFILE = new System.Windows.Forms.Label();
             this.tabPageLists = new System.Windows.Forms.TabPage();
             this.groupBoxLists = new System.Windows.Forms.GroupBox();
+            this.comboBoxQuadCustom = new System.Windows.Forms.ComboBox();
+            this.labelQuadCustom = new System.Windows.Forms.Label();
             this.labelEnemies = new System.Windows.Forms.Label();
             this.comboBoxEtcModels = new System.Windows.Forms.ComboBox();
             this.comboBoxEnemies = new System.Windows.Forms.ComboBox();
@@ -100,8 +105,9 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.checkBoxForceReloadModels = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialogDiretory = new System.Windows.Forms.FolderBrowserDialog();
             this.colorDialogColors = new System.Windows.Forms.ColorDialog();
-            this.comboBoxQuadCustom = new System.Windows.Forms.ComboBox();
-            this.labelQuadCustom = new System.Windows.Forms.Label();
+            this.checkBoxUseInvertedMouseButtons = new System.Windows.Forms.CheckBox();
+            this.labelInvertedMouseButtonsWarning = new System.Windows.Forms.Label();
+            this.groupBoxInvertedMouseButtons = new System.Windows.Forms.GroupBox();
             this.tabControlConfigs.SuspendLayout();
             this.tabPageDiretory.SuspendLayout();
             this.groupBoxDirectory.SuspendLayout();
@@ -118,6 +124,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxOutputFractionalSymbol.SuspendLayout();
             this.groupBoxFractionalPart.SuspendLayout();
             this.groupBoxColors.SuspendLayout();
+            this.groupBoxInvertedMouseButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlConfigs
@@ -153,6 +160,9 @@ namespace Re4QuadExtremeEditor.src.Forms
             // 
             this.groupBoxDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxDirectory.Controls.Add(this.buttonDirectoryPS4NSRE4);
+            this.groupBoxDirectory.Controls.Add(this.textBoxDirectoryPS4NSRE4);
+            this.groupBoxDirectory.Controls.Add(this.labelDirectoryPS4NSRE4);
             this.groupBoxDirectory.Controls.Add(this.buttonDirectoryCustom3);
             this.groupBoxDirectory.Controls.Add(this.buttonDirectoryCustom2);
             this.groupBoxDirectory.Controls.Add(this.buttonDirectoryCustom1);
@@ -177,18 +187,49 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxDirectory.Location = new System.Drawing.Point(9, 8);
             this.groupBoxDirectory.Name = "groupBoxDirectory";
-            this.groupBoxDirectory.Size = new System.Drawing.Size(802, 300);
+            this.groupBoxDirectory.Size = new System.Drawing.Size(802, 339);
             this.groupBoxDirectory.TabIndex = 0;
             this.groupBoxDirectory.TabStop = false;
             this.groupBoxDirectory.Text = "Directories";
             // 
+            // buttonDirectoryPS4NSRE4
+            // 
+            this.buttonDirectoryPS4NSRE4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDirectoryPS4NSRE4.Location = new System.Drawing.Point(762, 189);
+            this.buttonDirectoryPS4NSRE4.Name = "buttonDirectoryPS4NSRE4";
+            this.buttonDirectoryPS4NSRE4.Size = new System.Drawing.Size(33, 23);
+            this.buttonDirectoryPS4NSRE4.TabIndex = 14;
+            this.buttonDirectoryPS4NSRE4.Text = "...";
+            this.buttonDirectoryPS4NSRE4.UseVisualStyleBackColor = true;
+            this.buttonDirectoryPS4NSRE4.Click += new System.EventHandler(this.buttonDirectoryPS4NSRE4_Click);
+            // 
+            // textBoxDirectoryPS4NSRE4
+            // 
+            this.textBoxDirectoryPS4NSRE4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDirectoryPS4NSRE4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxDirectoryPS4NSRE4.Location = new System.Drawing.Point(17, 192);
+            this.textBoxDirectoryPS4NSRE4.MaxLength = 3000;
+            this.textBoxDirectoryPS4NSRE4.Name = "textBoxDirectoryPS4NSRE4";
+            this.textBoxDirectoryPS4NSRE4.Size = new System.Drawing.Size(736, 20);
+            this.textBoxDirectoryPS4NSRE4.TabIndex = 13;
+            // 
+            // labelDirectoryPS4NSRE4
+            // 
+            this.labelDirectoryPS4NSRE4.AutoSize = true;
+            this.labelDirectoryPS4NSRE4.Location = new System.Drawing.Point(14, 176);
+            this.labelDirectoryPS4NSRE4.Name = "labelDirectoryPS4NSRE4";
+            this.labelDirectoryPS4NSRE4.Size = new System.Drawing.Size(140, 13);
+            this.labelDirectoryPS4NSRE4.TabIndex = 12;
+            this.labelDirectoryPS4NSRE4.Text = "RE4 PS4/NS Directory:";
+            // 
             // buttonDirectoryCustom3
             // 
             this.buttonDirectoryCustom3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDirectoryCustom3.Location = new System.Drawing.Point(762, 268);
+            this.buttonDirectoryCustom3.Location = new System.Drawing.Point(762, 307);
             this.buttonDirectoryCustom3.Name = "buttonDirectoryCustom3";
             this.buttonDirectoryCustom3.Size = new System.Drawing.Size(33, 23);
-            this.buttonDirectoryCustom3.TabIndex = 20;
+            this.buttonDirectoryCustom3.TabIndex = 23;
             this.buttonDirectoryCustom3.Text = "...";
             this.buttonDirectoryCustom3.UseVisualStyleBackColor = true;
             this.buttonDirectoryCustom3.Click += new System.EventHandler(this.buttonDirectoryCustom3_Click);
@@ -196,10 +237,10 @@ namespace Re4QuadExtremeEditor.src.Forms
             // buttonDirectoryCustom2
             // 
             this.buttonDirectoryCustom2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDirectoryCustom2.Location = new System.Drawing.Point(762, 229);
+            this.buttonDirectoryCustom2.Location = new System.Drawing.Point(762, 268);
             this.buttonDirectoryCustom2.Name = "buttonDirectoryCustom2";
             this.buttonDirectoryCustom2.Size = new System.Drawing.Size(33, 23);
-            this.buttonDirectoryCustom2.TabIndex = 17;
+            this.buttonDirectoryCustom2.TabIndex = 20;
             this.buttonDirectoryCustom2.Text = "...";
             this.buttonDirectoryCustom2.UseVisualStyleBackColor = true;
             this.buttonDirectoryCustom2.Click += new System.EventHandler(this.buttonDirectoryCustom2_Click);
@@ -207,10 +248,10 @@ namespace Re4QuadExtremeEditor.src.Forms
             // buttonDirectoryCustom1
             // 
             this.buttonDirectoryCustom1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDirectoryCustom1.Location = new System.Drawing.Point(762, 189);
+            this.buttonDirectoryCustom1.Location = new System.Drawing.Point(762, 228);
             this.buttonDirectoryCustom1.Name = "buttonDirectoryCustom1";
             this.buttonDirectoryCustom1.Size = new System.Drawing.Size(33, 23);
-            this.buttonDirectoryCustom1.TabIndex = 14;
+            this.buttonDirectoryCustom1.TabIndex = 17;
             this.buttonDirectoryCustom1.Text = "...";
             this.buttonDirectoryCustom1.UseVisualStyleBackColor = true;
             this.buttonDirectoryCustom1.Click += new System.EventHandler(this.buttonDirectoryCustom1_Click);
@@ -220,19 +261,19 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.textBoxDirectoryCustom3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDirectoryCustom3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDirectoryCustom3.Location = new System.Drawing.Point(17, 270);
+            this.textBoxDirectoryCustom3.Location = new System.Drawing.Point(17, 309);
             this.textBoxDirectoryCustom3.MaxLength = 3000;
             this.textBoxDirectoryCustom3.Name = "textBoxDirectoryCustom3";
             this.textBoxDirectoryCustom3.Size = new System.Drawing.Size(736, 20);
-            this.textBoxDirectoryCustom3.TabIndex = 19;
+            this.textBoxDirectoryCustom3.TabIndex = 22;
             // 
             // labelDirectoryCustom3
             // 
             this.labelDirectoryCustom3.AutoSize = true;
-            this.labelDirectoryCustom3.Location = new System.Drawing.Point(14, 254);
+            this.labelDirectoryCustom3.Location = new System.Drawing.Point(14, 293);
             this.labelDirectoryCustom3.Name = "labelDirectoryCustom3";
             this.labelDirectoryCustom3.Size = new System.Drawing.Size(114, 13);
-            this.labelDirectoryCustom3.TabIndex = 18;
+            this.labelDirectoryCustom3.TabIndex = 21;
             this.labelDirectoryCustom3.Text = "Custom3 Directory:";
             // 
             // textBoxDirectoryCustom2
@@ -240,19 +281,19 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.textBoxDirectoryCustom2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDirectoryCustom2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDirectoryCustom2.Location = new System.Drawing.Point(17, 231);
+            this.textBoxDirectoryCustom2.Location = new System.Drawing.Point(17, 270);
             this.textBoxDirectoryCustom2.MaxLength = 3000;
             this.textBoxDirectoryCustom2.Name = "textBoxDirectoryCustom2";
             this.textBoxDirectoryCustom2.Size = new System.Drawing.Size(736, 20);
-            this.textBoxDirectoryCustom2.TabIndex = 16;
+            this.textBoxDirectoryCustom2.TabIndex = 19;
             // 
             // labelDirectoryCustom2
             // 
             this.labelDirectoryCustom2.AutoSize = true;
-            this.labelDirectoryCustom2.Location = new System.Drawing.Point(14, 215);
+            this.labelDirectoryCustom2.Location = new System.Drawing.Point(14, 254);
             this.labelDirectoryCustom2.Name = "labelDirectoryCustom2";
             this.labelDirectoryCustom2.Size = new System.Drawing.Size(114, 13);
-            this.labelDirectoryCustom2.TabIndex = 15;
+            this.labelDirectoryCustom2.TabIndex = 18;
             this.labelDirectoryCustom2.Text = "Custom2 Directory:";
             // 
             // textBoxDirectoryCustom1
@@ -260,19 +301,19 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.textBoxDirectoryCustom1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDirectoryCustom1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDirectoryCustom1.Location = new System.Drawing.Point(17, 192);
+            this.textBoxDirectoryCustom1.Location = new System.Drawing.Point(17, 231);
             this.textBoxDirectoryCustom1.MaxLength = 3000;
             this.textBoxDirectoryCustom1.Name = "textBoxDirectoryCustom1";
             this.textBoxDirectoryCustom1.Size = new System.Drawing.Size(736, 20);
-            this.textBoxDirectoryCustom1.TabIndex = 13;
+            this.textBoxDirectoryCustom1.TabIndex = 16;
             // 
             // labelDirectoryCustom1
             // 
             this.labelDirectoryCustom1.AutoSize = true;
-            this.labelDirectoryCustom1.Location = new System.Drawing.Point(14, 176);
+            this.labelDirectoryCustom1.Location = new System.Drawing.Point(14, 215);
             this.labelDirectoryCustom1.Name = "labelDirectoryCustom1";
             this.labelDirectoryCustom1.Size = new System.Drawing.Size(114, 13);
-            this.labelDirectoryCustom1.TabIndex = 12;
+            this.labelDirectoryCustom1.TabIndex = 15;
             this.labelDirectoryCustom1.Text = "Custom1 Directory:";
             // 
             // buttonDirectoryUHDRE4
@@ -430,6 +471,27 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxLists.TabStop = false;
             this.groupBoxLists.Text = "Lists";
             // 
+            // comboBoxQuadCustom
+            // 
+            this.comboBoxQuadCustom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxQuadCustom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxQuadCustom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxQuadCustom.FormattingEnabled = true;
+            this.comboBoxQuadCustom.Location = new System.Drawing.Point(9, 167);
+            this.comboBoxQuadCustom.Name = "comboBoxQuadCustom";
+            this.comboBoxQuadCustom.Size = new System.Drawing.Size(796, 23);
+            this.comboBoxQuadCustom.TabIndex = 7;
+            // 
+            // labelQuadCustom
+            // 
+            this.labelQuadCustom.AutoSize = true;
+            this.labelQuadCustom.Location = new System.Drawing.Point(6, 151);
+            this.labelQuadCustom.Name = "labelQuadCustom";
+            this.labelQuadCustom.Size = new System.Drawing.Size(78, 13);
+            this.labelQuadCustom.TabIndex = 6;
+            this.labelQuadCustom.Text = "QuadCustom";
+            // 
             // labelEnemies
             // 
             this.labelEnemies.AutoSize = true;
@@ -498,6 +560,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.tabPageOthers.AutoScroll = true;
             this.tabPageOthers.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageOthers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPageOthers.Controls.Add(this.groupBoxInvertedMouseButtons);
             this.tabPageOthers.Controls.Add(this.groupBoxTheme);
             this.tabPageOthers.Controls.Add(this.groupBoxLanguage);
             this.tabPageOthers.Controls.Add(this.groupBoxItemRotations);
@@ -518,7 +581,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupBoxTheme.Location = new System.Drawing.Point(5, 505);
             this.groupBoxTheme.Name = "groupBoxTheme";
-            this.groupBoxTheme.Size = new System.Drawing.Size(779, 71);
+            this.groupBoxTheme.Size = new System.Drawing.Size(779, 64);
             this.groupBoxTheme.TabIndex = 4;
             this.groupBoxTheme.TabStop = false;
             this.groupBoxTheme.Text = "Theme";
@@ -529,16 +592,16 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelThemeWarning.Location = new System.Drawing.Point(6, 21);
             this.labelThemeWarning.Name = "labelThemeWarning";
             this.labelThemeWarning.Size = new System.Drawing.Size(309, 13);
-            this.labelThemeWarning.TabIndex = 2;
+            this.labelThemeWarning.TabIndex = 0;
             this.labelThemeWarning.Text = "Theme changes only take effect after program restart";
             // 
             // checkBoxUseDarkerGrayTheme
             // 
             this.checkBoxUseDarkerGrayTheme.AutoSize = true;
-            this.checkBoxUseDarkerGrayTheme.Location = new System.Drawing.Point(11, 43);
+            this.checkBoxUseDarkerGrayTheme.Location = new System.Drawing.Point(11, 42);
             this.checkBoxUseDarkerGrayTheme.Name = "checkBoxUseDarkerGrayTheme";
             this.checkBoxUseDarkerGrayTheme.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxUseDarkerGrayTheme.TabIndex = 0;
+            this.checkBoxUseDarkerGrayTheme.TabIndex = 1;
             this.checkBoxUseDarkerGrayTheme.Text = "Use Darker Gray Theme";
             this.checkBoxUseDarkerGrayTheme.UseVisualStyleBackColor = true;
             // 
@@ -600,7 +663,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.checkBoxIgnoreRotationForZisNotGreaterThanZero.Location = new System.Drawing.Point(10, 61);
             this.checkBoxIgnoreRotationForZisNotGreaterThanZero.Name = "checkBoxIgnoreRotationForZisNotGreaterThanZero";
             this.checkBoxIgnoreRotationForZisNotGreaterThanZero.Size = new System.Drawing.Size(296, 17);
-            this.checkBoxIgnoreRotationForZisNotGreaterThanZero.TabIndex = 9;
+            this.checkBoxIgnoreRotationForZisNotGreaterThanZero.TabIndex = 2;
             this.checkBoxIgnoreRotationForZisNotGreaterThanZero.Text = "Ignore rotation if Z field is not greater than zero";
             this.checkBoxIgnoreRotationForZisNotGreaterThanZero.UseVisualStyleBackColor = true;
             // 
@@ -625,7 +688,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             -2147483648});
             this.numericUpDownDivider.Name = "numericUpDownDivider";
             this.numericUpDownDivider.Size = new System.Drawing.Size(184, 20);
-            this.numericUpDownDivider.TabIndex = 8;
+            this.numericUpDownDivider.TabIndex = 9;
             this.numericUpDownDivider.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelDivider
@@ -634,7 +697,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelDivider.Location = new System.Drawing.Point(213, 154);
             this.labelDivider.Name = "labelDivider";
             this.labelDivider.Size = new System.Drawing.Size(51, 13);
-            this.labelDivider.TabIndex = 7;
+            this.labelDivider.TabIndex = 8;
             this.labelDivider.Text = "Divider:";
             // 
             // numericUpDownMultiplier
@@ -658,7 +721,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             -2147483648});
             this.numericUpDownMultiplier.Name = "numericUpDownMultiplier";
             this.numericUpDownMultiplier.Size = new System.Drawing.Size(184, 20);
-            this.numericUpDownMultiplier.TabIndex = 6;
+            this.numericUpDownMultiplier.TabIndex = 7;
             this.numericUpDownMultiplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelMultiplier
@@ -667,7 +730,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelMultiplier.Location = new System.Drawing.Point(20, 154);
             this.labelMultiplier.Name = "labelMultiplier";
             this.labelMultiplier.Size = new System.Drawing.Size(62, 13);
-            this.labelMultiplier.TabIndex = 5;
+            this.labelMultiplier.TabIndex = 6;
             this.labelMultiplier.Text = "Multiplier:";
             // 
             // labelItemExtraCalculation
@@ -676,7 +739,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelItemExtraCalculation.Location = new System.Drawing.Point(21, 135);
             this.labelItemExtraCalculation.Name = "labelItemExtraCalculation";
             this.labelItemExtraCalculation.Size = new System.Drawing.Size(321, 13);
-            this.labelItemExtraCalculation.TabIndex = 4;
+            this.labelItemExtraCalculation.TabIndex = 5;
             this.labelItemExtraCalculation.Text = "Extra Calculation: Radian = (Input * Multiplier) / Divider";
             // 
             // comboBoxItemRotationOrder
@@ -688,7 +751,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.comboBoxItemRotationOrder.Location = new System.Drawing.Point(10, 105);
             this.comboBoxItemRotationOrder.Name = "comboBoxItemRotationOrder";
             this.comboBoxItemRotationOrder.Size = new System.Drawing.Size(760, 21);
-            this.comboBoxItemRotationOrder.TabIndex = 3;
+            this.comboBoxItemRotationOrder.TabIndex = 4;
             // 
             // labelitemRotationOrderText
             // 
@@ -696,7 +759,7 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.labelitemRotationOrderText.Location = new System.Drawing.Point(8, 84);
             this.labelitemRotationOrderText.Name = "labelitemRotationOrderText";
             this.labelitemRotationOrderText.Size = new System.Drawing.Size(94, 13);
-            this.labelitemRotationOrderText.TabIndex = 2;
+            this.labelitemRotationOrderText.TabIndex = 3;
             this.labelitemRotationOrderText.Text = "Rotation Order:";
             // 
             // checkBoxIgnoreRotationForZeroXYZ
@@ -931,26 +994,37 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.colorDialogColors.FullOpen = true;
             this.colorDialogColors.SolidColorOnly = true;
             // 
-            // comboBoxQuadCustom
+            // checkBoxUseInvertedMouseButtons
             // 
-            this.comboBoxQuadCustom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxQuadCustom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxQuadCustom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxQuadCustom.FormattingEnabled = true;
-            this.comboBoxQuadCustom.Location = new System.Drawing.Point(9, 167);
-            this.comboBoxQuadCustom.Name = "comboBoxQuadCustom";
-            this.comboBoxQuadCustom.Size = new System.Drawing.Size(796, 23);
-            this.comboBoxQuadCustom.TabIndex = 7;
+            this.checkBoxUseInvertedMouseButtons.AutoSize = true;
+            this.checkBoxUseInvertedMouseButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxUseInvertedMouseButtons.Location = new System.Drawing.Point(9, 38);
+            this.checkBoxUseInvertedMouseButtons.Name = "checkBoxUseInvertedMouseButtons";
+            this.checkBoxUseInvertedMouseButtons.Size = new System.Drawing.Size(281, 17);
+            this.checkBoxUseInvertedMouseButtons.TabIndex = 1;
+            this.checkBoxUseInvertedMouseButtons.Text = "Use inverted Mouse Buttons in the 3d viewer";
+            this.checkBoxUseInvertedMouseButtons.UseVisualStyleBackColor = true;
             // 
-            // labelQuadCustom
+            // labelInvertedMouseButtonsWarning
             // 
-            this.labelQuadCustom.AutoSize = true;
-            this.labelQuadCustom.Location = new System.Drawing.Point(6, 151);
-            this.labelQuadCustom.Name = "labelQuadCustom";
-            this.labelQuadCustom.Size = new System.Drawing.Size(78, 13);
-            this.labelQuadCustom.TabIndex = 6;
-            this.labelQuadCustom.Text = "QuadCustom";
+            this.labelInvertedMouseButtonsWarning.AutoSize = true;
+            this.labelInvertedMouseButtonsWarning.Location = new System.Drawing.Point(6, 19);
+            this.labelInvertedMouseButtonsWarning.Name = "labelInvertedMouseButtonsWarning";
+            this.labelInvertedMouseButtonsWarning.Size = new System.Drawing.Size(307, 13);
+            this.labelInvertedMouseButtonsWarning.TabIndex = 0;
+            this.labelInvertedMouseButtonsWarning.Text = "Changes only take effect after restarting the program";
+            // 
+            // groupBoxInvertedMouseButtons
+            // 
+            this.groupBoxInvertedMouseButtons.Controls.Add(this.labelInvertedMouseButtonsWarning);
+            this.groupBoxInvertedMouseButtons.Controls.Add(this.checkBoxUseInvertedMouseButtons);
+            this.groupBoxInvertedMouseButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.groupBoxInvertedMouseButtons.Location = new System.Drawing.Point(7, 575);
+            this.groupBoxInvertedMouseButtons.Name = "groupBoxInvertedMouseButtons";
+            this.groupBoxInvertedMouseButtons.Size = new System.Drawing.Size(777, 65);
+            this.groupBoxInvertedMouseButtons.TabIndex = 5;
+            this.groupBoxInvertedMouseButtons.TabStop = false;
+            this.groupBoxInvertedMouseButtons.Text = "Inverted Mouse Buttons";
             // 
             // OptionsForm
             // 
@@ -997,6 +1071,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             this.groupBoxFractionalPart.PerformLayout();
             this.groupBoxColors.ResumeLayout(false);
             this.groupBoxColors.PerformLayout();
+            this.groupBoxInvertedMouseButtons.ResumeLayout(false);
+            this.groupBoxInvertedMouseButtons.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1076,5 +1152,11 @@ namespace Re4QuadExtremeEditor.src.Forms
         private System.Windows.Forms.CheckBox checkBoxUseDarkerGrayTheme;
         private System.Windows.Forms.ComboBox comboBoxQuadCustom;
         private System.Windows.Forms.Label labelQuadCustom;
+        private System.Windows.Forms.Button buttonDirectoryPS4NSRE4;
+        private System.Windows.Forms.TextBox textBoxDirectoryPS4NSRE4;
+        private System.Windows.Forms.Label labelDirectoryPS4NSRE4;
+        private System.Windows.Forms.GroupBox groupBoxInvertedMouseButtons;
+        private System.Windows.Forms.Label labelInvertedMouseButtonsWarning;
+        private System.Windows.Forms.CheckBox checkBoxUseInvertedMouseButtons;
     }
 }

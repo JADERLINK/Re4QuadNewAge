@@ -69,6 +69,7 @@ namespace RE4_PS2_MODEL_VIEWER.src
                     //texturas
                     Dictionary<string, Bitmap> textureDic = new Dictionary<string, Bitmap>();
                     GetImages(ref textureDic, ref Tihs, ref br, mainOffset, FileID, true);
+                    br.Close();
 
                     // texturas
                     foreach (var texId in textureDic.Keys)

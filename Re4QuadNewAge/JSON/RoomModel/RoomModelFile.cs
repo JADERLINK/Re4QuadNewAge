@@ -109,6 +109,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                                     roomModel = new RoomModel2007(jsonFileName, HexID, Description, PathKey, type, SmdFile, SmxFile, PmdFolder, PmdBaseName);
                                 }
                                 break;
+                            case RoomModel.EType.PS4NS:
                             case RoomModel.EType.UHD:
                                 {
                                     string PackFolder = "";
@@ -119,6 +120,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                                     roomModel = new RoomModelUhd(jsonFileName, HexID, Description, PathKey, type, SmdFile, SmxFile, PackFolder);
                                 }
                                 break;
+                            case RoomModel.EType.R100PS4NS:
                             case RoomModel.EType.R100UHD:
                                 {
                                     string PackFolder = "";

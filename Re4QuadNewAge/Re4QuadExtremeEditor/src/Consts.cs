@@ -67,6 +67,8 @@ namespace Re4QuadExtremeEditor.src
         public const string NodeEAR = "NodeEAR";
         public const string NodeESE = "NodeESE";
         public const string NodeFSE = "NodeFSE";
+        public const string NodeLIT_GROUPS = "NodeLIT_GROUPS";
+        public const string NodeLIT_ENTRYS = "NodeLIT_ENTRYS";
         public const string NodeQuadCustom = "NodeQuadCustom";
 
         // nomes dos modelos internos usados nos objetos extras
@@ -92,6 +94,10 @@ namespace Re4QuadExtremeEditor.src
         public const ushort AmountLimitEMI = 5000;
         public const ushort AmountLimitESE = 5000;
         public const ushort AmountLimitQuadCustom = 5000;
+
+        public const ushort AmountLimitLIT_Groups = 500;
+        public const ushort AmountLimitLIT_Entrys_on_load = 1000;
+        public const ushort AmountLimitLIT_Entrys = 5000;
 
 
         public const ushort QuadCustomLineArrayLength = 92;

@@ -1063,6 +1063,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.NodeEAR, "Ctrl Effect Group (EAR)");
             Text.Add(eLang.NodeESE, "Environment Sound (ESE)");
             Text.Add(eLang.NodeFSE, "Floor Sound (FSE)");
+            Text.Add(eLang.NodeLIT_GROUPS, "Light Groups (LIT)");
+            Text.Add(eLang.NodeLIT_ENTRYS, "Light Entries (LIT)");
             Text.Add(eLang.NodeQuadCustom, "Quad Custom");
 
             Text.Add(eLang.AddNewNull, "None");
@@ -1183,6 +1185,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveAEV_UHD, "Save Events AEV File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveEMI_UHD, "Save Interaction Point EMI File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveESE_UHD, "Save Environment Sound ESE File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveITA_PS4_NS, "Save Itens ITA File (PS4/NS)");
+            Text.Add(eLang.toolStripMenuItemSaveAEV_PS4_NS, "Save Events AEV File (PS4/NS)");
 
             // subsubmenu Save As...
             Text.Add(eLang.toolStripMenuItemSaveAsETS, "Save As EtcModel ETS File");
@@ -1202,6 +1206,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveAsAEV_UHD, "Save As Events AEV File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAsEMI_UHD, "Save As Interaction Point EMI File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAsESE_UHD, "Save As Environment Sound ESE File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveAsITA_PS4_NS, "Save As Itens ITA File (PS4/NS)");
+            Text.Add(eLang.toolStripMenuItemSaveAsAEV_PS4_NS, "Save As Events AEV File (PS4/NS)");
 
             // subsubmenu Save As (Convert)
             Text.Add(eLang.toolStripMenuItemSaveConverterETS, "Save As EtcModel ETS File, Convert To ...");
@@ -1221,6 +1227,12 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveConverterAEV_UHD, "Save As Events AEV File, Convert To UHD");
             Text.Add(eLang.toolStripMenuItemSaveConverterEMI_UHD, "Save As Interaction Point EMI File, Convert To UHD");
             Text.Add(eLang.toolStripMenuItemSaveConverterESE_UHD, "Save As Environment Sound ESE File, Convert To UHD");
+
+            // texture
+            Text.Add(eLang.toolStripMenuItemRoomTextureIsNearest, "Texture Is Nearest");
+            Text.Add(eLang.toolStripMenuItemRoomTextureIsLinear, "Texture Is Linear");
+            Text.Add(eLang.toolStripMenuItemModelsTextureIsNearest, "Texture Is Nearest");
+            Text.Add(eLang.toolStripMenuItemModelsTextureIsLinear, "Texture Is Linear");
 
             // enemy groups
             Text.Add(eLang.EnemyExtraSegmentSegund, "{Segund Segment}");
@@ -1269,6 +1281,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemNewEMI_UHD, "New Interaction Point EMI File (UHD)");
             Text.Add(eLang.toolStripMenuItemNewESE_UHD, "New Environment Sound ESE File (UHD)");
             Text.Add(eLang.toolStripMenuItemNewQuadCustom, "New Quad Custom File");
+            Text.Add(eLang.toolStripMenuItemNewITA_PS4_NS, "New Itens ITA File (PS4/NS) {Adapted}");
+            Text.Add(eLang.toolStripMenuItemNewAEV_PS4_NS, "New Events AEV File (PS4/NS) {Adapted}");
           
             // subsubmenu Open
             Text.Add(eLang.toolStripMenuItemOpenESL, "Open Enemy ESL File");
@@ -1287,6 +1301,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemOpenEMI_UHD, "Open Interaction Point EMI File (UHD)");
             Text.Add(eLang.toolStripMenuItemOpenESE_UHD, "Open Environment Sound ESE File (UHD)");
             Text.Add(eLang.toolStripMenuItemOpenQuadCustom, "Open Quad Custom File");
+            Text.Add(eLang.toolStripMenuItemOpenITA_PS4_NS, "Open Itens ITA File (PS4/NS) {Adapted}");
+            Text.Add(eLang.toolStripMenuItemOpenAEV_PS4_NS, "Open Events AEV File (PS4/NS) {Adapted}");
             
             // subsubmenu Save
             Text.Add(eLang.toolStripMenuItemSaveESL, "Save Enemy ESL File");
@@ -1512,7 +1528,9 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.groupBoxTheme, "Theme");
             Text.Add(eLang.labelThemeWarning, "Theme changes only take effect after program restart");
             Text.Add(eLang.checkBoxUseDarkerGrayTheme, "Use Darker Gray Theme");
-
+            Text.Add(eLang.groupBoxInvertedMouseButtons, "Inverted Mouse Buttons");
+            Text.Add(eLang.labelInvertedMouseButtonsWarning, "Changes only take effect after restarting the program");
+            Text.Add(eLang.checkBoxUseInvertedMouseButtons, "Use inverted Mouse Buttons in the 3d viewer");
 
             //SearchForm
             Text.Add(eLang.SearchForm, "Search");

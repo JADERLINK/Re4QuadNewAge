@@ -8,11 +8,10 @@ using TGASharpLib;
 using System.IO;
 using OpenTK;
 using JADERLINK_MODEL_VIEWER.src.Nodes;
-using RE4_UHD_SCENARIO_SMD_TOOL.SCENARIO;
-using RE4_UHD_BIN_TOOL.ALL;
-using RE4_UHD_BIN_TOOL.EXTRACT;
+using SHARED_UHD_SCENARIO_SMD.SCENARIO;
+using SHARED_UHD_BIN.EXTRACT;
 
-namespace RE4_UHD_MODEL_VIEWER.src
+namespace LoadUhdPs4Ns.src
 {
     public class LoadUhdScenarioSMD
     {
@@ -20,16 +19,19 @@ namespace RE4_UHD_MODEL_VIEWER.src
 
         private ModelGroup modelGroup;
         private ScenarioNodeGroup sng;
+        private bool IsPS4NS;
 
-        public LoadUhdScenarioSMD(ModelGroup modelGroup, ScenarioNodeGroup sng)
+        public LoadUhdScenarioSMD(ModelGroup modelGroup, ScenarioNodeGroup sng, bool IsPS4NS)
         {
             this.modelGroup = modelGroup;
             this.sng = sng;
+            this.IsPS4NS = IsPS4NS;
         }
 
         public void LoadScenario(string SmdPath)
         {
-            FileInfo fileInfo = new FileInfo(SmdPath);
+            FileInfo fileInfo = null;
+            FileStream fs = null;
 
             Dictionary<int, UhdBIN> uhdBinDic = null;
             UhdTPL uhdTpl = null;
@@ -39,15 +41,25 @@ namespace RE4_UHD_MODEL_VIEWER.src
 
             try
             {
+                fileInfo = new FileInfo(SmdPath);
+                fs = fileInfo.OpenRead();
+
                 UhdSmdExtract extract = new UhdSmdExtract();
-                SmdLines = extract.Extract(fileInfo.OpenRead(), out uhdBinDic, out uhdTpl, out smdMagic, ref binAmount);
+                SmdLines = extract.Extract(fs, out uhdBinDic, out uhdTpl, out smdMagic, ref binAmount, IsPS4NS);
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message, "Error:");
             }
+            finally 
+            {
+                if (fs != null)
+                {
+                    fs.Close();
+                }
+            }
 
-            if (SmdLines != null && SmdLines.Length != 0)
+            if (fileInfo != null && SmdLines != null && SmdLines.Length != 0)
             {
                 string Nodekey = "SCENARIOSMD";
 

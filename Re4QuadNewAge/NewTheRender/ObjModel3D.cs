@@ -25,6 +25,7 @@ namespace NewAgeTheRender
         public static bool RenderOnlyFrontFace = false;
         public static bool RenderVertexColor = true;
         public static bool RenderAlphaChannel = true;
+        public static bool LoadTextureLinear = true;
 
         private BoundingBoxLimit boundingBox;
         private Dictionary<string, PreFix> preFixs;
@@ -124,10 +125,13 @@ namespace NewAgeTheRender
             }
 
             ObjNameOrder = ObjNameOrderList.ToArray();
+            GC.Collect();
         }
 
         private void LoadUHD(ObjectModelUhd objmodelUhd)
         {
+            bool IsPS4NS = objmodelUhd.Type == ObjectModel.EType.PS4NS;
+
             string BaseDirectory = "";
             if (DataBase.DirectoryDic.ContainsKey(objmodelUhd.PathKey))
             {
@@ -150,7 +154,7 @@ namespace NewAgeTheRender
 
                 if (File.Exists(modelFullPath))
                 {
-                    RE4_UHD_MODEL_VIEWER.src.LoadUhdBinModel loadUhdBinModel = new RE4_UHD_MODEL_VIEWER.src.LoadUhdBinModel(modelGroup, mng);
+                    LoadUhdPs4Ns.src.LoadUhdBinModel loadUhdBinModel = new LoadUhdPs4Ns.src.LoadUhdBinModel(modelGroup, mng, IsPS4NS);
                     loadUhdBinModel.LoadUhdBIN(modelFullPath);
                     if (!preFixs.ContainsKey(FileID_BIN))
                     {
@@ -160,7 +164,7 @@ namespace NewAgeTheRender
 
                 if (File.Exists(tplFullPath))
                 {
-                    RE4_UHD_MODEL_VIEWER.src.LoadUhdTpl loadUhdTpl = new RE4_UHD_MODEL_VIEWER.src.LoadUhdTpl(modelGroup, mng);
+                    LoadUhdPs4Ns.src.LoadUhdTpl loadUhdTpl = new LoadUhdPs4Ns.src.LoadUhdTpl(modelGroup, mng, IsPS4NS);
                     loadUhdTpl.LoadUhdTPL(tplFullPath);
                 }
 
@@ -225,22 +229,37 @@ namespace NewAgeTheRender
                 PackBaseDirectory = DataBase.DirectoryDic[objmodelUhd.PackPathKey];
             }
 
-            RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad loadUhdPack = new RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad(modelGroup, tpng);
-            foreach (var item in packIds)
+            if (IsPS4NS == false) // UHD
             {
-                var Packyz2Filepath = Path.Combine(PackBaseDirectory, objmodelUhd.PackFolder, item + ".pack.yz2");
-                var PackFilepath = Path.Combine(PackBaseDirectory, objmodelUhd.PackFolder, item + ".pack");
+                RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad loadUhdPack = new RE4_UHD_MODEL_VIEWER.src.LoadUhdPackCustomQuad(modelGroup, tpng);
+                foreach (var item in packIds)
+                {
+                    var Packyz2Filepath = Path.Combine(PackBaseDirectory, objmodelUhd.PackFolder, item + ".pack.yz2");
+                    var PackFilepath = Path.Combine(PackBaseDirectory, objmodelUhd.PackFolder, item + ".pack");
 
-                if (File.Exists(Packyz2Filepath))
-                {
-                    loadUhdPack.LoadPack(Packyz2Filepath, packId_texId[item].ToArray());
-                }
-                if (File.Exists(PackFilepath))
-                {
-                    loadUhdPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    if (File.Exists(Packyz2Filepath))
+                    {
+                        loadUhdPack.LoadPack(Packyz2Filepath, packId_texId[item].ToArray());
+                    }
+                    else if (File.Exists(PackFilepath))
+                    {
+                        loadUhdPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    }
                 }
             }
- 
+            else // PS4NS
+            {
+                RE4_PS4NS_MODEL_VIEWER.src.LoadPs4NsPackCustomQuad loadPack = new RE4_PS4NS_MODEL_VIEWER.src.LoadPs4NsPackCustomQuad(modelGroup, tpng);
+                foreach (var item in packIds)
+                {
+                    var PackFilepath = Path.Combine(PackBaseDirectory, objmodelUhd.PackFolder, item + ".pack");
+                    if (File.Exists(PackFilepath))
+                    {
+                        loadPack.LoadPack(PackFilepath, packId_texId[item].ToArray());
+                    }
+                }
+            }
+            GC.Collect();
         }
 
         private void LoadPS2(ObjectModelPs2 objmodelPs2)
@@ -310,6 +329,7 @@ namespace NewAgeTheRender
 
 
             ObjNameOrder = ObjNameOrderList.ToArray();
+            GC.Collect();
         }
 
         public static void PreRender() 

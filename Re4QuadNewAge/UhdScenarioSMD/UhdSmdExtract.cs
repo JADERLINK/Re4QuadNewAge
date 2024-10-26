@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using RE4_UHD_BIN_TOOL.ALL;
-using RE4_UHD_BIN_TOOL.EXTRACT;
+using SHARED_UHD_BIN.ALL;
+using SHARED_UHD_BIN.EXTRACT;
 
-namespace RE4_UHD_SCENARIO_SMD_TOOL.SCENARIO
+namespace SHARED_UHD_SCENARIO_SMD.SCENARIO
 {
     public class UhdSmdExtract
     {
@@ -17,7 +17,7 @@ namespace RE4_UHD_SCENARIO_SMD_TOOL.SCENARIO
         //Action<Stream fileStream, long tplOffset, long endOffset>
         public event Action<Stream, long, long> ToFileTpl;
 
-        public SMDLine[] Extract(Stream fileStream, out Dictionary<int, UhdBIN> uhdBinDic, out UhdTPL uhdTpl, out SmdMagic smdMagic, ref int binAmount)
+        public SMDLine[] Extract(Stream fileStream, out Dictionary<int, UhdBIN> uhdBinDic, out UhdTPL uhdTpl, out SmdMagic smdMagic, ref int binAmount, bool IsPS4NS)
         {
             BinaryReader br = new BinaryReader(fileStream);
 
@@ -126,7 +126,7 @@ namespace RE4_UHD_SCENARIO_SMD_TOOL.SCENARIO
                 long endOffset = binOffsets[i];
                 try
                 {
-                    var uhdBin = UhdBinDecoder.Decoder(fileStream, binOffsets[i], out endOffset);
+                    var uhdBin = UhdBinDecoder.Decoder(fileStream, binOffsets[i], out endOffset, IsPS4NS);
                     UhdBINs.Add(i, uhdBin);
                 }
                 catch (Exception ex)
@@ -151,7 +151,7 @@ namespace RE4_UHD_SCENARIO_SMD_TOOL.SCENARIO
             long tplEndOffset = tplOffset;
             try
             {
-                uhdTpl = UhdTplDecoder.Decoder(fileStream, tplOffset, out tplEndOffset);
+                uhdTpl = UhdTplDecoder.Decoder(fileStream, tplOffset, out tplEndOffset, IsPS4NS);
             }
             catch (Exception ex)
             {

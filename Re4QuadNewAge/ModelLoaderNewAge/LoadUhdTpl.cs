@@ -7,20 +7,21 @@ using ViewerBase;
 using System.IO;
 using OpenTK;
 using JADERLINK_MODEL_VIEWER.src.Nodes;
-using RE4_UHD_BIN_TOOL.EXTRACT;
-using RE4_UHD_BIN_TOOL.ALL;
+using SHARED_UHD_BIN.EXTRACT;
 
-namespace RE4_UHD_MODEL_VIEWER.src
+namespace LoadUhdPs4Ns.src
 {
     public class LoadUhdTpl
     {
         private ModelGroup modelGroup;
         private ModelNodeGroup mng;
+        private bool IsPS4NS;
 
-        public LoadUhdTpl(ModelGroup modelGroup, ModelNodeGroup mng)
+        public LoadUhdTpl(ModelGroup modelGroup, ModelNodeGroup mng, bool IsPS4NS)
         {
             this.modelGroup = modelGroup;
             this.mng = mng;
+            this.IsPS4NS = IsPS4NS;
         }
 
         public void LoadUhdTPL(string tplPath)
@@ -38,15 +39,22 @@ namespace RE4_UHD_MODEL_VIEWER.src
             if (!modelGroup.MatTexGroupDic.ContainsKey(FileID))
             {
                 UhdTPL uhdTPL = null;
+                Stream tplFile = null;
 
                 try
                 {
-                    Stream tplFile = fileInfo.OpenRead();
-                    uhdTPL = UhdTplDecoder.Decoder(tplFile, 0, out _);
-                    tplFile.Close();
+                    tplFile = fileInfo.OpenRead();
+                    uhdTPL = UhdTplDecoder.Decoder(tplFile, 0, out _, IsPS4NS);
                 }
                 catch (Exception)
                 {
+                }
+                finally 
+                {
+                    if (tplFile != null)
+                    {
+                        tplFile.Close();
+                    }
                 }
 
                 if (uhdTPL != null)

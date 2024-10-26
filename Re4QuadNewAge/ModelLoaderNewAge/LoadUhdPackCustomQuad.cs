@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewerBase;
-using TGASharpLib;
 using System.IO;
 using System.Drawing;
-using OpenTK;
 using JADERLINK_MODEL_VIEWER.src.Nodes;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 
 namespace RE4_UHD_MODEL_VIEWER.src
 {
@@ -27,13 +23,12 @@ namespace RE4_UHD_MODEL_VIEWER.src
 
         public void LoadPack(string packPath, int[] texIds)
         {
-
-            FileInfo fileInfo = new FileInfo(packPath);
-            string FileID = fileInfo.Name.ToUpperInvariant();
+            BinaryReader pack = null;
 
             try
             {
-                var pack = new BinaryReader(fileInfo.OpenRead());
+                FileInfo fileInfo = new FileInfo(packPath);
+                pack = new BinaryReader(fileInfo.OpenRead());
 
                 uint PackID = pack.ReadUInt32();
                 uint Amount = pack.ReadUInt32();
@@ -48,8 +43,17 @@ namespace RE4_UHD_MODEL_VIEWER.src
 
                 for (int i = 0; i < offsets.Count; i++)
                 {
+                    string texkey = PackID.ToString("X8") + "/" + i.ToString("D4");
+
                     if (offsets[i] != 0 && texIds.Contains(i))
                     {
+                        if (modelGroup.TextureRefDic.ContainsKey(texkey))
+                        {
+                            var node = tpng.Nodes.Find(texkey, false).FirstOrDefault();
+                            ((NodeItem)node)?.Responsibility.ReleaseResponsibilities();
+                            node?.Remove();
+                        }
+
                         Bitmap bitmap = null;
 
                         pack.BaseStream.Position = offsets[i];
@@ -59,7 +63,6 @@ namespace RE4_UHD_MODEL_VIEWER.src
                         uint Type = pack.ReadUInt32();
 
                         string Extension = "NULL";
-                        string texkey = PackID.ToString("X8") + "/" + i.ToString("D4");
 
                         byte[] imagebytes = new byte[fileLength];
                         pack.BaseStream.Read(imagebytes, 0, (int)fileLength);
@@ -76,32 +79,24 @@ namespace RE4_UHD_MODEL_VIEWER.src
                             catch (Exception)
                             {
                             }
-                          
                         }
-                        else
+                        else if (imagemagic == 0x00020000 || imagemagic == 0x000A0000)
                         {
                             Extension = "TGA";
+
                             try
                             {
                                 TGASharpLib.TGA nTGA = new TGASharpLib.TGA(imagebytes);
                                 bitmap = nTGA.ToBitmap(true);
-                              
                             }
                             catch (Exception)
                             {
                             }
-                        }
 
+                        }
 
                         if (bitmap != null)
                         {
-                            if (modelGroup.TextureRefDic.ContainsKey(texkey))
-                            {
-                                var node = tpng.Nodes.Find(texkey, false).FirstOrDefault();
-                                ((NodeItem)node)?.Responsibility.ReleaseResponsibilities();
-                                node?.Remove();
-                            }
-
                             ResponsibilityContainer texContainer = new ResponsibilityContainer();
                             TEX_Representation tex_representation = new TEX_Representation(texkey, new List<string>() { texkey });
                             TextureGroupResponsibility textureGroupResponsibility = new TextureGroupResponsibility(modelGroup, tex_representation);
@@ -116,15 +111,20 @@ namespace RE4_UHD_MODEL_VIEWER.src
                             // GL da textura
                             modelGroup.AddTextureRef(new Dictionary<string, Bitmap> { { texkey, bitmap } });
                         }
-                      
+
                     }
                 }
 
-                pack.Close();
             }
             catch (Exception)
             {
-
+            }
+            finally
+            {
+                if (pack != null)
+                {
+                    pack.Close();
+                }
             }
 
         }

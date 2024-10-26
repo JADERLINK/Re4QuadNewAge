@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RE4_UHD_BIN_TOOL.ALL;
+using SHARED_UHD_BIN.ALL;
 
-namespace RE4_UHD_BIN_TOOL.EXTRACT
+namespace SHARED_UHD_BIN.EXTRACT
 {
     public class UhdBIN
     {

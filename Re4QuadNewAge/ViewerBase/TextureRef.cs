@@ -12,6 +12,8 @@ namespace ViewerBase
 {
     public class TextureRef // baseado em https://github.com/opentk/LearnOpenTK/blob/master/Common/Texture.cs
     {
+        public static bool LoadTextureLinear = true;
+
         private int Handle;
         //public readonly Bitmap bitmap;
 
@@ -35,8 +37,16 @@ namespace ViewerBase
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, imageData.Width, imageData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, imageData.Scan0);
             bitmap.UnlockBits(imageData);
             //TEXTURE PROPERTY
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            if (LoadTextureLinear)
+            {
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            }
+            else 
+            {
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+            }
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
@@ -66,6 +76,27 @@ namespace ViewerBase
             }
         }
 
+        public void SetLinear()
+        {
+            if (IsLoaded)
+            {
+                GL.BindTexture(TextureTarget.Texture2D, Handle);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+                GL.BindTexture(TextureTarget.Texture2D, 0);
+            }
+        }
+
+        public void SetNearest() 
+        {
+            if (IsLoaded)
+            {
+                GL.BindTexture(TextureTarget.Texture2D, Handle);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+                GL.BindTexture(TextureTarget.Texture2D, 0);
+            }
+        }
     }
 }
 

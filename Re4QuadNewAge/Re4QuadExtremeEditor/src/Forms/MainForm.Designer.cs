@@ -51,6 +51,9 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemNewEMI_UHD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewESE_UHD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorNew3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemNewITA_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewAEV_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewQuadCustom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenESL = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +74,9 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemOpenEMI_UHD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenESE_UHD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorOpen3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemOpenITA_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenAEV_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenQuadCustom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveESL = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,6 +171,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemRoomOnlyFrontFace = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRoomVertexColor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRoomAlphaChannel = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemRoomTextureNearestLinear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSubMenuModels = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemModelsHideTextures = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemModelsWireframe = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,6 +179,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemModelsOnlyFrontFace = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemModelsVertexColor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemModelsAlphaChannel = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemModelsTextureNearestLinear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSubMenuEnemy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHideDesabledEnemy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorSubMenuEnemy1 = new System.Windows.Forms.ToolStripSeparator();
@@ -237,6 +245,8 @@ namespace Re4QuadExtremeEditor
             this.treeViewObjs = new NsMultiselectTreeView.MultiselectTreeView();
             this.propertyGridObjs = new System.Windows.Forms.PropertyGrid();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.openFileDialogLIT = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogEFFBLOB = new System.Windows.Forms.OpenFileDialog();
             this.menuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).BeginInit();
             this.splitContainerRight.SuspendLayout();
@@ -302,6 +312,9 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemNewEMI_UHD,
             this.toolStripMenuItemNewESE_UHD,
             this.toolStripSeparatorNew3,
+            this.toolStripMenuItemNewITA_PS4_NS,
+            this.toolStripMenuItemNewAEV_PS4_NS,
+            this.toolStripSeparatorNew4,
             this.toolStripMenuItemNewQuadCustom});
             this.toolStripMenuItemNewFile.Name = "toolStripMenuItemNewFile";
             this.toolStripMenuItemNewFile.Size = new System.Drawing.Size(160, 22);
@@ -427,6 +440,25 @@ namespace Re4QuadExtremeEditor
             this.toolStripSeparatorNew3.Name = "toolStripSeparatorNew3";
             this.toolStripSeparatorNew3.Size = new System.Drawing.Size(304, 6);
             // 
+            // toolStripMenuItemNewITA_PS4_NS
+            // 
+            this.toolStripMenuItemNewITA_PS4_NS.Name = "toolStripMenuItemNewITA_PS4_NS";
+            this.toolStripMenuItemNewITA_PS4_NS.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewITA_PS4_NS.Text = "New Itens ITA File (PS4/NS) {Adapted}";
+            this.toolStripMenuItemNewITA_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemNewITA_PS4_NS_Click);
+            // 
+            // toolStripMenuItemNewAEV_PS4_NS
+            // 
+            this.toolStripMenuItemNewAEV_PS4_NS.Name = "toolStripMenuItemNewAEV_PS4_NS";
+            this.toolStripMenuItemNewAEV_PS4_NS.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewAEV_PS4_NS.Text = "New Events AEV File (PS4/NS) {Adapted}";
+            this.toolStripMenuItemNewAEV_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemNewAEV_PS4_NS_Click);
+            // 
+            // toolStripSeparatorNew4
+            // 
+            this.toolStripSeparatorNew4.Name = "toolStripSeparatorNew4";
+            this.toolStripSeparatorNew4.Size = new System.Drawing.Size(304, 6);
+            // 
             // toolStripMenuItemNewQuadCustom
             // 
             this.toolStripMenuItemNewQuadCustom.Name = "toolStripMenuItemNewQuadCustom";
@@ -455,6 +487,9 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemOpenEMI_UHD,
             this.toolStripMenuItemOpenESE_UHD,
             this.toolStripSeparatorOpen3,
+            this.toolStripMenuItemOpenITA_PS4_NS,
+            this.toolStripMenuItemOpenAEV_PS4_NS,
+            this.toolStripSeparatorOpen4,
             this.toolStripMenuItemOpenQuadCustom});
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
             this.toolStripMenuItemOpen.Size = new System.Drawing.Size(160, 22);
@@ -579,6 +614,25 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripSeparatorOpen3.Name = "toolStripSeparatorOpen3";
             this.toolStripSeparatorOpen3.Size = new System.Drawing.Size(309, 6);
+            // 
+            // toolStripMenuItemOpenITA_PS4_NS
+            // 
+            this.toolStripMenuItemOpenITA_PS4_NS.Name = "toolStripMenuItemOpenITA_PS4_NS";
+            this.toolStripMenuItemOpenITA_PS4_NS.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenITA_PS4_NS.Text = "Open Itens ITA File (PS4/NS) {Adapted}";
+            this.toolStripMenuItemOpenITA_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemOpenITA_PS4_NS_Click);
+            // 
+            // toolStripMenuItemOpenAEV_PS4_NS
+            // 
+            this.toolStripMenuItemOpenAEV_PS4_NS.Name = "toolStripMenuItemOpenAEV_PS4_NS";
+            this.toolStripMenuItemOpenAEV_PS4_NS.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenAEV_PS4_NS.Text = "Open Events AEV File (PS4/NS) {Adapted}";
+            this.toolStripMenuItemOpenAEV_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemOpenAEV_PS4_NS_Click);
+            // 
+            // toolStripSeparatorOpen4
+            // 
+            this.toolStripSeparatorOpen4.Name = "toolStripSeparatorOpen4";
+            this.toolStripSeparatorOpen4.Size = new System.Drawing.Size(309, 6);
             // 
             // toolStripMenuItemOpenQuadCustom
             // 
@@ -1339,7 +1393,8 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemRoomRenderNormals,
             this.toolStripMenuItemRoomOnlyFrontFace,
             this.toolStripMenuItemRoomVertexColor,
-            this.toolStripMenuItemRoomAlphaChannel});
+            this.toolStripMenuItemRoomAlphaChannel,
+            this.toolStripMenuItemRoomTextureNearestLinear});
             this.toolStripMenuItemSubMenuRoom.Name = "toolStripMenuItemSubMenuRoom";
             this.toolStripMenuItemSubMenuRoom.Size = new System.Drawing.Size(262, 22);
             this.toolStripMenuItemSubMenuRoom.Text = "Room Options";
@@ -1392,6 +1447,14 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemRoomAlphaChannel.Text = "Disable Alpha Channel";
             this.toolStripMenuItemRoomAlphaChannel.Click += new System.EventHandler(this.toolStripMenuItemRoomAlphaChannel_Click);
             // 
+            // toolStripMenuItemRoomTextureNearestLinear
+            // 
+            this.toolStripMenuItemRoomTextureNearestLinear.Name = "toolStripMenuItemRoomTextureNearestLinear";
+            this.toolStripMenuItemRoomTextureNearestLinear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad7)));
+            this.toolStripMenuItemRoomTextureNearestLinear.Size = new System.Drawing.Size(282, 22);
+            this.toolStripMenuItemRoomTextureNearestLinear.Text = "Texture Is Linear";
+            this.toolStripMenuItemRoomTextureNearestLinear.Click += new System.EventHandler(this.toolStripMenuItemRoomTextureNearestLinear_Click);
+            // 
             // toolStripMenuItemSubMenuModels
             // 
             this.toolStripMenuItemSubMenuModels.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1400,7 +1463,8 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemModelsRenderNormals,
             this.toolStripMenuItemModelsOnlyFrontFace,
             this.toolStripMenuItemModelsVertexColor,
-            this.toolStripMenuItemModelsAlphaChannel});
+            this.toolStripMenuItemModelsAlphaChannel,
+            this.toolStripMenuItemModelsTextureNearestLinear});
             this.toolStripMenuItemSubMenuModels.Name = "toolStripMenuItemSubMenuModels";
             this.toolStripMenuItemSubMenuModels.Size = new System.Drawing.Size(262, 22);
             this.toolStripMenuItemSubMenuModels.Text = "Models Options";
@@ -1458,6 +1522,15 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemModelsAlphaChannel.Size = new System.Drawing.Size(305, 22);
             this.toolStripMenuItemModelsAlphaChannel.Text = "Disable Alpha Channel";
             this.toolStripMenuItemModelsAlphaChannel.Click += new System.EventHandler(this.toolStripMenuItemModelsAlphaChannel_Click);
+            // 
+            // toolStripMenuItemModelsTextureNearestLinear
+            // 
+            this.toolStripMenuItemModelsTextureNearestLinear.Name = "toolStripMenuItemModelsTextureNearestLinear";
+            this.toolStripMenuItemModelsTextureNearestLinear.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.NumPad7)));
+            this.toolStripMenuItemModelsTextureNearestLinear.Size = new System.Drawing.Size(305, 22);
+            this.toolStripMenuItemModelsTextureNearestLinear.Text = "Texture Is Linear";
+            this.toolStripMenuItemModelsTextureNearestLinear.Click += new System.EventHandler(this.toolStripMenuItemModelsTextureNearestLinear_Click);
             // 
             // toolStripMenuItemSubMenuEnemy
             // 
@@ -2036,6 +2109,20 @@ namespace Re4QuadExtremeEditor
             this.splitContainerMain.TabStop = false;
             this.splitContainerMain.SplitterMoving += new System.Windows.Forms.SplitterCancelEventHandler(this.splitContainerMain_SplitterMoving);
             // 
+            // openFileDialogLIT
+            // 
+            this.openFileDialogLIT.DefaultExt = "LIT";
+            this.openFileDialogLIT.Filter = "LIT File|*.LIT";
+            this.openFileDialogLIT.Title = "Open Light LIT File";
+            this.openFileDialogLIT.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogLIT_FileOk);
+            // 
+            // openFileDialogEFFBLOB
+            // 
+            this.openFileDialogEFFBLOB.DefaultExt = "EFFBLOB";
+            this.openFileDialogEFFBLOB.Filter = "EFFBLOB File|*.EFFBLOB";
+            this.openFileDialogEFFBLOB.Title = "Open Effect EFFBLOB File";
+            this.openFileDialogEFFBLOB.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogEFFBLOB_FileOk);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2048,7 +2135,7 @@ namespace Re4QuadExtremeEditor
             this.MinimumSize = new System.Drawing.Size(900, 538);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RE4 QUAD EXTREME EDITOR [NEW AGE] | V.1.2.1 | YOUTUBE.COM/@JADERLINK";
+            this.Text = "RE4 QUAD EXTREME EDITOR [NEW AGE] | V.1.2.2 | YOUTUBE.COM/@JADERLINK";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
@@ -2093,7 +2180,6 @@ namespace Re4QuadExtremeEditor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenITA_UHD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenETS_UHD;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenAEV_UHD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewESL;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewETS_2007_PS2;
@@ -2278,6 +2364,17 @@ namespace Re4QuadExtremeEditor
         private NsMultiselectTreeView.MultiselectTreeView treeViewObjs;
         private System.Windows.Forms.PropertyGrid propertyGridObjs;
         private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.OpenFileDialog openFileDialogLIT;
+        private System.Windows.Forms.OpenFileDialog openFileDialogEFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewITA_PS4_NS;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewAEV_PS4_NS;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenAEV_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenITA_PS4_NS;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenAEV_PS4_NS;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRoomTextureNearestLinear;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemModelsTextureNearestLinear;
     }
 }
 

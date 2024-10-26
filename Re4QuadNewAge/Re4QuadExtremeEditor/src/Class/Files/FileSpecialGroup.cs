@@ -16,7 +16,12 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         /// <summary>
         /// de qual versão do re4 que é o arquivo;
         /// </summary>
-        public Re4Version GetRe4Version { get; }
+        public Re4Version GetRe4Version { get; }     
+        /// <summary>
+        /// define se é da versão ps4/ns, nota esta adapdado para o formato do uhd (gambiarra)
+        /// </summary>
+        public bool IsPs4Ns_Adapted { get; }
+
         /// <summary>
         /// especifica se é ITA ou AEV;
         /// </summary>
@@ -58,8 +63,9 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         /// </summary>
         private Dictionary<ushort, List<ushort>> SecundIndexList;
 
-        public FileSpecialGroup(Re4Version version, SpecialFileFormat fileFormat)
+        public FileSpecialGroup(Re4Version version, SpecialFileFormat fileFormat, bool IsPs4Ns_Adapted = false)
         {
+            this.IsPs4Ns_Adapted = IsPs4Ns_Adapted;
             GetRe4Version = version;
             GetSpecialFileFormat = fileFormat;
             StartFile = new byte[16];

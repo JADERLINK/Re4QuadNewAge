@@ -18,6 +18,7 @@ namespace Re4QuadExtremeEditor.src.JSON
         public string Directory2007RE4 { get; set; }
         public string DirectoryPS2RE4 { get; set; }
         public string DirectoryUHDRE4 { get; set; }
+        public string DirectoryPS4NSRE4 { get; set; }
         public string DirectoryCustom1 { get; set; }
         public string DirectoryCustom2 { get; set; }
         public string DirectoryCustom3 { get; set; }
@@ -45,6 +46,9 @@ namespace Re4QuadExtremeEditor.src.JSON
         //theme
         public bool UseDarkerGrayTheme { get; set; }
 
+        // botao do mouse invertido
+        public bool UseInvertedMouseButtons { get; set; }
+
         // lang
         public bool LoadLangTranslation { get; set; }
         public string LangJsonFile { get; set; }
@@ -61,6 +65,7 @@ namespace Re4QuadExtremeEditor.src.JSON
             configs.Directory2007RE4 = @"";
             configs.DirectoryPS2RE4 = @"";
             configs.DirectoryUHDRE4 = @"";
+            configs.DirectoryPS4NSRE4 = @"";
             configs.DirectoryCustom1 = @"";
             configs.DirectoryCustom2 = @"";
             configs.DirectoryCustom3 = @"";
@@ -83,6 +88,7 @@ namespace Re4QuadExtremeEditor.src.JSON
             configs.ItemRotationCalculationDivider = 1;
 
             configs.UseDarkerGrayTheme = false;
+            configs.UseInvertedMouseButtons = false;
             configs.LoadLangTranslation = false;
             configs.LangJsonFile = "";
             return configs;
@@ -104,6 +110,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                 Globals.Directory2007RE4 = configs.Directory2007RE4;
                 Globals.DirectoryPS2RE4 = configs.DirectoryPS2RE4;
                 Globals.DirectoryUHDRE4 = configs.DirectoryUHDRE4;
+                Globals.DirectoryPS4NSRE4 = configs.DirectoryPS4NSRE4;
                 Globals.DirectoryCustom1 = configs.DirectoryCustom1;
                 Globals.DirectoryCustom2 = configs.DirectoryCustom2;
                 Globals.DirectoryCustom3 = configs.DirectoryCustom3;

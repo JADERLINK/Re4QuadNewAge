@@ -6,10 +6,10 @@ using ViewerBase;
 using System.IO;
 using OpenTK;
 using JADERLINK_MODEL_VIEWER.src.Nodes;
-using RE4_UHD_SCENARIO_SMD_TOOL.SCENARIO;
-using RE4_UHD_BIN_TOOL.ALL;
-using RE4_UHD_BIN_TOOL.EXTRACT;
-using RE4_UHD_MODEL_VIEWER.src;
+using SHARED_UHD_SCENARIO_SMD.SCENARIO;
+using SHARED_UHD_BIN.ALL;
+using SHARED_UHD_BIN.EXTRACT;
+using LoadUhdPs4Ns.src;
 
 namespace ModelLoaderNewAge
 {
@@ -19,11 +19,13 @@ namespace ModelLoaderNewAge
 
         private ModelGroup modelGroup;
         private ScenarioNodeGroup sng;
+        private bool IsPS4NS;
 
-        public LoadUhdR100Custom(ModelGroup modelGroup, ScenarioNodeGroup sng)
+        public LoadUhdR100Custom(ModelGroup modelGroup, ScenarioNodeGroup sng, bool IsPS4NS)
         {
             this.modelGroup = modelGroup;
             this.sng = sng;
+            this.IsPS4NS = IsPS4NS;
         }
 
         public void LoadScenarioShared(string SmdPath, out int BinCount)
@@ -57,7 +59,7 @@ namespace ModelLoaderNewAge
             try
             {
                 UhdSmdExtract extract = new UhdSmdExtract();
-                SmdLines = extract.Extract(fileInfo.OpenRead(), out uhdBinDic, out uhdTpl, out smdMagic, ref binAmount);
+                SmdLines = extract.Extract(fileInfo.OpenRead(), out uhdBinDic, out uhdTpl, out smdMagic, ref binAmount, IsPS4NS);
             }
             catch (Exception ex)
             {
@@ -153,7 +155,7 @@ namespace ModelLoaderNewAge
             try
             {
                 UhdSmdExtract extract = new UhdSmdExtract();
-                SmdLines = extract.Extract(fileInfo.OpenRead(), out uhdBinDic, out uhdTpl, out smdMagic, ref binAmount);
+                SmdLines = extract.Extract(fileInfo.OpenRead(), out uhdBinDic, out uhdTpl, out smdMagic, ref binAmount, IsPS4NS);
             }
             catch (Exception ex)
             {

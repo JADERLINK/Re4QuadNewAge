@@ -2191,7 +2191,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             set
             {
                 Methods.SetObjPointZ_Hex(InternalID, value);
-                updateMethods.UpdatePropertyGrid();
+                updateMethods.UpdateOrbitCamera();
                 updateMethods.UpdateGL();
             }
         }

@@ -7,10 +7,10 @@ using ViewerBase;
 using System.IO;
 using OpenTK;
 using JADERLINK_MODEL_VIEWER.src.Nodes;
-using RE4_UHD_BIN_TOOL.EXTRACT;
-using RE4_UHD_BIN_TOOL.ALL;
+using SHARED_UHD_BIN.EXTRACT;
+using SHARED_UHD_BIN.ALL;
 
-namespace RE4_UHD_MODEL_VIEWER.src
+namespace LoadUhdPs4Ns.src
 {
     public class LoadUhdBinModel
     {
@@ -18,11 +18,13 @@ namespace RE4_UHD_MODEL_VIEWER.src
 
         private ModelGroup modelGroup;
         private ModelNodeGroup mng;
+        private bool IsPS4NS;
 
-        public LoadUhdBinModel(ModelGroup modelGroup, ModelNodeGroup mng)
+        public LoadUhdBinModel(ModelGroup modelGroup, ModelNodeGroup mng, bool IsPS4NS)
         {
             this.modelGroup = modelGroup;
             this.mng = mng;
+            this.IsPS4NS = IsPS4NS;
         }
 
         public void LoadUhdBIN(string binPath)
@@ -40,15 +42,23 @@ namespace RE4_UHD_MODEL_VIEWER.src
             if (!modelGroup.Objects.ContainsKey(FileID))
             {
                 UhdBIN uhdBIN = null;
+                Stream binFile = null;
                 try
                 {
-                    Stream binFile = fileInfo.OpenRead();
-                    uhdBIN = UhdBinDecoder.Decoder(binFile, 0, out _);
-                    binFile.Close();
+                    binFile = fileInfo.OpenRead();
+                    uhdBIN = UhdBinDecoder.Decoder(binFile, 0, out _, IsPS4NS);
                 }
                 catch (Exception)
                 {
                 }
+                finally 
+                {
+                    if (binFile != null)
+                    {
+                        binFile.Close();
+                    }
+                }
+
 
                 if (uhdBIN != null)
                 {

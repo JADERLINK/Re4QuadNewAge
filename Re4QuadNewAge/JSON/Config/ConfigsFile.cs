@@ -20,6 +20,7 @@ namespace Re4QuadExtremeEditor.src.JSON
             entry["Directory2007RE4"] = config.Directory2007RE4;
             entry["DirectoryPS2RE4"] = config.DirectoryPS2RE4;
             entry["DirectoryUHDRE4"] = config.DirectoryUHDRE4;
+            entry["DirectoryPS4NSRE4"] = config.DirectoryPS4NSRE4;
             entry["DirectoryCustom1"] = config.DirectoryCustom1;
             entry["DirectoryCustom2"] = config.DirectoryCustom2;
             entry["DirectoryCustom3"] = config.DirectoryCustom3;
@@ -40,6 +41,7 @@ namespace Re4QuadExtremeEditor.src.JSON
             entry["ItemRotationCalculationMultiplier"] = config.ItemRotationCalculationMultiplier;
             entry["ItemRotationOrder"] = (int)config.ItemRotationOrder;
             entry["UseDarkerGrayTheme"] = config.UseDarkerGrayTheme;
+            entry["UseInvertedMouseButtons"] = config.UseInvertedMouseButtons;
             entry["LoadLangTranslation"] = config.LoadLangTranslation;
             entry["LangJsonFile"] = config.LangJsonFile;
 
@@ -75,6 +77,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                     config.Directory2007RE4 = FixDirectory(oConfigs?["Directory2007RE4"]?.ToString());
                     config.DirectoryPS2RE4 = FixDirectory(oConfigs?["DirectoryPS2RE4"]?.ToString());
                     config.DirectoryUHDRE4 = FixDirectory(oConfigs?["DirectoryUHDRE4"]?.ToString());
+                    config.DirectoryPS4NSRE4 = FixDirectory(oConfigs?["DirectoryPS4NSRE4"]?.ToString());
                     config.DirectoryCustom1 = FixDirectory(oConfigs?["DirectoryCustom1"]?.ToString());
                     config.DirectoryCustom2 = FixDirectory(oConfigs?["DirectoryCustom2"]?.ToString());
                     config.DirectoryCustom3 = FixDirectory(oConfigs?["DirectoryCustom3"]?.ToString());
@@ -228,6 +231,17 @@ namespace Re4QuadExtremeEditor.src.JSON
                         try
                         {
                             config.UseDarkerGrayTheme = bool.Parse(oConfigs["UseDarkerGrayTheme"].ToString());
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+
+                    if (oConfigs["UseInvertedMouseButtons"] != null)
+                    {
+                        try
+                        {
+                            config.UseInvertedMouseButtons = bool.Parse(oConfigs["UseInvertedMouseButtons"].ToString());
                         }
                         catch (Exception)
                         {

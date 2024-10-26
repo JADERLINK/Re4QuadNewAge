@@ -47,6 +47,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Re4ViewerRender", "Re4Viewe
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ControlUtils", "ControlUtils\ControlUtils.shproj", "{715EF6CB-6AA6-46B6-A7C0-81EEEE447DF3}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ScarletLibrary", "ScarletLibrary\ScarletLibrary.shproj", "{4CB24A8B-C71F-48C9-AA4E-7038EBFCA3CE}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PMD_LIB\PMD_LIB.projitems*{02864b5e-f21e-4cf1-a287-3ac34656f7bc}*SharedItemsImports = 13
@@ -66,6 +68,7 @@ Global
 		PS2_BIN\PS2_BIN.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		PS2_TPL\PS2_TPL.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		Re4ViewerRender\Re4ViewerRender.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
+		ScarletLibrary\ScarletLibrary.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		ScenarioSMD2007\ScenarioSMD2007.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		SMX\SMX.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		TGA_LIB\TGA_LIB.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
@@ -75,6 +78,7 @@ Global
 		SMX\SMX.projitems*{1e471265-f147-4c2d-a710-034db7459707}*SharedItemsImports = 13
 		NewTheRender\NewTheRender.projitems*{20573470-c32b-4d09-ab07-f98f0f55d5f8}*SharedItemsImports = 13
 		TGA_LIB\TGA_LIB.projitems*{32983cb7-1c40-45f0-8d06-c04a245f892e}*SharedItemsImports = 13
+		ScarletLibrary\ScarletLibrary.projitems*{4cb24a8b-c71f-48c9-aa4e-7038ebfca3ce}*SharedItemsImports = 13
 		IShader\IShader.projitems*{651d6f6e-4848-4b62-b018-b92cd8161ac7}*SharedItemsImports = 13
 		ScenarioSMD2007\ScenarioSMD2007.projitems*{681d0465-23e6-4033-b1f3-cd061a192401}*SharedItemsImports = 13
 		ControlUtils\ControlUtils.projitems*{715ef6cb-6aa6-46b6-a7c0-81eeee447df3}*SharedItemsImports = 13

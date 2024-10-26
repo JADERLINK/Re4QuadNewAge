@@ -219,6 +219,7 @@ namespace Re4QuadExtremeEditor.src.JSON
                                 m = modelPs2;
                             }
                             break;
+                        case ObjectModel.EType.PS4NS:
                         case ObjectModel.EType.UHD:
                             {
                                 string PackPathKey = PathKey;

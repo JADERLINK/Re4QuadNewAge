@@ -1125,10 +1125,153 @@ namespace Re4QuadExtremeEditor.src.Class
             for (ushort iN = 0; iN < Amount; iN++)
             {
                 Object3D o = Object3D.CreateNewInstance(GroupType.QUAD_CUSTOM, iN);
+                o.NodeFont = Globals.TreeNodeFontText;
                 nodes.Add(o);
             }
             DataBase.NodeQuadCustom.Nodes.AddRange(nodes.ToArray());
             DataBase.NodeQuadCustom.Expand();
+            GC.Collect();
+        }
+
+        public static void LoadFileEFFBLOB(FileStream file, FileInfo fileInfo) { }
+
+        public static void LoadFileLIT_UHD(FileStream file, FileInfo fileInfo) { }
+
+        public static void LoadFileLIT_2007_PS2(FileStream file, FileInfo fileInfo) { }
+
+        public static void LoadFileITA_PS4_NS(FileStream file, FileInfo fileInfo)
+        {
+            FileSpecialGroup ita = new FileSpecialGroup(Re4Version.UHD, SpecialFileFormat.ITA, true);
+
+            byte[] header = new byte[16];
+            int offset = file.Read(header, 0, 16);
+            ushort Amount = BitConverter.ToUInt16(header, 0x06);
+            ita.StartFile = header;
+
+            if (Amount > Consts.AmountLimitITA)
+            {
+                Amount = Consts.AmountLimitITA;
+                byte[] b = BitConverter.GetBytes(Amount);
+                ita.StartFile[0x06] = b[0];
+                ita.StartFile[0x07] = b[1];
+            }
+
+            ushort i = 0;
+            for (; i < Amount; i++)
+            {
+                byte[] res = new byte[184];
+                offset = file.Read(res, 0, 184);
+                ita.Lines.Add(i, ConvertLineSpecial_PS4NS_To_UHD(res, SpecialFileFormat.ITA));
+
+                if (offset > fileInfo.Length)
+                {
+                    break;
+                }
+            }
+
+            if (i < Amount)
+            {
+                for (; i < Amount; i++)
+                {
+                    ita.Lines.Add(i, new byte[156]);
+                }
+            }
+
+            ita.EndFile = new byte[0];
+
+            ita.IdForNewLine = i;
+            ita.SetStartIdexContent();
+
+            DataBase.FileITA = null;
+            DataBase.FileITA = ita;
+            DataBase.Extras.SetStartRefInteractionTypeContent();
+
+            DataBase.Extras.ClearITAs();
+            DataBase.NodeITA.Nodes.Clear();
+            DataBase.NodeITA.MethodsForGL = DataBase.FileITA.MethodsForGL;
+            DataBase.NodeITA.ExtrasMethodsForGL = DataBase.FileITA.ExtrasMethodsForGL;
+            DataBase.NodeITA.PropertyMethods = DataBase.FileITA.Methods;
+            DataBase.NodeITA.DisplayMethods = DataBase.FileITA.DisplayMethods;
+            DataBase.NodeITA.MoveMethods = DataBase.FileITA.MoveMethods;
+            DataBase.NodeITA.ChangeAmountMethods = DataBase.FileITA.ChangeAmountMethods;
+            List<Object3D> nodes = new List<Object3D>();
+            for (ushort iN = 0; iN < Amount; iN++)
+            {
+                Object3D o = Object3D.CreateNewInstance(GroupType.ITA, iN);
+                nodes.Add(o);
+            }
+            DataBase.NodeITA.Nodes.AddRange(nodes.ToArray());
+            DataBase.NodeITA.Expand();
+            DataBase.Extras.AddITAs();
+            DataBase.NodeEXTRAS.Expand();
+            GC.Collect();
+        }
+
+        public static void LoadFileAEV_PS4_NS(FileStream file, FileInfo fileInfo)
+        {
+            FileSpecialGroup aev = new FileSpecialGroup(Re4Version.UHD, SpecialFileFormat.AEV, true);
+
+            byte[] header = new byte[16];
+            int offset = file.Read(header, 0, 16);
+            ushort Amount = BitConverter.ToUInt16(header, 0x06);
+            aev.StartFile = header;
+
+            if (Amount > Consts.AmountLimitAEV)
+            {
+                Amount = Consts.AmountLimitAEV;
+                byte[] b = BitConverter.GetBytes(Amount);
+                aev.StartFile[0x06] = b[0];
+                aev.StartFile[0x07] = b[1];
+            }
+
+            ushort i = 0;
+            for (; i < Amount; i++)
+            {
+                byte[] res = new byte[240];
+                offset = file.Read(res, 0, 240);
+                aev.Lines.Add(i, ConvertLineSpecial_PS4NS_To_UHD(res, SpecialFileFormat.AEV));
+
+                if (offset > fileInfo.Length)
+                {
+                    break;
+                }
+            }
+
+            if (i < Amount)
+            {
+                for (; i < Amount; i++)
+                {
+                    aev.Lines.Add(i, new byte[156]);
+                }
+            }
+
+            aev.EndFile = new byte[0];
+
+            aev.IdForNewLine = i;
+            aev.SetStartIdexContent();
+
+            DataBase.FileAEV = null;
+            DataBase.FileAEV = aev;
+            DataBase.Extras.SetStartRefInteractionTypeContent();
+
+            DataBase.Extras.ClearAll();
+            DataBase.NodeAEV.Nodes.Clear();
+            DataBase.NodeAEV.MethodsForGL = DataBase.FileAEV.MethodsForGL;
+            DataBase.NodeAEV.ExtrasMethodsForGL = DataBase.FileAEV.ExtrasMethodsForGL;
+            DataBase.NodeAEV.PropertyMethods = DataBase.FileAEV.Methods;
+            DataBase.NodeAEV.DisplayMethods = DataBase.FileAEV.DisplayMethods;
+            DataBase.NodeAEV.MoveMethods = DataBase.FileAEV.MoveMethods;
+            DataBase.NodeAEV.ChangeAmountMethods = DataBase.FileAEV.ChangeAmountMethods;
+            List<Object3D> nodes = new List<Object3D>();
+            for (ushort iN = 0; iN < Amount; iN++)
+            {
+                Object3D o = Object3D.CreateNewInstance(GroupType.AEV, iN);
+                nodes.Add(o);
+            }
+            DataBase.NodeAEV.Nodes.AddRange(nodes.ToArray());
+            DataBase.NodeAEV.Expand();
+            DataBase.Extras.AddAll();
+            DataBase.NodeEXTRAS.Expand();
             GC.Collect();
         }
 
@@ -1186,9 +1329,9 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
-        public static void NewFileITA(Re4Version version)
+        public static void NewFileITA(Re4Version version, bool IsPs4Ns_Adapted = false)
         {
-            FileSpecialGroup ita = new FileSpecialGroup(version, SpecialFileFormat.ITA);
+            FileSpecialGroup ita = new FileSpecialGroup(version, SpecialFileFormat.ITA, IsPs4Ns_Adapted);
             byte[] header = new byte[16];
             header[0] = 0x49;
             header[1] = 0x54;
@@ -1216,9 +1359,9 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
-        public static void NewFileAEV(Re4Version version)
+        public static void NewFileAEV(Re4Version version, bool IsPs4Ns_Adapted = false)
         {
-            FileSpecialGroup aev = new FileSpecialGroup(version, SpecialFileFormat.AEV);
+            FileSpecialGroup aev = new FileSpecialGroup(version, SpecialFileFormat.AEV, IsPs4Ns_Adapted);
             byte[] header = new byte[16];
             header[0] = 0x41;
             header[1] = 0x45;
@@ -1399,6 +1542,10 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
+        public static void NewFileEFFBLOB() { }
+
+        public static void NewFileLIT(Re4Version version) { }
+
         #endregion
 
         #region Clear
@@ -1540,6 +1687,10 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
+        public static void ClearEFFBLOB() { }
+
+        public static void ClearLIT() { }
+
         #endregion
 
         #region save as
@@ -1589,7 +1740,12 @@ namespace Re4QuadExtremeEditor.src.Class
 
         public static void SaveFileITA(FileStream stream)
         {
-            if (DataBase.FileITA != null && DataBase.FileITA.Lines != null)
+            if (DataBase.FileITA != null && DataBase.FileITA.Lines != null && DataBase.FileITA.IsPs4Ns_Adapted)
+            {
+                SaveFileITA_PS4_NS(stream);
+                return;
+            }
+            else if (DataBase.FileITA != null && DataBase.FileITA.Lines != null)
             {
                 byte[] lenght = BitConverter.GetBytes(DataBase.FileITA.Lines.Count);
                 DataBase.FileITA.StartFile[0x06] = lenght[0];
@@ -1615,7 +1771,12 @@ namespace Re4QuadExtremeEditor.src.Class
 
         public static void SaveFileAEV(FileStream stream)
         {
-            if (DataBase.FileAEV != null && DataBase.FileAEV.Lines != null)
+            if (DataBase.FileAEV != null && DataBase.FileAEV.Lines != null && DataBase.FileAEV.IsPs4Ns_Adapted)
+            {
+                SaveFileAEV_PS4_NS(stream);
+                return;
+            }
+            else if (DataBase.FileAEV != null && DataBase.FileAEV.Lines != null)
             {
                 byte[] lenght = BitConverter.GetBytes(DataBase.FileAEV.Lines.Count);
                 DataBase.FileAEV.StartFile[0x06] = lenght[0];
@@ -1866,6 +2027,71 @@ namespace Re4QuadExtremeEditor.src.Class
             }
         }
 
+        public static void SaveFileITA_PS4_NS(FileStream stream)
+        {
+            if (DataBase.FileITA != null && DataBase.FileITA.Lines != null)
+            {
+                byte[] lenght = BitConverter.GetBytes(DataBase.FileITA.Lines.Count);
+                DataBase.FileITA.StartFile[0x06] = lenght[0];
+                DataBase.FileITA.StartFile[0x07] = lenght[1];
+
+                stream.Write(DataBase.FileITA.StartFile, 0, DataBase.FileITA.StartFile.Length);
+
+                var nodes = DataBase.NodeITA.Nodes.Cast<Object3D>();
+                ushort[] Order = (from obj in nodes select obj.ObjLineRef).ToArray();
+
+                for (int i = 0; i < Order.Length; i++)
+                {
+                    byte[] b = ConvertLineSpecial_UHD_To_PS4NS(DataBase.FileITA.Lines[Order[i]], SpecialFileFormat.ITA);
+                    stream.Write(b, 0, b.Length);
+                }
+
+                //alinhamento
+                long div = stream.Position / 16;
+                long rest = stream.Position % 16;
+                div += rest != 0 ? 1 : 0;
+                int dif = (int)((div * 16) - stream.Position);
+
+                if (dif > 0)
+                {
+                    stream.Write(new byte[dif], 0, dif);
+                }
+            }
+        }
+
+        public static void SaveFileAEV_PS4_NS(FileStream stream)
+        {
+            if (DataBase.FileAEV != null && DataBase.FileAEV.Lines != null)
+            {
+                byte[] lenght = BitConverter.GetBytes(DataBase.FileAEV.Lines.Count);
+                DataBase.FileAEV.StartFile[0x06] = lenght[0];
+                DataBase.FileAEV.StartFile[0x07] = lenght[1];
+
+                stream.Write(DataBase.FileAEV.StartFile, 0, DataBase.FileAEV.StartFile.Length);
+
+                var nodes = DataBase.NodeAEV.Nodes.Cast<Object3D>();
+                ushort[] Order = (from obj in nodes select obj.ObjLineRef).ToArray();
+
+                for (int i = 0; i < Order.Length; i++)
+                {
+                    byte[] b = ConvertLineSpecial_UHD_To_PS4NS(DataBase.FileAEV.Lines[Order[i]], SpecialFileFormat.AEV);
+                    stream.Write(b, 0, b.Length);
+                }
+
+                //alinhamento
+                long div = stream.Position / 16;
+                long rest = stream.Position % 16;
+                div += rest != 0 ? 1 : 0;
+                int dif = (int)((div * 16) - stream.Position);
+
+                if (dif > 0)
+                {
+                    stream.Write(new byte[dif], 0, dif);
+                }
+            }
+        }
+
+
         #endregion
 
         #region saveConvert
@@ -1990,7 +2216,7 @@ namespace Re4QuadExtremeEditor.src.Class
             }
         }
 
-        private static byte[] ConvertLineSpecial(byte[] line, Re4Version from, SpecialFileFormat fileFormat) 
+        private static byte[] ConvertLineSpecial(byte[] line, Re4Version from, SpecialFileFormat fileFormat)
         {
             byte[] res = new byte[0];
 
@@ -2299,5 +2525,84 @@ namespace Re4QuadExtremeEditor.src.Class
 
         #endregion
 
+        #region AEV/ITA PS4/NS adaptado
+
+        private static byte[] ConvertLineSpecial_PS4NS_To_UHD(byte[] line, SpecialFileFormat fileFormat)
+        {
+            byte[] res = new byte[156];
+
+            line.Skip(0x00).Take(0x04).ToArray().CopyTo(res, 0x00);
+            line.Skip(0x08).Take(0x40).ToArray().CopyTo(res, 0x04);
+            line.Skip(0x50).Take(0x18).ToArray().CopyTo(res, 0x44);
+
+            byte specialType = line[0x39];
+
+            switch (specialType)
+            {
+                case 0x03: // T03_Items
+                    line.Skip(0x70).Take(0x10).ToArray().CopyTo(res, 0x5C);
+                    line.Skip(0x88).Take(0x30).ToArray().CopyTo(res, 0x6C);
+                    break;
+                case 0x12: // T12_AshleyHideCommand
+                    line.Skip(0x70).Take(0x24).ToArray().CopyTo(res, 0x5C);
+                    line.Skip(0x98).Take(0x0C).ToArray().CopyTo(res, 0x80);
+                    if (fileFormat == SpecialFileFormat.AEV)
+                    {
+                        line.Skip(0xAC).Take(0x10).ToArray().CopyTo(res, 0x8C);
+                    }
+                    else
+                    {
+                        line.Skip(0xAC).Take(0x0C).ToArray().CopyTo(res, 0x8C);
+                    }
+                    break;
+                default:
+                    line.Skip(0x70).Take(0x40).ToArray().CopyTo(res, 0x5C);
+                    break;
+            }
+
+            return res;
+        }
+
+        private static byte[] ConvertLineSpecial_UHD_To_PS4NS(byte[] line, SpecialFileFormat fileFormat)
+        {
+            byte[] res = new byte[184];// ITA
+
+            if (fileFormat == SpecialFileFormat.AEV)
+            {
+                res = new byte[240]; //EAV
+            }
+            line.Skip(0x00).Take(0x04).ToArray().CopyTo(res, 0x00);
+            line.Skip(0x04).Take(0x40).ToArray().CopyTo(res, 0x08);
+            line.Skip(0x44).Take(0x18).ToArray().CopyTo(res, 0x50);
+
+            byte specialType = line[0x35];
+
+            switch (specialType)
+            {
+                case 0x03: // T03_Items
+                    line.Skip(0x5C).Take(0x10).ToArray().CopyTo(res, 0x70);
+                    line.Skip(0x6C).Take(0x30).ToArray().CopyTo(res, 0x88);
+                    break;
+                case 0x12: // T12_AshleyHideCommand
+                    line.Skip(0x5C).Take(0x24).ToArray().CopyTo(res, 0x70);
+                    line.Skip(0x80).Take(0x0C).ToArray().CopyTo(res, 0x98);
+                    if (fileFormat == SpecialFileFormat.AEV)
+                    {
+                        line.Skip(0x8C).Take(0x10).ToArray().CopyTo(res, 0xAC);
+                    }
+                    else
+                    {
+                        line.Skip(0x8C).Take(0x0C).ToArray().CopyTo(res, 0xAC);
+                    }
+                    break;
+                default:
+                    line.Skip(0x5C).Take(0x40).ToArray().CopyTo(res, 0x70);
+                    break;
+            }
+
+            return res;
+        }
+
+        #endregion
     }
 }

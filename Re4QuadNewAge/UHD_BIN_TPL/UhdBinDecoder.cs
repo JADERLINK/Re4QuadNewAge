@@ -4,20 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using RE4_UHD_BIN_TOOL.ALL;
+using SHARED_UHD_BIN.ALL;
 
-namespace RE4_UHD_BIN_TOOL.EXTRACT
+namespace SHARED_UHD_BIN.EXTRACT
 {
     public static class UhdBinDecoder
     {
-        public static UhdBIN Decoder(Stream stream, long startOffset, out long endOffset) 
+        public static UhdBIN Decoder(Stream stream, long startOffset, out long endOffset, bool IsPs4NS) 
         {
             UhdBIN uhdBIN = new UhdBIN();
 
             BinaryReader br = new BinaryReader(stream);
             br.BaseStream.Position = startOffset;
 
-            uhdBIN.Header = GetHeader(br);
+            if (IsPs4NS)
+            {
+                uhdBIN.Header = GetHeaderPS4NS(br);
+            }
+            else 
+            {
+                uhdBIN.Header = GetHeader(br);
+            }
 
             //Quantidade real de vertices/normals, calculado pela montagem de faces
             int True_Vertex_Count;
@@ -468,6 +475,12 @@ namespace RE4_UHD_BIN_TOOL.EXTRACT
             UhdBinHeader header = new UhdBinHeader();
 
             header.bone_offset = br.ReadUInt32(); //--headersize // 60 00 00 00
+
+            if ( ! (header.bone_offset == 0x00000060 || header.bone_offset == 0x00000040 || header.bone_offset == 0x00000050))
+            {
+                throw new ArgumentException("Invalid BIN file!");
+            }
+
             header.unknown_x04 = br.ReadUInt32(); //--zeros
             header.unknown_x08 = br.ReadUInt32(); // offset // 50 00 00 00
             header.vertex_colour_offset = br.ReadUInt32();
@@ -496,16 +509,81 @@ namespace RE4_UHD_BIN_TOOL.EXTRACT
             header.vertex_normal_count = br.ReadUInt16();
             header.version_flags = br.ReadUInt32();
 
-
-            header.bonepair_offset = br.ReadUInt32();
-            header.adjacent_offset = br.ReadUInt32();
-            header.vertex_weight_index_offset = br.ReadUInt32();  //--vertex weights id's array (2 words )* numvertex
-            header.vertex_weight2_index_offset = br.ReadUInt32(); //--vertex weights array (2 words )* numvertex
-
+            if (header.bone_offset >= 0x50)
+            {
+                header.bonepair_offset = br.ReadUInt32();
+                header.adjacent_offset = br.ReadUInt32();
+                header.vertex_weight_index_offset = br.ReadUInt32();  //--vertex weights id's array (2 words )* numvertex
+                header.vertex_weight2_index_offset = br.ReadUInt32(); //--vertex weights array (2 words )* numvertex
+            }
 
             return header;
         }
 
+        private static UhdBinHeader GetHeaderPS4NS(BinaryReader br) 
+        {
+            UhdBinHeader header = new UhdBinHeader();
 
+            header.bone_offset = br.ReadUInt32(); //-- 98 00 00 00
+
+            if ( ! (header.bone_offset == 0x00000098))
+            {
+                throw new ArgumentException("Invalid BIN file!");
+            }
+
+            _ = br.ReadUInt32(); // bone_offset part2
+
+            header.unknown_x04 = br.ReadUInt32(); //--zeros
+            header.unknown_x08 = br.ReadUInt32(); // offset // 50 00 00 00
+
+            header.vertex_colour_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // vertex_colour_offset part2
+
+            header.vertex_texcoord_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); //vertex_texcoord_offset part2
+
+            header.weight_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // weight_offset part2
+
+            header.weight_count = br.ReadByte();
+            header.bone_count = br.ReadByte();
+            header.material_count = br.ReadUInt16();
+
+            _ = br.ReadUInt32(); // nada padding
+
+            header.material_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // material_offset part2
+
+            header.texture1_flags = br.ReadUInt16();
+            header.texture2_flags = br.ReadUInt16();
+            header.TPL_count = br.ReadUInt32();
+            header.vertex_scale = br.ReadByte();
+            header.unknown_x29 = br.ReadByte();
+            header.weight2_count = br.ReadUInt16(); //--same as weightcount
+            header.morph_offset = br.ReadUInt32();
+
+            header.vertex_position_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // vertex_position_offset part2
+
+            header.vertex_normal_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // vertex_normal_offset part2
+
+            header.vertex_position_count = br.ReadUInt16();
+            header.vertex_normal_count = br.ReadUInt16();
+            header.version_flags = br.ReadUInt32();
+
+            header.bonepair_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // bonepair_offset part2
+            header.adjacent_offset = br.ReadUInt32();
+            _ = br.ReadUInt32(); // adjacent_offset part2
+            header.vertex_weight_index_offset = br.ReadUInt32();  //--vertex weights id's array (2 words )* numvertex
+            _ = br.ReadUInt32(); // vertex_weight_index_offset part2
+            header.vertex_weight2_index_offset = br.ReadUInt32(); //--vertex weights array (2 words )* numvertex
+            _ = br.ReadUInt32(); // vertex_weight2_index_offset part2
+
+            // proximos dados são lixo da versão uhd e padding
+
+            return header;
+        }
     }
 }

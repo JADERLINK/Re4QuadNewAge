@@ -40,15 +40,22 @@ namespace RE4_PS2_MODEL_VIEWER.src
             if (!modelGroup.Objects.ContainsKey(FileID))
             {
                 PS2BIN ps2bin = null;
+                Stream stream = null;
 
                 try
                 {
-                    Stream stream = fileInfo.OpenRead();
+                    stream = fileInfo.OpenRead();
                     ps2bin = BINdecoder.Decode(stream, 0, out _);
-                    stream.Close();
                 }
                 catch (Exception)
                 {
+                }
+                finally 
+                {
+                    if (stream != null)
+                    {
+                        stream.Close();
+                    }
                 }
 
                 if (ps2bin != null)

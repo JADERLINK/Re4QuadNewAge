@@ -159,6 +159,17 @@ namespace Re4QuadExtremeEditor.src.Forms
         {
             To("https://github.com/ALEXGREENALEX/DDSReaderSharp/blob/master/LICENSE");
         }
+
+        private void linkLabelScarletGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/xdanieldzd/Scarlet");
+        }
+
+        private void linkLabelLicenceScarlet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/xdanieldzd/Scarlet/blob/master/LICENSE.md");
+        }
+
         #endregion
 
         #region thanks tab
@@ -277,6 +288,11 @@ namespace Re4QuadExtremeEditor.src.Forms
             To("https://github.com/JADERLINK/JADERLINK_MODEL_VIEWER");
         }
 
+        private void linkLabel_RE4_PS4NS_MODEL_VIEWER_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/JADERLINK/JADERLINK_MODEL_VIEWER");
+        }
+
         private void linkLabel_RE4_2007_SCENARIO_SMD_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             To("https://github.com/JADERLINK/RE4-2007-SCENARIO-SMD-TOOL");
@@ -317,6 +333,11 @@ namespace Re4QuadExtremeEditor.src.Forms
             To("https://github.com/JADERLINK/RE4-UHD-PACKYZ2-TOOL");
         }
 
+        private void linkLabel_RE4_PS4NS_PACK_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/JADERLINK/RE4-PS4NS-PACK-TOOL");
+        }
+
         private void linkLabel_RE4_SMX_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             To("https://github.com/JADERLINK/RE4-SMX-TOOL");
@@ -342,6 +363,16 @@ namespace Re4QuadExtremeEditor.src.Forms
             To("https://github.com/JADERLINK/RE4-ITM-TOOL");
         }
 
+        private void linkLabel_RE4_CNS_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/JADERLINK/RE4-CNS-TOOL");
+        }
+
+        private void linkLabel_RE4_2007_GCA_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/JADERLINK/RE4-2007-GCA-TOOL");
+        }
+
         private void linkLabel_JADERLINK_DATUDAS_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             To("https://github.com/JADERLINK/JADERLINK_DATUDAS_TOOL");
@@ -350,6 +381,16 @@ namespace Re4QuadExtremeEditor.src.Forms
         private void linkLabel_DATUDAS_IDX_STANDARDIZE_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             To("https://github.com/JADERLINK/DATUDAS_IDX_STANDARDIZE");
+        }
+
+        private void linkLabel_RE4_EFF_SPLIT_TOOL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/JADERLINK/RE4_EFF_SPLIT_TOOL");
+        }
+
+        private void linkLabel_RE4_EFF_BLOB_RUST_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            To("https://github.com/JADERLINK/RE4_EFF_BLOB_RUST");
         }
 
 

@@ -22,6 +22,7 @@ namespace Re4QuadExtremeEditor.src
         public static string Directory2007RE4 = @"";
         public static string DirectoryPS2RE4 = @"";
         public static string DirectoryUHDRE4 = @"";
+        public static string DirectoryPS4NSRE4 = @"";
         public static string DirectoryCustom1 = @"";
         public static string DirectoryCustom2 = @"";
         public static string DirectoryCustom3 = @"";
@@ -66,6 +67,8 @@ namespace Re4QuadExtremeEditor.src
         public static Color NodeColorEAR = Color.DodgerBlue;
         public static Color NodeColorESE = Color.Violet;
         public static Color NodeColorFSE = Color.FromArgb(161, 192, 192);
+        public static Color NodeColorLIT_GROUPS = Color.FromArgb(0, 0, 0);
+        public static Color NodeColorLIT_ENTRYS = Color.FromArgb(0, 0, 0);
         public static Color NodeColorQuadCustom = Color.DimGray;
 
         // color GL
@@ -127,6 +130,7 @@ namespace Re4QuadExtremeEditor.src
         public static bool RenderFileEMI = true;
         public static bool RenderFileESE = true;
         public static bool RenderFileQuadCustom = true;
+        public static bool RenderFileLIT = true;
 
         //enemy renders
         public static bool RenderDisabledEnemy = true;
@@ -178,6 +182,8 @@ namespace Re4QuadExtremeEditor.src
         public static string FilePathEMI = null;
         public static string FilePathESE = null;
         public static string FilePathQuadCustom = null;
+        public static string FilePathEFFBLOB = null;
+        public static string FilePathLIT = null;
         #endregion
 
         // Render Options

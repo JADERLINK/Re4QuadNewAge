@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LoadPs2BinModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoadPs2ScenarioSMD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoadPs2Tpl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadPs4NsPackCustomQuad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoadScenarioSMD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoadTGA.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoadUhdBinModel.cs" />

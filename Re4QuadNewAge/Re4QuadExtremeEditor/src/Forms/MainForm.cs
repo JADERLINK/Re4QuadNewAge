@@ -43,6 +43,9 @@ namespace Re4QuadExtremeEditor
         bool isShiftDown = false, isControlDown = false, isSpaceDown = false;
         bool isMouseDown = false, isMouseMove = false;
         bool isWDown = false, isSDown = false, isADown = false, isDDown = false;
+        //movimentação camera no glControl
+        MouseButtons MouseButtonsLeft = MouseButtons.Left; //botão para movimentação camera
+        MouseButtons MouseButtonsRight = MouseButtons.Right; // botão para selecionar objeto
         #endregion
 
         // Property que fica no PropertyGrid quando não tem nada selecionado;
@@ -178,6 +181,12 @@ namespace Re4QuadExtremeEditor
                 DarkerGrayTheme();
             }
 
+            if (Globals.BackupConfigs.UseInvertedMouseButtons)
+            {
+                MouseButtonsLeft = MouseButtons.Right; //botão para movimentação camera
+                MouseButtonsRight = MouseButtons.Left; // botão para selecionar objeto
+            }
+
             //apenas para testes, cria um arquivo para tradução
             //src.JSON.LangFile.WriteToLangFile("SourceLang.json");
             //int finish = 0;
@@ -213,7 +222,7 @@ namespace Re4QuadExtremeEditor
 
         private void GlControl_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtonsLeft)
             {
                 camera.resetMouseStuff();
                 isMouseDown = false;
@@ -228,7 +237,7 @@ namespace Re4QuadExtremeEditor
 
         private void GlControl_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtonsLeft)
             {
                 camera.resetMouseStuff();
                 isMouseDown = true;
@@ -236,7 +245,7 @@ namespace Re4QuadExtremeEditor
                 camera.SaveCameraPosition();
                 myTimer.Enabled = true;
             }       
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtonsRight)
             {
                 selectObject(e.X, e.Y);
                 glControl.Invalidate();
@@ -364,7 +373,7 @@ namespace Re4QuadExtremeEditor
 
         private void GlControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isMouseDown && e.Button == MouseButtons.Left)
+            if (isMouseDown && e.Button == MouseButtonsLeft)
             {
                 camera.updateCameraOffsetMatrixWithMouse(isControlDown, e.X, e.Y);
                 camMtx = camera.GetViewMatrix();
@@ -1195,6 +1204,34 @@ namespace Re4QuadExtremeEditor
             glControl.Invalidate();
         }
 
+        private void toolStripMenuItemRoomTextureNearestLinear_Click(object sender, EventArgs e)
+        {
+            NewAgeTheRender.RoomSelectedObj.LoadTextureLinear = !NewAgeTheRender.RoomSelectedObj.LoadTextureLinear;
+            
+            toolStripMenuItemRoomTextureNearestLinear.Text =
+                NewAgeTheRender.RoomSelectedObj.LoadTextureLinear ?
+                Lang.GetText(eLang.toolStripMenuItemRoomTextureIsLinear) :
+                Lang.GetText(eLang.toolStripMenuItemRoomTextureIsNearest) ;
+
+            DataBase.SelectedRoom?.ChangeTextureType();
+
+            glControl.Invalidate();
+        }
+
+        private void toolStripMenuItemModelsTextureNearestLinear_Click(object sender, EventArgs e)
+        {
+            NewAgeTheRender.ObjModel3D.LoadTextureLinear = !NewAgeTheRender.ObjModel3D.LoadTextureLinear;
+
+            toolStripMenuItemModelsTextureNearestLinear.Text =
+              NewAgeTheRender.ObjModel3D.LoadTextureLinear ?
+              Lang.GetText(eLang.toolStripMenuItemModelsTextureIsLinear) :
+              Lang.GetText(eLang.toolStripMenuItemModelsTextureIsNearest);
+
+            Utils.ChangeTextureTypeFromModels();
+
+            glControl.Invalidate();
+        }
+
         #endregion
 
 
@@ -1553,11 +1590,52 @@ namespace Re4QuadExtremeEditor
             glControl.Invalidate();
         }
 
+        private void toolStripMenuItemNewEFFBLOB_Click(object sender, EventArgs e)
+        {
+            TreeViewUpdateSelectedsClear();
+            FileManager.NewFileEFFBLOB();
+            Globals.FilePathEFFBLOB = null;
+            glControl.Invalidate();
+        }
+
+        private void toolStripMenuItemNewLIT_2007_PS2_Click(object sender, EventArgs e)
+        {
+            TreeViewUpdateSelectedsClear();
+            FileManager.NewFileLIT(Re4Version.V2007PS2);
+            Globals.FilePathLIT = null;
+            glControl.Invalidate();
+        }
+
+        private void toolStripMenuItemNewLIT_UHD_Click(object sender, EventArgs e)
+        {
+            TreeViewUpdateSelectedsClear();
+            FileManager.NewFileLIT(Re4Version.UHD);
+            Globals.FilePathLIT = null;
+            glControl.Invalidate();
+        }
+
+        private void toolStripMenuItemNewITA_PS4_NS_Click(object sender, EventArgs e)
+        {
+            TreeViewUpdateSelectedsClear();
+            FileManager.NewFileITA(Re4Version.UHD, true);
+            Globals.FilePathITA = null;
+            glControl.Invalidate();
+        }
+
+        private void toolStripMenuItemNewAEV_PS4_NS_Click(object sender, EventArgs e)
+        {
+            TreeViewUpdateSelectedsClear();
+            FileManager.NewFileAEV(Re4Version.UHD, true);
+            Globals.FilePathAEV = null;
+            glControl.Invalidate();
+        }
+
         #endregion
 
         #region Gerenciamento de arquivos //open
 
         private bool OpenIsUHD = false;
+        private bool OpenIsPs4Ns_Adapted = false;
         private void toolStripMenuItemOpenESL_Click(object sender, EventArgs e)
         {
             openFileDialogESL.ShowDialog();
@@ -1575,21 +1653,37 @@ namespace Re4QuadExtremeEditor
         private void toolStripMenuItemOpenITA_2007_PS2_Click(object sender, EventArgs e)
         {
             OpenIsUHD = false;
+            OpenIsPs4Ns_Adapted = false;
             openFileDialogITA.ShowDialog();
         }
         private void toolStripMenuItemOpenITA_UHD_Click(object sender, EventArgs e)
         {
             OpenIsUHD = true;
+            OpenIsPs4Ns_Adapted = false;
             openFileDialogITA.ShowDialog();
         }
         private void toolStripMenuItemOpenAEV_2007_PS2_Click(object sender, EventArgs e)
         {
             OpenIsUHD = false;
+            OpenIsPs4Ns_Adapted = false;
             openFileDialogAEV.ShowDialog();
         }
         private void toolStripMenuItemOpenAEV_UHD_Click(object sender, EventArgs e)
         {
             OpenIsUHD = true;
+            OpenIsPs4Ns_Adapted = false;
+            openFileDialogAEV.ShowDialog();
+        }
+        private void toolStripMenuItemOpenITA_PS4_NS_Click(object sender, EventArgs e)
+        {
+            OpenIsUHD = true;
+            OpenIsPs4Ns_Adapted = true;
+            openFileDialogITA.ShowDialog();
+        }
+        private void toolStripMenuItemOpenAEV_PS4_NS_Click(object sender, EventArgs e)
+        {
+            OpenIsUHD = true;
+            OpenIsPs4Ns_Adapted = true;
             openFileDialogAEV.ShowDialog();
         }
         private void toolStripMenuItemOpenDSE_Click(object sender, EventArgs e)
@@ -1631,6 +1725,23 @@ namespace Re4QuadExtremeEditor
         private void toolStripMenuItemOpenQuadCustom_Click(object sender, EventArgs e)
         {
             openFileDialogQuadCustom.ShowDialog();
+        }
+
+        private void toolStripMenuItemOpenEFFBLOB_Click(object sender, EventArgs e)
+        {
+            openFileDialogEFFBLOB.ShowDialog();
+        }
+
+        private void toolStripMenuItemOpenLIT_2007_PS2_Click(object sender, EventArgs e)
+        {
+            OpenIsUHD = false;
+            openFileDialogLIT.ShowDialog();
+        }
+
+        private void toolStripMenuItemOpenLIT_UHD_Click(object sender, EventArgs e)
+        {
+            OpenIsUHD = true;
+            openFileDialogLIT.ShowDialog();
         }
 
         private void openFileDialogESL_FileOk(object sender, CancelEventArgs e)
@@ -1806,7 +1917,11 @@ namespace Re4QuadExtremeEditor
                     {
                         TreeViewUpdateSelectedsClear();
                         TreeViewDisableDrawNode();
-                        if (OpenIsUHD)
+                        if (OpenIsPs4Ns_Adapted)
+                        {
+                            FileManager.LoadFileITA_PS4_NS(file, fileInfo);
+                        }
+                        else if (OpenIsUHD)
                         {
                             FileManager.LoadFileITA_UHD(file, fileInfo);
                         }
@@ -1873,7 +1988,11 @@ namespace Re4QuadExtremeEditor
                     {
                         TreeViewUpdateSelectedsClear();
                         TreeViewDisableDrawNode();
-                        if (OpenIsUHD)
+                        if (OpenIsPs4Ns_Adapted)
+                        {
+                            FileManager.LoadFileAEV_PS4_NS(file, fileInfo);
+                        }
+                        else if (OpenIsUHD)
                         {
                             FileManager.LoadFileAEV_UHD(file, fileInfo);
                         }
@@ -2321,6 +2440,133 @@ namespace Re4QuadExtremeEditor
                 }
             }
         }
+        private void openFileDialogLIT_FileOk(object sender, CancelEventArgs e)
+        {
+            FileInfo fileInfo = null;
+            try
+            {
+                fileInfo = new FileInfo(openFileDialogLIT.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Lang.GetText(eLang.MessageBoxErrorTitle), MessageBoxButtons.OK);
+                e.Cancel = true;
+                return;
+            }
+            if (fileInfo != null)
+            {
+                if (fileInfo.Length > 0x1000000)
+                {
+                    MessageBox.Show(Lang.GetText(eLang.MessageBoxFile16MB), Lang.GetText(eLang.MessageBoxWarningTitle), MessageBoxButtons.OK);
+                    e.Cancel = true;
+                    return;
+                }
+                else if (fileInfo.Length == 0)
+                {
+                    MessageBox.Show(Lang.GetText(eLang.MessageBoxFile0MB), Lang.GetText(eLang.MessageBoxWarningTitle), MessageBoxButtons.OK);
+                    e.Cancel = true;
+                    return;
+                }
+                else if (fileInfo.Length < 4)
+                {
+                    MessageBox.Show(Lang.GetText(eLang.MessageBoxFile4Bytes), Lang.GetText(eLang.MessageBoxWarningTitle), MessageBoxButtons.OK);
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    FileStream file = null;
+                    try
+                    {
+                        file = fileInfo.OpenRead();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, Lang.GetText(eLang.MessageBoxErrorTitle), MessageBoxButtons.OK);
+                        e.Cancel = true;
+                        return;
+                    }
+                    if (file != null && fileInfo != null)
+                    {
+                        TreeViewUpdateSelectedsClear();
+                        TreeViewDisableDrawNode();
+                        if (OpenIsUHD)
+                        {
+                            FileManager.LoadFileLIT_UHD(file, fileInfo);
+                        }
+                        else
+                        {
+                            FileManager.LoadFileLIT_2007_PS2(file, fileInfo);
+                        }
+                        file.Close();
+                        Globals.FilePathLIT = openFileDialogLIT.FileName;
+                        openFileDialogLIT.FileName = null;
+                        glControl.Invalidate();
+                        TreeViewEnableDrawNode();
+                    }
+                }
+            }
+        }
+        private void openFileDialogEFFBLOB_FileOk(object sender, CancelEventArgs e)
+        {
+            FileInfo fileInfo = null;
+            try
+            {
+                fileInfo = new FileInfo(openFileDialogEFFBLOB.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Lang.GetText(eLang.MessageBoxErrorTitle), MessageBoxButtons.OK);
+                e.Cancel = true;
+                return;
+            }
+            if (fileInfo != null)
+            {
+                if (fileInfo.Length > 0x1000000)
+                {
+                    MessageBox.Show(Lang.GetText(eLang.MessageBoxFile16MB), Lang.GetText(eLang.MessageBoxWarningTitle), MessageBoxButtons.OK);
+                    e.Cancel = true;
+                    return;
+                }
+                else if (fileInfo.Length == 0)
+                {
+                    MessageBox.Show(Lang.GetText(eLang.MessageBoxFile0MB), Lang.GetText(eLang.MessageBoxWarningTitle), MessageBoxButtons.OK);
+                    e.Cancel = true;
+                    return;
+                }
+                else if (fileInfo.Length < 16)
+                {
+                    MessageBox.Show(Lang.GetText(eLang.MessageBoxFile16Bytes), Lang.GetText(eLang.MessageBoxWarningTitle), MessageBoxButtons.OK);
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    FileStream file = null;
+                    try
+                    {
+                        file = fileInfo.OpenRead();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, Lang.GetText(eLang.MessageBoxErrorTitle), MessageBoxButtons.OK);
+                        e.Cancel = true;
+                        return;
+                    }
+                    if (file != null && fileInfo != null)
+                    {
+                        TreeViewUpdateSelectedsClear();
+                        TreeViewDisableDrawNode();
+                        FileManager.LoadFileEFFBLOB(file, fileInfo);
+                        file.Close();
+                        Globals.FilePathEFFBLOB = openFileDialogEFFBLOB.FileName;
+                        openFileDialogEFFBLOB.FileName = null;
+                        glControl.Invalidate();
+                        TreeViewEnableDrawNode();
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -2482,7 +2728,11 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveAsETS.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsETS);
             }
 
-            if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.V2007PS2)
+            if (DataBase.FileITA != null && DataBase.FileITA.IsPs4Ns_Adapted)
+            {
+                toolStripMenuItemSaveAsITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsITA_PS4_NS);
+            }
+            else if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.V2007PS2)
             {
                 toolStripMenuItemSaveAsITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsITA_2007_PS2);
             }
@@ -2495,7 +2745,11 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveAsITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsITA);
             }
 
-            if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.V2007PS2)
+            if (DataBase.FileAEV != null && DataBase.FileAEV.IsPs4Ns_Adapted)
+            {
+                toolStripMenuItemSaveAsAEV.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsAEV_PS4_NS);
+            }
+            else if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.V2007PS2)
             {
                 toolStripMenuItemSaveAsAEV.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsAEV_2007_PS2);
             }
@@ -2909,7 +3163,11 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveETS.Text = Lang.GetText(eLang.toolStripMenuItemSaveETS);
             }
 
-            if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.V2007PS2)
+            if (DataBase.FileITA != null && DataBase.FileITA.IsPs4Ns_Adapted)
+            {
+                toolStripMenuItemSaveITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveITA_PS4_NS);
+            }
+            else if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.V2007PS2)
             {
                 toolStripMenuItemSaveITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveITA_2007_PS2);
             }
@@ -2922,7 +3180,11 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveITA);
             }
 
-            if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.V2007PS2)
+            if (DataBase.FileAEV != null && DataBase.FileAEV.IsPs4Ns_Adapted)
+            {
+                toolStripMenuItemSaveAEV.Text = Lang.GetText(eLang.toolStripMenuItemSaveAEV_PS4_NS);
+            }
+            else if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.V2007PS2)
             {
                 toolStripMenuItemSaveAEV.Text = Lang.GetText(eLang.toolStripMenuItemSaveAEV_2007_PS2);
             }
@@ -3251,8 +3513,8 @@ namespace Re4QuadExtremeEditor
         private void toolStripMenuItemSaveConverter_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItemSaveConverterETS.Enabled = DataBase.FileETS != null;
-            toolStripMenuItemSaveConverterITA.Enabled = DataBase.FileITA != null;
-            toolStripMenuItemSaveConverterAEV.Enabled = DataBase.FileAEV != null;
+            toolStripMenuItemSaveConverterITA.Enabled = DataBase.FileITA != null && DataBase.FileITA.IsPs4Ns_Adapted == false;
+            toolStripMenuItemSaveConverterAEV.Enabled = DataBase.FileAEV != null && DataBase.FileAEV.IsPs4Ns_Adapted == false;
             toolStripMenuItemSaveConverterEMI.Enabled = DataBase.FileEMI != null;
             toolStripMenuItemSaveConverterESE.Enabled = DataBase.FileESE != null;
 
@@ -3269,11 +3531,11 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveConverterETS.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterETS);
             }
 
-            if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.V2007PS2)
+            if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.V2007PS2 && DataBase.FileITA.IsPs4Ns_Adapted == false)
             {
                 toolStripMenuItemSaveConverterITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterITA_UHD);
             }
-            else if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.UHD)
+            else if (DataBase.FileITA != null && DataBase.FileITA.GetRe4Version == Re4Version.UHD && DataBase.FileITA.IsPs4Ns_Adapted == false)
             {
                 toolStripMenuItemSaveConverterITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterITA_2007_PS2);
             }
@@ -3282,11 +3544,11 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveConverterITA.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterITA);
             }
 
-            if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.V2007PS2)
+            if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.V2007PS2 && DataBase.FileAEV.IsPs4Ns_Adapted == false)
             {
                 toolStripMenuItemSaveConverterAEV.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterAEV_UHD);
             }
-            else if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.UHD)
+            else if (DataBase.FileAEV != null && DataBase.FileAEV.GetRe4Version == Re4Version.UHD && DataBase.FileAEV.IsPs4Ns_Adapted == false)
             {
                 toolStripMenuItemSaveConverterAEV.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterAEV_2007_PS2);
             }
@@ -3490,25 +3752,22 @@ namespace Re4QuadExtremeEditor
                 int ad2Width = advertising2Control.Width;
                 int ad2quite = ad2Width / 2;
 
-                if (painel2Width > 640 + advertising2Control.Width)
+                if (painel2Width > 670 + advertising2Control.Width)
                 {
                     int posX = quite - ad2quite;
-                    if (posX < 395)
+                    if (posX < 426)
                     {
-                        posX = 395;
+                        posX = 426;
                     }
                     advertising1Control.Hide();
                     advertising1Control.Location = new Point(painel2Width, advertising1Control.Location.Y);
                     advertising2Control.Location = new Point(posX, advertising2Control.Location.Y);
                     advertising2Control.Show();
                 }
-                else if (painel2Width > 640 + advertising1Control.Width)
+                else if (painel2Width > 670 + advertising1Control.Width)
                 {
-                    int posX = quite - adquite;
-                    if (posX < 395)
-                    {
-                        posX = 395;
-                    }
+                    int posX = painel2Width - cameraMove.Width - advertising1Control.Width;
+
                     advertising2Control.Hide();
                     advertising2Control.Location = new Point(painel2Width, advertising2Control.Location.Y);
                     advertising1Control.Location = new Point(posX, advertising1Control.Location.Y);
@@ -3586,6 +3845,8 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemNewEMI_UHD.Text = Lang.GetText(eLang.toolStripMenuItemNewEMI_UHD);
             toolStripMenuItemNewESE_UHD.Text = Lang.GetText(eLang.toolStripMenuItemNewESE_UHD);
             toolStripMenuItemNewQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemNewQuadCustom);
+            toolStripMenuItemNewITA_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemNewITA_PS4_NS);
+            toolStripMenuItemNewAEV_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemNewAEV_PS4_NS);
             // subsubmenu Open
             toolStripMenuItemOpenESL.Text = Lang.GetText(eLang.toolStripMenuItemOpenESL);
             toolStripMenuItemOpenETS_2007_PS2.Text = Lang.GetText(eLang.toolStripMenuItemOpenETS_2007_PS2);
@@ -3603,6 +3864,8 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemOpenEMI_UHD.Text = Lang.GetText(eLang.toolStripMenuItemOpenEMI_UHD);
             toolStripMenuItemOpenESE_UHD.Text = Lang.GetText(eLang.toolStripMenuItemOpenESE_UHD);
             toolStripMenuItemOpenQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemOpenQuadCustom);
+            toolStripMenuItemOpenITA_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemOpenITA_PS4_NS);
+            toolStripMenuItemOpenAEV_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemOpenAEV_PS4_NS);
             // subsubmenu Save
             toolStripMenuItemSaveESL.Text = Lang.GetText(eLang.toolStripMenuItemSaveESL);
             toolStripMenuItemSaveETS.Text = Lang.GetText(eLang.toolStripMenuItemSaveETS);
@@ -3715,6 +3978,9 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemRoomOnlyFrontFace.Text = Lang.GetText(eLang.toolStripMenuItemRoomOnlyFrontFace);
             toolStripMenuItemRoomVertexColor.Text = Lang.GetText(eLang.toolStripMenuItemRoomVertexColor);
             toolStripMenuItemRoomAlphaChannel.Text = Lang.GetText(eLang.toolStripMenuItemRoomAlphaChannel);
+            toolStripMenuItemRoomTextureNearestLinear.Text = Lang.GetText(eLang.toolStripMenuItemRoomTextureIsLinear);
+            toolStripMenuItemModelsTextureNearestLinear.Text = Lang.GetText(eLang.toolStripMenuItemModelsTextureIsLinear);
+
 
             //save and open windows
             openFileDialogAEV.Title = Lang.GetText(eLang.openFileDialogAEV);

@@ -52,6 +52,7 @@ namespace NewAgeTheRender
             {
                 ObjModelDic.Add(key, objModel3D);
             }
+            GC.Collect();
         }
 
         public void RenderModel(string ModelKey, RspFix obj) 
@@ -87,5 +88,27 @@ namespace NewAgeTheRender
 
             return new BoundingBoxLimit(OpenTK.Vector3.One, -OpenTK.Vector3.One);
         }
+
+        public void ChangeTextureType()
+        {
+            if (modelGroup?.TextureRefDic?.Values != null)
+            {
+                if (ObjModel3D.LoadTextureLinear)
+                {
+                    foreach (var item in modelGroup?.TextureRefDic?.Values)
+                    {
+                        item.SetLinear();
+                    }
+                }
+                else
+                {
+                    foreach (var item in modelGroup?.TextureRefDic?.Values)
+                    {
+                        item.SetNearest();
+                    }
+                }
+            }
+        }
+
     }
 }

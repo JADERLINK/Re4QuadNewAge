@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewerBase;
-using TGASharpLib;
 using System.IO;
 using System.Drawing;
-using OpenTK;
 using JADERLINK_MODEL_VIEWER.src.Nodes;
 
 
@@ -29,8 +27,15 @@ namespace RE4_2007_MODEL_VIEWER.src
             foreach (var TexPath in TGAPath)
             {
                 string texId = new FileInfo(TexPath).Name.ToLowerInvariant();
-                Bitmap bitmap = null;
 
+                if (modelGroup.TextureRefDic.ContainsKey(texId))
+                {
+                    var node = tpng.Nodes.Find(texId, false).FirstOrDefault();
+                    ((NodeItem)node)?.Responsibility.ReleaseResponsibilities();
+                    node?.Remove();
+                }
+
+                Bitmap bitmap = null;
                 if (File.Exists(TexPath))
                 {
                     try
@@ -46,13 +51,6 @@ namespace RE4_2007_MODEL_VIEWER.src
                 if (bitmap != null)
                 {
                     // texturas
-                    if (modelGroup.TextureRefDic.ContainsKey(texId))
-                    {
-                        var node = tpng.Nodes.Find(texId, false).FirstOrDefault();
-                        ((NodeItem)node)?.Responsibility.ReleaseResponsibilities();
-                        node?.Remove();
-                    }
-
                     ResponsibilityContainer texContainer = new ResponsibilityContainer();
                     TEX_Representation tex_representation = new TEX_Representation(texId, new List<string>() { texId });
                     TextureGroupResponsibility textureGroupResponsibility = new TextureGroupResponsibility(modelGroup, tex_representation);

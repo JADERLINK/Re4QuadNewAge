@@ -14,7 +14,8 @@ namespace Re4QuadExtremeEditor.src.JSON
             NULL = 0,
             V2007 = 1,
             PS2 = 2,
-            UHD = 3
+            UHD = 3,
+            PS4NS = 4
         }
 
         public string JsonFileName { get; internal set; }

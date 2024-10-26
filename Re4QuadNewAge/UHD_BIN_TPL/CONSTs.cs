@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RE4_UHD_BIN_TOOL.ALL
+namespace SHARED_UHD_BIN.ALL
 {
     public static class CONSTs
     {

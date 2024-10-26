@@ -5,14 +5,20 @@ Re4 Quad Extreme Editor [NewAge] - The best Re4 editor
 
 **Info:**
 <br>License: MIT Licence
-<br>Linguage: C#
+<br>Language: C#
 <br>Platform: Windows
 <br>Dependency: Microsoft .NET Framework 4.8
 <br>Requires openGL 3.3 or higher
 
 **Translate from Portuguese Brazil**
 
-O "Re4 Quad Extreme Editor" é um programa voltado para a edição de arquivos do jogo "Resident Evil 4" (RE4). Ele permite a edição de varios arquivos ESL, ETS, ITA e AEV em um editor com visualização de cenário em 3D, compatível tanto com a versão clássica da Ubisoft (2005/2007), com a versão de PS2, quanto com a versão UHD da Steam (2014)​. No qual agora conta com a visualização de modelos de cenários customizados/editados.
+O "Re4 Quad Extreme Editor" é um programa voltado para a edição de arquivos do jogo "Resident Evil 4" (RE4). Ele permite a edição de vários arquivos ESL, ETS, ITA e AEV em um editor com visualização de cenário em 3D, compatível tanto com a versão clássica da Ubisoft (2005/2007), com a versão de PS2, quanto com a versão UHD da Steam (2014), e as versões de PS4 e Switch (NS)​. No qual agora conta com a visualização de modelos de cenários customizados/editados.
+
+**Update 1.2.2**
+<br>Implementadas as últimas mudanças do "JADERLINK_MODEL_VIEWER" da V.1.0.6;
+<br>Adicionado suporte para carregar modelos e cenários da versão de PS4 e NS do Re4;
+<br>Adicionado suporte parcial (adaptado) para os arquivos AEV/ITA da versão de PS4/NS;
+<br>Feitos pequenas mudanças/melhorias.
 
 **Update 1.2.1**
 <br>Adicionado suporte para os arquivos .DSE e .QuadCustom
@@ -39,10 +45,11 @@ Requisitos: Visual Studio 2019 ou 2022, com suporte a Csharp;
 [JADERLINK_MODEL_VIEWER](https://github.com/JADERLINK/JADERLINK_MODEL_VIEWER).
 <br>[TGASharpLib by ALEXGREENALEX](https://github.com/ALEXGREENALEX/TGASharpLib).
 <br>[DDSReaderSharp by ALEXGREENALEX](https://github.com/ALEXGREENALEX/DDSReaderSharp).
+<br>[ScarletLibrary](https://github.com/xdanieldzd/Scarlet)
 <br>[OpenTK](https://github.com/opentk/opentk/blob/master/LICENSE.md).
 <br>[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md).
 <br>[Code Project](https://www.codeproject.com/info/cpol10.aspx)
 
 -----
 **At.te: JADERLINK**
-<br>2024-07-26
+<br>2024-10-26

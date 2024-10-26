@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace RE4_UHD_BIN_TOOL.EXTRACT
+namespace SHARED_UHD_BIN.EXTRACT
 {
     public static class UhdTplDecoder
     {
-        public static UhdTPL Decoder(Stream stream, long startOffset, out long endOffset)
+        public static UhdTPL Decoder(Stream stream, long startOffset, out long endOffset, bool IsPs4NS)
         {
             UhdTPL tpl = new UhdTPL();
 
@@ -17,7 +17,7 @@ namespace RE4_UHD_BIN_TOOL.EXTRACT
             br.BaseStream.Position = startOffset;
 
             uint magic = br.ReadUInt32();
-            if (magic != 0x78563412)
+            if ( ! (magic == 0x78563412 || magic == 0x12345678))
             {
                 throw new ArgumentException("Invalid TPL file!");
             }
@@ -31,7 +31,17 @@ namespace RE4_UHD_BIN_TOOL.EXTRACT
             for (int i = 0; i < TplAmount; i++)
             {
                 uint image_data_offset = br.ReadUInt32();
+                if (IsPs4NS)
+                {
+                    _ = br.ReadUInt32(); // image_data_offset part2
+                }
+
                 uint palette_offset = br.ReadUInt32(); // não usado
+                if (IsPs4NS)
+                {
+                    _ = br.ReadUInt32(); // palette_offset part2
+                }
+
                 offsets[i] = image_data_offset;
             }
 
@@ -46,7 +56,13 @@ namespace RE4_UHD_BIN_TOOL.EXTRACT
                 tplInfo.width = br.ReadUInt16();
                 tplInfo.height = br.ReadUInt16();
                 tplInfo.PixelFormatType = br.ReadUInt32();
+
                 uint secundOffset = br.ReadUInt32();
+                if (IsPs4NS)
+                {
+                    _ = br.ReadUInt32(); // secundOffset part2
+                }
+
                 tplInfo.wrap_s = br.ReadUInt32();
                 tplInfo.wrap_t = br.ReadUInt32();
                 tplInfo.min_filter = br.ReadUInt32();

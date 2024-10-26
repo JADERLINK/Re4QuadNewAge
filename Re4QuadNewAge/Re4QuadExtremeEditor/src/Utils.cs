@@ -25,6 +25,8 @@ namespace Re4QuadExtremeEditor.src
         /// </summary>
         public static void StartLoadObjsModels()
         {
+            ViewerBase.TextureRef.LoadTextureLinear = NewAgeTheRender.ObjModel3D.LoadTextureLinear;
+
             DataBase.ItemsModels = new NewAgeTheRender.ModelGroupConteiner(Consts.ItemsModelGroupName);
             var ItemsObjModelJsonPaths = DataBase.ItemsIDs.List
                 .Where(x => x.Value.ObjectModel != null && x.Value.ObjectModel.Length > 0)
@@ -536,6 +538,7 @@ namespace Re4QuadExtremeEditor.src
             DataBase.DirectoryDic.Add("2007re4", Globals.Directory2007RE4);
             DataBase.DirectoryDic.Add("ps2re4", Globals.DirectoryPS2RE4);
             DataBase.DirectoryDic.Add("uhdre4", Globals.DirectoryUHDRE4);
+            DataBase.DirectoryDic.Add("ps4nsre4", Globals.DirectoryPS4NSRE4);
             DataBase.DirectoryDic.Add("custom1", Globals.DirectoryCustom1);
             DataBase.DirectoryDic.Add("custom2", Globals.DirectoryCustom2);
             DataBase.DirectoryDic.Add("custom3", Globals.DirectoryCustom3);
@@ -556,6 +559,15 @@ namespace Re4QuadExtremeEditor.src
             GC.Collect();
         }
 
+
+        public static void ChangeTextureTypeFromModels() 
+        {
+            DataBase.InternalModels?.ChangeTextureType();
+            DataBase.ItemsModels?.ChangeTextureType();
+            DataBase.EtcModels?.ChangeTextureType();
+            DataBase.EnemiesModels?.ChangeTextureType();
+            DataBase.QuadCustomModels?.ChangeTextureType();
+        }
 
         public static UshortObjForListBox[] ItemRotationOrderForListBox() 
         {
