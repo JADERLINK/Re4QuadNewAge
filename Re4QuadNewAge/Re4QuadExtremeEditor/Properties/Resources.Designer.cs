@@ -261,6 +261,36 @@ namespace Re4QuadExtremeEditor.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
+        internal static byte[] LIT_Point {
+            get {
+                object obj = ResourceManager.GetObject("LIT_Point", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
+        internal static byte[] LitPointShaderFrag {
+            get {
+                object obj = ResourceManager.GetObject("LitPointShaderFrag", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
+        internal static byte[] LitPointShaderVert {
+            get {
+                object obj = ResourceManager.GetObject("LitPointShaderVert", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap NoTexture {

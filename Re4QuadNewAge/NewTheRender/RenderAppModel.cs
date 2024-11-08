@@ -239,5 +239,28 @@ namespace NewAgeTheRender
 
         }
 
+        public static void RenderLitPointColor(Vector3 Position, Vector4 Color)
+        {
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+
+            DataShader.ShaderLitPoint.Use();
+            DataShader.ShaderLitPoint.SetVector4("mColor", Color);
+            DataShader.ShaderLitPoint.SetVector3("Position", Position);
+            DataShader.LIT_Point_Model.Render();
+        }
+
+        public static void RenderLitPointBorder(Vector3 Position, Vector4 Color)
+        {
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+
+            DataShader.ShaderLitPoint.Use();
+            DataShader.ShaderLitPoint.SetVector4("mColor", Color);
+            DataShader.ShaderLitPoint.SetVector3("Position", Position);
+            DataShader.LIT_Point_Model.Render();
+        }
     }
 }

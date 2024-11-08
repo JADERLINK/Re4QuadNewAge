@@ -954,6 +954,47 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         EMI_AngleY_Hex_DisplayName,
         EMI_AngleY_Description,
 
+        //LIT entry
+
+        LIT_Light_Metadata_Category,
+
+        LIT_Light_Format_Byte_DisplayName,
+        LIT_Light_Type_Byte_DisplayName,
+        LIT_Light_Attributes_Byte_DisplayName,
+        LIT_Light_Mask_Byte_DisplayName,
+
+        LIT_Light_Definition_Category,
+
+        LIT_PositionX_Float_DisplayName,
+        LIT_PositionX_Hex_DisplayName,
+        LIT_PositionY_Float_DisplayName,
+        LIT_PositionY_Hex_DisplayName,
+        LIT_PositionZ_Float_DisplayName,
+        LIT_PositionZ_Hex_DisplayName,
+        LIT_RangeRadius_Float_DisplayName,
+        LIT_RangeRadius_Hex_DisplayName,
+        LIT_ColorRGB_ByteArray3_DisplayName,
+        LIT_ColorAlfa_Byte_DisplayName,
+        LIT_Intensity_Float_DisplayName,
+        LIT_Intensity_Hex_DisplayName,
+
+        LIT_Object_Settings_Category,
+
+        LIT_Parent_Byte_DisplayName,
+        LIT_Subgroup_Byte_DisplayName,
+        LIT_Flag_Byte_DisplayName,
+        LIT_Priority_Byte_DisplayName,
+        LIT_PartNumber_Ushort_DisplayName,
+        LIT_ParentID_Ushort_DisplayName,
+
+        LIT_Group_Order_Category,
+        LIT_Entry_Order_Category,
+
+        LIT_Group_GroupOrderID_Ushort_DisplayName,
+        LIT_Group_LIT_GetEntryCountInGroup_Int_DisplayName,
+        LIT_Entry_GroupOrderID_Ushort_DisplayName,
+        LIT_Entry_EntryOrderID_Ushort_DisplayName,
+
         Null
     }
 }

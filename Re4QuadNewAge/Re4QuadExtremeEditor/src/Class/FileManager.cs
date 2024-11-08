@@ -1135,9 +1135,172 @@ namespace Re4QuadExtremeEditor.src.Class
 
         public static void LoadFileEFFBLOB(FileStream file, FileInfo fileInfo) { }
 
-        public static void LoadFileLIT_UHD(FileStream file, FileInfo fileInfo) { }
+        public static void LoadFileLIT_UHD(FileStream file, FileInfo fileInfo)
+        {
+            LoadFileLIT_ALL(file, Re4Version.UHD, 260, 300);
+        }
 
-        public static void LoadFileLIT_2007_PS2(FileStream file, FileInfo fileInfo) { }
+        public static void LoadFileLIT_2007_PS2(FileStream file, FileInfo fileInfo)
+        {
+            LoadFileLIT_ALL(file, Re4Version.V2007PS2, 100, 112);
+        }
+
+        public static void LoadFileLIT_ALL(FileStream file, Re4Version version, int GroupLenght, int EntryLength) 
+        {
+            File_LIT_Group lit = new File_LIT_Group(version);
+
+            byte[] groupsAmount = new byte[2];
+            byte[] header = new byte[2];
+            int offset = file.Read(groupsAmount, 0, 2);
+            offset = file.Read(header, 0, 2);
+            ushort Amount = BitConverter.ToUInt16(groupsAmount, 0x00);
+            lit.HeaderFile = header;
+
+            if (Amount > Consts.AmountLimitLIT_Groups)
+            {
+                Amount = Consts.AmountLimitLIT_Groups;
+            }
+
+            uint[] groupOffsets = new uint[Amount];
+
+            {//offset list
+
+                ushort i = 0;
+                for (; i < Amount; i++)
+                {
+                    byte[] res = new byte[4];
+                    offset = file.Read(res, 0, 4);
+                    groupOffsets[i] = BitConverter.ToUInt32(res, 0);
+
+                    if (offset > file.Length)
+                    {
+                        break;
+                    }
+                }
+
+                if (i < Amount)
+                {
+                    for (; i < Amount; i++)
+                    {
+                        groupOffsets[i] = 0;
+                    }
+                }
+            }
+
+            //Groups/entrys
+            ushort internalID_Groups = 0;
+            ushort internalID_Entrys = 0;
+
+            {
+                ushort i = 0;
+                for (; i < Amount; i++)
+                {
+                    if (groupOffsets[i] != 0)
+                    {
+                        file.Position = groupOffsets[i];
+
+                        byte[] Group = new byte[GroupLenght];
+                        offset = file.Read(Group, 0, GroupLenght);
+                        lit.LightGroups.Lines.Add(internalID_Groups, Group);
+                        lit.LightGroups.InternalID_GroupOrderID.Add(internalID_Groups, i);
+                        internalID_Groups++;
+
+                        if (offset > file.Length)
+                        {
+                            Group[4] = 0;
+                            Group[5] = 0;
+                            Group[6] = 0;
+                            Group[7] = 0;
+                            break;
+                        }
+
+                        ushort LigthtEntryCount = (ushort)BitConverter.ToUInt32(Group, 4);
+
+                        if (LigthtEntryCount > Consts.AmountLimitLIT_Entrys_on_load)
+                        {
+                            LigthtEntryCount = Consts.AmountLimitLIT_Entrys_on_load;
+                        }
+
+                        //esse campo na edição fica sempre zero
+                        Group[4] = 0;
+                        Group[5] = 0;
+                        Group[6] = 0;
+                        Group[7] = 0;
+
+                        ushort j = 0;
+                        for (; j < LigthtEntryCount; j++)
+                        {
+                            byte[] Entry = new byte[EntryLength];
+                            offset = file.Read(Entry, 0, EntryLength);
+                            lit.LightEntrys.Lines.Add(internalID_Entrys, Entry);
+                            lit.LightEntrys.GroupConnection.Add(internalID_Entrys, (j, i));
+                            internalID_Entrys++;
+
+                            if (offset > file.Length)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (j < LigthtEntryCount)
+                        {
+                            for (; j < LigthtEntryCount; j++)
+                            {
+                                lit.LightEntrys.Lines.Add(internalID_Entrys, new byte[EntryLength]);
+                                lit.LightEntrys.GroupConnection.Add(internalID_Entrys, (j, i));
+                                internalID_Entrys++;
+                            }
+                        }
+
+
+                    }
+                }
+
+                lit.LightGroups.IdForNewLine = internalID_Groups;
+                lit.LightEntrys.IdForNewLine = internalID_Entrys;
+            }
+
+            DataBase.FileLIT = null;
+            DataBase.FileLIT = lit;
+
+            DataBase.FileLIT.LightEntrys.ChangeAmountCallbackMethods = DataBase.NodeLIT_Entrys.ChangeAmountCallbackMethods;
+
+            {
+                DataBase.NodeLIT_Groups.Nodes.Clear();
+                DataBase.NodeLIT_Groups.MethodsForGL = DataBase.FileLIT.LightGroups.MethodsForGL;
+                DataBase.NodeLIT_Groups.PropertyMethods = DataBase.FileLIT.LightGroups.Methods;
+                DataBase.NodeLIT_Groups.DisplayMethods = DataBase.FileLIT.LightGroups.DisplayMethods;
+                DataBase.NodeLIT_Groups.MoveMethods = DataBase.FileLIT.LightGroups.MoveMethods;
+                DataBase.NodeLIT_Groups.ChangeAmountMethods = DataBase.FileLIT.LightGroups.ChangeAmountMethods;
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < internalID_Groups; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.LIT_GROUPS, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeLIT_Groups.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeLIT_Groups.Expand();
+            }
+
+            {
+                DataBase.NodeLIT_Entrys.Nodes.Clear();
+                DataBase.NodeLIT_Entrys.MethodsForGL = DataBase.FileLIT.LightEntrys.MethodsForGL;
+                DataBase.NodeLIT_Entrys.PropertyMethods = DataBase.FileLIT.LightEntrys.Methods;
+                DataBase.NodeLIT_Entrys.DisplayMethods = DataBase.FileLIT.LightEntrys.DisplayMethods;
+                DataBase.NodeLIT_Entrys.MoveMethods = DataBase.FileLIT.LightEntrys.MoveMethods;
+                DataBase.NodeLIT_Entrys.ChangeAmountMethods = DataBase.FileLIT.LightEntrys.ChangeAmountMethods;
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < internalID_Entrys; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.LIT_ENTRYS, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeLIT_Entrys.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeLIT_Entrys.Expand();
+            }
+
+            GC.Collect();
+        }
 
         public static void LoadFileITA_PS4_NS(FileStream file, FileInfo fileInfo)
         {
@@ -1544,7 +1707,36 @@ namespace Re4QuadExtremeEditor.src.Class
 
         public static void NewFileEFFBLOB() { }
 
-        public static void NewFileLIT(Re4Version version) { }
+        public static void NewFileLIT(Re4Version version)
+        {
+            File_LIT_Group lit = new File_LIT_Group(version);
+            lit.HeaderFile = new byte[2];
+            lit.LightGroups.IdForNewLine = 0;
+            lit.LightEntrys.IdForNewLine = 0;
+            DataBase.FileLIT = null;
+            DataBase.FileLIT = lit;
+
+            DataBase.FileLIT.LightEntrys.ChangeAmountCallbackMethods = DataBase.NodeLIT_Entrys.ChangeAmountCallbackMethods;
+
+            DataBase.NodeLIT_Groups.Nodes.Clear();
+            DataBase.NodeLIT_Groups.MethodsForGL = DataBase.FileLIT.LightGroups.MethodsForGL;
+            DataBase.NodeLIT_Groups.PropertyMethods = DataBase.FileLIT.LightGroups.Methods;
+            DataBase.NodeLIT_Groups.DisplayMethods = DataBase.FileLIT.LightGroups.DisplayMethods;
+            DataBase.NodeLIT_Groups.MoveMethods = DataBase.FileLIT.LightGroups.MoveMethods;
+            DataBase.NodeLIT_Groups.ChangeAmountMethods = DataBase.FileLIT.LightGroups.ChangeAmountMethods;
+            DataBase.NodeLIT_Groups.Expand();
+
+            DataBase.NodeLIT_Entrys.Nodes.Clear();
+            DataBase.NodeLIT_Entrys.MethodsForGL = DataBase.FileLIT.LightEntrys.MethodsForGL;
+            DataBase.NodeLIT_Entrys.PropertyMethods = DataBase.FileLIT.LightEntrys.Methods;
+            DataBase.NodeLIT_Entrys.DisplayMethods = DataBase.FileLIT.LightEntrys.DisplayMethods;
+            DataBase.NodeLIT_Entrys.MoveMethods = DataBase.FileLIT.LightEntrys.MoveMethods;
+            DataBase.NodeLIT_Entrys.ChangeAmountMethods = DataBase.FileLIT.LightEntrys.ChangeAmountMethods;
+            DataBase.NodeLIT_Entrys.Expand();
+
+            GC.Collect();
+
+        }
 
         #endregion
 
@@ -1689,7 +1881,24 @@ namespace Re4QuadExtremeEditor.src.Class
 
         public static void ClearEFFBLOB() { }
 
-        public static void ClearLIT() { }
+        public static void ClearLIT()
+        {
+            DataBase.NodeLIT_Groups.Nodes.Clear();
+            DataBase.NodeLIT_Groups.MethodsForGL = null;
+            DataBase.NodeLIT_Groups.PropertyMethods = null;
+            DataBase.NodeLIT_Groups.DisplayMethods = null;
+            DataBase.NodeLIT_Groups.MoveMethods = null;
+            DataBase.NodeLIT_Groups.ChangeAmountMethods = null;
+            DataBase.NodeLIT_Entrys.Nodes.Clear();
+            DataBase.NodeLIT_Entrys.MethodsForGL = null;
+            DataBase.NodeLIT_Entrys.PropertyMethods = null;
+            DataBase.NodeLIT_Entrys.DisplayMethods = null;
+            DataBase.NodeLIT_Entrys.MoveMethods = null;
+            DataBase.NodeLIT_Entrys.ChangeAmountMethods = null;
+            DataBase.FileLIT.LightEntrys.ChangeAmountCallbackMethods = null;
+            DataBase.FileLIT = null;
+            GC.Collect();
+        }
 
         #endregion
 
@@ -2091,6 +2300,96 @@ namespace Re4QuadExtremeEditor.src.Class
             }
         }
 
+        public static void SaveFileLIT(FileStream stream) 
+        {
+            if (DataBase.FileLIT != null && DataBase.FileLIT.LightGroups.Lines != null && DataBase.FileLIT.LightEntrys.Lines != null)
+            {
+                // verificar quantidade de groups;
+                // verificar quantidade de entry de cada grupo;
+
+                HashSet<int> GroupsIDs = new HashSet<int>();
+                foreach (var item in DataBase.FileLIT.LightGroups.InternalID_GroupOrderID)
+                {
+                    GroupsIDs.Add(item.Value);
+                }
+                foreach (var item in DataBase.FileLIT.LightEntrys.GroupConnection)
+                {
+                    GroupsIDs.Add(item.Value.GroupOrderID);
+                }
+                int groupCount = GroupsIDs.OrderBy(x => x).LastOrDefault() + 1;
+                if (GroupsIDs.Count == 0)
+                {
+                    groupCount = 0;
+                }
+
+                byte[] lenght = BitConverter.GetBytes((ushort)groupCount);
+                stream.Write(lenght, 0, 2);
+                stream.Write(DataBase.FileLIT.HeaderFile, 0, 2);
+
+                //pega a ordem certa dos grupos
+                var GroupOrderID_InternalID = DataBase.FileLIT.LightGroups.InternalID_GroupOrderID.ToDictionary(v => v.Value, k => k.Key);
+
+                //calculo tamanho do header parte dos offset
+                int FirstOffset = 4 + (4 * groupCount);
+                int nextOffset = FirstOffset;
+               
+                for (ushort i = 0; i < groupCount; i++)
+                {
+                    if (GroupsIDs.Contains(i))
+                    {
+                        stream.Position = 4 + (4 * i);
+                        byte[] bNextOffset = BitConverter.GetBytes(nextOffset);
+                        stream.Write(bNextOffset, 0, bNextOffset.Length);
+
+                        stream.Position = nextOffset;
+
+                        byte[] arr = new byte[0];
+                        if (GroupOrderID_InternalID.ContainsKey(i))
+                        {
+                            arr = (byte[])DataBase.FileLIT.LightGroups.Lines[GroupOrderID_InternalID[i]].Clone();
+                        }
+                        else if (DataBase.FileLIT.GetRe4Version == Re4Version.V2007PS2)
+                        {
+                            arr = new byte[100];
+                        }
+                        else if (DataBase.FileLIT.GetRe4Version == Re4Version.UHD)
+                        {
+                            arr = new byte[260];
+                        }
+
+                        var entrysIDs = DataBase.FileLIT.LightEntrys.GroupConnection.Where(x => x.Value.GroupOrderID == i).ToArray();
+                        int entryCount = entrysIDs.Length;
+                        byte[] bEntryCount = BitConverter.GetBytes(entryCount);
+                        arr[4] = bEntryCount[0];
+                        arr[5] = bEntryCount[1];
+                        arr[6] = bEntryCount[2];
+                        arr[7] = bEntryCount[3];
+
+                        stream.Write(arr, 0, arr.Length);
+
+                        for (int j = 0; j < entryCount; j++)
+                        {
+                            byte[] e = DataBase.FileLIT.LightEntrys.Lines[entrysIDs.Where(x => x.Value.EntryOrderID == j).FirstOrDefault().Key];
+                            stream.Write(e, 0, e.Length);
+                        }
+
+                        nextOffset = (int)stream.Position;
+                    }
+                }
+
+                //alinhamento
+                long div = stream.Position / 16;
+                long rest = stream.Position % 16;
+                div += rest != 0 ? 1 : 0;
+                int dif = (int)((div * 16) - stream.Position);
+
+                if (dif > 0)
+                {
+                    var bDif = new byte[dif].Select(x => (byte)0xCD).ToArray();
+                    stream.Write(bDif, 0, bDif.Length);
+                }
+            }
+        }
 
         #endregion
 

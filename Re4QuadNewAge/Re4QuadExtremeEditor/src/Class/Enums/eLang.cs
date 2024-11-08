@@ -48,6 +48,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         AddNewEAR,
         AddNewESE,
         AddNewEMI,
+        AddNewLIT_ENTRYS,
+        AddNewLIT_GROUPS,
         AddNewQuadCustom,
         AddNewNull,
 
@@ -84,6 +86,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         DirectoryEAR,
         DirectoryEMI,
         DirectoryESE,
+        DirectoryLIT,
         DirectoryQuadCustom,
 
         // room
@@ -94,6 +97,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         // comboBoxMoveMode
         MoveMode_Enemy_PositionAndRotationAll,
         MoveMode_EseEntry_PositionPoint,
+        MoveMode_LitEntry_PositionPoint,
         MoveMode_EmiEntry_PositionAndAnglePoint,
         MoveMode_EtcModel_PositionAndRotationAll,
         MoveMode_EtcModel_Scale,
@@ -138,6 +142,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         RotationY,
         RotationZ,
 
+
         // menus
         // subsubmenu Save,
         toolStripMenuItemSaveETS,
@@ -157,6 +162,10 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemSaveESE_UHD,
         toolStripMenuItemSaveITA_PS4_NS,
         toolStripMenuItemSaveAEV_PS4_NS,
+        toolStripMenuItemSaveLIT_2007_PS2,
+        toolStripMenuItemSaveLIT_UHD,
+        toolStripMenuItemSaveLIT,
+
 
         // subsubmenu Save As...,
         toolStripMenuItemSaveAsETS,
@@ -176,6 +185,10 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemSaveAsESE_UHD,
         toolStripMenuItemSaveAsITA_PS4_NS,
         toolStripMenuItemSaveAsAEV_PS4_NS,
+        toolStripMenuItemSaveAsLIT_2007_PS2,
+        toolStripMenuItemSaveAsLIT_UHD,
+        toolStripMenuItemSaveAsLIT,
+
 
         // subsubmenu Save As (Convert),
         toolStripMenuItemSaveConverterETS,
@@ -241,6 +254,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemNewQuadCustom,
         toolStripMenuItemNewITA_PS4_NS,
         toolStripMenuItemNewAEV_PS4_NS,
+        toolStripMenuItemNewLIT_2007_PS2,
+        toolStripMenuItemNewLIT_UHD,
         // subsubmenu Open,
         toolStripMenuItemOpenESL,
         toolStripMenuItemOpenDSE,
@@ -260,6 +275,8 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemOpenQuadCustom,
         toolStripMenuItemOpenITA_PS4_NS,
         toolStripMenuItemOpenAEV_PS4_NS,
+        toolStripMenuItemOpenLIT_2007_PS2,
+        toolStripMenuItemOpenLIT_UHD,
         // subsubmenu Save,
         toolStripMenuItemSaveESL,
         toolStripMenuItemSaveDSE,
@@ -286,6 +303,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemClearAEV,
         toolStripMenuItemClearEMI,
         toolStripMenuItemClearESE,
+        toolStripMenuItemClearLIT,
         toolStripMenuItemClearQuadCustom,
 
         // sub menu edit,
@@ -307,6 +325,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemSubMenuItem,
         toolStripMenuItemSubMenuSpecial,
         toolStripMenuItemSubMenuEtcModel,
+        toolStripMenuItemSubMenuLight,
         toolStripMenuItemNodeDisplayNameInHex,
         toolStripMenuItemCameraMenu,
         toolStripMenuItemResetCamera,
@@ -325,6 +344,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemHideFileEAR,
         toolStripMenuItemHideFileESE,
         toolStripMenuItemHideFileEMI,
+        toolStripMenuItemHideFileLIT,
         toolStripMenuItemHideQuadCustom,
 
         // sub menus de view,
@@ -342,6 +362,10 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         toolStripMenuItemEtcModelUseScale,
         toolStripMenuItemSubMenuQuadCustom,
         toolStripMenuItemUseCustomColors,
+        toolStripMenuItemShowOnlySelectedGroup,
+        toolStripMenuItemSelectedGroupUp,
+        toolStripMenuItemSelectedGroupDown,
+        toolStripMenuItemEnableLightColor,
 
         // sub menu de view room and model
         toolStripMenuItemModelsHideTextures,
@@ -375,6 +399,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         openFileDialogEAR,
         openFileDialogEMI,
         openFileDialogESE,
+        openFileDialogLIT,
         openFileDialogQuadCustom,
 
         saveFileDialogConvertAEV,
@@ -393,6 +418,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         saveFileDialogEAR,
         saveFileDialogEMI,
         saveFileDialogESE,
+        saveFileDialogLIT,
         saveFileDialogQuadCustom,
 
         //cameraMove

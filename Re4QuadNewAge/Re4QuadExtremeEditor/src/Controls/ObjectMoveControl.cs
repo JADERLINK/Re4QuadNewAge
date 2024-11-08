@@ -102,6 +102,14 @@ namespace Re4QuadExtremeEditor.src.Controls
                         {
                             combos |= MoveObjCombos.DisableMoveObject;
                         }
+                        else if (parent is NewAge_LIT_Groups_NodeGroup)
+                        {
+                            combos |= MoveObjCombos.DisableMoveObject;
+                        }
+                        else if (parent is NewAge_LIT_Entrys_NodeGroup)
+                        {
+                            combos |= MoveObjCombos.LitEntry;
+                        }
                         else if (parent is NewAge_FSE_NodeGroup fse)
                         {
                             TriggerZoneCategory triggerZoneCategory = fse.PropertyMethods.GetTriggerZoneCategory(obj.ObjLineRef);
@@ -169,6 +177,10 @@ namespace Re4QuadExtremeEditor.src.Controls
             else if (combos == MoveObjCombos.EseEntry)
             {
                 comboBoxMoveMode.Items.Add(new MoveObjTypeObjForListBox(MoveObjType.SquareMoveObjXZ_VerticalMoveObjY_Horizontal123None, Lang.GetText(eLang.MoveMode_EseEntry_PositionPoint)));
+            }
+            else if (combos == MoveObjCombos.LitEntry)
+            {
+                comboBoxMoveMode.Items.Add(new MoveObjTypeObjForListBox(MoveObjType.SquareMoveObjXZ_VerticalMoveObjY_Horizontal123None, Lang.GetText(eLang.MoveMode_LitEntry_PositionPoint)));
             }
             else if (combos == MoveObjCombos.EmiEntry)
             {
@@ -272,6 +284,7 @@ namespace Re4QuadExtremeEditor.src.Controls
                 combos.HasFlag(MoveObjCombos.TriggerZone)
                 || combos.HasFlag(MoveObjCombos.EmiEntry)
                 || combos.HasFlag(MoveObjCombos.EseEntry)
+                || combos.HasFlag(MoveObjCombos.LitEntry)
                 || combos.HasFlag(MoveObjCombos.ExtraSpecialAshley)
                 || combos.HasFlag(MoveObjCombos.ExtraSpecialWarpLadderGrappleGun)
                 ))
@@ -288,6 +301,7 @@ namespace Re4QuadExtremeEditor.src.Controls
               ) && !(
               combos.HasFlag(MoveObjCombos.TriggerZone)
               || combos.HasFlag(MoveObjCombos.EseEntry)
+              || combos.HasFlag(MoveObjCombos.LitEntry)
               || combos.HasFlag(MoveObjCombos.ExtraSpecialAshley)            
               ))
             {

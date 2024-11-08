@@ -67,8 +67,8 @@ namespace Re4QuadExtremeEditor.src
         public static Color NodeColorEAR = Color.DodgerBlue;
         public static Color NodeColorESE = Color.Violet;
         public static Color NodeColorFSE = Color.FromArgb(161, 192, 192);
-        public static Color NodeColorLIT_GROUPS = Color.FromArgb(0, 0, 0);
-        public static Color NodeColorLIT_ENTRYS = Color.FromArgb(0, 0, 0);
+        public static Color NodeColorLIT_GROUPS = Color.DarkSlateGray;
+        public static Color NodeColorLIT_ENTRYS = Color.DarkSlateGray;
         public static Color NodeColorQuadCustom = Color.DimGray;
 
         // color GL
@@ -90,6 +90,7 @@ namespace Re4QuadExtremeEditor.src
         public static Vector4 GL_ColorSAR = Utils.ColorToVector4(Color.Cyan);
         public static Vector4 GL_ColorEMI = Utils.ColorToVector4(Color.Goldenrod);
         public static Vector4 GL_ColorESE = Utils.ColorToVector4(Color.Violet);
+        public static Vector4 GL_ColorLIT = Utils.ColorToVector4(Color.DarkSlateGray);
         public static Vector4 GL_ColorQuadCustom = Utils.ColorToVector4(Color.DimGray);
 
         // more Colors
@@ -165,6 +166,10 @@ namespace Re4QuadExtremeEditor.src
         //search
         public static bool SearchFilterMode = false;
 
+        //light
+        public static bool LIT_ShowOnlySelectedGroup = false;
+        public static ushort LIT_SelectedGroup = 0;
+        public static bool LIT_EnableLightColor = false;
 
         #endregion
 

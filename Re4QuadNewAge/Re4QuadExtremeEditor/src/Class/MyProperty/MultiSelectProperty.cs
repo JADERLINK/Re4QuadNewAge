@@ -38,6 +38,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             List_SAR = new GenericCollection();
             List_EMI = new GenericCollection();
             List_ESE = new GenericCollection();
+            List_LIT_GROUPS = new GenericCollection();
+            List_LIT_ENTRYS = new GenericCollection();
             List_QuadCustom = new GenericCollection();
             MultiSelectInfo = new MultiSelectObjInfoToProperty(Lang.GetAttributeText(aLang.MultiSelectInfoValueText), updateMethods);
 
@@ -52,6 +54,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             ChangePropertyIsBrowsable(nameof(List_SAR), false);
             ChangePropertyIsBrowsable(nameof(List_EMI), false);
             ChangePropertyIsBrowsable(nameof(List_ESE), false);
+            ChangePropertyIsBrowsable(nameof(List_LIT_GROUPS), false);
+            ChangePropertyIsBrowsable(nameof(List_LIT_ENTRYS), false);
             ChangePropertyIsBrowsable(nameof(List_QuadCustom), false);
 
             ChangePropertyName(nameof(List_ESL), Lang.GetText(eLang.NodeESL));
@@ -64,6 +68,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             ChangePropertyName(nameof(List_SAR), Lang.GetText(eLang.NodeSAR));
             ChangePropertyName(nameof(List_EMI), Lang.GetText(eLang.NodeEMI));
             ChangePropertyName(nameof(List_ESE), Lang.GetText(eLang.NodeESE));
+            ChangePropertyName(nameof(List_LIT_GROUPS), Lang.GetText(eLang.NodeLIT_GROUPS));
+            ChangePropertyName(nameof(List_LIT_ENTRYS), Lang.GetText(eLang.NodeLIT_ENTRYS));
             ChangePropertyName(nameof(List_QuadCustom), Lang.GetText(eLang.NodeQuadCustom));
         }
 
@@ -79,6 +85,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             var Object3D_EAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EAR).Cast<Object3D>();
             var Object3D_ESE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESE).Cast<Object3D>();
             var Object3D_EMI = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EMI).Cast<Object3D>();
+            var Object3D_LIT_ENTRYS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_ENTRYS).Cast<Object3D>();
+            var Object3D_LIT_GROUPS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_GROUPS).Cast<Object3D>();
             var Object3D_QuadCustom = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.QUAD_CUSTOM).Cast<Object3D>();
 
             var EntryInfo_ESL = (from obj in Object3D_ESL select new MultiSelectEntryObj(obj));
@@ -91,6 +99,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             var EntryInfo_EAR = (from obj in Object3D_EAR select new MultiSelectEntryObj(obj));
             var EntryInfo_ESE = (from obj in Object3D_ESE select new MultiSelectEntryObj(obj));
             var EntryInfo_EMI = (from obj in Object3D_EMI select new MultiSelectEntryObj(obj));
+            var EntryInfo_LIT_ENTRYS = (from obj in Object3D_LIT_ENTRYS select new MultiSelectEntryObj(obj));
+            var EntryInfo_LIT_GROUPS = (from obj in Object3D_LIT_GROUPS select new MultiSelectEntryObj(obj));
             var EntryInfo_QuadCustom = (from obj in Object3D_QuadCustom select new MultiSelectEntryObj(obj));
 
             MultiSelectInfo.AddRange(EntryInfo_ESL);
@@ -103,6 +113,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             MultiSelectInfo.AddRange(EntryInfo_SAR);
             MultiSelectInfo.AddRange(EntryInfo_ESE);
             MultiSelectInfo.AddRange(EntryInfo_EMI);
+            MultiSelectInfo.AddRange(EntryInfo_LIT_ENTRYS);
+            MultiSelectInfo.AddRange(EntryInfo_LIT_GROUPS);
             MultiSelectInfo.AddRange(EntryInfo_QuadCustom);
 
             List_ESL.AddRange(EntryInfo_ESL);
@@ -115,6 +127,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             List_SAR.AddRange(EntryInfo_SAR);
             List_ESE.AddRange(EntryInfo_ESE);
             List_EMI.AddRange(EntryInfo_EMI);
+            List_LIT_GROUPS.AddRange(EntryInfo_LIT_GROUPS);
+            List_LIT_ENTRYS.AddRange(EntryInfo_LIT_ENTRYS);
             List_QuadCustom.AddRange(EntryInfo_QuadCustom);
 
             ChangePropertyIsBrowsable(nameof(MultiSelectInfo), MultiSelectInfo.GetCount() != 0);
@@ -128,6 +142,8 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             ChangePropertyIsBrowsable(nameof(List_SAR), List_SAR.Count != 0);
             ChangePropertyIsBrowsable(nameof(List_EMI), List_EMI.Count != 0);
             ChangePropertyIsBrowsable(nameof(List_ESE), List_ESE.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_LIT_GROUPS), List_LIT_GROUPS.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_LIT_ENTRYS), List_LIT_ENTRYS.Count != 0);
             ChangePropertyIsBrowsable(nameof(List_QuadCustom), List_QuadCustom.Count != 0);
 
             return MultiSelectInfo.GetCount();
@@ -274,7 +290,6 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         public GenericCollection List_ESE { get; private set; }
 
 
-
         [CustomCategory(aLang.MultiSelectCategory)]
         [DisplayName("ERROR")]
         [Description("")]
@@ -284,6 +299,30 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [TypeConverter(typeof(GenericCollectionConverter))]
         [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
         [DynamicTypeDescriptor.Id(11, 0)]
+        public GenericCollection List_LIT_GROUPS { get; private set; }
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(12, 0)]
+        public GenericCollection List_LIT_ENTRYS { get; private set; }
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(13, 0)]
         public GenericCollection List_QuadCustom { get; private set; }
     }
 

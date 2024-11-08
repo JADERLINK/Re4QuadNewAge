@@ -17,6 +17,7 @@ namespace Re4QuadExtremeEditor.src.Class.Shaders
         public static IShader ShaderRoom = null;
         public static IShader ShaderRoomSelectMode = null;
         public static IShader ShaderGrid = null;
+        public static IShader ShaderLitPoint = null;
 
         // models 3d do programa
         public static AppModel3D BoxModel = null;
@@ -30,6 +31,7 @@ namespace Re4QuadExtremeEditor.src.Class.Shaders
         public static AppModel3D CylinderTopModel = null;
         public static AppModel3D CylinderTopXModel = null;
         public static AppModel3D GridLineModel = null;
+        public static AppModel3D LIT_Point_Model = null;
 
         // texturas padrões
         public static ViewerBase.TextureRef WhiteTexture = null;
@@ -58,6 +60,7 @@ namespace Re4QuadExtremeEditor.src.Class.Shaders
             CylinderSidesModel = new AppModel3D(Properties.Resources.CylinderSides);
             CylinderTopModel = new AppModel3D(Properties.Resources.CylinderTop);
             CylinderTopXModel = new AppModel3D(Properties.Resources.CylinderTopX);
+            LIT_Point_Model = new AppModel3D(Properties.Resources.LIT_Point);
             GridLineModel = new AppModel3D(Grid.CreateBinaryModel());
 
             ShaderRoom = new Shader(Encoding.UTF8.GetString(Properties.Resources.RoomShaderVert), Encoding.UTF8.GetString(Properties.Resources.RoomShaderFrag));
@@ -87,6 +90,9 @@ namespace Re4QuadExtremeEditor.src.Class.Shaders
 
             ShaderItemTrigggerRadius = new Shader(Encoding.UTF8.GetString(Properties.Resources.ItemTrigggerRadiusShaderVert), Encoding.UTF8.GetString(Properties.Resources.ItemTrigggerRadiusShaderFrag));
             ShaderItemTrigggerRadius.Use();
+
+            ShaderLitPoint = new Shader(Encoding.UTF8.GetString(Properties.Resources.LitPointShaderVert), Encoding.UTF8.GetString(Properties.Resources.LitPointShaderFrag));
+            ShaderLitPoint.Use();
 
             ShaderGrid = new Shader(Encoding.UTF8.GetString(Properties.Resources.GridShaderVert), Encoding.UTF8.GetString(Properties.Resources.GridShaderFrag));
             ShaderGrid.Use();

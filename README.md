@@ -14,6 +14,9 @@ Re4 Quad Extreme Editor [NewAge] - The best Re4 editor
 
 O "Re4 Quad Extreme Editor" é um programa voltado para a edição de arquivos do jogo "Resident Evil 4" (RE4). Ele permite a edição de vários arquivos ESL, ETS, ITA e AEV em um editor com visualização de cenário em 3D, compatível tanto com a versão clássica da Ubisoft (2005/2007), com a versão de PS2, quanto com a versão UHD da Steam (2014), e as versões de PS4 e Switch (NS)​. No qual agora conta com a visualização de modelos de cenários customizados/editados.
 
+**Update 1.2.3**
+<br>Adicionado suporte parcial para edição do arquivo LIT;
+
 **Update 1.2.2**
 <br>Implementadas as últimas mudanças do "JADERLINK_MODEL_VIEWER" da V.1.0.6;
 <br>Adicionado suporte para carregar modelos e cenários da versão de PS4 e NS do Re4;
@@ -52,4 +55,4 @@ Requisitos: Visual Studio 2019 ou 2022, com suporte a Csharp;
 
 -----
 **At.te: JADERLINK**
-<br>2024-10-26
+<br>2024-11-08

@@ -20,7 +20,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [DefaultValueAttribute(null)]
         [ReadOnlyAttribute(true)]
         [BrowsableAttribute(true)]
-        public string Version { get => "Version: 1.2.2"; }
+        public string Version { get => "Version: 1.2.3"; }
 
         [CategoryAttribute("Info")]
         [DescriptionAttribute("")]
@@ -62,7 +62,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [DefaultValueAttribute(null)]
         [ReadOnlyAttribute(true)]
         [BrowsableAttribute(true)]
-        public string Blog { get => "https://jaderlink.blogspot.com/"; }
+        public string Blog { get => "https://jaderlink.blogspot.com"; }
 
         [CategoryAttribute("JADERLINK")]
         [DescriptionAttribute("")]
@@ -70,7 +70,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [DefaultValueAttribute(null)]
         [ReadOnlyAttribute(true)]
         [BrowsableAttribute(true)]
-        public string Donate { get => "https://jaderlink.github.io/Donate/"; }
+        public string Donate { get => "https://jaderlink.github.io/Donate"; }
 
     }
 }

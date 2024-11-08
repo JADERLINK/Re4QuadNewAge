@@ -59,6 +59,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             var Object3D_ESAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && (g.Group == GroupType.SAR || g.Group == GroupType.EAR)).Cast<Object3D>();
             var Object3D_ESE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESE).Cast<Object3D>();
             var Object3D_EMI = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EMI).Cast<Object3D>();
+            var Object3D_LIT_ENTRYS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_ENTRYS).Cast<Object3D>();
+            var Object3D_LIT_GROUPS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_GROUPS).Cast<Object3D>();
             var Object3D_QuadCustom = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.QUAD_CUSTOM).Cast<Object3D>();
 
             var PropertyList_ESL = (from obj in Object3D_ESL select new EnemyProperty(obj.ObjLineRef, updateMethods, ((EnemyNodeGroup)obj.Parent).PropertyMethods, true));
@@ -69,6 +71,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             var PropertyList_ESAR = (from obj in Object3D_ESAR select new NewAge_ESAR_Property(obj.ObjLineRef, updateMethods, ((NewAge_ESAR_NodeGroup)obj.Parent).PropertyMethods, true));
             var PropertyList_ESE = (from obj in Object3D_ESE select new NewAge_ESE_Property(obj.ObjLineRef, updateMethods, ((NewAge_ESE_NodeGroup)obj.Parent).PropertyMethods, true));
             var PropertyList_EMI = (from obj in Object3D_EMI select new NewAge_EMI_Property(obj.ObjLineRef, updateMethods, ((NewAge_EMI_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_LIT_ENTRYS = (from obj in Object3D_LIT_ENTRYS select new NewAge_LIT_Entry_Property(obj.ObjLineRef, updateMethods, ((NewAge_LIT_Entrys_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_LIT_GROUPS = (from obj in Object3D_LIT_GROUPS select new NewAge_LIT_Group_Property(obj.ObjLineRef, updateMethods, ((NewAge_LIT_Groups_NodeGroup)obj.Parent).PropertyMethods, true));
             var PropertyList_QuadCustom = (from obj in Object3D_QuadCustom select new QuadCustomProperty(obj.ObjLineRef, updateMethods, ((QuadCustomNodeGroup)obj.Parent).PropertyMethods, true));
             
             All_List.AddRange(PropertyList_ESL);
@@ -79,6 +83,8 @@ namespace Re4QuadExtremeEditor.src.Forms
             All_List.AddRange(PropertyList_ESAR);
             All_List.AddRange(PropertyList_ESE);
             All_List.AddRange(PropertyList_EMI);
+            All_List.AddRange(PropertyList_LIT_ENTRYS);
+            All_List.AddRange(PropertyList_LIT_GROUPS);
             All_List.AddRange(PropertyList_QuadCustom);
             ALL = All_List.ToArray();
 
@@ -146,6 +152,21 @@ namespace Re4QuadExtremeEditor.src.Forms
                 var prop = p.GetProperties();
                 PopulateMultiSelectObjsList(prop);
             }
+
+            if (PropertyList_LIT_GROUPS.Count() > 0)
+            {
+                NewAge_LIT_Group_Property p = new NewAge_LIT_Group_Property(PropertyList_LIT_GROUPS.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_LIT_ENTRYS.Count() > 0)
+            {
+                NewAge_LIT_Entry_Property p = new NewAge_LIT_Entry_Property(PropertyList_LIT_ENTRYS.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+     
 
             comboBoxPropertyList.Items.Add("");
             comboBoxPropertyList.Items.AddRange(multiSelectObjs.Values.ToList().Cast<object>().ToArray());

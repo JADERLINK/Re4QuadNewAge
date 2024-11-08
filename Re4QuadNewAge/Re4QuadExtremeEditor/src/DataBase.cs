@@ -48,6 +48,7 @@ namespace Re4QuadExtremeEditor.src
         public static File_ESAR_Group FileEAR;
         public static File_ESE_Group FileESE;
         public static File_FSE_Group FileFSE;
+        public static File_LIT_Group FileLIT;
         public static FileQuadCustomGroup FileQuadCustom;
 
         //conteudo do treeview
@@ -63,6 +64,8 @@ namespace Re4QuadExtremeEditor.src
         public static NewAge_ESE_NodeGroup NodeESE;
         public static NewAge_FSE_NodeGroup NodeFSE;
         public static QuadCustomNodeGroup NodeQuadCustom;
+        public static NewAge_LIT_Groups_NodeGroup NodeLIT_Groups;
+        public static NewAge_LIT_Entrys_NodeGroup NodeLIT_Entrys;
 
         // lista de objetos selecionados na treeview
         public static Dictionary<int, TreeNode> SelectedNodes;

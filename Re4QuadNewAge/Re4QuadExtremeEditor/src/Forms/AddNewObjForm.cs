@@ -52,6 +52,14 @@ namespace Re4QuadExtremeEditor.src.Forms
             {
                 comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EMI, 0x00, Lang.GetText(eLang.AddNewEMI)));
             }
+            if (DataBase.FileLIT != null && DataBase.FileLIT.LightGroups.Lines.Count < Consts.AmountLimitLIT_Groups)
+            {
+                comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.LIT_GROUPS, 0x00, Lang.GetText(eLang.AddNewLIT_GROUPS)));
+            }
+            if (DataBase.FileLIT != null && DataBase.FileLIT.LightEntrys.Lines.Count < Consts.AmountLimitLIT_Entrys)
+            {
+                comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.LIT_ENTRYS, 0x00, Lang.GetText(eLang.AddNewLIT_ENTRYS)));
+            }      
             if (DataBase.FileQuadCustom != null && DataBase.FileQuadCustom.Lines.Count < Consts.AmountLimitQuadCustom)
             {
                 comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.QUAD_CUSTOM, 0x00, Lang.GetText(eLang.AddNewQuadCustom)));
@@ -112,7 +120,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (int i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileETS.Lines.Count + nodes.Count < Consts.AmountLimitETS)
+                        if (DataBase.NodeETS.Nodes.Count + nodes.Count < Consts.AmountLimitETS)
                         {
                             ushort NewId = DataBase.NodeETS.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.ETS, NewId);
@@ -132,7 +140,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileITA.Lines.Count + nodes.Count < Consts.AmountLimitITA)
+                        if (DataBase.NodeITA.Nodes.Count + nodes.Count < Consts.AmountLimitITA)
                         {
                             ushort NewId = DataBase.NodeITA.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.ITA, NewId);
@@ -155,7 +163,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileAEV.Lines.Count + nodes.Count < Consts.AmountLimitAEV)
+                        if (DataBase.NodeAEV.Nodes.Count + nodes.Count < Consts.AmountLimitAEV)
                         {
                             ushort NewId = DataBase.NodeAEV.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.AEV, NewId);
@@ -178,7 +186,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (int i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileDSE.Lines.Count + nodes.Count < Consts.AmountLimitDSE)
+                        if (DataBase.NodeDSE.Nodes.Count + nodes.Count < Consts.AmountLimitDSE)
                         {
                             ushort NewId = DataBase.NodeDSE.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.DSE, NewId);
@@ -198,7 +206,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileFSE.Lines.Count + nodes.Count < Consts.AmountLimitFSE)
+                        if (DataBase.NodeFSE.Nodes.Count + nodes.Count < Consts.AmountLimitFSE)
                         {
                             ushort NewId = DataBase.NodeFSE.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.FSE, NewId);
@@ -218,7 +226,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileSAR.Lines.Count + nodes.Count < Consts.AmountLimitSAR)
+                        if (DataBase.NodeSAR.Nodes.Count + nodes.Count < Consts.AmountLimitSAR)
                         {
                             ushort NewId = DataBase.NodeSAR.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.SAR, NewId);
@@ -238,7 +246,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileEAR.Lines.Count + nodes.Count < Consts.AmountLimitEAR)
+                        if (DataBase.NodeEAR.Nodes.Count + nodes.Count < Consts.AmountLimitEAR)
                         {
                             ushort NewId = DataBase.NodeEAR.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.EAR, NewId);
@@ -258,7 +266,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileESE.Lines.Count + nodes.Count < Consts.AmountLimitESE)
+                        if (DataBase.NodeESE.Nodes.Count + nodes.Count < Consts.AmountLimitESE)
                         {
                             ushort NewId = DataBase.NodeESE.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.ESE, NewId);
@@ -278,7 +286,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileEMI.Lines.Count + nodes.Count < Consts.AmountLimitEMI)
+                        if (DataBase.NodeEMI.Nodes.Count + nodes.Count < Consts.AmountLimitEMI)
                         {
                             ushort NewId = DataBase.NodeEMI.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.EMI, NewId);
@@ -298,7 +306,7 @@ namespace Re4QuadExtremeEditor.src.Forms
                     List<Object3D> nodes = new List<Object3D>();
                     for (ushort i = 0; i < numericUpDownAmount.Value; i++)
                     {
-                        if (DataBase.FileQuadCustom.Lines.Count + nodes.Count < Consts.AmountLimitQuadCustom)
+                        if (DataBase.NodeQuadCustom.Nodes.Count + nodes.Count < Consts.AmountLimitQuadCustom)
                         {
                             ushort NewId = DataBase.NodeQuadCustom.ChangeAmountMethods.AddNewLineID(gt.InitType);
                             Object3D o = Object3D.CreateNewInstance(GroupType.QUAD_CUSTOM, NewId);
@@ -312,6 +320,46 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                     DataBase.NodeQuadCustom.Nodes.AddRange(nodes.ToArray());
                     DataBase.NodeQuadCustom.Expand();
+                }
+
+                else if (gt.ID == GroupType.LIT_GROUPS)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeLIT_Groups.Nodes.Count + nodes.Count < Consts.AmountLimitLIT_Groups)
+                        {
+                            ushort NewId = DataBase.NodeLIT_Groups.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.LIT_GROUPS, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeLIT_Groups.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeLIT_Groups.Expand();
+                }
+
+                else if (gt.ID == GroupType.LIT_ENTRYS)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeLIT_Entrys.Nodes.Count + nodes.Count < Consts.AmountLimitLIT_Entrys)
+                        {
+                            ushort NewId = DataBase.NodeLIT_Entrys.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.LIT_ENTRYS, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeLIT_Entrys.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeLIT_Entrys.Expand();
                 }
 
                 TreeViewEnableDrawNode?.Invoke();

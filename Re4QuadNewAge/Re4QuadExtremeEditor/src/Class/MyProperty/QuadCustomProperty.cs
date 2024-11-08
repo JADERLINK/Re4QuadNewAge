@@ -308,6 +308,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             set
             {
                 Methods.SetColorRGB(InternalID, GetNewByteArrayValue(value));
+                updateMethods.UpdateGL();
             }
         }
 

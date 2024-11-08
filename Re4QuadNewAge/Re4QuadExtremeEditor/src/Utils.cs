@@ -71,6 +71,7 @@ namespace Re4QuadExtremeEditor.src
             Consts.ModelKeyWarpPoint,
             Consts.ModelKey_ESE_Point,
             Consts.ModelKey_EMI_Point,
+            Consts.ModelKey_LIT_Point,
             Consts.ModelKeyQuadCustomPoint
             })
              .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.InternalModelsDirectory, x)).ToHashSet().ToArray();
@@ -397,6 +398,21 @@ namespace Re4QuadExtremeEditor.src
             quad.ForeColor = Globals.NodeColorQuadCustom;
             quad.NodeFont = Globals.TreeNodeFontText;
 
+            NewAge_LIT_Groups_NodeGroup lit_groups = new NewAge_LIT_Groups_NodeGroup();
+            lit_groups.Group = GroupType.LIT_GROUPS;
+            lit_groups.Text = Lang.GetText(eLang.NodeLIT_GROUPS);
+            lit_groups.Name = Consts.NodeLIT_GROUPS;
+            lit_groups.ForeColor = Globals.NodeColorLIT_GROUPS;
+            lit_groups.NodeFont = Globals.TreeNodeFontText;
+
+            NewAge_LIT_Entrys_NodeGroup lit_entrys = new NewAge_LIT_Entrys_NodeGroup();
+            lit_entrys.Group = GroupType.LIT_ENTRYS;
+            lit_entrys.Text = Lang.GetText(eLang.NodeLIT_ENTRYS);
+            lit_entrys.Name = Consts.NodeLIT_ENTRYS;
+            lit_entrys.ForeColor = Globals.NodeColorLIT_ENTRYS;
+            lit_entrys.NodeFont = Globals.TreeNodeFontText;
+
+
             DataBase.NodeESL = esl;
             DataBase.NodeETS = ets;
             DataBase.NodeITA = ita;
@@ -409,6 +425,8 @@ namespace Re4QuadExtremeEditor.src
             DataBase.NodeESE = ese;
             DataBase.NodeFSE = fse;
             DataBase.NodeQuadCustom = quad;
+            DataBase.NodeLIT_Groups = lit_groups;
+            DataBase.NodeLIT_Entrys = lit_entrys;
         }
 
         /// <summary>
@@ -423,12 +441,7 @@ namespace Re4QuadExtremeEditor.src
 
         public static List<ushort> AllUshots() 
         {
-            List<ushort> list = new List<ushort>(ushort.MaxValue);
-            for (ushort i = 0; i < ushort.MaxValue; i++)
-            {
-                list.Add(i);
-            }
-            return list;
+            return Enumerable.Range(0, ushort.MaxValue).Cast<ushort>().ToList();
         }
 
         public static OpenTK.Vector4 ColorToVector4(Color color) 

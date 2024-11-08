@@ -167,6 +167,8 @@ namespace Re4QuadExtremeEditor
             treeViewObjs.Nodes.Add(DataBase.NodeSAR);
             treeViewObjs.Nodes.Add(DataBase.NodeEMI);
             treeViewObjs.Nodes.Add(DataBase.NodeESE);
+            treeViewObjs.Nodes.Add(DataBase.NodeLIT_Groups);
+            treeViewObjs.Nodes.Add(DataBase.NodeLIT_Entrys);
             treeViewObjs.Nodes.Add(DataBase.NodeQuadCustom);
 
             updateMethods = new UpdateMethods();
@@ -352,6 +354,13 @@ namespace Re4QuadExtremeEditor
                         if (index11 > -1)
                         {
                             selected = DataBase.NodeQuadCustom.Nodes[index11];
+                        }
+                        break;
+                    case (byte)GroupType.LIT_ENTRYS:
+                        int index12 = DataBase.NodeLIT_Entrys.Nodes.IndexOfKey(LineID.ToString());
+                        if (index12 > -1)
+                        {
+                            selected = DataBase.NodeLIT_Entrys.Nodes[index12];
                         }
                         break;
                 }
@@ -613,7 +622,9 @@ namespace Re4QuadExtremeEditor
 
         private void OnButtonOk_Click()
         {
-            glControl.Invalidate();
+            UpdateTreeViewObjs();
+            UpdatePropertyGrid();
+            UpdateGL();
         }
 
         private void toolStripMenuItemDeleteSelectedObj_Click(object sender, EventArgs e)
@@ -630,10 +641,13 @@ namespace Re4QuadExtremeEditor
                         || item.Group == GroupType.ESE
                         || item.Group == GroupType.EMI
                         || item.Group == GroupType.QUAD_CUSTOM
+                        || item.Group == GroupType.LIT_ENTRYS
+                        || item.Group == GroupType.LIT_GROUPS
                         )
                     {
-                        ((src.Class.Interfaces.INodeChangeAmount)item.Parent).ChangeAmountMethods.RemoveLineID(item.ObjLineRef);
+                        var ChangeAmountMethods = ((src.Class.Interfaces.INodeChangeAmount)item.Parent).ChangeAmountMethods;
                         item.Remove();
+                        ChangeAmountMethods.RemoveLineID(item.ObjLineRef);
                     }
                     else if (item.Group == GroupType.ITA || item.Group == GroupType.AEV)
                     {
@@ -662,6 +676,8 @@ namespace Re4QuadExtremeEditor
                     || item.Group == GroupType.ESE
                     || item.Group == GroupType.EMI
                     || item.Group == GroupType.QUAD_CUSTOM
+                    || item.Group == GroupType.LIT_ENTRYS
+                    || item.Group == GroupType.LIT_GROUPS
                     )
                 {
                     int index = item.Index;
@@ -671,6 +687,12 @@ namespace Re4QuadExtremeEditor
                         item.Remove();
                         Parent.Nodes.Insert(index -1, item);
                     }
+                }
+
+                if (item.Group == GroupType.LIT_ENTRYS && item.Parent is NewAge_LIT_Entrys_NodeGroup parent)
+                {
+                    parent.ChangeAmountCallbackMethods.OnMoveNode();
+                    UpdatePropertyGrid();
                 }
             }
         }
@@ -690,6 +712,8 @@ namespace Re4QuadExtremeEditor
                     || item.Group == GroupType.ESE
                     || item.Group == GroupType.EMI
                     || item.Group == GroupType.QUAD_CUSTOM
+                    || item.Group == GroupType.LIT_ENTRYS
+                    || item.Group == GroupType.LIT_GROUPS
                     )
                 {
                     int index = item.Index;
@@ -699,6 +723,12 @@ namespace Re4QuadExtremeEditor
                         item.Remove();
                         Parent.Nodes.Insert(index +1, item);
                     }
+                }
+
+                if (item.Group == GroupType.LIT_ENTRYS && item.Parent is NewAge_LIT_Entrys_NodeGroup parent)
+                {
+                    parent.ChangeAmountCallbackMethods.OnMoveNode();
+                    UpdatePropertyGrid();
                 }
             }
         }
@@ -819,10 +849,19 @@ namespace Re4QuadExtremeEditor
 
         #region botoes do menu view
 
+        private void toolStripMenuItemHideFileLIT_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemHideFileLIT.Checked = !toolStripMenuItemHideFileLIT.Checked;
+            Globals.RenderFileLIT = !toolStripMenuItemHideFileLIT.Checked;
+            treeViewObjs.Refresh();
+            glControl.Invalidate();
+        }
+
         private void toolStripMenuItemHideRoomModel_Click(object sender, EventArgs e)
         {
             toolStripMenuItemHideRoomModel.Checked = !toolStripMenuItemHideRoomModel.Checked;
             Globals.RenderRoom = !toolStripMenuItemHideRoomModel.Checked;
+            treeViewObjs.Refresh();
             glControl.Invalidate();
         }
 
@@ -918,14 +957,14 @@ namespace Re4QuadExtremeEditor
 
         private void toolStripTextBoxDefinedRoom_TextChanged(object sender, EventArgs e)
         {
-            Globals.RenderEnemyFromDefinedRoom = ushort.Parse(toolStripTextBoxDefinedRoom.Text, System.Globalization.NumberStyles.HexNumber);
+            Globals.RenderEnemyFromDefinedRoom = ushort.Parse(toolStripTextBoxDefinedRoom.Text, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture);
             treeViewObjs.Refresh();
             glControl.Invalidate();
         }
 
         private void toolStripTextBoxDefinedRoom_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar) 
+            if (char.IsDigit(e.KeyChar)
                 || e.KeyChar == 'A'
                 || e.KeyChar == 'B'
                 || e.KeyChar == 'C'
@@ -1232,6 +1271,67 @@ namespace Re4QuadExtremeEditor
             glControl.Invalidate();
         }
 
+        private void toolStripMenuItemShowOnlySelectedGroup_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemShowOnlySelectedGroup.Checked = !toolStripMenuItemShowOnlySelectedGroup.Checked;
+            Globals.LIT_ShowOnlySelectedGroup = toolStripMenuItemShowOnlySelectedGroup.Checked;
+            treeViewObjs.Refresh();
+            glControl.Invalidate();
+        }
+
+        private void toolStripMenuItemSelectedGroupUp_Click(object sender, EventArgs e)
+        {
+            var value = int.Parse(toolStripTextBoxSelectedGroupValue.Text, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture);
+            value++;
+            if (value > 999)
+            {
+                value = 999;
+            }
+            toolStripTextBoxSelectedGroupValue.Text = value.ToString("D3");
+        }
+
+        private void toolStripMenuItemSelectedGroupDown_Click(object sender, EventArgs e)
+        {
+            var value = int.Parse(toolStripTextBoxSelectedGroupValue.Text, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture);
+            value--;
+            if (value < 0)
+            {
+                value = 0;
+            }
+            toolStripTextBoxSelectedGroupValue.Text = value.ToString("D3");
+        }
+
+        private void toolStripMenuItemEnableLightColor_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemEnableLightColor.Checked = !toolStripMenuItemEnableLightColor.Checked;
+            Globals.LIT_EnableLightColor = toolStripMenuItemEnableLightColor.Checked;
+            treeViewObjs.Refresh();
+            glControl.Invalidate();
+        }
+
+        private void toolStripTextBoxSelectedGroupValue_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                if (toolStripTextBoxSelectedGroupValue.SelectionStart < toolStripTextBoxSelectedGroupValue.TextLength)
+                {
+                    int CacheSelectionStart = toolStripTextBoxSelectedGroupValue.SelectionStart;
+                    StringBuilder sb = new StringBuilder(toolStripTextBoxSelectedGroupValue.Text);
+                    sb[toolStripTextBoxSelectedGroupValue.SelectionStart] = e.KeyChar;
+                    toolStripTextBoxSelectedGroupValue.Text = sb.ToString();
+                    toolStripTextBoxSelectedGroupValue.SelectionStart = CacheSelectionStart + 1;
+                }
+            }
+            e.Handled = true;
+        }
+
+        private void toolStripTextBoxSelectedGroupValue_TextChanged(object sender, EventArgs e)
+        {
+            Globals.LIT_SelectedGroup = ushort.Parse(toolStripTextBoxSelectedGroupValue.Text, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture);
+            treeViewObjs.Refresh();
+            glControl.Invalidate();
+        }
+
         #endregion
 
 
@@ -1409,6 +1509,16 @@ namespace Re4QuadExtremeEditor
                 else if (node.Group == GroupType.EMI)
                 {
                     NewAge_EMI_Property p = new NewAge_EMI_Property(node.ObjLineRef, updateMethods, ((NewAge_EMI_NodeGroup)node.Parent).PropertyMethods);
+                    propertyGridObjs.SelectedObject = p;
+                }
+                else if (node.Group == GroupType.LIT_ENTRYS)
+                {
+                    NewAge_LIT_Entry_Property p = new NewAge_LIT_Entry_Property(node.ObjLineRef, updateMethods, ((NewAge_LIT_Entrys_NodeGroup)node.Parent).PropertyMethods);
+                    propertyGridObjs.SelectedObject = p;
+                }
+                else if (node.Group == GroupType.LIT_GROUPS)
+                {
+                    NewAge_LIT_Group_Property p = new NewAge_LIT_Group_Property(node.ObjLineRef, updateMethods, ((NewAge_LIT_Groups_NodeGroup)node.Parent).PropertyMethods);
                     propertyGridObjs.SelectedObject = p;
                 }
                 else if (node.Group == GroupType.QUAD_CUSTOM)
@@ -2584,6 +2694,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemClearEAR.Enabled = DataBase.FileEAR != null;
             toolStripMenuItemClearEMI.Enabled = DataBase.FileEMI != null;
             toolStripMenuItemClearESE.Enabled = DataBase.FileESE != null;
+            toolStripMenuItemClearLIT.Enabled = DataBase.FileLIT != null;
             toolStripMenuItemClearQuadCustom.Enabled = DataBase.FileQuadCustom != null;
         }
 
@@ -2697,6 +2808,16 @@ namespace Re4QuadExtremeEditor
             TreeViewEnableDrawNode();
         }
 
+        private void toolStripMenuItemClearLIT_Click(object sender, EventArgs e)
+        {
+            TreeViewUpdateSelectedsClear();
+            TreeViewDisableDrawNode();
+            FileManager.ClearLIT();
+            Globals.FilePathLIT = null;
+            glControl.Invalidate();
+            TreeViewEnableDrawNode();
+        }
+
         #endregion
 
         #region Gerenciamento de arquivos //Save As..
@@ -2713,6 +2834,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemSaveAsEAR.Enabled = DataBase.FileEAR != null;
             toolStripMenuItemSaveAsEMI.Enabled = DataBase.FileEMI != null;
             toolStripMenuItemSaveAsESE.Enabled = DataBase.FileESE != null;
+            toolStripMenuItemSaveAsLIT.Enabled = DataBase.FileLIT != null;
             toolStripMenuItemSaveAsQuadCustom.Enabled = DataBase.FileQuadCustom != null;
 
             if (DataBase.FileETS != null && DataBase.FileETS.GetRe4Version == Re4Version.V2007PS2)
@@ -2788,6 +2910,19 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveAsESE.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsESE);
             }
 
+            if (DataBase.FileLIT != null && DataBase.FileLIT.GetRe4Version == Re4Version.V2007PS2)
+            {
+                toolStripMenuItemSaveAsLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsLIT_2007_PS2);
+            }
+            else if (DataBase.FileLIT != null && DataBase.FileLIT.GetRe4Version == Re4Version.UHD)
+            {
+                toolStripMenuItemSaveAsLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsLIT_UHD);
+            }
+            else
+            {
+                toolStripMenuItemSaveAsLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsLIT);
+            }
+
         }
 
         private void toolStripMenuItemSaveAsESL_Click(object sender, EventArgs e)
@@ -2854,6 +2989,12 @@ namespace Re4QuadExtremeEditor
         {
             saveFileDialogQuadCustom.FileName = Globals.FilePathQuadCustom;
             saveFileDialogQuadCustom.ShowDialog();
+        }
+
+        private void toolStripMenuItemSaveAsLIT_Click(object sender, EventArgs e)
+        {
+            saveFileDialogLIT.FileName = Globals.FilePathLIT;
+            saveFileDialogLIT.ShowDialog();
         }
 
         private void saveFileDialogESL_FileOk(object sender, CancelEventArgs e)
@@ -3132,6 +3273,31 @@ namespace Re4QuadExtremeEditor
             }
         }
 
+        private void saveFileDialogLIT_FileOk(object sender, CancelEventArgs e)
+        {
+            FileInfo file = null;
+            FileStream stream = null;
+            try
+            {
+                file = new FileInfo(saveFileDialogLIT.FileName);
+                stream = file.Create();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Lang.GetText(eLang.MessageBoxErrorTitle), MessageBoxButtons.OK);
+                e.Cancel = true;
+                return;
+            }
+
+            if (file != null && stream != null)
+            {
+                FileManager.SaveFileLIT(stream);
+                stream.Close();
+                Globals.FilePathLIT = saveFileDialogLIT.FileName;
+                saveFileDialogLIT.FileName = null;
+            }
+        }
+
         #endregion
 
         #region Gerenciamento de arquivos //Save
@@ -3148,6 +3314,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemSaveEAR.Enabled = DataBase.FileEAR != null;
             toolStripMenuItemSaveEMI.Enabled = DataBase.FileEMI != null;
             toolStripMenuItemSaveESE.Enabled = DataBase.FileESE != null;
+            toolStripMenuItemSaveLIT.Enabled = DataBase.FileLIT != null;
             toolStripMenuItemSaveQuadCustom.Enabled = DataBase.FileQuadCustom != null;
 
             if (DataBase.FileETS != null && DataBase.FileETS.GetRe4Version == Re4Version.V2007PS2)
@@ -3224,6 +3391,18 @@ namespace Re4QuadExtremeEditor
                 toolStripMenuItemSaveESE.Text = Lang.GetText(eLang.toolStripMenuItemSaveESE);
             }
 
+            if (DataBase.FileLIT != null && DataBase.FileLIT.GetRe4Version == Re4Version.V2007PS2)
+            {
+                toolStripMenuItemSaveLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveLIT_2007_PS2);
+            }
+            else if (DataBase.FileLIT != null && DataBase.FileLIT.GetRe4Version == Re4Version.UHD)
+            {
+                toolStripMenuItemSaveLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveLIT_UHD);
+            }
+            else
+            {
+                toolStripMenuItemSaveLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveLIT);
+            }
         }
 
         private void toolStripMenuItemSaveESL_Click(object sender, EventArgs e)
@@ -3490,6 +3669,29 @@ namespace Re4QuadExtremeEditor
             }
         }
 
+        private void toolStripMenuItemSaveLIT_Click(object sender, EventArgs e)
+        {
+            FileInfo file = null;
+            FileStream stream = null;
+            try
+            {
+                file = new FileInfo(Globals.FilePathLIT);
+                stream = file.Create();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Lang.GetText(eLang.MessageBoxErrorTitle), MessageBoxButtons.OK);
+                saveFileDialogLIT.FileName = Globals.FilePathLIT;
+                saveFileDialogLIT.ShowDialog();
+                return;
+            }
+
+            if (file != null && stream != null)
+            {
+                FileManager.SaveFileLIT(stream);
+                stream.Close();
+            }
+        }
 
         private void toolStripMenuItemSaveDirectories_DropDownOpening(object sender, EventArgs e)
         {
@@ -3503,6 +3705,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemDirectory_EAR.Text = Lang.GetText(eLang.DirectoryEAR) + " " + (Globals.FilePathEAR ?? "");
             toolStripMenuItemDirectory_EMI.Text = Lang.GetText(eLang.DirectoryEMI) + " " + (Globals.FilePathEMI ?? "");
             toolStripMenuItemDirectory_ESE.Text = Lang.GetText(eLang.DirectoryESE) + " " + (Globals.FilePathESE ?? "");
+            toolStripMenuItemDirectory_LIT.Text = Lang.GetText(eLang.DirectoryLIT) + " " + (Globals.FilePathLIT ?? "");
             toolStripMenuItemDirectory_QuadCustom.Text = Lang.GetText(eLang.DirectoryQuadCustom) + " " + (Globals.FilePathQuadCustom ?? "");
         }
 
@@ -3733,8 +3936,6 @@ namespace Re4QuadExtremeEditor
         #endregion
 
 
-
-
         #region MainForm events/ metodos
 
         bool enable_splitContainerRight_Panel2_Resize = false;
@@ -3847,6 +4048,8 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemNewQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemNewQuadCustom);
             toolStripMenuItemNewITA_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemNewITA_PS4_NS);
             toolStripMenuItemNewAEV_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemNewAEV_PS4_NS);
+            toolStripMenuItemNewLIT_2007_PS2.Text = Lang.GetText(eLang.toolStripMenuItemNewLIT_2007_PS2);
+            toolStripMenuItemNewLIT_UHD.Text = Lang.GetText(eLang.toolStripMenuItemNewLIT_UHD);
             // subsubmenu Open
             toolStripMenuItemOpenESL.Text = Lang.GetText(eLang.toolStripMenuItemOpenESL);
             toolStripMenuItemOpenETS_2007_PS2.Text = Lang.GetText(eLang.toolStripMenuItemOpenETS_2007_PS2);
@@ -3866,6 +4069,8 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemOpenQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemOpenQuadCustom);
             toolStripMenuItemOpenITA_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemOpenITA_PS4_NS);
             toolStripMenuItemOpenAEV_PS4_NS.Text = Lang.GetText(eLang.toolStripMenuItemOpenAEV_PS4_NS);
+            toolStripMenuItemOpenLIT_2007_PS2.Text = Lang.GetText(eLang.toolStripMenuItemOpenLIT_2007_PS2);
+            toolStripMenuItemOpenLIT_UHD.Text = Lang.GetText(eLang.toolStripMenuItemOpenLIT_UHD);
             // subsubmenu Save
             toolStripMenuItemSaveESL.Text = Lang.GetText(eLang.toolStripMenuItemSaveESL);
             toolStripMenuItemSaveETS.Text = Lang.GetText(eLang.toolStripMenuItemSaveETS);
@@ -3877,6 +4082,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemSaveFSE.Text = Lang.GetText(eLang.toolStripMenuItemSaveFSE);
             toolStripMenuItemSaveSAR.Text = Lang.GetText(eLang.toolStripMenuItemSaveSAR);
             toolStripMenuItemSaveEAR.Text = Lang.GetText(eLang.toolStripMenuItemSaveEAR);
+            toolStripMenuItemSaveLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveLIT);
             toolStripMenuItemSaveQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemSaveQuadCustom);
             toolStripMenuItemSaveDirectories.Text = Lang.GetText(eLang.toolStripMenuItemSaveDirectories);
             // subsubmenu Save As...
@@ -3890,6 +4096,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemSaveAsFSE.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsFSE);
             toolStripMenuItemSaveAsSAR.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsSAR);
             toolStripMenuItemSaveAsEAR.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsEAR);
+            toolStripMenuItemSaveAsLIT.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsLIT);
             toolStripMenuItemSaveAsQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemSaveAsQuadCustom);
             // subsubmenu Save As (Convert)
             toolStripMenuItemSaveConverterETS.Text = Lang.GetText(eLang.toolStripMenuItemSaveConverterETS);
@@ -3908,6 +4115,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemClearEAR.Text = Lang.GetText(eLang.toolStripMenuItemClearEAR);
             toolStripMenuItemClearEMI.Text = Lang.GetText(eLang.toolStripMenuItemClearEMI);
             toolStripMenuItemClearESE.Text = Lang.GetText(eLang.toolStripMenuItemClearESE);
+            toolStripMenuItemClearLIT.Text = Lang.GetText(eLang.toolStripMenuItemClearLIT);
             toolStripMenuItemClearQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemClearQuadCustom);
 
             // sub menu edit
@@ -3929,6 +4137,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemSubMenuItem.Text = Lang.GetText(eLang.toolStripMenuItemSubMenuItem);
             toolStripMenuItemSubMenuSpecial.Text = Lang.GetText(eLang.toolStripMenuItemSubMenuSpecial);
             toolStripMenuItemSubMenuEtcModel.Text = Lang.GetText(eLang.toolStripMenuItemSubMenuEtcModel);
+            toolStripMenuItemSubMenuLight.Text = Lang.GetText(eLang.toolStripMenuItemSubMenuLight);
             toolStripMenuItemNodeDisplayNameInHex.Text = Lang.GetText(eLang.toolStripMenuItemNodeDisplayNameInHex);
             toolStripMenuItemCameraMenu.Text = Lang.GetText(eLang.toolStripMenuItemCameraMenu);
             toolStripMenuItemResetCamera.Text = Lang.GetText(eLang.toolStripMenuItemResetCamera);
@@ -3947,6 +4156,7 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemHideFileEAR.Text = Lang.GetText(eLang.toolStripMenuItemHideFileEAR);
             toolStripMenuItemHideFileESE.Text = Lang.GetText(eLang.toolStripMenuItemHideFileESE);
             toolStripMenuItemHideFileEMI.Text = Lang.GetText(eLang.toolStripMenuItemHideFileEMI);
+            toolStripMenuItemHideFileLIT.Text = Lang.GetText(eLang.toolStripMenuItemHideFileLIT);
             toolStripMenuItemHideQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemHideQuadCustom);
 
             // sub menus de view
@@ -3964,6 +4174,10 @@ namespace Re4QuadExtremeEditor
             toolStripMenuItemEtcModelUseScale.Text = Lang.GetText(eLang.toolStripMenuItemEtcModelUseScale);
             toolStripMenuItemSubMenuQuadCustom.Text = Lang.GetText(eLang.toolStripMenuItemSubMenuQuadCustom);
             toolStripMenuItemUseCustomColors.Text = Lang.GetText(eLang.toolStripMenuItemUseCustomColors);
+            toolStripMenuItemShowOnlySelectedGroup.Text = Lang.GetText(eLang.toolStripMenuItemShowOnlySelectedGroup);
+            toolStripMenuItemSelectedGroupUp.Text = Lang.GetText(eLang.toolStripMenuItemSelectedGroupUp);
+            toolStripMenuItemSelectedGroupDown.Text = Lang.GetText(eLang.toolStripMenuItemSelectedGroupDown);
+            toolStripMenuItemEnableLightColor.Text = Lang.GetText(eLang.toolStripMenuItemEnableLightColor);
 
             //sub menu de view room and model
             toolStripMenuItemModelsHideTextures.Text = Lang.GetText(eLang.toolStripMenuItemModelsHideTextures);
@@ -3993,6 +4207,7 @@ namespace Re4QuadExtremeEditor
             openFileDialogEAR.Title = Lang.GetText(eLang.openFileDialogEAR);
             openFileDialogEMI.Title = Lang.GetText(eLang.openFileDialogEMI);
             openFileDialogESE.Title = Lang.GetText(eLang.openFileDialogESE);
+            openFileDialogLIT.Title = Lang.GetText(eLang.openFileDialogLIT);
             openFileDialogQuadCustom.Title = Lang.GetText(eLang.openFileDialogQuadCustom);
 
             saveFileDialogConvertAEV.Title = Lang.GetText(eLang.saveFileDialogConvertAEV);
@@ -4011,6 +4226,7 @@ namespace Re4QuadExtremeEditor
             saveFileDialogEAR.Title = Lang.GetText(eLang.saveFileDialogEAR);
             saveFileDialogEMI.Title = Lang.GetText(eLang.saveFileDialogEMI);
             saveFileDialogESE.Title = Lang.GetText(eLang.saveFileDialogESE);
+            saveFileDialogLIT.Title = Lang.GetText(eLang.saveFileDialogLIT);
             saveFileDialogQuadCustom.Title = Lang.GetText(eLang.saveFileDialogQuadCustom);
 
         }

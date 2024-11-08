@@ -1027,8 +1027,44 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.EMI_AngleY_Float_DisplayName, "Angle.Y [Dec] (Float)");
             AttributeText.Add(aLang.EMI_AngleY_Hex_DisplayName, "Angle.Y [Hex] (Float)");
             AttributeText.Add(aLang.EMI_AngleY_Description, "");
+
+            //LIT entry
+            AttributeText.Add(aLang.LIT_Light_Metadata_Category, "Light Metadata Category");
+            AttributeText.Add(aLang.LIT_Light_Format_Byte_DisplayName, "Light Format [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Light_Type_Byte_DisplayName, "Light Type [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Light_Attributes_Byte_DisplayName, "Light Attributes [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Light_Mask_Byte_DisplayName, "Light Mask [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Light_Definition_Category, "Light Definition Category");
+            AttributeText.Add(aLang.LIT_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.LIT_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.LIT_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.LIT_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.LIT_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.LIT_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.LIT_RangeRadius_Float_DisplayName, "Range Radius [Dec] (Float)");
+            AttributeText.Add(aLang.LIT_RangeRadius_Hex_DisplayName, "Range Radius [Hex] (Float)");
+            AttributeText.Add(aLang.LIT_ColorRGB_ByteArray3_DisplayName, "Color RGB [Hex] (Byte[3])");
+            AttributeText.Add(aLang.LIT_ColorAlfa_Byte_DisplayName, "Color Alfa [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Intensity_Float_DisplayName, "Intensity [Dec] (Float)");
+            AttributeText.Add(aLang.LIT_Intensity_Hex_DisplayName, "Intensity [Hex] (Float)");
+            AttributeText.Add(aLang.LIT_Object_Settings_Category, "Object Settings Category");
+            AttributeText.Add(aLang.LIT_Parent_Byte_DisplayName, "Parent [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Subgroup_Byte_DisplayName, "Subgroup [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Flag_Byte_DisplayName, "Flag [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_Priority_Byte_DisplayName, "Priority [Hex] (Byte)");
+            AttributeText.Add(aLang.LIT_PartNumber_Ushort_DisplayName, "Part Number [Hex] (Ushort)");
+            AttributeText.Add(aLang.LIT_ParentID_Ushort_DisplayName, "Parent ID [Hex] (Ushort)");
+
+            AttributeText.Add(aLang.LIT_Group_Order_Category, "Order Category");
+            AttributeText.Add(aLang.LIT_Entry_Order_Category, "Order Category");
+
+            AttributeText.Add(aLang.LIT_Group_GroupOrderID_Ushort_DisplayName, "GroupOrderID [Dec] (Ushort)");
+            AttributeText.Add(aLang.LIT_Group_LIT_GetEntryCountInGroup_Int_DisplayName, "Entry Count [Dec] (Int)");
+            AttributeText.Add(aLang.LIT_Entry_GroupOrderID_Ushort_DisplayName, "GroupOrderID [Dec] (Ushort)");
+            AttributeText.Add(aLang.LIT_Entry_EntryOrderID_Ushort_DisplayName, "EntryOrderID [Dec] (Ushort)");
+
             /*
-            
+             * 
             */
 
             //AttributeText.Add(aLang.Null, "");
@@ -1079,6 +1115,9 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.AddNewITA, "Add new Item ITA object");
             Text.Add(eLang.AddNewAEV, "Add new Event AEV object");
 
+            Text.Add(eLang.AddNewLIT_ENTRYS, "Add new Light Entry LIT object");
+            Text.Add(eLang.AddNewLIT_GROUPS, "Add new Light Group LIT object");
+
             Text.Add(eLang.DeleteObjWarning, "Warning:");
             Text.Add(eLang.DeleteObjDialog, "Selected objects will be deleted, are you sure?\r\nThe action cannot be undone!");
 
@@ -1108,6 +1147,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.DirectoryEAR, "EAR File Patch:");
             Text.Add(eLang.DirectoryEMI, "EMI File Patch:");
             Text.Add(eLang.DirectoryESE, "ESE File Patch:");
+            Text.Add(eLang.DirectoryLIT, "LIT File Patch:");
             Text.Add(eLang.DirectoryQuadCustom, "QuadCustom File Patch:");
 
             //room
@@ -1118,6 +1158,7 @@ namespace Re4QuadExtremeEditor.src
             // MoveMode
             Text.Add(eLang.MoveMode_Enemy_PositionAndRotationAll, "Enemy: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
             Text.Add(eLang.MoveMode_EseEntry_PositionPoint, "ESE Point: Squad and Vertical = Position;");
+            Text.Add(eLang.MoveMode_LitEntry_PositionPoint, "LIT Point: Squad and Vertical = Position;");
             Text.Add(eLang.MoveMode_EmiEntry_PositionAndAnglePoint, "EMI Point: Squad and Vertical = Position; Horizontal[2] = Rotation Y;");
             Text.Add(eLang.MoveMode_EtcModel_PositionAndRotationAll, "EtcModel: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
             Text.Add(eLang.MoveMode_EtcModel_Scale, "EtcModel: Vertical = Scale All; Horizontal [123] = Scale XYZ; Scale does not work in game;");
@@ -1188,6 +1229,10 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveITA_PS4_NS, "Save Itens ITA File (PS4/NS)");
             Text.Add(eLang.toolStripMenuItemSaveAEV_PS4_NS, "Save Events AEV File (PS4/NS)");
 
+            Text.Add(eLang.toolStripMenuItemSaveLIT_2007_PS2, "Save Light LIT File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemSaveLIT_UHD, "Save Light LIT File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveLIT, "Save Light LIT File");
+
             // subsubmenu Save As...
             Text.Add(eLang.toolStripMenuItemSaveAsETS, "Save As EtcModel ETS File");
             Text.Add(eLang.toolStripMenuItemSaveAsITA, "Save As Itens ITA File");
@@ -1208,6 +1253,10 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveAsESE_UHD, "Save As Environment Sound ESE File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAsITA_PS4_NS, "Save As Itens ITA File (PS4/NS)");
             Text.Add(eLang.toolStripMenuItemSaveAsAEV_PS4_NS, "Save As Events AEV File (PS4/NS)");
+
+            Text.Add(eLang.toolStripMenuItemSaveAsLIT_2007_PS2, "Save As Light LIT File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemSaveAsLIT_UHD, "Save As Light LIT File (UHD)");
+            Text.Add(eLang.toolStripMenuItemSaveAsLIT, "Save As Light LIT File");
 
             // subsubmenu Save As (Convert)
             Text.Add(eLang.toolStripMenuItemSaveConverterETS, "Save As EtcModel ETS File, Convert To ...");
@@ -1283,6 +1332,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemNewQuadCustom, "New Quad Custom File");
             Text.Add(eLang.toolStripMenuItemNewITA_PS4_NS, "New Itens ITA File (PS4/NS) {Adapted}");
             Text.Add(eLang.toolStripMenuItemNewAEV_PS4_NS, "New Events AEV File (PS4/NS) {Adapted}");
+            Text.Add(eLang.toolStripMenuItemNewLIT_2007_PS2, "New Light LIT File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemNewLIT_UHD, "New Light LIT File (UHD)");
           
             // subsubmenu Open
             Text.Add(eLang.toolStripMenuItemOpenESL, "Open Enemy ESL File");
@@ -1303,6 +1354,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemOpenQuadCustom, "Open Quad Custom File");
             Text.Add(eLang.toolStripMenuItemOpenITA_PS4_NS, "Open Itens ITA File (PS4/NS) {Adapted}");
             Text.Add(eLang.toolStripMenuItemOpenAEV_PS4_NS, "Open Events AEV File (PS4/NS) {Adapted}");
+            Text.Add(eLang.toolStripMenuItemOpenLIT_2007_PS2, "Open Light LIT File (2007/PS2)");
+            Text.Add(eLang.toolStripMenuItemOpenLIT_UHD, "Open Light LIT File (UHD)");
             
             // subsubmenu Save
             Text.Add(eLang.toolStripMenuItemSaveESL, "Save Enemy ESL File");
@@ -1332,6 +1385,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemClearEAR, "Clear Ctrl Effect Group EAR List");
             Text.Add(eLang.toolStripMenuItemClearEMI, "Clear Interaction Point EMI List");
             Text.Add(eLang.toolStripMenuItemClearESE, "Clear Environment Sound ESE List");
+            Text.Add(eLang.toolStripMenuItemClearLIT, "Clear Light LIT List");
             Text.Add(eLang.toolStripMenuItemClearQuadCustom, "Clear Quad Custom List");
 
             // sub menu edit
@@ -1353,6 +1407,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSubMenuItem, "Item Options");
             Text.Add(eLang.toolStripMenuItemSubMenuSpecial, "Special Options");
             Text.Add(eLang.toolStripMenuItemSubMenuEtcModel, "EtcModel Options");
+            Text.Add(eLang.toolStripMenuItemSubMenuLight, "Light Options");
             Text.Add(eLang.toolStripMenuItemNodeDisplayNameInHex, "Display Obj Name In Hex");
             Text.Add(eLang.toolStripMenuItemCameraMenu, "Camera Menu");
             Text.Add(eLang.toolStripMenuItemResetCamera, "Reset Camera");
@@ -1371,6 +1426,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemHideFileEAR, "Hide Ctrl Effect Group .EAR");
             Text.Add(eLang.toolStripMenuItemHideFileESE, "Hide Environment Sound .ESE");
             Text.Add(eLang.toolStripMenuItemHideFileEMI, "Hide Interaction Point .EMI");
+            Text.Add(eLang.toolStripMenuItemHideFileLIT, "Hide Light .LIT");
             Text.Add(eLang.toolStripMenuItemHideQuadCustom, "Hide QuadCustom");
 
 
@@ -1389,6 +1445,10 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemEtcModelUseScale, "EtcModel Use Scale");
             Text.Add(eLang.toolStripMenuItemSubMenuQuadCustom, "QuadCustom Options");
             Text.Add(eLang.toolStripMenuItemUseCustomColors, "Use Custom Colors");
+            Text.Add(eLang.toolStripMenuItemShowOnlySelectedGroup, "Show Only Selected Group:");
+            Text.Add(eLang.toolStripMenuItemSelectedGroupUp, "Selected Group ++");
+            Text.Add(eLang.toolStripMenuItemSelectedGroupDown, "Selected Group --");
+            Text.Add(eLang.toolStripMenuItemEnableLightColor, "Enable Light Display Color");
 
             // sub menu de view room and model
             Text.Add(eLang.toolStripMenuItemModelsHideTextures, "Hide Textures");
@@ -1416,6 +1476,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.openFileDialogEAR, "Open Ctrl Effect Group EAR File");
             Text.Add(eLang.openFileDialogEMI, "Open Interaction Point EMI File");
             Text.Add(eLang.openFileDialogESE, "Open Environment Sound ESE File");
+            Text.Add(eLang.openFileDialogLIT, "Open Light LIT File");
             Text.Add(eLang.openFileDialogQuadCustom, "Open QuadCustom File");
 
             Text.Add(eLang.saveFileDialogConvertAEV, "Save Convert Events AEV File");
@@ -1433,6 +1494,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.saveFileDialogEAR, "Save Ctrl Effect Group EAR File");
             Text.Add(eLang.saveFileDialogEMI, "Save Interaction Point EMI File");
             Text.Add(eLang.saveFileDialogESE, "Save Environment Sound ESE File");
+            Text.Add(eLang.saveFileDialogLIT, "Save Light LIT File");
             Text.Add(eLang.saveFileDialogQuadCustom, "Save QuadCustom File");
 
             //cameraMove

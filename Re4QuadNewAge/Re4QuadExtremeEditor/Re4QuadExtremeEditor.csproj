@@ -116,6 +116,7 @@
     <Compile Include="src\Class\Files\File_ESAR_Group.cs" />
     <Compile Include="src\Class\Files\File_ESE_Group.cs" />
     <Compile Include="src\Class\Files\File_FSE_Group.cs" />
+    <Compile Include="src\Class\Files\File_LIT_Group.cs" />
     <Compile Include="src\Class\Interfaces\IDisplay.cs" />
     <Compile Include="src\Class\Interfaces\INodeChangeAmount.cs" />
     <Compile Include="src\Class\Interfaces\IInternalID.cs" />
@@ -161,6 +162,8 @@
     <Compile Include="src\Class\MyProperty\NewAge_ESAR_Property.cs" />
     <Compile Include="src\Class\MyProperty\NewAge_ESE_Property.cs" />
     <Compile Include="src\Class\MyProperty\NewAge_FSE_Property.cs" />
+    <Compile Include="src\Class\MyProperty\NewAge_LIT_Entry_Property.cs" />
+    <Compile Include="src\Class\MyProperty\NewAge_LIT_Group_Property.cs" />
     <Compile Include="src\Class\MyProperty\NoneProperty.cs" />
     <Compile Include="src\Class\MyProperty\QuadCustomProperty.cs" />
     <Compile Include="src\Class\ObjForListBox.cs" />
@@ -183,6 +186,11 @@
     <Compile Include="src\Class\ObjMethods\NewAge_ESE_MethodsForGL.cs" />
     <Compile Include="src\Class\ObjMethods\NewAge_FSE_Methods.cs" />
     <Compile Include="src\Class\ObjMethods\NewAge_FSE_MethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\NewAge_LIT_Entry_Methods.cs" />
+    <Compile Include="src\Class\ObjMethods\NewAge_LIT_Entry_MethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\NewAge_LIT_Group_Methods.cs" />
+    <Compile Include="src\Class\ObjMethods\NewAge_LIT_Group_MethodsForGL.cs" />
+    <Compile Include="src\Class\ObjMethods\NodeChangeAmountCallbackMethods.cs" />
     <Compile Include="src\Class\ObjMethods\NodeChangeAmountMethods.cs" />
     <Compile Include="src\Class\ObjMethods\NodeDisplayMethods.cs" />
     <Compile Include="src\Class\ObjMethods\NodeMoveMethods.cs" />
@@ -202,6 +210,8 @@
     <Compile Include="src\Class\TreeNodeObj\EnemyNodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\EtcModelNodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\ExtraNodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\NewAge_LIT_Entrys_NodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\NewAge_LIT_Groups_NodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\Object3D.cs" />
     <Compile Include="src\Class\TreeNodeObj\QuadCustomNodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\SpecialNodeGroup.cs" />
@@ -362,6 +372,7 @@
     <None Include="Resources\Hex3D\CylinderTop.hex" />
     <None Include="Resources\Hex3D\CylinderTopX.hex" />
     <None Include="Resources\Hex3D\ItemTrigggerRadius.hex" />
+    <None Include="Resources\Hex3D\LIT_Point.hex" />
     <None Include="Resources\Hex3D\Plane.hex" />
     <None Include="Resources\Shader\BoundaryBoxShaderFrag.frag" />
     <None Include="Resources\Shader\BoundaryBoxShaderVert.vert" />
@@ -371,6 +382,8 @@
     <None Include="Resources\Shader\GridShaderVert.vert" />
     <None Include="Resources\Shader\ItemTrigggerRadiusShaderFrag.frag" />
     <None Include="Resources\Shader\ItemTrigggerRadiusShaderVert.vert" />
+    <None Include="Resources\Shader\LitPointShaderFrag.frag" />
+    <None Include="Resources\Shader\LitPointShaderVert.vert" />
     <None Include="Resources\Shader\ObjModelShaderFrag.frag" />
     <None Include="Resources\Shader\ObjModelShaderVert.vert" />
     <None Include="Resources\Shader\PlaneZoneShaderFrag.frag" />

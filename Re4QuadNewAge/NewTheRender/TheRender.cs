@@ -30,6 +30,7 @@ namespace NewAgeTheRender
         private static readonly Vector3 boundNoneQuadCustom = new Vector3(2f, 2f, 2f);
         private static readonly Vector3 boundNoneESE = new Vector3(2f, 2f, 2f);
         private static readonly Vector3 boundNoneEMI = new Vector3(2f, 2f, 2f);
+        private static readonly Vector3 boundNoneLIT = new Vector3(2f, 2f, 2f);
 
         public static void AllRender(ref Matrix4 camMtx, ref Matrix4 ProjMatrix, Vector3 camPos, float objY, bool IsSelectMode = false)
         {
@@ -59,6 +60,10 @@ namespace NewAgeTheRender
             DataShader.ShaderPlaneZone.SetMatrix4("view", camMtx);
             DataShader.ShaderPlaneZone.SetMatrix4("projection", ProjMatrix);
 
+            DataShader.ShaderLitPoint.Use();
+            DataShader.ShaderLitPoint.SetMatrix4("view", camMtx);
+            DataShader.ShaderLitPoint.SetMatrix4("projection", ProjMatrix);
+
             DataShader.ShaderItemTrigggerRadius.Use();
             DataShader.ShaderItemTrigggerRadius.SetMatrix4("view", camMtx);
             DataShader.ShaderItemTrigggerRadius.SetMatrix4("projection", ProjMatrix);
@@ -86,6 +91,7 @@ namespace NewAgeTheRender
                 RenderExtras(RenderMode.SelectMode);
                 RenderFileESE(RenderMode.SelectMode);
                 RenderFileEMI(RenderMode.SelectMode);
+                RenderFileLIT(RenderMode.SelectMode);
                 RenderITA_TriggerZone(RenderMode.SelectMode);
                 RenderAEV_TriggerZone(RenderMode.SelectMode);
 
@@ -106,6 +112,7 @@ namespace NewAgeTheRender
                 RenderExtras(RenderMode.BoxMode);
                 RenderFileESE(RenderMode.BoxMode);
                 RenderFileEMI(RenderMode.BoxMode);
+                RenderFileLIT(RenderMode.BoxMode);
                 RenderITA_TriggerZone(RenderMode.BoxMode);
                 RenderAEV_TriggerZone(RenderMode.BoxMode);
 
@@ -144,6 +151,7 @@ namespace NewAgeTheRender
                 RenderExtras(RenderMode.ModelMode);
                 RenderFileESE(RenderMode.ModelMode);
                 RenderFileEMI(RenderMode.ModelMode);
+                RenderFileLIT(RenderMode.ModelMode);
                 RenderEnemyESL(RenderMode.ModelMode);
                 RenderITA_ItemObj(RenderMode.ModelMode);
                 RenderAEV_ItemObj(RenderMode.ModelMode);
@@ -346,7 +354,6 @@ namespace NewAgeTheRender
             }
         }
 
-
         private static void RenderFileEMI(RenderMode mode) 
         {
             if (Globals.RenderFileEMI)
@@ -401,6 +408,90 @@ namespace NewAgeTheRender
 
                     }
 
+                }
+            }
+        }
+
+        private static void RenderFileLIT(RenderMode mode)
+        {
+            if (Globals.RenderFileLIT)
+            {
+                foreach (TreeNode item in DataBase.NodeLIT_Entrys.Nodes)
+                {
+                    ushort ID = ((Object3D)item).ObjLineRef;
+                    ushort GroupID = DataBase.NodeLIT_Entrys.MethodsForGL.GetGroupOrderID(ID);
+
+                    if (Globals.LIT_ShowOnlySelectedGroup == false || (Globals.LIT_ShowOnlySelectedGroup && Globals.LIT_SelectedGroup == GroupID))
+                    {
+                        byte[] partColor = BitConverter.GetBytes(ID);
+                        Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.LIT_ENTRYS / 255f, 1f);
+
+                        if (mode == RenderMode.BoxMode)
+                        {
+                            useColor = Globals.GL_ColorLIT;
+                            if (Globals.LIT_EnableLightColor)
+                            {
+                                useColor = DataBase.NodeLIT_Entrys.MethodsForGL.GetLightColor(ID);
+                            }
+                            if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                            {
+                                useColor = Globals.GL_ColorSelected;
+                            }
+                        }
+
+                        RspFix rspFix = new RspFix(
+                            Vector3.One,
+                            DataBase.NodeLIT_Entrys.MethodsForGL.GetPosition(ID),
+                            Matrix4.Identity);
+
+                        if (Globals.LIT_EnableLightColor)
+                        {
+                            if (mode == RenderMode.ModelMode)
+                            {
+                                RenderAppModel.RenderLitPointBorder(DataBase.NodeLIT_Entrys.MethodsForGL.GetPosition(ID), Globals.GL_ColorLIT);
+                                RenderAppModel.RenderLitPointColor(DataBase.NodeLIT_Entrys.MethodsForGL.GetPosition(ID), DataBase.NodeLIT_Entrys.MethodsForGL.GetLightColor(ID));
+                            }
+                        }
+                        if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_LIT_Point))
+                        {
+                            if (mode == RenderMode.ModelMode && Globals.LIT_EnableLightColor == false)
+                            {
+                                DataBase.InternalModels.RenderModel(Consts.ModelKey_LIT_Point, rspFix);
+                            }
+                            else if (mode == RenderMode.BoxMode)
+                            {
+                                RenderAppModel.BoundingBoxViewer(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_LIT_Point), rspFix, useColor);
+                            }
+                            else if (mode == RenderMode.SelectMode)
+                            {
+                                RenderAppModel.BoundingBoxToSelect(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_LIT_Point), rspFix, useColor);
+                            }
+
+                        }
+                        else
+                        {
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                RenderAppModel.NoneBoundingBoxViewer(boundNoneLIT, -boundNoneLIT, rspFix, useColor);
+                            }
+                            else if (mode == RenderMode.SelectMode)
+                            {
+                                RenderAppModel.NoneBoundingBoxToSelect(boundNoneLIT, -boundNoneLIT, rspFix, useColor);
+                            }
+
+                        }
+
+                        if (mode == RenderMode.BoxMode)
+                        {
+                            //RenderRangeRadius
+                            float RangeRadius = DataBase.NodeLIT_Entrys.MethodsForGL.GetRangeRadius(ID);
+                            if (Globals.RenderItemTriggerRadius && RangeRadius != 0)
+                            {
+                                RenderAppModel.ItemTrigggerRadiusViewer(new Vector4(DataBase.NodeLIT_Entrys.MethodsForGL.GetPosition(ID), RangeRadius), useColor);
+                            }
+
+                        }
+                    }
                 }
             }
         }

@@ -82,6 +82,7 @@ namespace Re4QuadExtremeEditor.src
         public const string ModelKeyQuadCustomPoint = "quadcustomarrow.json";
         public const string ModelKey_ESE_Point = "ese_point.json";
         public const string ModelKey_EMI_Point = "emi_point.json";
+        public const string ModelKey_LIT_Point = "lit_point.json";
 
         //quantidade limite de objetos de cada arquivo
         public const ushort AmountLimitETS = 5000;

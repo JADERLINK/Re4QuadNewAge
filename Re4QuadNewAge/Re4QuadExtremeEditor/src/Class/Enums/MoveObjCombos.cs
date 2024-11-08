@@ -20,6 +20,7 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         QuadCustom = 128, //point position, angle, scale
         EseEntry = 256,
         EmiEntry = 512,
+        LitEntry = 1024,
 
         //combos
         Combo_Item_TriggerZone = Item | TriggerZone,
@@ -27,6 +28,6 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         Combo_Item_QuadCustom_TriggerZone = Item | QuadCustom | TriggerZone,
         Combo_Item_QuadCustom = Item | QuadCustom,
 
-        ComboAll = Enemy | Etcmodel | Item | TriggerZone | ExtraSpecialWarpLadderGrappleGun | ExtraSpecialAshley | QuadCustom | EseEntry | EmiEntry
+        ComboAll = Enemy | Etcmodel | Item | TriggerZone | ExtraSpecialWarpLadderGrappleGun | ExtraSpecialAshley | QuadCustom | EseEntry | EmiEntry | LitEntry
     }
 }
