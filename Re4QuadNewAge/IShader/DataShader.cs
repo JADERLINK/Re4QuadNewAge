@@ -9,7 +9,9 @@ namespace Re4QuadExtremeEditor.src.Class.Shaders
     {
         //shaders
         public static IShader ShaderObjModel = null;
+        public static IShader ShaderObjModelPlus = null;
         public static IShader ShaderBoundaryBox = null;
+        public static IShader ShaderBoundaryBoxPlus = null;
         public static IShader ShaderTriggerZoneBox = null;
         public static IShader ShaderTriggerZoneCircle = null;
         public static IShader ShaderPlaneZone = null;
@@ -73,11 +75,19 @@ namespace Re4QuadExtremeEditor.src.Class.Shaders
             ShaderObjModel.SetInt("texture0", 0);
             ShaderObjModel.SetInt("texture1", 1);
 
+            ShaderObjModelPlus = new Shader(Encoding.UTF8.GetString(Properties.Resources.ObjModelShaderPlusVert), Encoding.UTF8.GetString(Properties.Resources.ObjModelShaderFrag));
+            ShaderObjModelPlus.Use();
+            ShaderObjModelPlus.SetInt("texture0", 0);
+            ShaderObjModelPlus.SetInt("texture1", 1);
+
             ShaderRoomSelectMode = new Shader(Encoding.UTF8.GetString(Properties.Resources.RoomSelectModeShaderVert), Encoding.UTF8.GetString(Properties.Resources.RoomSelectModeShaderFrag));
             ShaderRoomSelectMode.Use();
 
             ShaderBoundaryBox = new Shader(Encoding.UTF8.GetString(Properties.Resources.BoundaryBoxShaderVert), Encoding.UTF8.GetString(Properties.Resources.BoundaryBoxShaderFrag));
             ShaderBoundaryBox.Use();
+
+            ShaderBoundaryBoxPlus = new Shader(Encoding.UTF8.GetString(Properties.Resources.BoundaryBoxShaderPlusVert), Encoding.UTF8.GetString(Properties.Resources.BoundaryBoxShaderFrag));
+            ShaderBoundaryBoxPlus.Use();
 
             ShaderTriggerZoneBox = new Shader(Encoding.UTF8.GetString(Properties.Resources.TriggerZoneShaderVert), Encoding.UTF8.GetString(Properties.Resources.TriggerZoneShaderFrag));
             ShaderTriggerZoneBox.Use();

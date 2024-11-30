@@ -49,6 +49,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ControlUtils", "ControlUtil
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ScarletLibrary", "ScarletLibrary\ScarletLibrary.shproj", "{4CB24A8B-C71F-48C9-AA4E-7038EBFCA3CE}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SimpleEndianBinaryIO", "SimpleEndianBinaryIO\SimpleEndianBinaryIO.shproj", "{5DDB0D8F-D1EA-479F-8FAC-BE2B5C6BAB65}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EFF_FILE", "EFF_FILE\EFF_FILE.shproj", "{26EDDB14-2E44-44DD-AAB5-663167C986CF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PMD_LIB\PMD_LIB.projitems*{02864b5e-f21e-4cf1-a287-3ac34656f7bc}*SharedItemsImports = 13
@@ -56,6 +60,7 @@ Global
 		Camera\Camera.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		ControlUtils\ControlUtils.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		DDS_LIB\DDS_LIB.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
+		EFF_FILE\EFF_FILE.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		IShader\IShader.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		JSON\JSON.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		LoadSMX\LoadSMX.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
@@ -70,6 +75,7 @@ Global
 		Re4ViewerRender\Re4ViewerRender.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		ScarletLibrary\ScarletLibrary.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		ScenarioSMD2007\ScenarioSMD2007.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
+		SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		SMX\SMX.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		TGA_LIB\TGA_LIB.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		UhdScenarioSMD\UhdScenarioSMD.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
@@ -77,8 +83,10 @@ Global
 		ViewerBase\ViewerBase.projitems*{1cb4c2c5-4d8d-4ded-a6ad-79d908c9b22d}*SharedItemsImports = 4
 		SMX\SMX.projitems*{1e471265-f147-4c2d-a710-034db7459707}*SharedItemsImports = 13
 		NewTheRender\NewTheRender.projitems*{20573470-c32b-4d09-ab07-f98f0f55d5f8}*SharedItemsImports = 13
+		EFF_FILE\EFF_FILE.projitems*{26eddb14-2e44-44dd-aab5-663167c986cf}*SharedItemsImports = 13
 		TGA_LIB\TGA_LIB.projitems*{32983cb7-1c40-45f0-8d06-c04a245f892e}*SharedItemsImports = 13
 		ScarletLibrary\ScarletLibrary.projitems*{4cb24a8b-c71f-48c9-aa4e-7038ebfca3ce}*SharedItemsImports = 13
+		SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems*{5ddb0d8f-d1ea-479f-8fac-be2b5c6bab65}*SharedItemsImports = 13
 		IShader\IShader.projitems*{651d6f6e-4848-4b62-b018-b92cd8161ac7}*SharedItemsImports = 13
 		ScenarioSMD2007\ScenarioSMD2007.projitems*{681d0465-23e6-4033-b1f3-cd061a192401}*SharedItemsImports = 13
 		ControlUtils\ControlUtils.projitems*{715ef6cb-6aa6-46b6-a7c0-81eeee447df3}*SharedItemsImports = 13

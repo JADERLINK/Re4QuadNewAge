@@ -15,7 +15,7 @@ using NewAgeTheRender;
 namespace Re4QuadExtremeEditor.src
 {
     /// <summary>
-    /// Contem todo o conteudo da modelagem(3d), os conteudos dos arquivos AEV, ESL, ETS e ITA, e as definições dos objetos;
+    /// Contem todo o conteudo da modelagem(3d), os conteudos dos arquivos carregados no programa, e as definições dos objetos;
     /// </summary>
     public static class DataBase
     { 
@@ -50,6 +50,7 @@ namespace Re4QuadExtremeEditor.src
         public static File_FSE_Group FileFSE;
         public static File_LIT_Group FileLIT;
         public static FileQuadCustomGroup FileQuadCustom;
+        public static File_EFFBLOB_Group FileEFF;
 
         //conteudo do treeview
         public static EnemyNodeGroup NodeESL;
@@ -66,6 +67,17 @@ namespace Re4QuadExtremeEditor.src
         public static QuadCustomNodeGroup NodeQuadCustom;
         public static NewAge_LIT_Groups_NodeGroup NodeLIT_Groups;
         public static NewAge_LIT_Entrys_NodeGroup NodeLIT_Entrys;
+        //EFFNodes
+        public static NewAge_EFF_NodeGroup NodeEFF_Table0;
+        public static NewAge_EFF_NodeGroup NodeEFF_Table1;
+        public static NewAge_EFF_NodeGroup NodeEFF_Table2;
+        public static NewAge_EFF_NodeGroup NodeEFF_Table3;
+        public static NewAge_EFF_NodeGroup NodeEFF_Table4;
+        public static NewAge_EFF_NodeGroup NodeEFF_Table6;
+        public static NewAge_EFF_EffectGroup_NodeGroup NodeEFF_Table7_Effect_0;
+        public static NewAge_EFF_EffectGroup_NodeGroup NodeEFF_Table8_Effect_1;
+        public static NewAge_EFF_EffectEntry_NodeGroup NodeEFF_EffectEntry;
+        public static NewAge_EFF_Table9Entry_NodeGroup NodeEFF_Table9;
 
         // lista de objetos selecionados na treeview
         public static Dictionary<int, TreeNode> SelectedNodes;

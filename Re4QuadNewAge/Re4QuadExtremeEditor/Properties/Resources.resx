@@ -124,6 +124,9 @@
   <data name="BoundaryBoxShaderFrag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shader\BoundaryBoxShaderFrag.frag;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="BoundaryBoxShaderPlusVert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shader\BoundaryBoxShaderPlusVert.vert;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="BoundaryBoxShaderVert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shader\BoundaryBoxShaderVert.vert;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -192,6 +195,9 @@
   </data>
   <data name="ObjModelShaderFrag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shader\ObjModelShaderFrag.frag;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ObjModelShaderPlusVert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shader\ObjModelShaderPlusVert.vert;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ObjModelShaderVert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shader\ObjModelShaderVert.vert;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using SimpleEndianBinaryIO;
 
 namespace Re4QuadExtremeEditor.src.Class.Files
 {
@@ -3992,6 +3993,10 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         protected override int GetTriggerZoneStartIndex()
         {
             return 0x04;
+        }
+        protected override Endianness GetEndianness()
+        {
+            return Endianness.LittleEndian;
         }
 
     }

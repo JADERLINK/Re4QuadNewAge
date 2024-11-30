@@ -87,6 +87,52 @@ namespace Re4QuadExtremeEditor.src.Forms
                 comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.ITA, 0x13, Lang.GetText(eLang.AddNewITA) + " 0x" + Lang.GetAttributeText(aLang.SpecialType13_LocalTeleportation)));
             }
 
+            if (DataBase.FileEFF != null)
+            {
+                if (DataBase.FileEFF._Table0.TableLines.Count < Consts.AmountLimitEFF_Table0)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table0, 0x00, Lang.GetText(eLang.AddNewEFF_Table0)));
+                }
+                if (DataBase.FileEFF._Table1.TableLines.Count < Consts.AmountLimitEFF_Table1)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table1, 0x00, Lang.GetText(eLang.AddNewEFF_Table1)));
+                }
+                if (DataBase.FileEFF._Table2.TableLines.Count < Consts.AmountLimitEFF_Table2)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table2, 0x00, Lang.GetText(eLang.AddNewEFF_Table2)));
+                }
+                if (DataBase.FileEFF._Table3.TableLines.Count < Consts.AmountLimitEFF_Table3)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table3, 0x00, Lang.GetText(eLang.AddNewEFF_Table3)));
+                }
+                if (DataBase.FileEFF._Table4.TableLines.Count < Consts.AmountLimitEFF_Table4)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table4, 0x00, Lang.GetText(eLang.AddNewEFF_Table4)));
+                }
+                if (DataBase.FileEFF._Table6.TableLines.Count < Consts.AmountLimitEFF_Table6)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table6, 0x00, Lang.GetText(eLang.AddNewEFF_Table6)));
+                }
+                if (DataBase.FileEFF._Table7_Effect0_Group.Table_Effect_Group.Count < Consts.AmountLimitEFF_Table7and8)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table7_Effect_0, 0x00, Lang.GetText(eLang.AddNewEFF_Table7)));
+                }
+                if (DataBase.FileEFF._Table8_Effect1_Group.Table_Effect_Group.Count < Consts.AmountLimitEFF_Table7and8)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table8_Effect_1, 0x00, Lang.GetText(eLang.AddNewEFF_Table8)));
+                }
+                if (DataBase.FileEFF._TableEffectEntry.EffectEntry.Count < Consts.AmountLimitEFF_EffectEntry)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_EffectEntry, 0x07, Lang.GetText(eLang.AddNewEFF_EffectEntry7)));
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_EffectEntry, 0x08, Lang.GetText(eLang.AddNewEFF_EffectEntry8)));
+                }
+                if (DataBase.FileEFF._Table9.Table9Lines.Count < Consts.AmountLimitEFF_Table9_entry)
+                {
+                    comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.EFF_Table9, 0x00, Lang.GetText(eLang.AddNewEFF_Table9)));
+                }
+
+            }
+
             if (comboBoxType.Items.Count == 0)
             {
                 comboBoxType.Items.Add(new NewEntryObjForListBox(GroupType.NULL, 0x00, Lang.GetText(eLang.AddNewNull)));
@@ -360,6 +406,206 @@ namespace Re4QuadExtremeEditor.src.Forms
                     }
                     DataBase.NodeLIT_Entrys.Nodes.AddRange(nodes.ToArray());
                     DataBase.NodeLIT_Entrys.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table0)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table0.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table0)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table0.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table0, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table0.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table0.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table1)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table1.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table1)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table1.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table1, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table1.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table1.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table2)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table2.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table2)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table2.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table2, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table2.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table2.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table3)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table3.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table3)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table3.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table3, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table3.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table3.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table4)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table4.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table4)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table4.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table4, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table4.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table4.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table6)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table6.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table6)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table6.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table6, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table6.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table6.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table9)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table9.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table9_entry)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table9.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table9, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table9.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table9.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table7_Effect_0)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table7_Effect_0.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table7and8)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table7_Effect_0.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table7_Effect_0, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table7_Effect_0.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table7_Effect_0.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_Table8_Effect_1)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_Table8_Effect_1.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_Table7and8)
+                        {
+                            ushort NewId = DataBase.NodeEFF_Table8_Effect_1.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table8_Effect_1, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_Table8_Effect_1.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_Table8_Effect_1.Expand();
+                }
+
+                else if (gt.ID == GroupType.EFF_EffectEntry)
+                {
+                    List<Object3D> nodes = new List<Object3D>();
+                    for (ushort i = 0; i < numericUpDownAmount.Value; i++)
+                    {
+                        if (DataBase.NodeEFF_EffectEntry.Nodes.Count + nodes.Count < Consts.AmountLimitEFF_EffectEntry)
+                        {
+                            ushort NewId = DataBase.NodeEFF_EffectEntry.ChangeAmountMethods.AddNewLineID(gt.InitType);
+                            Object3D o = Object3D.CreateNewInstance(GroupType.EFF_EffectEntry, NewId);
+                            nodes.Add(o);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    DataBase.NodeEFF_EffectEntry.Nodes.AddRange(nodes.ToArray());
+                    DataBase.NodeEFF_EffectEntry.Expand();
                 }
 
                 TreeViewEnableDrawNode?.Invoke();

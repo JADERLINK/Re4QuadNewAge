@@ -28,6 +28,7 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         {
             SetThis(this);
 
+            MultiSelectInfo = new MultiSelectObjInfoToProperty(Lang.GetAttributeText(aLang.MultiSelectInfoValueText), updateMethods);
             List_ESL = new GenericCollection();
             List_ETS = new GenericCollection();
             List_ITA = new GenericCollection();
@@ -41,7 +42,17 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             List_LIT_GROUPS = new GenericCollection();
             List_LIT_ENTRYS = new GenericCollection();
             List_QuadCustom = new GenericCollection();
-            MultiSelectInfo = new MultiSelectObjInfoToProperty(Lang.GetAttributeText(aLang.MultiSelectInfoValueText), updateMethods);
+            List_EFF_Table0 = new GenericCollection();
+            List_EFF_Table1 = new GenericCollection();
+            List_EFF_Table2 = new GenericCollection();
+            List_EFF_Table3 = new GenericCollection();
+            List_EFF_Table4 = new GenericCollection();
+            List_EFF_Table6 = new GenericCollection();
+            List_EFF_Table7 = new GenericCollection();
+            List_EFF_Table8 = new GenericCollection();
+            List_EFF_Table9 = new GenericCollection();
+            List_EFF_EffectEntry = new GenericCollection();
+
 
             ChangePropertyIsBrowsable(nameof(MultiSelectInfo), false);
             ChangePropertyIsBrowsable(nameof(List_ESL), false);
@@ -57,6 +68,17 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             ChangePropertyIsBrowsable(nameof(List_LIT_GROUPS), false);
             ChangePropertyIsBrowsable(nameof(List_LIT_ENTRYS), false);
             ChangePropertyIsBrowsable(nameof(List_QuadCustom), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table0), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table1), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table2), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table3), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table4), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table6), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table7), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table8), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table9), false);
+            ChangePropertyIsBrowsable(nameof(List_EFF_EffectEntry), false);
+
 
             ChangePropertyName(nameof(List_ESL), Lang.GetText(eLang.NodeESL));
             ChangePropertyName(nameof(List_ETS), Lang.GetText(eLang.NodeETS));
@@ -71,37 +93,54 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             ChangePropertyName(nameof(List_LIT_GROUPS), Lang.GetText(eLang.NodeLIT_GROUPS));
             ChangePropertyName(nameof(List_LIT_ENTRYS), Lang.GetText(eLang.NodeLIT_ENTRYS));
             ChangePropertyName(nameof(List_QuadCustom), Lang.GetText(eLang.NodeQuadCustom));
+            ChangePropertyName(nameof(List_EFF_Table0), Lang.GetText(eLang.NodeEFF_Table0));
+            ChangePropertyName(nameof(List_EFF_Table1), Lang.GetText(eLang.NodeEFF_Table1));
+            ChangePropertyName(nameof(List_EFF_Table2), Lang.GetText(eLang.NodeEFF_Table2));
+            ChangePropertyName(nameof(List_EFF_Table3), Lang.GetText(eLang.NodeEFF_Table3));
+            ChangePropertyName(nameof(List_EFF_Table4), Lang.GetText(eLang.NodeEFF_Table4));
+            ChangePropertyName(nameof(List_EFF_Table6), Lang.GetText(eLang.NodeEFF_Table6));
+            ChangePropertyName(nameof(List_EFF_Table9), Lang.GetText(eLang.NodeEFF_Table9));
+            ChangePropertyName(nameof(List_EFF_Table7), Lang.GetText(eLang.NodeEFF_Table7_Effect_0));
+            ChangePropertyName(nameof(List_EFF_Table8), Lang.GetText(eLang.NodeEFF_Table8_Effect_1));
+            ChangePropertyName(nameof(List_EFF_EffectEntry), Lang.GetText(eLang.NodeEFF_EffectEntry));
+        }
+
+        private IEnumerable<Object3D> FindAll(List<TreeNode> Selecteds, GroupType groupType) 
+        {
+            return Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == groupType).Cast<Object3D>();
+        }
+
+        private IEnumerable<MultiSelectEntryObj> GetMultiSelectEntryList(IEnumerable<Object3D> Object3D) 
+        {
+            return (from obj in Object3D select new MultiSelectEntryObj(obj));
         }
 
         public int LoadContent(List<TreeNode> Selecteds) 
         {
-            var Object3D_ESL = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESL).Cast<Object3D>();
-            var Object3D_ETS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ETS).Cast<Object3D>();
-            var Object3D_ITA = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ITA).Cast<Object3D>();
-            var Object3D_AEV = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.AEV).Cast<Object3D>();
-            var Object3D_DSE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.DSE).Cast<Object3D>();
-            var Object3D_FSE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.FSE).Cast<Object3D>();
-            var Object3D_SAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.SAR).Cast<Object3D>();
-            var Object3D_EAR = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EAR).Cast<Object3D>();
-            var Object3D_ESE = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.ESE).Cast<Object3D>();
-            var Object3D_EMI = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EMI).Cast<Object3D>();
-            var Object3D_LIT_ENTRYS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_ENTRYS).Cast<Object3D>();
-            var Object3D_LIT_GROUPS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_GROUPS).Cast<Object3D>();
-            var Object3D_QuadCustom = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.QUAD_CUSTOM).Cast<Object3D>();
+            var EntryInfo_ESL = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.ESL));
+            var EntryInfo_ETS = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.ETS));
+            var EntryInfo_ITA = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.ITA));
+            var EntryInfo_AEV = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.AEV));
+            var EntryInfo_DSE = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.DSE));
+            var EntryInfo_FSE = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.FSE));
+            var EntryInfo_SAR = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.SAR));
+            var EntryInfo_EAR = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EAR));
+            var EntryInfo_ESE = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.ESE));
+            var EntryInfo_EMI = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EMI));
+            var EntryInfo_LIT_ENTRYS = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.LIT_ENTRYS));
+            var EntryInfo_LIT_GROUPS = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.LIT_GROUPS));
+            var EntryInfo_QuadCustom = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.QUAD_CUSTOM));
+            var EntryInfo_EFF_Table0 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table0));
+            var EntryInfo_EFF_Table1 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table1));
+            var EntryInfo_EFF_Table2 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table2));
+            var EntryInfo_EFF_Table3 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table3));
+            var EntryInfo_EFF_Table4 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table4));
+            var EntryInfo_EFF_Table6 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table6));
+            var EntryInfo_EFF_Table7 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table7_Effect_0));
+            var EntryInfo_EFF_Table8 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table8_Effect_1));
+            var EntryInfo_EFF_Table9 = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_Table9));
+            var EntryInfo_EFF_EffectEntry = GetMultiSelectEntryList(FindAll(Selecteds, GroupType.EFF_EffectEntry));
 
-            var EntryInfo_ESL = (from obj in Object3D_ESL select new MultiSelectEntryObj(obj));
-            var EntryInfo_ETS = (from obj in Object3D_ETS select new MultiSelectEntryObj(obj));
-            var EntryInfo_ITA = (from obj in Object3D_ITA select new MultiSelectEntryObj(obj));
-            var EntryInfo_AEV = (from obj in Object3D_AEV select new MultiSelectEntryObj(obj));
-            var EntryInfo_DSE = (from obj in Object3D_DSE select new MultiSelectEntryObj(obj));
-            var EntryInfo_FSE = (from obj in Object3D_FSE select new MultiSelectEntryObj(obj));
-            var EntryInfo_SAR = (from obj in Object3D_SAR select new MultiSelectEntryObj(obj));
-            var EntryInfo_EAR = (from obj in Object3D_EAR select new MultiSelectEntryObj(obj));
-            var EntryInfo_ESE = (from obj in Object3D_ESE select new MultiSelectEntryObj(obj));
-            var EntryInfo_EMI = (from obj in Object3D_EMI select new MultiSelectEntryObj(obj));
-            var EntryInfo_LIT_ENTRYS = (from obj in Object3D_LIT_ENTRYS select new MultiSelectEntryObj(obj));
-            var EntryInfo_LIT_GROUPS = (from obj in Object3D_LIT_GROUPS select new MultiSelectEntryObj(obj));
-            var EntryInfo_QuadCustom = (from obj in Object3D_QuadCustom select new MultiSelectEntryObj(obj));
 
             MultiSelectInfo.AddRange(EntryInfo_ESL);
             MultiSelectInfo.AddRange(EntryInfo_ETS);
@@ -116,6 +155,17 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             MultiSelectInfo.AddRange(EntryInfo_LIT_ENTRYS);
             MultiSelectInfo.AddRange(EntryInfo_LIT_GROUPS);
             MultiSelectInfo.AddRange(EntryInfo_QuadCustom);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table0);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table1);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table2);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table3);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table4);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table6);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table7);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table8);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_Table9);
+            MultiSelectInfo.AddRange(EntryInfo_EFF_EffectEntry);
+
 
             List_ESL.AddRange(EntryInfo_ESL);
             List_ETS.AddRange(EntryInfo_ETS);
@@ -130,6 +180,16 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             List_LIT_GROUPS.AddRange(EntryInfo_LIT_GROUPS);
             List_LIT_ENTRYS.AddRange(EntryInfo_LIT_ENTRYS);
             List_QuadCustom.AddRange(EntryInfo_QuadCustom);
+            List_EFF_EffectEntry.AddRange(EntryInfo_EFF_EffectEntry);
+            List_EFF_Table0.AddRange(EntryInfo_EFF_Table0);
+            List_EFF_Table1.AddRange(EntryInfo_EFF_Table1);
+            List_EFF_Table2.AddRange(EntryInfo_EFF_Table2);
+            List_EFF_Table3.AddRange(EntryInfo_EFF_Table3);
+            List_EFF_Table4.AddRange(EntryInfo_EFF_Table4);
+            List_EFF_Table6.AddRange(EntryInfo_EFF_Table6);
+            List_EFF_Table7.AddRange(EntryInfo_EFF_Table7);
+            List_EFF_Table8.AddRange(EntryInfo_EFF_Table8);
+            List_EFF_Table9.AddRange(EntryInfo_EFF_Table9);
 
             ChangePropertyIsBrowsable(nameof(MultiSelectInfo), MultiSelectInfo.GetCount() != 0);
             ChangePropertyIsBrowsable(nameof(List_ESL), List_ESL.Count != 0);
@@ -145,6 +205,16 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
             ChangePropertyIsBrowsable(nameof(List_LIT_GROUPS), List_LIT_GROUPS.Count != 0);
             ChangePropertyIsBrowsable(nameof(List_LIT_ENTRYS), List_LIT_ENTRYS.Count != 0);
             ChangePropertyIsBrowsable(nameof(List_QuadCustom), List_QuadCustom.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_EffectEntry), List_EFF_EffectEntry.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table0), List_EFF_Table0.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table1), List_EFF_Table1.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table2), List_EFF_Table2.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table3), List_EFF_Table3.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table4), List_EFF_Table4.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table6), List_EFF_Table6.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table7), List_EFF_Table7.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table8), List_EFF_Table8.Count != 0);
+            ChangePropertyIsBrowsable(nameof(List_EFF_Table9), List_EFF_Table9.Count != 0);
 
             return MultiSelectInfo.GetCount();
         }
@@ -324,6 +394,118 @@ namespace Re4QuadExtremeEditor.src.Class.MyProperty
         [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
         [DynamicTypeDescriptor.Id(13, 0)]
         public GenericCollection List_QuadCustom { get; private set; }
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(14, 0)]
+        public GenericCollection List_EFF_Table0 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(15, 0)]
+        public GenericCollection List_EFF_Table1 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(16, 0)]
+        public GenericCollection List_EFF_Table2 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(17, 0)]
+        public GenericCollection List_EFF_Table3 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(18, 0)]
+        public GenericCollection List_EFF_Table4 { get; private set; }
+
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(19, 0)]
+        public GenericCollection List_EFF_Table6 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(20, 0)]
+        public GenericCollection List_EFF_Table7 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(21, 0)]
+        public GenericCollection List_EFF_Table8 { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(22, 0)]
+        public GenericCollection List_EFF_EffectEntry { get; private set; }
+
+        [CustomCategory(aLang.MultiSelectCategory)]
+        [DisplayName("ERROR")]
+        [Description("")]
+        [DefaultValue(null)]
+        [ReadOnly(false)]
+        [Browsable(false)]
+        [TypeConverter(typeof(GenericCollectionConverter))]
+        [Editor(typeof(NoneUITypeEditor), typeof(UITypeEditor))]
+        [DynamicTypeDescriptor.Id(23, 0)]
+        public GenericCollection List_EFF_Table9 { get; private set; }
     }
 
 }

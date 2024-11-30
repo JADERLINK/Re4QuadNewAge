@@ -11,82 +11,113 @@ namespace NewAgeTheRender
     {
         private static readonly Vector3 boundOff = new Vector3(1f, 1f, 1f);
 
+        private static void BoundingBox(Vector3 max, Vector3 min, RspFix fix, Vector4 Color) 
+        {
+            DataShader.ShaderBoundaryBox.Use();
+            DataShader.ShaderBoundaryBox.SetMatrix4("RspFixRotation", fix.Rotation);
+            DataShader.ShaderBoundaryBox.SetVector3("RspFixPosition", fix.Position);
+            DataShader.ShaderBoundaryBox.SetVector4("mColor", Color);
+            DataShader.ShaderBoundaryBox.SetVector3("MaxBoundary", max);
+            DataShader.ShaderBoundaryBox.SetVector3("MinBoundary", min);
+            DataShader.BoxModel.Render();
+        }
+
+        private static void BoundingBox(Vector3 max, Vector3 min, RspFix fixEntry, RspFix fixGroup, Vector4 Color)
+        {
+            DataShader.ShaderBoundaryBoxPlus.Use();
+            DataShader.ShaderBoundaryBoxPlus.SetMatrix4("RspFix2Rotation", fixGroup.Rotation);
+            DataShader.ShaderBoundaryBoxPlus.SetVector3("RspFix2Position", fixGroup.Position);
+            DataShader.ShaderBoundaryBoxPlus.SetMatrix4("RspFixRotation", fixEntry.Rotation);
+            DataShader.ShaderBoundaryBoxPlus.SetVector3("RspFixPosition", fixEntry.Position);
+            DataShader.ShaderBoundaryBoxPlus.SetVector4("mColor", Color);
+            DataShader.ShaderBoundaryBoxPlus.SetVector3("MaxBoundary", max);
+            DataShader.ShaderBoundaryBoxPlus.SetVector3("MinBoundary", min);
+            DataShader.BoxModel.Render();
+        }
+
+        private static void BoundingBox(BoundingBoxLimit box, RspFix fix, Vector4 Color, PolygonMode mode)
+        {
+            Vector3 boundOffFix = boundOff;
+            Vector3 scale = fix.Scale;
+            if (scale.X < 0) { boundOffFix.X *= -1; }
+            if (scale.Y < 0) { boundOffFix.Y *= -1; }
+            if (scale.Z < 0) { boundOffFix.Z *= -1; }
+
+            Vector3 Max = box.UpperBoundary * scale + boundOffFix;
+            Vector3 Min = box.LowerBoundary * scale - boundOffFix;
+
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.PolygonMode(MaterialFace.FrontAndBack, mode);
+
+            BoundingBox(Max, Min, fix, Color);
+        }
+
+        private static void BoundingBox(BoundingBoxLimit box, RspFix fixEntry, RspFix fixGroup, Vector4 Color, PolygonMode mode)
+        {
+            Vector3 boundOffFix = boundOff;
+            Vector3 scale = fixEntry.Scale * fixGroup.Scale;
+            if (scale.X < 0) { boundOffFix.X *= -1; }
+            if (scale.Y < 0) { boundOffFix.Y *= -1; }
+            if (scale.Z < 0) { boundOffFix.Z *= -1; }
+
+            Vector3 Max = box.UpperBoundary * scale + boundOffFix;
+            Vector3 Min = box.LowerBoundary * scale - boundOffFix;
+
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.PolygonMode(MaterialFace.FrontAndBack, mode);
+
+            BoundingBox(Max, Min, fixEntry, fixGroup, Color);
+        }
+
         public static void BoundingBoxViewer(BoundingBoxLimit box, RspFix fix, Vector4 Color) 
         {
-            Vector3 boundOffFix = boundOff;
-            Vector3 scale = fix.Scale;
-            if (scale.X < 0) { boundOffFix.X *= -1; }
-            if (scale.Y < 0) { boundOffFix.Y *= -1; }
-            if (scale.Z < 0) { boundOffFix.Z *= -1; }
-
-            Vector3 Max = box.UpperBoundary * scale + boundOffFix;
-            Vector3 Min = box.LowerBoundary * scale - boundOffFix;
-
-            GL.Disable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.FrontAndBack);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-
-            DataShader.ShaderBoundaryBox.Use();
-            DataShader.ShaderBoundaryBox.SetMatrix4("RspFixRotation", fix.Rotation);
-            DataShader.ShaderBoundaryBox.SetVector3("RspFixPosition", fix.Position);
-            DataShader.ShaderBoundaryBox.SetVector4("mColor", Color);
-            DataShader.ShaderBoundaryBox.SetVector3("MaxBoundary", Max);
-            DataShader.ShaderBoundaryBox.SetVector3("MinBoundary", Min);
-            DataShader.BoxModel.Render();
+            BoundingBox(box, fix, Color, PolygonMode.Line);
         }
-
-        public static void NoneBoundingBoxViewer(Vector3 max, Vector3 min, RspFix fix, Vector4 Color) 
-        {
-            GL.Disable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.FrontAndBack);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-
-            DataShader.ShaderBoundaryBox.Use();
-            DataShader.ShaderBoundaryBox.SetMatrix4("RspFixRotation", fix.Rotation);
-            DataShader.ShaderBoundaryBox.SetVector3("RspFixPosition", fix.Position);
-            DataShader.ShaderBoundaryBox.SetVector4("mColor", Color);
-            DataShader.ShaderBoundaryBox.SetVector3("MaxBoundary", max);
-            DataShader.ShaderBoundaryBox.SetVector3("MinBoundary", min);
-            DataShader.BoxModel.Render();
-        }
-
         public static void BoundingBoxToSelect(BoundingBoxLimit box, RspFix fix, Vector4 Color)
         {
-            Vector3 boundOffFix = boundOff;
-            Vector3 scale = fix.Scale;
-            if (scale.X < 0) { boundOffFix.X *= -1; }
-            if (scale.Y < 0) { boundOffFix.Y *= -1; }
-            if (scale.Z < 0) { boundOffFix.Z *= -1; }
-
-            Vector3 Max = box.UpperBoundary * scale + boundOffFix;
-            Vector3 Min = box.LowerBoundary * scale - boundOffFix;
-
-            GL.Disable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.FrontAndBack);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-
-            DataShader.ShaderBoundaryBox.Use();
-            DataShader.ShaderBoundaryBox.SetMatrix4("RspFixRotation", fix.Rotation);
-            DataShader.ShaderBoundaryBox.SetVector3("RspFixPosition", fix.Position);
-            DataShader.ShaderBoundaryBox.SetVector4("mColor", Color);
-            DataShader.ShaderBoundaryBox.SetVector3("MaxBoundary", Max);
-            DataShader.ShaderBoundaryBox.SetVector3("MinBoundary", Min);
-            DataShader.BoxModel.Render();
+            BoundingBox(box, fix, Color, PolygonMode.Fill);
         }
 
-        public static void NoneBoundingBoxToSelect(Vector3 max, Vector3 min, RspFix fix, Vector4 Color)
-        {           
+        public static void BoundingBoxViewer(BoundingBoxLimit box, RspFix fixEntry, RspFix fixGroup, Vector4 Color)
+        {
+            BoundingBox(box, fixEntry, fixGroup, Color, PolygonMode.Line);
+        }
+        public static void BoundingBoxToSelect(BoundingBoxLimit box, RspFix fixEntry, RspFix fixGroup, Vector4 Color)
+        {
+            BoundingBox(box, fixEntry, fixGroup, Color, PolygonMode.Fill);
+        }
+
+        private static void NoneBoundingBox(Vector3 max, Vector3 min, RspFix fix, Vector4 Color, PolygonMode mode) 
+        {
             GL.Disable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.FrontAndBack);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-
-            DataShader.ShaderBoundaryBox.Use();
-            DataShader.ShaderBoundaryBox.SetMatrix4("RspFixRotation", fix.Rotation);
-            DataShader.ShaderBoundaryBox.SetVector3("RspFixPosition", fix.Position);
-            DataShader.ShaderBoundaryBox.SetVector4("mColor", Color);
-            DataShader.ShaderBoundaryBox.SetVector3("MaxBoundary", max);
-            DataShader.ShaderBoundaryBox.SetVector3("MinBoundary", min);
-            DataShader.BoxModel.Render();
+            GL.PolygonMode(MaterialFace.FrontAndBack, mode);
+            BoundingBox(max, min, fix, Color);
+        }
+        public static void NoneBoundingBoxViewer(Vector3 max, Vector3 min, RspFix fix, Vector4 Color) 
+        {
+            NoneBoundingBox(max, min, fix, Color, PolygonMode.Line);
+        }
+        public static void NoneBoundingBoxToSelect(Vector3 max, Vector3 min, RspFix fix, Vector4 Color)
+        {
+            NoneBoundingBox(max, min, fix, Color, PolygonMode.Fill);
+        }
+        private static void NoneBoundingBox(Vector3 max, Vector3 min, RspFix fixEntry, RspFix fixGroup, Vector4 Color, PolygonMode mode)
+        {
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.FrontAndBack);
+            GL.PolygonMode(MaterialFace.FrontAndBack, mode);
+            BoundingBox(max, min, fixEntry, fixGroup, Color);
+        }
+        public static void NoneBoundingBoxViewer(Vector3 max, Vector3 min, RspFix fixEntry, RspFix fixGroup, Vector4 Color)
+        {
+            NoneBoundingBox(max, min, fixEntry, fixGroup, Color, PolygonMode.Line);
+        }
+        public static void NoneBoundingBoxToSelect(Vector3 max, Vector3 min, RspFix fixEntry, RspFix fixGroup, Vector4 Color)
+        {
+            NoneBoundingBox(max, min, fixEntry, fixGroup, Color, PolygonMode.Fill);
         }
 
         public static void TriggerZoneBoxViewer(Matrix4 TriggerZone, Vector4 Color) 

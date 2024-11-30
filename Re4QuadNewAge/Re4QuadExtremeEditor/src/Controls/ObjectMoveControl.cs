@@ -49,11 +49,11 @@ namespace Re4QuadExtremeEditor.src.Controls
                     if (SelectedNodes[i] is Object3D obj)
                     {
                         var parent = obj.Parent;
-                        if (parent is EnemyNodeGroup Enemy)
+                        if (parent is EnemyNodeGroup)
                         {
                             combos |= MoveObjCombos.Enemy;
                         }
-                        else if (parent is EtcModelNodeGroup EtcModel)
+                        else if (parent is EtcModelNodeGroup)
                         {
                             combos |= MoveObjCombos.Etcmodel;
                         }
@@ -148,6 +148,22 @@ namespace Re4QuadExtremeEditor.src.Controls
                                 combos |= MoveObjCombos.QuadCustom;
                             }
                         }
+                        else if (parent is NewAge_EFF_NodeGroup)
+                        {
+                            combos |= MoveObjCombos.DisableMoveObject;
+                        }
+                        else if (parent is NewAge_EFF_Table9Entry_NodeGroup)
+                        {
+                            combos |= MoveObjCombos.EffTable9;
+                        }
+                        else if (parent is NewAge_EFF_EffectGroup_NodeGroup)
+                        {
+                            combos |= MoveObjCombos.EffEntry;
+                        }
+                        else if (parent is NewAge_EFF_EffectEntry_NodeGroup)
+                        {
+                            combos |= MoveObjCombos.EffEntry;
+                        }
                     }
                 }
                 combos -= MoveObjCombos.Null;
@@ -173,6 +189,14 @@ namespace Re4QuadExtremeEditor.src.Controls
             {
                 comboBoxMoveMode.Items.Add(new MoveObjTypeObjForListBox(MoveObjType.SquareMoveObjXZ_VerticalMoveObjY_Horizontal123RotationObjXYZ, Lang.GetText(eLang.MoveMode_EtcModel_PositionAndRotationAll)));
                 comboBoxMoveMode.Items.Add(new MoveObjTypeObjForListBox(MoveObjType.SquareNone_VerticalScaleObjAll_Horizontal123ScaleObjXYZ, Lang.GetText(eLang.MoveMode_EtcModel_Scale)));
+            }
+            else if (combos == MoveObjCombos.EffEntry)
+            {
+                comboBoxMoveMode.Items.Add(new MoveObjTypeObjForListBox(MoveObjType.SquareMoveObjXZ_VerticalMoveObjY_Horizontal123RotationObjXYZ, Lang.GetText(eLang.MoveMode_EffEntry_PositionAndRotationAll)));
+            }
+            else if (combos == MoveObjCombos.EffTable9)
+            {
+                comboBoxMoveMode.Items.Add(new MoveObjTypeObjForListBox(MoveObjType.SquareMoveObjXZ_VerticalMoveObjY_Horizontal123None, Lang.GetText(eLang.MoveMode_EffEffTable9_PositionPoint)));
             }
             else if (combos == MoveObjCombos.EseEntry)
             {
@@ -280,8 +304,10 @@ namespace Re4QuadExtremeEditor.src.Controls
                 || combos.HasFlag(MoveObjCombos.Etcmodel)
                 || combos.HasFlag(MoveObjCombos.QuadCustom)
                 || combos.HasFlag(MoveObjCombos.Item)
+                || combos.HasFlag(MoveObjCombos.EffEntry)
                 ) && !(
                 combos.HasFlag(MoveObjCombos.TriggerZone)
+                || combos.HasFlag(MoveObjCombos.EffTable9)
                 || combos.HasFlag(MoveObjCombos.EmiEntry)
                 || combos.HasFlag(MoveObjCombos.EseEntry)
                 || combos.HasFlag(MoveObjCombos.LitEntry)
@@ -298,8 +324,10 @@ namespace Re4QuadExtremeEditor.src.Controls
               || combos.HasFlag(MoveObjCombos.Item)
               || combos.HasFlag(MoveObjCombos.EmiEntry)
               || combos.HasFlag(MoveObjCombos.ExtraSpecialWarpLadderGrappleGun)
+              || combos.HasFlag(MoveObjCombos.EffEntry)
               ) && !(
               combos.HasFlag(MoveObjCombos.TriggerZone)
+              || combos.HasFlag(MoveObjCombos.EffTable9)
               || combos.HasFlag(MoveObjCombos.EseEntry)
               || combos.HasFlag(MoveObjCombos.LitEntry)
               || combos.HasFlag(MoveObjCombos.ExtraSpecialAshley)            

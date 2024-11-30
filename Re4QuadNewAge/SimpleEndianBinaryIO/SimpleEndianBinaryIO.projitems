@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>5ddb0d8f-d1ea-479f-8fac-be2b5c6bab65</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SimpleEndianBinaryIO</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EndianBinaryReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndianBinaryWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndianBitConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Endianness.cs" />
+  </ItemGroup>
+</Project>

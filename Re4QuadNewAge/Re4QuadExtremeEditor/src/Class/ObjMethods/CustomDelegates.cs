@@ -107,4 +107,5 @@ namespace Re4QuadExtremeEditor.src.Class.CustomDelegates
     public delegate Enums.TriggerZoneCategory ReturnTriggerZoneCategory(ushort ID);
     public delegate Enums.QuadCustomPointStatus ReturnQuadCustomPointStatus(ushort ID);
     public delegate Enums.RefInteractionType ReturnRefInteractionType(ushort ID);
+    public delegate Enums.EffectEntryTableID ReturnEffectEntryTableID(ushort ID);
 }

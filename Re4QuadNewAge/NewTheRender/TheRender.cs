@@ -31,6 +31,8 @@ namespace NewAgeTheRender
         private static readonly Vector3 boundNoneESE = new Vector3(2f, 2f, 2f);
         private static readonly Vector3 boundNoneEMI = new Vector3(2f, 2f, 2f);
         private static readonly Vector3 boundNoneLIT = new Vector3(2f, 2f, 2f);
+        private static readonly Vector3 boundNoneEFF = new Vector3(2f, 2f, 2f);
+        private static readonly Vector3 boundNoneEFFTable9 = new Vector3(0.3f, 0.3f, 0.3f);
 
         public static void AllRender(ref Matrix4 camMtx, ref Matrix4 ProjMatrix, Vector3 camPos, float objY, bool IsSelectMode = false)
         {
@@ -47,6 +49,10 @@ namespace NewAgeTheRender
             DataShader.ShaderBoundaryBox.Use();
             DataShader.ShaderBoundaryBox.SetMatrix4("view", camMtx);
             DataShader.ShaderBoundaryBox.SetMatrix4("projection", ProjMatrix);
+
+            DataShader.ShaderBoundaryBoxPlus.Use();
+            DataShader.ShaderBoundaryBoxPlus.SetMatrix4("view", camMtx);
+            DataShader.ShaderBoundaryBoxPlus.SetMatrix4("projection", ProjMatrix);
 
             DataShader.ShaderTriggerZoneBox.Use();
             DataShader.ShaderTriggerZoneBox.SetMatrix4("view", camMtx);
@@ -92,6 +98,7 @@ namespace NewAgeTheRender
                 RenderFileESE(RenderMode.SelectMode);
                 RenderFileEMI(RenderMode.SelectMode);
                 RenderFileLIT(RenderMode.SelectMode);
+                RenderFileEFF(RenderMode.SelectMode);
                 RenderITA_TriggerZone(RenderMode.SelectMode);
                 RenderAEV_TriggerZone(RenderMode.SelectMode);
 
@@ -113,6 +120,7 @@ namespace NewAgeTheRender
                 RenderFileESE(RenderMode.BoxMode);
                 RenderFileEMI(RenderMode.BoxMode);
                 RenderFileLIT(RenderMode.BoxMode);
+                RenderFileEFF(RenderMode.BoxMode);
                 RenderITA_TriggerZone(RenderMode.BoxMode);
                 RenderAEV_TriggerZone(RenderMode.BoxMode);
 
@@ -145,13 +153,21 @@ namespace NewAgeTheRender
                 DataShader.ShaderObjModel.SetMatrix4("projection", ProjMatrix);
                 DataShader.ShaderObjModel.SetVector3("CameraPosition", camPos);
 
+                DataShader.ShaderObjModelPlus.Use();
+                DataShader.ShaderObjModelPlus.SetMatrix4("view", camMtx);
+                DataShader.ShaderObjModelPlus.SetMatrix4("projection", ProjMatrix);
+                DataShader.ShaderObjModelPlus.SetVector3("CameraPosition", camPos);
+
                 ObjModel3D.PreRender();
+                ObjModel3D.PreRenderStep2();
+                ObjModel3D.PreRenderStep3();
 
                 RenderQuadCustomPoint(RenderMode.ModelMode);
                 RenderExtras(RenderMode.ModelMode);
                 RenderFileESE(RenderMode.ModelMode);
                 RenderFileEMI(RenderMode.ModelMode);
                 RenderFileLIT(RenderMode.ModelMode);
+                RenderFileEFF(RenderMode.ModelMode);
                 RenderEnemyESL(RenderMode.ModelMode);
                 RenderITA_ItemObj(RenderMode.ModelMode);
                 RenderAEV_ItemObj(RenderMode.ModelMode);
@@ -493,6 +509,281 @@ namespace NewAgeTheRender
                         }
                     }
                 }
+            }
+        }
+
+        private static void RenderFileEFF(RenderMode mode) 
+        {
+            if (Globals.RenderFileEFFBLOB)
+            {
+                //(GroupID, TableID), GroupInternalID 
+                Dictionary<(ushort GroupID, EffectEntryTableID TableID), ushort> Association = new Dictionary<(ushort GroupID,EffectEntryTableID TableID), ushort>();
+
+                if (Globals.EFF_RenderTable7)
+                {
+                    foreach (var item in DataBase.NodeEFF_Table7_Effect_0.Nodes)
+                    {
+                        ushort ID = ((Object3D)item).ObjLineRef;
+
+                        ushort EntryOrderID = DataBase.NodeEFF_Table7_Effect_0.PropertyMethods.GetEntryOrderID(ID);
+                        Association.Add((EntryOrderID, EffectEntryTableID.Table7), ID);
+
+                        if (Globals.EFF_ShowOnlySelectedGroup == false || (Globals.EFF_ShowOnlySelectedGroup && Globals.EFF_SelectedGroup == EntryOrderID))
+                        {
+                            byte[] partColor = BitConverter.GetBytes(ID);
+                            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EFF_Table7_Effect_0 / 255f, 1f);
+
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                useColor = Globals.GL_ColorEFF_Table7;
+                                if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                                {
+                                    useColor = Globals.GL_ColorSelected;
+                                }
+                            }
+
+                            RspFix rspFix = new RspFix(
+                                  Vector3.One,
+                                  DataBase.NodeEFF_Table7_Effect_0.MethodsForGL.GetPosition(ID),
+                                  DataBase.NodeEFF_Table7_Effect_0.MethodsForGL.GetAngle(ID));
+
+                            if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_EFF_GroupPoint))
+                            {
+                                if (mode == RenderMode.ModelMode)
+                                {
+                                    DataBase.InternalModels.RenderModel(Consts.ModelKey_EFF_GroupPoint, rspFix);
+                                }
+                                else if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.BoundingBoxViewer(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EFF_GroupPoint), rspFix, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.BoundingBoxToSelect(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EFF_GroupPoint), rspFix, useColor);
+                                }
+
+                            }
+                            else
+                            {
+                                if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxViewer(boundNoneEFF, -boundNoneEFF, rspFix, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxToSelect(boundNoneEFF, -boundNoneEFF, rspFix, useColor);
+                                }
+
+                            }
+                        }
+ 
+                    }
+                }
+
+                if (Globals.EFF_RenderTable8)
+                {
+                    foreach (var item in DataBase.NodeEFF_Table8_Effect_1.Nodes)
+                    {
+                        ushort ID = ((Object3D)item).ObjLineRef;
+
+                        ushort EntryOrderID = DataBase.NodeEFF_Table8_Effect_1.PropertyMethods.GetEntryOrderID(ID);
+                        Association.Add((EntryOrderID, EffectEntryTableID.Table8), ID);
+
+                        if (Globals.EFF_ShowOnlySelectedGroup == false || (Globals.EFF_ShowOnlySelectedGroup && Globals.EFF_SelectedGroup == EntryOrderID))
+                        {
+                            byte[] partColor = BitConverter.GetBytes(ID);
+                            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EFF_Table8_Effect_1 / 255f, 1f);
+
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                useColor = Globals.GL_ColorEFF_Table8;
+                                if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                                {
+                                    useColor = Globals.GL_ColorSelected;
+                                }
+                            }
+
+                            RspFix rspFix = new RspFix(
+                                  Vector3.One,
+                                  DataBase.NodeEFF_Table8_Effect_1.MethodsForGL.GetPosition(ID),
+                                  DataBase.NodeEFF_Table8_Effect_1.MethodsForGL.GetAngle(ID));
+
+                            if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_EFF_GroupPoint))
+                            {
+                                if (mode == RenderMode.ModelMode)
+                                {
+                                    DataBase.InternalModels.RenderModel(Consts.ModelKey_EFF_GroupPoint, rspFix);
+                                }
+                                else if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.BoundingBoxViewer(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EFF_GroupPoint), rspFix, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.BoundingBoxToSelect(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EFF_GroupPoint), rspFix, useColor);
+                                }
+
+                            }
+                            else
+                            {
+                                if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxViewer(boundNoneEFF, -boundNoneEFF, rspFix, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxToSelect(boundNoneEFF, -boundNoneEFF, rspFix, useColor);
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+
+                if (Globals.EFF_RenderTable9)
+                {
+                    foreach (var item in DataBase.NodeEFF_Table9.Nodes)
+                    {
+                        ushort ID = ((Object3D)item).ObjLineRef;
+                        ushort GroupOrderID = DataBase.NodeEFF_Table9.MethodsForGL.GetGroupOrderID(ID);
+
+                        if (Globals.EFF_ShowOnlySelectedGroup == false || (Globals.EFF_ShowOnlySelectedGroup && Globals.EFF_SelectedGroup == GroupOrderID))
+                        {
+                            byte[] partColor = BitConverter.GetBytes(ID);
+                            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EFF_Table9 / 255f, 1f);
+
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                useColor = Globals.GL_ColorEFF_Table9;
+                                if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                                {
+                                    useColor = Globals.GL_ColorSelected;
+                                }
+                            }
+
+                            RspFix rspFix = new RspFix(
+                                  Vector3.One,
+                                  DataBase.NodeEFF_Table9.MethodsForGL.GetPosition(ID),
+                                  Matrix4.Identity);
+
+                            if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_EFF_Table9) && mode == RenderMode.ModelMode)
+                            {
+                                DataBase.InternalModels.RenderModel(Consts.ModelKey_EFF_Table9, rspFix);
+                            }
+                            else
+                            {
+                                if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxViewer(boundNoneEFFTable9, -boundNoneEFFTable9, rspFix, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxToSelect(boundNoneEFFTable9, -boundNoneEFFTable9, rspFix, useColor);
+                                }
+
+                            }
+                        }  
+                    }
+                }
+
+                if (Globals.EFF_RenderTable7 || Globals.EFF_RenderTable8) // NodeEFF_EffectEntry so tem entry dessas duas tabelas
+                {
+                    foreach (TreeNode item in DataBase.NodeEFF_EffectEntry.Nodes)
+                    {
+                        ushort ID = ((Object3D)item).ObjLineRef;
+                        ushort GroupOrderID = DataBase.NodeEFF_EffectEntry.MethodsForGL.GetGroupOrderID(ID);
+                        var TableID = DataBase.NodeEFF_EffectEntry.MethodsForGL.GetTableID(ID);
+
+                        bool RenderIsTable7 = Globals.EFF_RenderTable7 && TableID == EffectEntryTableID.Table7;
+                        bool RenderIsTable8 = Globals.EFF_RenderTable8 && TableID == EffectEntryTableID.Table8;
+                        bool RenderIsOnlySelected = Globals.EFF_ShowOnlySelectedGroup == false || (Globals.EFF_ShowOnlySelectedGroup && Globals.EFF_SelectedGroup == GroupOrderID);
+
+                        if ((RenderIsTable7 || RenderIsTable8) && RenderIsOnlySelected)
+                        {
+                            byte[] partColor = BitConverter.GetBytes(ID);
+                            Vector4 useColor = new Vector4(partColor[0] / 255f, partColor[1] / 255f, (byte)GroupType.EFF_EffectEntry / 255f, 1f);
+
+                            if (mode == RenderMode.BoxMode)
+                            {
+                                if (TableID == EffectEntryTableID.Table7)
+                                {
+                                    useColor = Globals.GL_ColorEFF_Table7;
+                                }
+                                else if (TableID == EffectEntryTableID.Table8)
+                                {
+                                    useColor = Globals.GL_ColorEFF_Table8;
+                                }
+                                else
+                                {
+                                    useColor = Globals.GL_ColorEFF_EffectEntry;
+                                }
+
+                                if (DataBase.SelectedNodes.ContainsKey(item.GetHashCode()))
+                                {
+                                    useColor = Globals.GL_ColorSelected;
+                                }
+                            }
+
+
+                            RspFix rspFix2 = new RspFix(Vector3.One, Vector3.Zero, Matrix4.Identity);
+                            if (Association.ContainsKey((GroupOrderID, TableID)) && Globals.EFF_Use_Group_Position)
+                            {
+                                ushort GroupInternalID = Association[(GroupOrderID, TableID)];
+                                if (TableID == EffectEntryTableID.Table7)
+                                {
+                                    rspFix2 = new RspFix(
+                                    Vector3.One,
+                                    DataBase.NodeEFF_Table7_Effect_0.MethodsForGL.GetPosition(GroupInternalID),
+                                    DataBase.NodeEFF_Table7_Effect_0.MethodsForGL.GetAngle(GroupInternalID));
+                                }
+                                else if (TableID == EffectEntryTableID.Table8)
+                                {
+                                    rspFix2 = new RspFix(
+                                    Vector3.One,
+                                    DataBase.NodeEFF_Table8_Effect_1.MethodsForGL.GetPosition(GroupInternalID),
+                                    DataBase.NodeEFF_Table8_Effect_1.MethodsForGL.GetAngle(GroupInternalID));
+                                }
+                            }
+
+                            RspFix rspFix = new RspFix(
+                                   Vector3.One,
+                                   DataBase.NodeEFF_EffectEntry.MethodsForGL.GetPosition(ID),
+                                   DataBase.NodeEFF_EffectEntry.MethodsForGL.GetAngle(ID));
+
+                            if (DataBase.InternalModels.ContainsKey(Consts.ModelKey_EFF_EntryPoint))
+                            {
+                                if (mode == RenderMode.ModelMode)
+                                {
+                                    DataBase.InternalModels.RenderModel(Consts.ModelKey_EFF_EntryPoint, rspFix, rspFix2);
+                                }
+                                else if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.BoundingBoxViewer(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EFF_EntryPoint), rspFix, rspFix2, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.BoundingBoxToSelect(DataBase.InternalModels.GetBoundingBoxLimit(Consts.ModelKey_EFF_EntryPoint), rspFix, rspFix2, useColor);
+                                }
+
+                            }
+                            else
+                            {
+                                if (mode == RenderMode.BoxMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxViewer(boundNoneEFF, -boundNoneEFF, rspFix, rspFix2, useColor);
+                                }
+                                else if (mode == RenderMode.SelectMode)
+                                {
+                                    RenderAppModel.NoneBoundingBoxToSelect(boundNoneEFF, -boundNoneEFF, rspFix, rspFix2, useColor);
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+               
             }
         }
 

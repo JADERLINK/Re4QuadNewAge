@@ -7,6 +7,7 @@ using Re4QuadExtremeEditor.src.Class.Enums;
 using Re4QuadExtremeEditor.src.Class.ObjMethods;
 using System.Drawing;
 using OpenTK;
+using SimpleEndianBinaryIO;
 
 namespace Re4QuadExtremeEditor.src.Class.Files
 {
@@ -245,6 +246,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
         #region metodos das propriedades
 
+        protected override Endianness GetEndianness()
+        {
+            return Endianness.LittleEndian;
+        }
+
         protected override byte[] GetInternalLine(ushort ID)
         {
             return Lines[ID];
@@ -411,7 +417,7 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         public NewAge_LIT_Entry_MethodsForGL MethodsForGL { get; }
 
         /// <summary>
-        /// 
+        /// classe com os metodos usado para arrumar os index (ordem) das entrys
         /// </summary>
         public NodeChangeAmountCallbackMethods ChangeAmountCallbackMethods { get; set; }
 
@@ -512,7 +518,6 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         {
             Lines.Remove(ID);
             GroupConnection.Remove(ID);
-            ChangeAmountCallbackMethods.OnDeleteNode();
         }
 
         private ushort GetNewValidEntryOrderID(ushort GroupOrderID) 
@@ -553,6 +558,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
 
 
         #region metodos das propriedades
+
+        protected override Endianness GetEndianness()
+        {
+            return Endianness.LittleEndian;
+        }
 
         protected override byte[] GetInternalLine(ushort ID)
         {

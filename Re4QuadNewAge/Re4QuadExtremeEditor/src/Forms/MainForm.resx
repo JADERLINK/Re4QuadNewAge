@@ -240,10 +240,25 @@
     <value>602, 134</value>
   </metadata>
   <metadata name="openFileDialogEFFBLOB.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>742, 134</value>
+    <value>751, 134</value>
   </metadata>
   <metadata name="saveFileDialogLIT.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>923, 134</value>
+    <value>932, 134</value>
+  </metadata>
+  <metadata name="openFileDialogEFFBLOBBIG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1077, 134</value>
+  </metadata>
+  <metadata name="saveFileDialogCAM.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 173</value>
+  </metadata>
+  <metadata name="openFileDialogCAM.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>173, 173</value>
+  </metadata>
+  <metadata name="saveFileDialogEFFBLOB.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>333, 173</value>
+  </metadata>
+  <metadata name="saveFileDialogEFFBLOBBIG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>510, 173</value>
   </metadata>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

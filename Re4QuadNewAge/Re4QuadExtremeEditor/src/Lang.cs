@@ -1063,8 +1063,86 @@ namespace Re4QuadExtremeEditor.src
             AttributeText.Add(aLang.LIT_Entry_GroupOrderID_Ushort_DisplayName, "GroupOrderID [Dec] (Ushort)");
             AttributeText.Add(aLang.LIT_Entry_EntryOrderID_Ushort_DisplayName, "EntryOrderID [Dec] (Ushort)");
 
+            AttributeText.Add(aLang.EFF_Entry_Order_Category, "Order Category");
+            AttributeText.Add(aLang.EFF_Entry_EntryOrderID_Ushort_DisplayName, "EntryOrderID [Dec] (Ushort)");
+            AttributeText.Add(aLang.EFF_Entry_GroupOrderID_Ushort_DisplayName, "GroupOrderID [Dec] (Ushort)");
+            AttributeText.Add(aLang.EFF_TableID_Ushort_DisplayName, "TableID [Dec] (Byte)");
+            AttributeText.Add(aLang.EFF_Group_GetEntryCountInGroup_Int_DisplayName, "Entry Count [Dec] (Int)");
+
+            AttributeText.Add(aLang.EFF_EffectEntry_Position_Category, "Position Category");
+            AttributeText.Add(aLang.EFF_EffectEntry_Angle_Category, "Angle Category");
+
+            AttributeText.Add(aLang.EFF_EffectGroup_Position_Category, "Position Category");
+            AttributeText.Add(aLang.EFF_EffectGroup_Angle_Category, "Angle Category");
+
+            AttributeText.Add(aLang.EFF_Table9_Category, "Table9 Category");
+
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleX_Float_DisplayName, "Angle.X [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleX_Hex_DisplayName, "Angle.X [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleX_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleY_Float_DisplayName, "Angle.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleY_Hex_DisplayName, "Angle.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleY_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleZ_Float_DisplayName, "Angle.Z [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleZ_Hex_DisplayName, "Angle.Z [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_AngleZ_Description, "");
+
+            //Position
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionX_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionY_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectEntry_PositionZ_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleX_Float_DisplayName, "Angle.X [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleX_Hex_DisplayName, "Angle.X [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleX_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleY_Float_DisplayName, "Angle.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleY_Hex_DisplayName, "Angle.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleY_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleZ_Float_DisplayName, "Angle.Z [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleZ_Hex_DisplayName, "Angle.Z [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_AngleZ_Description, "");
+
+            //Position
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionX_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionY_Description, "");
+
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_EffectGroup_PositionZ_Description, "");
+
+
+            AttributeText.Add(aLang.EFF_Table9_PositionX_Float_DisplayName, "Position.X [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_Table9_PositionX_Hex_DisplayName, "Position.X [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_Table9_PositionX_Description, "");
+
+            AttributeText.Add(aLang.EFF_Table9_PositionY_Float_DisplayName, "Position.Y [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_Table9_PositionY_Hex_DisplayName, "Position.Y [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_Table9_PositionY_Description, "");
+
+            AttributeText.Add(aLang.EFF_Table9_PositionZ_Float_DisplayName, "Position.Z [Dec] (Float)");
+            AttributeText.Add(aLang.EFF_Table9_PositionZ_Hex_DisplayName, "Position.Z [Hex] (Float)");
+            AttributeText.Add(aLang.EFF_Table9_PositionZ_Description, "");
+
+
             /*
-             * 
+         
             */
 
             //AttributeText.Add(aLang.Null, "");
@@ -1103,6 +1181,17 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.NodeLIT_ENTRYS, "Light Entries (LIT)");
             Text.Add(eLang.NodeQuadCustom, "Quad Custom");
 
+            Text.Add(eLang.NodeEFF_Table0, "Table 0 TPL Texture IDs (EFF)");
+            Text.Add(eLang.NodeEFF_Table1, "Table 1 Ref Effect 0 (EFF)");
+            Text.Add(eLang.NodeEFF_Table2, "Table 2 EAR Links (EFF)");
+            Text.Add(eLang.NodeEFF_Table3, "Table 3 Effect Path IDs (EFF)");
+            Text.Add(eLang.NodeEFF_Table4, "Table 4 BIN Model IDs (EFF)");
+            Text.Add(eLang.NodeEFF_Table6, "Table 6 TextureData (EFF)");
+            Text.Add(eLang.NodeEFF_Table7_Effect_0, "Table 7 Effect 0 Group (EFF)");
+            Text.Add(eLang.NodeEFF_Table8_Effect_1, "Table 8 Effect 1 Group (EFF)");
+            Text.Add(eLang.NodeEFF_EffectEntry, "EffectEntry (EFF)");
+            Text.Add(eLang.NodeEFF_Table9, "Table 9 Paths Entry (EFF)");
+
             Text.Add(eLang.AddNewNull, "None");
             Text.Add(eLang.AddNewETS, "Add new EtcModel object");
             Text.Add(eLang.AddNewDSE, "Add new Door Sound DSE object");
@@ -1117,6 +1206,18 @@ namespace Re4QuadExtremeEditor.src
 
             Text.Add(eLang.AddNewLIT_ENTRYS, "Add new Light Entry LIT object");
             Text.Add(eLang.AddNewLIT_GROUPS, "Add new Light Group LIT object");
+
+            Text.Add(eLang.AddNewEFF_Table0, "Add new Table0 EFF object");
+            Text.Add(eLang.AddNewEFF_Table1, "Add new Table1 EFF object");
+            Text.Add(eLang.AddNewEFF_Table2, "Add new Table2 EFF object");
+            Text.Add(eLang.AddNewEFF_Table3, "Add new Table3 EFF object");
+            Text.Add(eLang.AddNewEFF_Table4, "Add new Table4 EFF object");
+            Text.Add(eLang.AddNewEFF_Table6, "Add new Table6 EFF object");
+            Text.Add(eLang.AddNewEFF_Table7, "Add new Table7 Effect0 EFF object");
+            Text.Add(eLang.AddNewEFF_Table8, "Add new Table8 Effect1 EFF object");
+            Text.Add(eLang.AddNewEFF_Table9, "Add new Table9 EFF object");
+            Text.Add(eLang.AddNewEFF_EffectEntry7, "Add new EffectEntry EFF object (To Table7 Effect0)");
+            Text.Add(eLang.AddNewEFF_EffectEntry8, "Add new EffectEntry EFF object (To Table8 Effect1)");
 
             Text.Add(eLang.DeleteObjWarning, "Warning:");
             Text.Add(eLang.DeleteObjDialog, "Selected objects will be deleted, are you sure?\r\nThe action cannot be undone!");
@@ -1138,6 +1239,8 @@ namespace Re4QuadExtremeEditor.src
 
             // diretory Patch
             Text.Add(eLang.DirectoryESL, "ESL File Patch:");
+            Text.Add(eLang.DirectoryEFFBLOB, "EFFBLOB File Patch:");
+            Text.Add(eLang.DirectoryEFFBLOBBIG, "EFFBLOBBIG File Patch:");
             Text.Add(eLang.DirectoryETS, "ETS File Patch:");
             Text.Add(eLang.DirectoryITA, "ITA File Patch:");
             Text.Add(eLang.DirectoryAEV, "AEV File Patch:");
@@ -1157,8 +1260,10 @@ namespace Re4QuadExtremeEditor.src
 
             // MoveMode
             Text.Add(eLang.MoveMode_Enemy_PositionAndRotationAll, "Enemy: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
+            Text.Add(eLang.MoveMode_EffEntry_PositionAndRotationAll, "EFF Point: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
             Text.Add(eLang.MoveMode_EseEntry_PositionPoint, "ESE Point: Squad and Vertical = Position;");
             Text.Add(eLang.MoveMode_LitEntry_PositionPoint, "LIT Point: Squad and Vertical = Position;");
+            Text.Add(eLang.MoveMode_EffEffTable9_PositionPoint, "EFF Table9: Squad and Vertical = Position;");
             Text.Add(eLang.MoveMode_EmiEntry_PositionAndAnglePoint, "EMI Point: Squad and Vertical = Position; Horizontal[2] = Rotation Y;");
             Text.Add(eLang.MoveMode_EtcModel_PositionAndRotationAll, "EtcModel: Squad and Vertical = Position; Horizontal [123] = Rotation XYZ;");
             Text.Add(eLang.MoveMode_EtcModel_Scale, "EtcModel: Vertical = Scale All; Horizontal [123] = Scale XYZ; Scale does not work in game;");
@@ -1233,6 +1338,10 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveLIT_UHD, "Save Light LIT File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveLIT, "Save Light LIT File");
 
+            Text.Add(eLang.toolStripMenuItemSaveEFFBLOB_LittleEndian, "Save Effect EFFBLOB File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemSaveEFFBLOB_BigEndian, "Save Effect EFFBLOBBIG File (Big Endian)");
+            Text.Add(eLang.toolStripMenuItemSaveEFFBLOB, "Save Effect EFFBLOB File");
+
             // subsubmenu Save As...
             Text.Add(eLang.toolStripMenuItemSaveAsETS, "Save As EtcModel ETS File");
             Text.Add(eLang.toolStripMenuItemSaveAsITA, "Save As Itens ITA File");
@@ -1257,6 +1366,10 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSaveAsLIT_2007_PS2, "Save As Light LIT File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemSaveAsLIT_UHD, "Save As Light LIT File (UHD)");
             Text.Add(eLang.toolStripMenuItemSaveAsLIT, "Save As Light LIT File");
+
+            Text.Add(eLang.toolStripMenuItemSaveAsEFFBLOB_LittleEndian, "Save As Effect EFFBLOB File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemSaveAsEFFBLOB_BigEndian, "Save As Effect EFFBLOBBIG File (Big Endian)");
+            Text.Add(eLang.toolStripMenuItemSaveAsEFFBLOB, "Save As Effect EFFBLOB File");
 
             // subsubmenu Save As (Convert)
             Text.Add(eLang.toolStripMenuItemSaveConverterETS, "Save As EtcModel ETS File, Convert To ...");
@@ -1314,49 +1427,57 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemClear, "Clear");
             Text.Add(eLang.toolStripMenuItemClose, "Close");
             // subsubmenu New
-            Text.Add(eLang.toolStripMenuItemNewESL, "New Enemy ESL File");
+            Text.Add(eLang.toolStripMenuItemNewESL, "New Enemy ESL File (Little Endian)");
             Text.Add(eLang.toolStripMenuItemNewETS_2007_PS2, "New EtcModel ETS File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemNewITA_2007_PS2, "New Itens ITA File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemNewAEV_2007_PS2, "New Events AEV File (2007/PS2)");
-            Text.Add(eLang.toolStripMenuItemNewETS_UHD, "New EtcModel ETS File (UHD)");
+            Text.Add(eLang.toolStripMenuItemNewETS_UHD_PS4NS, "New EtcModel ETS File (UHD/PS4/NS)");
             Text.Add(eLang.toolStripMenuItemNewITA_UHD, "New Itens ITA File (UHD)");
             Text.Add(eLang.toolStripMenuItemNewAEV_UHD, "New Events AEV File (UHD)");
-            Text.Add(eLang.toolStripMenuItemNewDSE, "New Door Sound DSE File");
-            Text.Add(eLang.toolStripMenuItemNewFSE, "New Floor Sound FSE File");
-            Text.Add(eLang.toolStripMenuItemNewSAR, "New Ctrl Light Group SAR File");
-            Text.Add(eLang.toolStripMenuItemNewEAR, "New Ctrl Effect Group EAR File");
+            Text.Add(eLang.toolStripMenuItemNewDSE, "New Door Sound DSE File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemNewFSE, "New Floor Sound FSE File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemNewSAR, "New Ctrl Light Group SAR File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemNewEAR, "New Ctrl Effect Group EAR File (Little Endian)");
             Text.Add(eLang.toolStripMenuItemNewEMI_2007_PS2, "New Interaction Point EMI File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemNewESE_2007_PS2, "New Environment Sound ESE File (2007/PS2)");
-            Text.Add(eLang.toolStripMenuItemNewEMI_UHD, "New Interaction Point EMI File (UHD)");
-            Text.Add(eLang.toolStripMenuItemNewESE_UHD, "New Environment Sound ESE File (UHD)");
+            Text.Add(eLang.toolStripMenuItemNewEMI_UHD_PS4NS, "New Interaction Point EMI File (UHD/PS4/NS)");
+            Text.Add(eLang.toolStripMenuItemNewESE_UHD_PS4NS, "New Environment Sound ESE File (UHD/PS4/NS)");
             Text.Add(eLang.toolStripMenuItemNewQuadCustom, "New Quad Custom File");
             Text.Add(eLang.toolStripMenuItemNewITA_PS4_NS, "New Itens ITA File (PS4/NS) {Adapted}");
             Text.Add(eLang.toolStripMenuItemNewAEV_PS4_NS, "New Events AEV File (PS4/NS) {Adapted}");
             Text.Add(eLang.toolStripMenuItemNewLIT_2007_PS2, "New Light LIT File (2007/PS2)");
-            Text.Add(eLang.toolStripMenuItemNewLIT_UHD, "New Light LIT File (UHD)");
-          
+            Text.Add(eLang.toolStripMenuItemNewLIT_UHD_PS4NS, "New Light LIT File (UHD/PS4/NS)");
+            Text.Add(eLang.toolStripMenuItemNewEFFBLOB, "New Effect EFFBLOB File (Little Endian)");
+            // subsubmenu New Big
+            Text.Add(eLang.toolStripMenuItemNewBigEndianFiles, "New Big Endian Files");
+            Text.Add(eLang.toolStripMenuItemNewEFFBLOBBIG, "New Effect EFFBLOBBIG File (Big Endian)");
+
             // subsubmenu Open
-            Text.Add(eLang.toolStripMenuItemOpenESL, "Open Enemy ESL File");
+            Text.Add(eLang.toolStripMenuItemOpenESL, "Open Enemy ESL File (Little Endian)");
             Text.Add(eLang.toolStripMenuItemOpenETS_2007_PS2, "Open EtcModel ETS File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemOpenITA_2007_PS2, "Open Itens ITA File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemOpenAEV_2007_PS2, "Open Events AEV File (2007/PS2)");
-            Text.Add(eLang.toolStripMenuItemOpenETS_UHD, "Open EtcModel ETS File (UHD)");
+            Text.Add(eLang.toolStripMenuItemOpenETS_UHD_PS4NS, "Open EtcModel ETS File (UHD/PS4/NS)");
             Text.Add(eLang.toolStripMenuItemOpenITA_UHD, "Open Itens ITA File (UHD)");
             Text.Add(eLang.toolStripMenuItemOpenAEV_UHD, "Open Events AEV File (UHD)");
-            Text.Add(eLang.toolStripMenuItemOpenDSE, "Open Door Sound DSE File");
-            Text.Add(eLang.toolStripMenuItemOpenFSE, "Open Floor Sound FSE File");
-            Text.Add(eLang.toolStripMenuItemOpenSAR, "Open Ctrl Light Group SAR File");
-            Text.Add(eLang.toolStripMenuItemOpenEAR, "Open Ctrl Effect Group EAR File");
+            Text.Add(eLang.toolStripMenuItemOpenDSE, "Open Door Sound DSE File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemOpenFSE, "Open Floor Sound FSE File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemOpenSAR, "Open Ctrl Light Group SAR File (Little Endian)");
+            Text.Add(eLang.toolStripMenuItemOpenEAR, "Open Ctrl Effect Group EAR File (Little Endian)");
             Text.Add(eLang.toolStripMenuItemOpenEMI_2007_PS2, "Open Interaction Point EMI File (2007/PS2)");
             Text.Add(eLang.toolStripMenuItemOpenESE_2007_PS2, "Open Environment Sound ESE File (2007/PS2)");
-            Text.Add(eLang.toolStripMenuItemOpenEMI_UHD, "Open Interaction Point EMI File (UHD)");
-            Text.Add(eLang.toolStripMenuItemOpenESE_UHD, "Open Environment Sound ESE File (UHD)");
+            Text.Add(eLang.toolStripMenuItemOpenEMI_UHD_PS4NS, "Open Interaction Point EMI File (UHD/PS4/NS)");
+            Text.Add(eLang.toolStripMenuItemOpenESE_UHD_PS4NS, "Open Environment Sound ESE File (UHD/PS4/NS)");
             Text.Add(eLang.toolStripMenuItemOpenQuadCustom, "Open Quad Custom File");
             Text.Add(eLang.toolStripMenuItemOpenITA_PS4_NS, "Open Itens ITA File (PS4/NS) {Adapted}");
             Text.Add(eLang.toolStripMenuItemOpenAEV_PS4_NS, "Open Events AEV File (PS4/NS) {Adapted}");
             Text.Add(eLang.toolStripMenuItemOpenLIT_2007_PS2, "Open Light LIT File (2007/PS2)");
-            Text.Add(eLang.toolStripMenuItemOpenLIT_UHD, "Open Light LIT File (UHD)");
-            
+            Text.Add(eLang.toolStripMenuItemOpenLIT_UHD_PS4NS, "Open Light LIT File (UHD/PS4/NS)");
+            Text.Add(eLang.toolStripMenuItemOpenEFFBLOB, "Open Effect EFFBLOB File (Little Endian)");
+            // subsubmenu Open Big
+            Text.Add(eLang.toolStripMenuItemOpenBigEndianFiles, "Open Big Endian Files");
+            Text.Add(eLang.toolStripMenuItemOpenEFFBLOBBIG, "Open Effect EFFBLOBBIG File (Big Endian)");
+
             // subsubmenu Save
             Text.Add(eLang.toolStripMenuItemSaveESL, "Save Enemy ESL File");
             Text.Add(eLang.toolStripMenuItemSaveDSE, "Save Door Sound DSE File");
@@ -1376,6 +1497,7 @@ namespace Re4QuadExtremeEditor.src
 
             // subsubmenu Clear
             Text.Add(eLang.toolStripMenuItemClearESL, "Clear Enemy ESL List");
+            Text.Add(eLang.toolStripMenuItemClearEFFBLOB, "Clear Effect EFFBLOB List");
             Text.Add(eLang.toolStripMenuItemClearETS, "Clear EtcModel ETS List");
             Text.Add(eLang.toolStripMenuItemClearITA, "Clear Itens ITA List");
             Text.Add(eLang.toolStripMenuItemClearAEV, "Clear Events AEV List");
@@ -1408,6 +1530,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSubMenuSpecial, "Special Options");
             Text.Add(eLang.toolStripMenuItemSubMenuEtcModel, "EtcModel Options");
             Text.Add(eLang.toolStripMenuItemSubMenuLight, "Light Options");
+            Text.Add(eLang.toolStripMenuItemSubMenuEffect, "Effect Options");
             Text.Add(eLang.toolStripMenuItemNodeDisplayNameInHex, "Display Obj Name In Hex");
             Text.Add(eLang.toolStripMenuItemCameraMenu, "Camera Menu");
             Text.Add(eLang.toolStripMenuItemResetCamera, "Reset Camera");
@@ -1427,6 +1550,7 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemHideFileESE, "Hide Environment Sound .ESE");
             Text.Add(eLang.toolStripMenuItemHideFileEMI, "Hide Interaction Point .EMI");
             Text.Add(eLang.toolStripMenuItemHideFileLIT, "Hide Light .LIT");
+            Text.Add(eLang.toolStripMenuItemHideFileEFF, "Hide Effect .EFF");
             Text.Add(eLang.toolStripMenuItemHideQuadCustom, "Hide QuadCustom");
 
 
@@ -1449,6 +1573,13 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.toolStripMenuItemSelectedGroupUp, "Selected Group ++");
             Text.Add(eLang.toolStripMenuItemSelectedGroupDown, "Selected Group --");
             Text.Add(eLang.toolStripMenuItemEnableLightColor, "Enable Light Display Color");
+            Text.Add(eLang.toolStripMenuItemShowOnlySelectedGroup_EFF, "Show Only Selected Group:");
+            Text.Add(eLang.toolStripMenuItemSelectedGroupUp_EFF, "Selected Group ++");
+            Text.Add(eLang.toolStripMenuItemSelectedGroupDown_EFF, "Selected Group --");
+            Text.Add(eLang.toolStripMenuItemHideTable7_EFF, "Hide Table7 Effect0");
+            Text.Add(eLang.toolStripMenuItemHideTable8_EFF, "Hide Table8 Effect1");
+            Text.Add(eLang.toolStripMenuItemHideTable9_EFF, "Hide Table9");
+            Text.Add(eLang.toolStripMenuItemDisableGroupPositionEFF, "Disable Group Position");
 
             // sub menu de view room and model
             Text.Add(eLang.toolStripMenuItemModelsHideTextures, "Hide Textures");
@@ -1478,6 +1609,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.openFileDialogESE, "Open Environment Sound ESE File");
             Text.Add(eLang.openFileDialogLIT, "Open Light LIT File");
             Text.Add(eLang.openFileDialogQuadCustom, "Open QuadCustom File");
+            Text.Add(eLang.openFileDialogEFFBLOB, "Open Effect EFFBLOB File");
+            Text.Add(eLang.openFileDialogEFFBLOBBIG, "Open Effect EFFBLOBBIG File");
 
             Text.Add(eLang.saveFileDialogConvertAEV, "Save Convert Events AEV File");
             Text.Add(eLang.saveFileDialogConvertETS, "Save Convert EtcModel ETS File");
@@ -1496,6 +1629,8 @@ namespace Re4QuadExtremeEditor.src
             Text.Add(eLang.saveFileDialogESE, "Save Environment Sound ESE File");
             Text.Add(eLang.saveFileDialogLIT, "Save Light LIT File");
             Text.Add(eLang.saveFileDialogQuadCustom, "Save QuadCustom File");
+            Text.Add(eLang.saveFileDialogEFFBLOB, "Save Effect EFFBLOB File");
+            Text.Add(eLang.saveFileDialogEFFBLOBBIG, "Save Effect EFFBLOBBIG File");
 
             //cameraMove
             Text.Add(eLang.buttonGrid, "Grid");

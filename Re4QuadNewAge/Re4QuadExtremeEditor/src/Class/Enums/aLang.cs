@@ -995,6 +995,91 @@ namespace Re4QuadExtremeEditor.src.Class.Enums
         LIT_Entry_GroupOrderID_Ushort_DisplayName,
         LIT_Entry_EntryOrderID_Ushort_DisplayName,
 
+
+        //EFF FILE
+
+        EFF_Entry_Order_Category,
+        EFF_Entry_EntryOrderID_Ushort_DisplayName,
+        EFF_Entry_GroupOrderID_Ushort_DisplayName,
+        EFF_TableID_Ushort_DisplayName,
+
+        EFF_Group_Order_Category,
+        EFF_Group_GetEntryCountInGroup_Int_DisplayName,
+
+        //EFF_EffectEntry
+        EFF_EffectEntry_Position_Category,
+        EFF_EffectEntry_Angle_Category,
+
+        //Angle
+        EFF_EffectEntry_AngleX_Float_DisplayName,
+        EFF_EffectEntry_AngleX_Hex_DisplayName,
+        EFF_EffectEntry_AngleX_Description,
+
+        EFF_EffectEntry_AngleY_Float_DisplayName,
+        EFF_EffectEntry_AngleY_Hex_DisplayName,
+        EFF_EffectEntry_AngleY_Description,
+
+        EFF_EffectEntry_AngleZ_Float_DisplayName,
+        EFF_EffectEntry_AngleZ_Hex_DisplayName,
+        EFF_EffectEntry_AngleZ_Description,
+
+        //Position
+        EFF_EffectEntry_PositionX_Float_DisplayName,
+        EFF_EffectEntry_PositionX_Hex_DisplayName,
+        EFF_EffectEntry_PositionX_Description,
+
+        EFF_EffectEntry_PositionY_Float_DisplayName,
+        EFF_EffectEntry_PositionY_Hex_DisplayName,
+        EFF_EffectEntry_PositionY_Description,
+
+        EFF_EffectEntry_PositionZ_Float_DisplayName,
+        EFF_EffectEntry_PositionZ_Hex_DisplayName,
+        EFF_EffectEntry_PositionZ_Description,
+
+        //EFF_EffectGroup
+        EFF_EffectGroup_Position_Category,
+        EFF_EffectGroup_Angle_Category,
+        //Angle
+        EFF_EffectGroup_AngleX_Float_DisplayName,
+        EFF_EffectGroup_AngleX_Hex_DisplayName,
+        EFF_EffectGroup_AngleX_Description,
+
+        EFF_EffectGroup_AngleY_Float_DisplayName,
+        EFF_EffectGroup_AngleY_Hex_DisplayName,
+        EFF_EffectGroup_AngleY_Description,
+
+        EFF_EffectGroup_AngleZ_Float_DisplayName,
+        EFF_EffectGroup_AngleZ_Hex_DisplayName,
+        EFF_EffectGroup_AngleZ_Description,
+
+        //Position
+        EFF_EffectGroup_PositionX_Float_DisplayName,
+        EFF_EffectGroup_PositionX_Hex_DisplayName,
+        EFF_EffectGroup_PositionX_Description,
+
+        EFF_EffectGroup_PositionY_Float_DisplayName,
+        EFF_EffectGroup_PositionY_Hex_DisplayName,
+        EFF_EffectGroup_PositionY_Description,
+
+        EFF_EffectGroup_PositionZ_Float_DisplayName,
+        EFF_EffectGroup_PositionZ_Hex_DisplayName,
+        EFF_EffectGroup_PositionZ_Description,
+
+        //EFF_table9
+        EFF_Table9_Category,
+
+        EFF_Table9_PositionX_Float_DisplayName,
+        EFF_Table9_PositionX_Hex_DisplayName,
+        EFF_Table9_PositionX_Description,
+
+        EFF_Table9_PositionY_Float_DisplayName,
+        EFF_Table9_PositionY_Hex_DisplayName,
+        EFF_Table9_PositionY_Description,
+
+        EFF_Table9_PositionZ_Float_DisplayName,
+        EFF_Table9_PositionZ_Hex_DisplayName,
+        EFF_Table9_PositionZ_Description,
+
         Null
     }
 }

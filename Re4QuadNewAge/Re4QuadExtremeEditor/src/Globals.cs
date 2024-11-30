@@ -71,6 +71,17 @@ namespace Re4QuadExtremeEditor.src
         public static Color NodeColorLIT_ENTRYS = Color.DarkSlateGray;
         public static Color NodeColorQuadCustom = Color.DimGray;
 
+        public static Color NodeColorEFF_Table0 = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table1 = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table2 = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table3 = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table4 = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table6 = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table7_Effect_0 = Color.Teal;
+        public static Color NodeColorEFF_Table8_Effect_1 = Color.SeaGreen;
+        public static Color NodeColorEFF_EffectEntry = Color.DarkSlateGray;
+        public static Color NodeColorEFF_Table9 = Color.DarkViolet;
+
         // color GL
         // cores
         public static Vector4 GL_ColorESL = Utils.ColorToVector4(Color.Red);
@@ -92,6 +103,11 @@ namespace Re4QuadExtremeEditor.src
         public static Vector4 GL_ColorESE = Utils.ColorToVector4(Color.Violet);
         public static Vector4 GL_ColorLIT = Utils.ColorToVector4(Color.DarkSlateGray);
         public static Vector4 GL_ColorQuadCustom = Utils.ColorToVector4(Color.DimGray);
+        public static Vector4 GL_ColorEFF_EffectEntry = Utils.ColorToVector4(Color.DarkSlateGray);
+        public static Vector4 GL_ColorEFF_Table7 = Utils.ColorToVector4(Color.Teal);
+        public static Vector4 GL_ColorEFF_Table8 = Utils.ColorToVector4(Color.SeaGreen);
+        public static Vector4 GL_ColorEFF_Table9 = Utils.ColorToVector4(Color.DarkViolet);
+
 
         // more Colors
         public static Vector4 GL_MoreColor_T00_GeneralPurpose = Utils.ColorToVector4(Color.Green);
@@ -132,6 +148,8 @@ namespace Re4QuadExtremeEditor.src
         public static bool RenderFileESE = true;
         public static bool RenderFileQuadCustom = true;
         public static bool RenderFileLIT = true;
+        public static bool RenderFileEFFBLOB = true;
+        public static bool RenderFileCAM = true;
 
         //enemy renders
         public static bool RenderDisabledEnemy = true;
@@ -171,6 +189,14 @@ namespace Re4QuadExtremeEditor.src
         public static ushort LIT_SelectedGroup = 0;
         public static bool LIT_EnableLightColor = false;
 
+        //Effect
+        public static bool EFF_ShowOnlySelectedGroup = false;
+        public static ushort EFF_SelectedGroup = 0;
+        public static bool EFF_RenderTable7 = true;
+        public static bool EFF_RenderTable8 = true;
+        public static bool EFF_RenderTable9 = true;
+        public static bool EFF_Use_Group_Position = true;
+
         #endregion
 
 
@@ -189,6 +215,7 @@ namespace Re4QuadExtremeEditor.src
         public static string FilePathQuadCustom = null;
         public static string FilePathEFFBLOB = null;
         public static string FilePathLIT = null;
+        public static string FilePathCAM = null;
         #endregion
 
         // Render Options

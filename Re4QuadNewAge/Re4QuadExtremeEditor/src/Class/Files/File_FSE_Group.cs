@@ -7,6 +7,7 @@ using Re4QuadExtremeEditor.src.Class.Enums;
 using Re4QuadExtremeEditor.src.Class.ObjMethods;
 using System.Drawing;
 using OpenTK;
+using SimpleEndianBinaryIO;
 
 namespace Re4QuadExtremeEditor.src.Class.Files
 {
@@ -383,6 +384,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         protected override int GetTriggerZoneStartIndex()
         {
             return 0x14;
+        }
+
+        protected override Endianness GetEndianness()
+        {
+            return Endianness.LittleEndian;
         }
     }
 }

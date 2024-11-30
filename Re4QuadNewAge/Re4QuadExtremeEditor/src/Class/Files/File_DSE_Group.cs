@@ -7,6 +7,7 @@ using Re4QuadExtremeEditor.src.Class.Enums;
 using Re4QuadExtremeEditor.src.Class.ObjMethods;
 using System.Drawing;
 using OpenTK;
+using SimpleEndianBinaryIO;
 
 namespace Re4QuadExtremeEditor.src.Class.Files
 {
@@ -146,6 +147,11 @@ namespace Re4QuadExtremeEditor.src.Class.Files
         protected override byte[] GetInternalLine(ushort ID)
         {
             return Lines[ID];
+        }
+
+        protected override Endianness GetEndianness()
+        {
+            return Endianness.LittleEndian;
         }
 
         private byte[] ReturnLine(ushort ID)

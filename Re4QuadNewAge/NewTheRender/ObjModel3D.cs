@@ -358,6 +358,15 @@ namespace NewAgeTheRender
 
             GL.FrontFace(FrontFaceDirection.Cw);
 
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.AlphaTest);
+            GL.AlphaFunc(AlphaFunction.Gequal, 0.001f);
+            GL.Enable(EnableCap.Texture2D);
+        }
+
+        public static void PreRenderStep2() 
+        {
             DataShader.ShaderObjModel.Use();
 
             if (RenderNormals)
@@ -386,15 +395,41 @@ namespace NewAgeTheRender
             {
                 DataShader.ShaderObjModel.SetInt("EnableAlphaChannel", 0);
             }
-
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-            GL.Enable(EnableCap.AlphaTest);
-            GL.AlphaFunc(AlphaFunction.Gequal, 0.001f);
-            GL.Enable(EnableCap.Texture2D);
         }
 
-        public void Render(RspFix obj) 
+        public static void PreRenderStep3()
+        {
+            DataShader.ShaderObjModelPlus.Use();
+
+            if (RenderNormals)
+            {
+                DataShader.ShaderObjModelPlus.SetInt("EnableNormals", 1);
+            }
+            else
+            {
+                DataShader.ShaderObjModelPlus.SetInt("EnableNormals", 0);
+            }
+
+            if (RenderVertexColor)
+            {
+                DataShader.ShaderObjModelPlus.SetInt("EnableVertexColors", 1);
+            }
+            else
+            {
+                DataShader.ShaderObjModelPlus.SetInt("EnableVertexColors", 0);
+            }
+
+            if (RenderAlphaChannel)
+            {
+                DataShader.ShaderObjModelPlus.SetInt("EnableAlphaChannel", 1);
+            }
+            else
+            {
+                DataShader.ShaderObjModelPlus.SetInt("EnableAlphaChannel", 0);
+            }
+        }
+
+        public void Render(RspFix obj)
         {
             DataShader.ShaderObjModel.Use();
             DataShader.ShaderObjModel.SetVector4("matColor", Vector4.One);
@@ -432,6 +467,59 @@ namespace NewAgeTheRender
                     if (RenderTextures)
                     {
                         DataShader.ShaderObjModel.SetVector4("matColor", material.MatColor);
+                        DataShader.WhiteTexture.Use(TextureUnit.Texture0);
+                        DataShader.WhiteTexture.Use(TextureUnit.Texture1);
+                        meshTexRef[item]?.SetTex();
+                    }
+
+                    mesh.Render();
+                }
+            }
+
+        }
+
+        public void Render(RspFix entry, RspFix group)
+        {
+            DataShader.ShaderObjModelPlus.Use();
+            DataShader.ShaderObjModelPlus.SetVector4("matColor", Vector4.One);
+
+            DataShader.WhiteTexture.Use(TextureUnit.Texture0);
+            DataShader.WhiteTexture.Use(TextureUnit.Texture1);
+
+            DataShader.ShaderObjModelPlus.SetMatrix4("RspFixRotation", entry.Rotation);
+            DataShader.ShaderObjModelPlus.SetVector3("RspFixScale", entry.Scale);
+            DataShader.ShaderObjModelPlus.SetVector3("RspFixPosition", entry.Position);
+
+            DataShader.ShaderObjModelPlus.SetMatrix4("RspFix2Rotation", group.Rotation);
+            DataShader.ShaderObjModelPlus.SetVector3("RspFix2Scale", group.Scale);
+            DataShader.ShaderObjModelPlus.SetVector3("RspFix2Position", group.Position);
+
+            //lista de modelos
+            foreach (var modelID in ObjNameOrder)
+            {
+                //modelo
+                if (preFixs.ContainsKey(modelID))
+                {
+                    DataShader.ShaderObjModelPlus.SetMatrix4("mRotation", preFixs[modelID].GetRotation());
+                    DataShader.ShaderObjModelPlus.SetVector3("mScale", preFixs[modelID].Scale);
+                    DataShader.ShaderObjModelPlus.SetVector3("mPosition", preFixs[modelID].Position);
+                }
+                else
+                {
+                    DataShader.ShaderObjModelPlus.SetMatrix4("mRotation", Matrix4.Identity);
+                    DataShader.ShaderObjModelPlus.SetVector3("mScale", Vector3.One);
+                    DataShader.ShaderObjModelPlus.SetVector3("mPosition", Vector3.Zero);
+                }
+
+                foreach (var item in modelGroup.Objects[modelID].MeshNames)
+                {
+                    //chamadas da textura
+                    var mesh = modelGroup.MeshParts[item];
+                    var material = modelGroup.MaterialGroupDic[modelID].MaterialsDic[mesh.MaterialRef];
+
+                    if (RenderTextures)
+                    {
+                        DataShader.ShaderObjModelPlus.SetVector4("matColor", material.MatColor);
                         DataShader.WhiteTexture.Use(TextureUnit.Texture0);
                         DataShader.WhiteTexture.Use(TextureUnit.Texture1);
                         meshTexRef[item]?.SetTex();

@@ -72,6 +72,9 @@ namespace Re4QuadExtremeEditor.src
             Consts.ModelKey_ESE_Point,
             Consts.ModelKey_EMI_Point,
             Consts.ModelKey_LIT_Point,
+            Consts.ModelKey_EFF_EntryPoint,
+            Consts.ModelKey_EFF_GroupPoint,
+            Consts.ModelKey_EFF_Table9,
             Consts.ModelKeyQuadCustomPoint
             })
              .Select(x => Path.Combine(AppContext.BaseDirectory, Consts.InternalModelsDirectory, x)).ToHashSet().ToArray();
@@ -314,119 +317,222 @@ namespace Re4QuadExtremeEditor.src
         /// </summary>
         public static void StartCreateNodes() 
         {
-            EnemyNodeGroup esl = new EnemyNodeGroup();
-            esl.Group = GroupType.ESL;
-            esl.Text = Lang.GetText(eLang.NodeESL);
-            esl.Name = Consts.NodeESL;
-            esl.ForeColor = Globals.NodeColorESL;
-            esl.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeESL = new EnemyNodeGroup
+            {
+                Group = GroupType.ESL,
+                Text = Lang.GetText(eLang.NodeESL),
+                Name = Consts.NodeESL,
+                ForeColor = Globals.NodeColorESL,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            EtcModelNodeGroup ets = new EtcModelNodeGroup();
-            ets.Group = GroupType.ETS;
-            ets.Text = Lang.GetText(eLang.NodeETS);
-            ets.Name = Consts.NodeETS;
-            ets.ForeColor = Globals.NodeColorETS;
-            ets.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeETS = new EtcModelNodeGroup
+            {
+                Group = GroupType.ETS,
+                Text = Lang.GetText(eLang.NodeETS),
+                Name = Consts.NodeETS,
+                ForeColor = Globals.NodeColorETS,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            SpecialNodeGroup ita = new SpecialNodeGroup();
-            ita.Group = GroupType.ITA;
-            ita.Text = Lang.GetText(eLang.NodeITA);
-            ita.Name = Consts.NodeITA;
-            ita.ForeColor = Globals.NodeColorITA;
-            ita.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeITA = new SpecialNodeGroup
+            {
+                Group = GroupType.ITA,
+                Text = Lang.GetText(eLang.NodeITA),
+                Name = Consts.NodeITA,
+                ForeColor = Globals.NodeColorITA,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            SpecialNodeGroup aev = new SpecialNodeGroup();
-            aev.Group = GroupType.AEV;
-            aev.Text = Lang.GetText(eLang.NodeAEV);
-            aev.Name = Consts.NodeAEV;
-            aev.ForeColor = Globals.NodeColorAEV;
-            aev.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeAEV = new SpecialNodeGroup
+            {
+                Group = GroupType.AEV,
+                Text = Lang.GetText(eLang.NodeAEV),
+                Name = Consts.NodeAEV,
+                ForeColor = Globals.NodeColorAEV,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            ExtraNodeGroup extras = new ExtraNodeGroup();
-            extras.Group = GroupType.EXTRAS;
-            extras.Text = Lang.GetText(eLang.NodeEXTRAS);
-            extras.Name = Consts.NodeEXTRAS;
-            extras.ForeColor = Globals.NodeColorEXTRAS;
-            extras.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeEXTRAS = new ExtraNodeGroup
+            {
+                Group = GroupType.EXTRAS,
+                Text = Lang.GetText(eLang.NodeEXTRAS),
+                Name = Consts.NodeEXTRAS,
+                ForeColor = Globals.NodeColorEXTRAS,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_DSE_NodeGroup dse = new NewAge_DSE_NodeGroup();
-            dse.Group = GroupType.DSE;
-            dse.Text = Lang.GetText(eLang.NodeDSE);
-            dse.Name = Consts.NodeDSE;
-            dse.ForeColor = Globals.NodeColorDSE;
-            dse.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeDSE = new NewAge_DSE_NodeGroup
+            {
+                Group = GroupType.DSE,
+                Text = Lang.GetText(eLang.NodeDSE),
+                Name = Consts.NodeDSE,
+                ForeColor = Globals.NodeColorDSE,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_EMI_NodeGroup emi = new NewAge_EMI_NodeGroup();
-            emi.Group = GroupType.EMI;
-            emi.Text = Lang.GetText(eLang.NodeEMI);
-            emi.Name = Consts.NodeEMI;
-            emi.ForeColor = Globals.NodeColorEMI;
-            emi.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeEMI = new NewAge_EMI_NodeGroup
+            {
+                Group = GroupType.EMI,
+                Text = Lang.GetText(eLang.NodeEMI),
+                Name = Consts.NodeEMI,
+                ForeColor = Globals.NodeColorEMI,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_ESAR_NodeGroup sar = new NewAge_ESAR_NodeGroup();
-            sar.Group = GroupType.SAR;
-            sar.Text = Lang.GetText(eLang.NodeSAR);
-            sar.Name = Consts.NodeSAR;
-            sar.ForeColor = Globals.NodeColorSAR;
-            sar.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeSAR = new NewAge_ESAR_NodeGroup
+            {
+                Group = GroupType.SAR,
+                Text = Lang.GetText(eLang.NodeSAR),
+                Name = Consts.NodeSAR,
+                ForeColor = Globals.NodeColorSAR,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_ESAR_NodeGroup ear = new NewAge_ESAR_NodeGroup();
-            ear.Group = GroupType.EAR;
-            ear.Text = Lang.GetText(eLang.NodeEAR);
-            ear.Name = Consts.NodeEAR;
-            ear.ForeColor = Globals.NodeColorEAR;
-            ear.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeEAR = new NewAge_ESAR_NodeGroup
+            {
+                Group = GroupType.EAR,
+                Text = Lang.GetText(eLang.NodeEAR),
+                Name = Consts.NodeEAR,
+                ForeColor = Globals.NodeColorEAR,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_ESE_NodeGroup ese = new NewAge_ESE_NodeGroup();
-            ese.Group = GroupType.ESE;
-            ese.Text = Lang.GetText(eLang.NodeESE);
-            ese.Name = Consts.NodeESE;
-            ese.ForeColor = Globals.NodeColorESE;
-            ese.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeESE = new NewAge_ESE_NodeGroup
+            {
+                Group = GroupType.ESE,
+                Text = Lang.GetText(eLang.NodeESE),
+                Name = Consts.NodeESE,
+                ForeColor = Globals.NodeColorESE,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_FSE_NodeGroup fse = new NewAge_FSE_NodeGroup();
-            fse.Group = GroupType.FSE;
-            fse.Text = Lang.GetText(eLang.NodeFSE);
-            fse.Name = Consts.NodeFSE;
-            fse.ForeColor = Globals.NodeColorFSE;
-            fse.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeFSE = new NewAge_FSE_NodeGroup
+            {
+                Group = GroupType.FSE,
+                Text = Lang.GetText(eLang.NodeFSE),
+                Name = Consts.NodeFSE,
+                ForeColor = Globals.NodeColorFSE,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            QuadCustomNodeGroup quad = new QuadCustomNodeGroup();
-            quad.Group = GroupType.QUAD_CUSTOM;
-            quad.Text = Lang.GetText(eLang.NodeQuadCustom);
-            quad.Name = Consts.NodeQuadCustom;
-            quad.ForeColor = Globals.NodeColorQuadCustom;
-            quad.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeQuadCustom = new QuadCustomNodeGroup
+            {
+                Group = GroupType.QUAD_CUSTOM,
+                Text = Lang.GetText(eLang.NodeQuadCustom),
+                Name = Consts.NodeQuadCustom,
+                ForeColor = Globals.NodeColorQuadCustom,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_LIT_Groups_NodeGroup lit_groups = new NewAge_LIT_Groups_NodeGroup();
-            lit_groups.Group = GroupType.LIT_GROUPS;
-            lit_groups.Text = Lang.GetText(eLang.NodeLIT_GROUPS);
-            lit_groups.Name = Consts.NodeLIT_GROUPS;
-            lit_groups.ForeColor = Globals.NodeColorLIT_GROUPS;
-            lit_groups.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeLIT_Groups = new NewAge_LIT_Groups_NodeGroup
+            {
+                Group = GroupType.LIT_GROUPS,
+                Text = Lang.GetText(eLang.NodeLIT_GROUPS),
+                Name = Consts.NodeLIT_GROUPS,
+                ForeColor = Globals.NodeColorLIT_GROUPS,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            NewAge_LIT_Entrys_NodeGroup lit_entrys = new NewAge_LIT_Entrys_NodeGroup();
-            lit_entrys.Group = GroupType.LIT_ENTRYS;
-            lit_entrys.Text = Lang.GetText(eLang.NodeLIT_ENTRYS);
-            lit_entrys.Name = Consts.NodeLIT_ENTRYS;
-            lit_entrys.ForeColor = Globals.NodeColorLIT_ENTRYS;
-            lit_entrys.NodeFont = Globals.TreeNodeFontText;
+            DataBase.NodeLIT_Entrys = new NewAge_LIT_Entrys_NodeGroup
+            {
+                Group = GroupType.LIT_ENTRYS,
+                Text = Lang.GetText(eLang.NodeLIT_ENTRYS),
+                Name = Consts.NodeLIT_ENTRYS,
+                ForeColor = Globals.NodeColorLIT_ENTRYS,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
+            DataBase.NodeEFF_Table0 = new NewAge_EFF_NodeGroup
+            {
+                Group = GroupType.EFF_Table0,
+                Text = Lang.GetText(eLang.NodeEFF_Table0),
+                Name = Consts.NodeEFF_Table0,
+                ForeColor = Globals.NodeColorEFF_Table0,
+                NodeFont = Globals.TreeNodeFontText
+            };
 
-            DataBase.NodeESL = esl;
-            DataBase.NodeETS = ets;
-            DataBase.NodeITA = ita;
-            DataBase.NodeAEV = aev;
-            DataBase.NodeEXTRAS = extras;
-            DataBase.NodeDSE = dse;
-            DataBase.NodeEMI = emi;
-            DataBase.NodeSAR = sar;
-            DataBase.NodeEAR = ear;
-            DataBase.NodeESE = ese;
-            DataBase.NodeFSE = fse;
-            DataBase.NodeQuadCustom = quad;
-            DataBase.NodeLIT_Groups = lit_groups;
-            DataBase.NodeLIT_Entrys = lit_entrys;
+            DataBase.NodeEFF_Table1 = new NewAge_EFF_NodeGroup
+            {
+                Group = GroupType.EFF_Table1,
+                Text = Lang.GetText(eLang.NodeEFF_Table1),
+                Name = Consts.NodeEFF_Table1,
+                ForeColor = Globals.NodeColorEFF_Table1,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table2 = new NewAge_EFF_NodeGroup
+            {
+                Group = GroupType.EFF_Table2,
+                Text = Lang.GetText(eLang.NodeEFF_Table2),
+                Name = Consts.NodeEFF_Table2,
+                ForeColor = Globals.NodeColorEFF_Table2,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table3 = new NewAge_EFF_NodeGroup
+            {
+                Group = GroupType.EFF_Table3,
+                Text = Lang.GetText(eLang.NodeEFF_Table3),
+                Name = Consts.NodeEFF_Table3,
+                ForeColor = Globals.NodeColorEFF_Table3,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table4 = new NewAge_EFF_NodeGroup
+            {
+                Group = GroupType.EFF_Table4,
+                Text = Lang.GetText(eLang.NodeEFF_Table4),
+                Name = Consts.NodeEFF_Table4,
+                ForeColor = Globals.NodeColorEFF_Table4,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table6 = new NewAge_EFF_NodeGroup
+            {
+                Group = GroupType.EFF_Table6,
+                Text = Lang.GetText(eLang.NodeEFF_Table6),
+                Name = Consts.NodeEFF_Table6,
+                ForeColor = Globals.NodeColorEFF_Table6,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table7_Effect_0 =  new NewAge_EFF_EffectGroup_NodeGroup
+            {
+                Group = GroupType.EFF_Table7_Effect_0,
+                Text = Lang.GetText(eLang.NodeEFF_Table7_Effect_0),
+                Name = Consts.NodeEFF_Table7_Effect_0,
+                ForeColor = Globals.NodeColorEFF_Table7_Effect_0,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table8_Effect_1 = new NewAge_EFF_EffectGroup_NodeGroup
+            {
+                Group = GroupType.EFF_Table8_Effect_1,
+                Text = Lang.GetText(eLang.NodeEFF_Table8_Effect_1),
+                Name = Consts.NodeEFF_Table8_Effect_1,
+                ForeColor = Globals.NodeColorEFF_Table8_Effect_1,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_EffectEntry = new NewAge_EFF_EffectEntry_NodeGroup
+            {
+                Group = GroupType.EFF_EffectEntry,
+                Text = Lang.GetText(eLang.NodeEFF_EffectEntry),
+                Name = Consts.NodeEFF_EffectEntry,
+                ForeColor = Globals.NodeColorEFF_EffectEntry,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
+            DataBase.NodeEFF_Table9 = new NewAge_EFF_Table9Entry_NodeGroup
+            {
+                Group = GroupType.EFF_Table9,
+                Text = Lang.GetText(eLang.NodeEFF_Table9),
+                Name = Consts.NodeEFF_Table9,
+                ForeColor = Globals.NodeColorEFF_Table9,
+                NodeFont = Globals.TreeNodeFontText
+            };
+
         }
 
         /// <summary>
@@ -639,6 +745,22 @@ namespace Re4QuadExtremeEditor.src
         public static Vector3[] GetObjScale_ToMove_Null(ushort ID) { return null; }
         public static void SetObjScale_ToMove_Null(ushort ID, Vector3[] value) { }
         public static TriggerZoneCategory GetTriggerZoneCategory_Null(ushort ID) { return TriggerZoneCategory.Disable; }
+
+        public static Class.ObjMethods.NodeMoveMethods GetMoveMethodNull() 
+        {
+            return new Class.ObjMethods.NodeMoveMethods
+            {
+                GetObjPostion_ToCamera = GetObjPostion_ToCamera_Null,
+                GetObjAngleY_ToCamera = GetObjAngleY_ToCamera_Null,
+                GetObjPostion_ToMove_General = GetObjPostion_ToMove_General_Null,
+                SetObjPostion_ToMove_General = SetObjPostion_ToMove_General_Null,
+                GetObjRotationAngles_ToMove = GetObjRotationAngles_ToMove_Null,
+                SetObjRotationAngles_ToMove = SetObjRotationAngles_ToMove_Null,
+                GetObjScale_ToMove = GetObjScale_ToMove_Null,
+                SetObjScale_ToMove = SetObjScale_ToMove_Null,
+                GetTriggerZoneCategory = GetTriggerZoneCategory_Null
+            };
+        }
 
     }
 

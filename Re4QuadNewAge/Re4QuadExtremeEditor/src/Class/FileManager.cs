@@ -7,6 +7,7 @@ using System.IO;
 using Re4QuadExtremeEditor.src.Class.TreeNodeObj;
 using Re4QuadExtremeEditor.src.Class.Enums;
 using Re4QuadExtremeEditor.src.Class.Files;
+using SimpleEndianBinaryIO;
 
 namespace Re4QuadExtremeEditor.src.Class
 {
@@ -1133,7 +1134,303 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
-        public static void LoadFileEFFBLOB(FileStream file, FileInfo fileInfo) { }
+        public static void LoadFileEFFBLOB(FileStream file, Endianness endianness)
+        {
+            var br = new EndianBinaryReader(file, endianness);
+            var tables = EFF_SPLIT.Extract.ExtractFile(br, endianness);
+
+            File_EFFBLOB_Group eff = new File_EFFBLOB_Group(endianness);
+
+            // table 0
+            ushort it0 = 0;
+            for (int i = 0; i < tables.Table00.Entries.Length && i < Consts.AmountLimitEFF_Table0; i++)
+            {
+                eff._Table0.TableLines.Add(it0, (tables.Table00.Entries[i].Value, (ushort)i));
+                it0++;
+            }
+            eff._Table0.IdForNewLine = it0;
+
+            // table 1
+            ushort it1 = 0;
+            for (int i = 0; i < tables.Table01.Entries.Length && i < Consts.AmountLimitEFF_Table1; i++)
+            {
+                eff._Table1.TableLines.Add(it1, (tables.Table01.Entries[i].Value, (ushort)i));
+                it1++;
+            }
+            eff._Table1.IdForNewLine = it1;
+
+            // table 2
+            ushort it2 = 0;
+            for (int i = 0; i < tables.Table02.Entries.Length && i < Consts.AmountLimitEFF_Table2; i++)
+            {
+                eff._Table2.TableLines.Add(it2, (tables.Table02.Entries[i].Value, (ushort)i));
+                it2++;
+            }
+            eff._Table2.IdForNewLine = it2;
+
+            // table 3
+            ushort it3 = 0;
+            for (int i = 0; i < tables.Table03.Entries.Length && i < Consts.AmountLimitEFF_Table3; i++)
+            {
+                eff._Table3.TableLines.Add(it3, (tables.Table03.Entries[i].Value, (ushort)i));
+                it3++;
+            }
+            eff._Table3.IdForNewLine = it3;
+
+            // table 4
+            ushort it4 = 0;
+            for (int i = 0; i < tables.Table04.Entries.Length && i < Consts.AmountLimitEFF_Table4; i++)
+            {
+                eff._Table4.TableLines.Add(it4, (tables.Table04.Entries[i].Value, (ushort)i));
+                it4++;
+            }
+            eff._Table4.IdForNewLine = it4;
+
+            // table 6
+            ushort it6 = 0;
+            for (int i = 0; i < tables.Table06.Entries.Length && i < Consts.AmountLimitEFF_Table6; i++)
+            {
+                eff._Table6.TableLines.Add(it6, (tables.Table06.Entries[i].Value, (ushort)i));
+                it6++;
+            }
+            eff._Table6.IdForNewLine = it6;
+
+            //Effect entry e Effect Groups, table 7 e table 8
+            ushort iEffectEntry = 0;
+            ushort it7 = 0;
+            ushort it8 = 0;
+
+            for (int i = 0; i < tables.Table07_Effect_0_Type.Groups.Length && i < Consts.AmountLimitEFF_Table7and8; i++)
+            {
+                eff._Table7_Effect0_Group.Table_Effect_Group.Add(it7, (tables.Table07_Effect_0_Type.Groups[i].Header.Skip(2).ToArray(), (ushort)i));
+                it7++;
+
+                for (int j = 0; j < tables.Table07_Effect_0_Type.Groups[i].Entries.Length; j++)
+                {
+                    if (iEffectEntry > Consts.AmountLimitEFF_EffectEntry)
+                    {
+                        break;
+                    }
+
+                    eff._TableEffectEntry.EffectEntry.Add(iEffectEntry, (tables.Table07_Effect_0_Type.Groups[i].Entries[j].Value, (ushort)j, (ushort)i, EffectEntryTableID.Table7));
+                    iEffectEntry++;
+                }
+            }
+
+            for (int i = 0; i < tables.Table08_Effect_1_Type.Groups.Length && i < Consts.AmountLimitEFF_Table7and8; i++)
+            {
+                eff._Table8_Effect1_Group.Table_Effect_Group.Add(it8, (tables.Table08_Effect_1_Type.Groups[i].Header.Skip(2).ToArray(), (ushort)i));
+                it8++;
+
+                for (int j = 0; j < tables.Table08_Effect_1_Type.Groups[i].Entries.Length; j++)
+                {
+                    if (iEffectEntry > Consts.AmountLimitEFF_EffectEntry)
+                    {
+                        break;
+                    }
+
+                    eff._TableEffectEntry.EffectEntry.Add(iEffectEntry, (tables.Table08_Effect_1_Type.Groups[i].Entries[j].Value, (ushort)j, (ushort)i, EffectEntryTableID.Table8));
+                    iEffectEntry++;
+                }
+            }
+
+            eff._Table7_Effect0_Group.IdForNewLine = it7;
+            eff._Table8_Effect1_Group.IdForNewLine = it8;
+            eff._TableEffectEntry.IdForNewLine = iEffectEntry;
+
+            //table 9
+            ushort it9 = 0;
+            for (int i = 0; i < tables.Table09.Entries.Length && i < Consts.AmountLimitEFF_Table9_Group; i++)
+            {
+                for (int j = 0; j < tables.Table09.Entries[i].Entries.Length; j++)
+                {
+                    if (it9 > Consts.AmountLimitEFF_Table9_entry)
+                    {
+                        break;
+                    }
+
+                    eff._Table9.Table9Lines.Add(it9, (tables.Table09.Entries[i].Entries[j].Value, (ushort)j, (ushort)i));
+                    it9++;
+                }
+            }
+            eff._Table9.IdForNewLine = it9;
+
+            // etapa 2
+
+            DataBase.FileEFF = null;
+            DataBase.FileEFF = eff;
+
+            DataBase.FileEFF._Table9.ChangeAmountCallbackMethods = DataBase.NodeEFF_Table9.ChangeAmountCallbackMethods;
+            DataBase.FileEFF._TableEffectEntry.ChangeAmountCallbackMethods = DataBase.NodeEFF_EffectEntry.ChangeAmountCallbackMethods;
+
+            {
+                DataBase.NodeEFF_Table0.Nodes.Clear();
+                DataBase.NodeEFF_Table0.PropertyMethods = DataBase.FileEFF._Table0.Methods;
+                DataBase.NodeEFF_Table0.DisplayMethods = DataBase.FileEFF._Table0.DisplayMethods;
+                DataBase.NodeEFF_Table0.ChangeAmountMethods = DataBase.FileEFF._Table0.ChangeAmountMethods;
+                DataBase.NodeEFF_Table0.MoveMethods = Utils.GetMoveMethodNull();
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it0; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table0, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table0.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table0.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table1.Nodes.Clear();
+                DataBase.NodeEFF_Table1.PropertyMethods = DataBase.FileEFF._Table1.Methods;
+                DataBase.NodeEFF_Table1.DisplayMethods = DataBase.FileEFF._Table1.DisplayMethods;
+                DataBase.NodeEFF_Table1.ChangeAmountMethods = DataBase.FileEFF._Table1.ChangeAmountMethods;
+                DataBase.NodeEFF_Table1.MoveMethods = Utils.GetMoveMethodNull();
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it1; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table1, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table1.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table1.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table2.Nodes.Clear();
+                DataBase.NodeEFF_Table2.PropertyMethods = DataBase.FileEFF._Table2.Methods;
+                DataBase.NodeEFF_Table2.DisplayMethods = DataBase.FileEFF._Table2.DisplayMethods;
+                DataBase.NodeEFF_Table2.ChangeAmountMethods = DataBase.FileEFF._Table2.ChangeAmountMethods;
+                DataBase.NodeEFF_Table2.MoveMethods = Utils.GetMoveMethodNull();
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it2; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table2, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table2.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table2.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table3.Nodes.Clear();
+                DataBase.NodeEFF_Table3.PropertyMethods = DataBase.FileEFF._Table3.Methods;
+                DataBase.NodeEFF_Table3.DisplayMethods = DataBase.FileEFF._Table3.DisplayMethods;
+                DataBase.NodeEFF_Table3.ChangeAmountMethods = DataBase.FileEFF._Table3.ChangeAmountMethods;
+                DataBase.NodeEFF_Table3.MoveMethods = Utils.GetMoveMethodNull();
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it3; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table3, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table3.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table3.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table4.Nodes.Clear();
+                DataBase.NodeEFF_Table4.PropertyMethods = DataBase.FileEFF._Table4.Methods;
+                DataBase.NodeEFF_Table4.DisplayMethods = DataBase.FileEFF._Table4.DisplayMethods;
+                DataBase.NodeEFF_Table4.ChangeAmountMethods = DataBase.FileEFF._Table4.ChangeAmountMethods;
+                DataBase.NodeEFF_Table4.MoveMethods = Utils.GetMoveMethodNull();
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it4; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table4, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table4.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table4.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table6.Nodes.Clear();
+                DataBase.NodeEFF_Table6.PropertyMethods = DataBase.FileEFF._Table6.Methods;
+                DataBase.NodeEFF_Table6.DisplayMethods = DataBase.FileEFF._Table6.DisplayMethods;
+                DataBase.NodeEFF_Table6.ChangeAmountMethods = DataBase.FileEFF._Table6.ChangeAmountMethods;
+                DataBase.NodeEFF_Table6.MoveMethods = Utils.GetMoveMethodNull();
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it6; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table6, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table6.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table6.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table7_Effect_0.Nodes.Clear();
+                DataBase.NodeEFF_Table7_Effect_0.PropertyMethods = DataBase.FileEFF._Table7_Effect0_Group.Methods;
+                DataBase.NodeEFF_Table7_Effect_0.MethodsForGL = DataBase.FileEFF._Table7_Effect0_Group.MethodsForGL;
+                DataBase.NodeEFF_Table7_Effect_0.DisplayMethods = DataBase.FileEFF._Table7_Effect0_Group.DisplayMethods;
+                DataBase.NodeEFF_Table7_Effect_0.ChangeAmountMethods = DataBase.FileEFF._Table7_Effect0_Group.ChangeAmountMethods;
+                DataBase.NodeEFF_Table7_Effect_0.MoveMethods = DataBase.FileEFF._Table7_Effect0_Group.MoveMethods;
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it7; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table7_Effect_0, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table7_Effect_0.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table7_Effect_0.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table8_Effect_1.Nodes.Clear();
+                DataBase.NodeEFF_Table8_Effect_1.PropertyMethods = DataBase.FileEFF._Table8_Effect1_Group.Methods;
+                DataBase.NodeEFF_Table8_Effect_1.MethodsForGL = DataBase.FileEFF._Table8_Effect1_Group.MethodsForGL;
+                DataBase.NodeEFF_Table8_Effect_1.DisplayMethods = DataBase.FileEFF._Table8_Effect1_Group.DisplayMethods;
+                DataBase.NodeEFF_Table8_Effect_1.ChangeAmountMethods = DataBase.FileEFF._Table8_Effect1_Group.ChangeAmountMethods;
+                DataBase.NodeEFF_Table8_Effect_1.MoveMethods = DataBase.FileEFF._Table8_Effect1_Group.MoveMethods;
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it8; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table8_Effect_1, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table8_Effect_1.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table8_Effect_1.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_EffectEntry.Nodes.Clear();
+                DataBase.NodeEFF_EffectEntry.PropertyMethods = DataBase.FileEFF._TableEffectEntry.Methods;
+                DataBase.NodeEFF_EffectEntry.MethodsForGL = DataBase.FileEFF._TableEffectEntry.MethodsForGL;
+                DataBase.NodeEFF_EffectEntry.DisplayMethods = DataBase.FileEFF._TableEffectEntry.DisplayMethods;
+                DataBase.NodeEFF_EffectEntry.ChangeAmountMethods = DataBase.FileEFF._TableEffectEntry.ChangeAmountMethods;
+                DataBase.NodeEFF_EffectEntry.MoveMethods = DataBase.FileEFF._TableEffectEntry.MoveMethods;
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < iEffectEntry; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_EffectEntry, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_EffectEntry.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_EffectEntry.Expand();
+            }
+
+            {
+                DataBase.NodeEFF_Table9.Nodes.Clear();
+                DataBase.NodeEFF_Table9.PropertyMethods = DataBase.FileEFF._Table9.Methods;
+                DataBase.NodeEFF_Table9.MethodsForGL = DataBase.FileEFF._Table9.MethodsForGL;
+                DataBase.NodeEFF_Table9.DisplayMethods = DataBase.FileEFF._Table9.DisplayMethods;
+                DataBase.NodeEFF_Table9.ChangeAmountMethods = DataBase.FileEFF._Table9.ChangeAmountMethods;
+                DataBase.NodeEFF_Table9.MoveMethods = DataBase.FileEFF._Table9.MoveMethods;
+                List<Object3D> nodes = new List<Object3D>();
+                for (ushort iN = 0; iN < it9; iN++)
+                {
+                    Object3D o = Object3D.CreateNewInstance(GroupType.EFF_Table9, iN);
+                    nodes.Add(o);
+                }
+                DataBase.NodeEFF_Table9.Nodes.AddRange(nodes.ToArray());
+                DataBase.NodeEFF_Table9.Expand();
+            }
+
+            GC.Collect();
+        }
+
+        public static void LoadFileCAM(FileStream file, IsRe4Version version) { }
 
         public static void LoadFileLIT_UHD(FileStream file, FileInfo fileInfo)
         {
@@ -1216,11 +1513,6 @@ namespace Re4QuadExtremeEditor.src.Class
 
                         ushort LigthtEntryCount = (ushort)BitConverter.ToUInt32(Group, 4);
 
-                        if (LigthtEntryCount > Consts.AmountLimitLIT_Entrys_on_load)
-                        {
-                            LigthtEntryCount = Consts.AmountLimitLIT_Entrys_on_load;
-                        }
-
                         //esse campo na edição fica sempre zero
                         Group[4] = 0;
                         Group[5] = 0;
@@ -1230,6 +1522,11 @@ namespace Re4QuadExtremeEditor.src.Class
                         ushort j = 0;
                         for (; j < LigthtEntryCount; j++)
                         {
+                            if (internalID_Entrys > Consts.AmountLimitLIT_Entrys)
+                            {
+                                break;
+                            }
+
                             byte[] Entry = new byte[EntryLength];
                             offset = file.Read(Entry, 0, EntryLength);
                             lit.LightEntrys.Lines.Add(internalID_Entrys, Entry);
@@ -1246,6 +1543,11 @@ namespace Re4QuadExtremeEditor.src.Class
                         {
                             for (; j < LigthtEntryCount; j++)
                             {
+                                if (internalID_Entrys > Consts.AmountLimitLIT_Entrys)
+                                {
+                                    break;
+                                }
+
                                 lit.LightEntrys.Lines.Add(internalID_Entrys, new byte[EntryLength]);
                                 lit.LightEntrys.GroupConnection.Add(internalID_Entrys, (j, i));
                                 internalID_Entrys++;
@@ -1705,7 +2007,81 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
-        public static void NewFileEFFBLOB() { }
+        public static void NewFileEFFBLOB(Endianness endianness)
+        {
+            File_EFFBLOB_Group eff = new File_EFFBLOB_Group(endianness);
+            DataBase.FileEFF = null;
+            DataBase.FileEFF = eff;
+
+            DataBase.FileEFF._Table9.ChangeAmountCallbackMethods = DataBase.NodeEFF_Table9.ChangeAmountCallbackMethods;
+            DataBase.FileEFF._TableEffectEntry.ChangeAmountCallbackMethods = DataBase.NodeEFF_EffectEntry.ChangeAmountCallbackMethods;
+
+            DataBase.NodeEFF_Table0.Nodes.Clear();
+            DataBase.NodeEFF_Table0.PropertyMethods = DataBase.FileEFF._Table0.Methods;
+            DataBase.NodeEFF_Table0.DisplayMethods = DataBase.FileEFF._Table0.DisplayMethods;
+            DataBase.NodeEFF_Table0.ChangeAmountMethods = DataBase.FileEFF._Table0.ChangeAmountMethods;
+            DataBase.NodeEFF_Table0.MoveMethods = Utils.GetMoveMethodNull();
+
+            DataBase.NodeEFF_Table1.Nodes.Clear();
+            DataBase.NodeEFF_Table1.PropertyMethods = DataBase.FileEFF._Table1.Methods;
+            DataBase.NodeEFF_Table1.DisplayMethods = DataBase.FileEFF._Table1.DisplayMethods;
+            DataBase.NodeEFF_Table1.ChangeAmountMethods = DataBase.FileEFF._Table1.ChangeAmountMethods;
+            DataBase.NodeEFF_Table1.MoveMethods = Utils.GetMoveMethodNull();
+
+            DataBase.NodeEFF_Table2.Nodes.Clear();
+            DataBase.NodeEFF_Table2.PropertyMethods = DataBase.FileEFF._Table2.Methods;
+            DataBase.NodeEFF_Table2.DisplayMethods = DataBase.FileEFF._Table2.DisplayMethods;
+            DataBase.NodeEFF_Table2.ChangeAmountMethods = DataBase.FileEFF._Table2.ChangeAmountMethods;
+            DataBase.NodeEFF_Table2.MoveMethods = Utils.GetMoveMethodNull();
+
+            DataBase.NodeEFF_Table3.Nodes.Clear();
+            DataBase.NodeEFF_Table3.PropertyMethods = DataBase.FileEFF._Table3.Methods;
+            DataBase.NodeEFF_Table3.DisplayMethods = DataBase.FileEFF._Table3.DisplayMethods;
+            DataBase.NodeEFF_Table3.ChangeAmountMethods = DataBase.FileEFF._Table3.ChangeAmountMethods;
+            DataBase.NodeEFF_Table3.MoveMethods = Utils.GetMoveMethodNull();
+
+            DataBase.NodeEFF_Table4.Nodes.Clear();
+            DataBase.NodeEFF_Table4.PropertyMethods = DataBase.FileEFF._Table4.Methods;
+            DataBase.NodeEFF_Table4.DisplayMethods = DataBase.FileEFF._Table4.DisplayMethods;
+            DataBase.NodeEFF_Table4.ChangeAmountMethods = DataBase.FileEFF._Table4.ChangeAmountMethods;
+            DataBase.NodeEFF_Table4.MoveMethods = Utils.GetMoveMethodNull();
+
+            DataBase.NodeEFF_Table6.Nodes.Clear();
+            DataBase.NodeEFF_Table6.PropertyMethods = DataBase.FileEFF._Table6.Methods;
+            DataBase.NodeEFF_Table6.DisplayMethods = DataBase.FileEFF._Table6.DisplayMethods;
+            DataBase.NodeEFF_Table6.ChangeAmountMethods = DataBase.FileEFF._Table6.ChangeAmountMethods;
+            DataBase.NodeEFF_Table6.MoveMethods = Utils.GetMoveMethodNull();
+
+            DataBase.NodeEFF_Table7_Effect_0.Nodes.Clear();
+            DataBase.NodeEFF_Table7_Effect_0.PropertyMethods = DataBase.FileEFF._Table7_Effect0_Group.Methods;
+            DataBase.NodeEFF_Table7_Effect_0.MethodsForGL = DataBase.FileEFF._Table7_Effect0_Group.MethodsForGL;
+            DataBase.NodeEFF_Table7_Effect_0.DisplayMethods = DataBase.FileEFF._Table7_Effect0_Group.DisplayMethods;
+            DataBase.NodeEFF_Table7_Effect_0.ChangeAmountMethods = DataBase.FileEFF._Table7_Effect0_Group.ChangeAmountMethods;
+            DataBase.NodeEFF_Table7_Effect_0.MoveMethods = DataBase.FileEFF._Table7_Effect0_Group.MoveMethods;
+
+            DataBase.NodeEFF_Table8_Effect_1.Nodes.Clear();
+            DataBase.NodeEFF_Table8_Effect_1.PropertyMethods = DataBase.FileEFF._Table8_Effect1_Group.Methods;
+            DataBase.NodeEFF_Table8_Effect_1.MethodsForGL = DataBase.FileEFF._Table8_Effect1_Group.MethodsForGL;
+            DataBase.NodeEFF_Table8_Effect_1.DisplayMethods = DataBase.FileEFF._Table8_Effect1_Group.DisplayMethods;
+            DataBase.NodeEFF_Table8_Effect_1.ChangeAmountMethods = DataBase.FileEFF._Table8_Effect1_Group.ChangeAmountMethods;
+            DataBase.NodeEFF_Table8_Effect_1.MoveMethods = DataBase.FileEFF._Table8_Effect1_Group.MoveMethods;
+
+            DataBase.NodeEFF_EffectEntry.Nodes.Clear();
+            DataBase.NodeEFF_EffectEntry.PropertyMethods = DataBase.FileEFF._TableEffectEntry.Methods;
+            DataBase.NodeEFF_EffectEntry.MethodsForGL = DataBase.FileEFF._TableEffectEntry.MethodsForGL;
+            DataBase.NodeEFF_EffectEntry.DisplayMethods = DataBase.FileEFF._TableEffectEntry.DisplayMethods;
+            DataBase.NodeEFF_EffectEntry.ChangeAmountMethods = DataBase.FileEFF._TableEffectEntry.ChangeAmountMethods;
+            DataBase.NodeEFF_EffectEntry.MoveMethods = DataBase.FileEFF._TableEffectEntry.MoveMethods;
+
+            DataBase.NodeEFF_Table9.Nodes.Clear();
+            DataBase.NodeEFF_Table9.PropertyMethods = DataBase.FileEFF._Table9.Methods;
+            DataBase.NodeEFF_Table9.MethodsForGL = DataBase.FileEFF._Table9.MethodsForGL;
+            DataBase.NodeEFF_Table9.DisplayMethods = DataBase.FileEFF._Table9.DisplayMethods;
+            DataBase.NodeEFF_Table9.ChangeAmountMethods = DataBase.FileEFF._Table9.ChangeAmountMethods;
+            DataBase.NodeEFF_Table9.MoveMethods = DataBase.FileEFF._Table9.MoveMethods;
+
+            GC.Collect();
+        }
 
         public static void NewFileLIT(Re4Version version)
         {
@@ -1736,6 +2112,10 @@ namespace Re4QuadExtremeEditor.src.Class
 
             GC.Collect();
 
+        }
+
+        public static void NewFileCAM(IsRe4Version version) 
+        {
         }
 
         #endregion
@@ -1879,7 +2259,78 @@ namespace Re4QuadExtremeEditor.src.Class
             GC.Collect();
         }
 
-        public static void ClearEFFBLOB() { }
+        public static void ClearEFFBLOB()
+        {
+            DataBase.NodeEFF_Table0.Nodes.Clear();
+            DataBase.NodeEFF_Table0.PropertyMethods = null;
+            DataBase.NodeEFF_Table0.DisplayMethods = null;
+            DataBase.NodeEFF_Table0.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table0.MoveMethods = null;
+
+            DataBase.NodeEFF_Table1.Nodes.Clear();
+            DataBase.NodeEFF_Table1.PropertyMethods = null;
+            DataBase.NodeEFF_Table1.DisplayMethods = null;
+            DataBase.NodeEFF_Table1.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table1.MoveMethods = null;
+
+            DataBase.NodeEFF_Table2.Nodes.Clear();
+            DataBase.NodeEFF_Table2.PropertyMethods = null;
+            DataBase.NodeEFF_Table2.DisplayMethods = null;
+            DataBase.NodeEFF_Table2.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table2.MoveMethods = null;
+
+            DataBase.NodeEFF_Table3.Nodes.Clear();
+            DataBase.NodeEFF_Table3.PropertyMethods = null;
+            DataBase.NodeEFF_Table3.DisplayMethods = null;
+            DataBase.NodeEFF_Table3.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table3.MoveMethods = null;
+
+            DataBase.NodeEFF_Table4.Nodes.Clear();
+            DataBase.NodeEFF_Table4.PropertyMethods = null;
+            DataBase.NodeEFF_Table4.DisplayMethods = null;
+            DataBase.NodeEFF_Table4.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table4.MoveMethods = null;
+
+            DataBase.NodeEFF_Table6.Nodes.Clear();
+            DataBase.NodeEFF_Table6.PropertyMethods = null;
+            DataBase.NodeEFF_Table6.DisplayMethods = null;
+            DataBase.NodeEFF_Table6.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table6.MoveMethods = null;
+
+            DataBase.NodeEFF_Table7_Effect_0.Nodes.Clear();
+            DataBase.NodeEFF_Table7_Effect_0.PropertyMethods = null;
+            DataBase.NodeEFF_Table7_Effect_0.MethodsForGL = null;
+            DataBase.NodeEFF_Table7_Effect_0.DisplayMethods = null;
+            DataBase.NodeEFF_Table7_Effect_0.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table7_Effect_0.MoveMethods = null;
+
+            DataBase.NodeEFF_Table8_Effect_1.Nodes.Clear();
+            DataBase.NodeEFF_Table8_Effect_1.PropertyMethods = null;
+            DataBase.NodeEFF_Table8_Effect_1.MethodsForGL = null;
+            DataBase.NodeEFF_Table8_Effect_1.DisplayMethods = null;
+            DataBase.NodeEFF_Table8_Effect_1.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table8_Effect_1.MoveMethods = null;
+
+            DataBase.NodeEFF_EffectEntry.Nodes.Clear();
+            DataBase.NodeEFF_EffectEntry.PropertyMethods = null;
+            DataBase.NodeEFF_EffectEntry.MethodsForGL = null;
+            DataBase.NodeEFF_EffectEntry.DisplayMethods = null;
+            DataBase.NodeEFF_EffectEntry.ChangeAmountMethods = null;
+            DataBase.NodeEFF_EffectEntry.MoveMethods = null;
+
+            DataBase.NodeEFF_Table9.Nodes.Clear();
+            DataBase.NodeEFF_Table9.PropertyMethods = null;
+            DataBase.NodeEFF_Table9.MethodsForGL = null;
+            DataBase.NodeEFF_Table9.DisplayMethods = null;
+            DataBase.NodeEFF_Table9.ChangeAmountMethods = null;
+            DataBase.NodeEFF_Table9.MoveMethods = null;
+
+            DataBase.FileEFF._Table9.ChangeAmountCallbackMethods = null;
+            DataBase.FileEFF._TableEffectEntry.ChangeAmountCallbackMethods = null;
+            DataBase.FileEFF = null;
+
+            GC.Collect();
+        }
 
         public static void ClearLIT()
         {
@@ -1899,6 +2350,8 @@ namespace Re4QuadExtremeEditor.src.Class
             DataBase.FileLIT = null;
             GC.Collect();
         }
+
+        public static void ClearCAM() { }
 
         #endregion
 
@@ -2388,6 +2841,158 @@ namespace Re4QuadExtremeEditor.src.Class
                     var bDif = new byte[dif].Select(x => (byte)0xCD).ToArray();
                     stream.Write(bDif, 0, bDif.Length);
                 }
+            }
+        }
+
+        public static void SaveFileEFFBLOB(FileStream stream) 
+        {
+            if (DataBase.FileEFF != null)
+            {
+                EFF_SPLIT.TableIndex table0 = new EFF_SPLIT.TableIndex((uint)DataBase.FileEFF._Table0.TableLines.Count);
+                for (int i = 0; i < DataBase.FileEFF._Table0.TableLines.Count; i++)
+                {
+                    table0.Entries[i] = new EFF_SPLIT.TableEntry();
+                    table0.Entries[i].Value = DataBase.FileEFF._Table0.TableLines.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[8];
+                }
+
+                EFF_SPLIT.TableIndex table1 = new EFF_SPLIT.TableIndex((uint)DataBase.FileEFF._Table1.TableLines.Count);
+                for (int i = 0; i < DataBase.FileEFF._Table1.TableLines.Count; i++)
+                {
+                    table1.Entries[i] = new EFF_SPLIT.TableEntry();
+                    table1.Entries[i].Value = DataBase.FileEFF._Table1.TableLines.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[8];
+                }
+
+                EFF_SPLIT.TableIndex table2 = new EFF_SPLIT.TableIndex((uint)DataBase.FileEFF._Table2.TableLines.Count);
+                for (int i = 0; i < DataBase.FileEFF._Table2.TableLines.Count; i++)
+                {
+                    table2.Entries[i] = new EFF_SPLIT.TableEntry();
+                    table2.Entries[i].Value = DataBase.FileEFF._Table2.TableLines.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[8];
+                }
+
+                EFF_SPLIT.TableIndex table3 = new EFF_SPLIT.TableIndex((uint)DataBase.FileEFF._Table3.TableLines.Count);
+                for (int i = 0; i < DataBase.FileEFF._Table3.TableLines.Count; i++)
+                {
+                    table3.Entries[i] = new EFF_SPLIT.TableEntry();
+                    table3.Entries[i].Value = DataBase.FileEFF._Table3.TableLines.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[8];
+                }
+
+                EFF_SPLIT.TableIndex table4 = new EFF_SPLIT.TableIndex((uint)DataBase.FileEFF._Table4.TableLines.Count);
+                for (int i = 0; i < DataBase.FileEFF._Table4.TableLines.Count; i++)
+                {
+                    table4.Entries[i] = new EFF_SPLIT.TableEntry();
+                    table4.Entries[i].Value = DataBase.FileEFF._Table4.TableLines.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[8];
+                }
+
+                EFF_SPLIT.TableIndex table6 = new EFF_SPLIT.TableIndex((uint)DataBase.FileEFF._Table6.TableLines.Count);
+                for (int i = 0; i < DataBase.FileEFF._Table6.TableLines.Count; i++)
+                {
+                    table6.Entries[i] = new EFF_SPLIT.TableEntry();
+                    table6.Entries[i].Value = DataBase.FileEFF._Table6.TableLines.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[32];
+                }
+
+                int table9GroupCount = DataBase.FileEFF._Table9.Table9Lines.Count != 0 ? DataBase.FileEFF._Table9.Table9Lines.Max(x => x.Value.GroupOrderID) + 1 : 0;
+                EFF_SPLIT.Table09 table9 = new EFF_SPLIT.Table09((uint)table9GroupCount);
+                for (int i = 0; i < table9GroupCount; i++)
+                {
+                    var selected = DataBase.FileEFF._Table9.Table9Lines.Where(x => x.Value.GroupOrderID == i);
+                    int table9EntryCount = selected.Count() != 0 ? selected.Max(x => x.Value.EntryOrderID) + 1 : 0;
+                    table9.Entries[i] = new EFF_SPLIT.TableIndex((uint)table9EntryCount);
+
+                    for (int j = 0; j < table9EntryCount; j++)
+                    {
+                        table9.Entries[i].Entries[j] = new EFF_SPLIT.TableEntry();
+                        table9.Entries[i].Entries[j].Value = selected.Where(x => x.Value.EntryOrderID == j).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[40];
+                    }
+                }
+
+                byte[] content = new byte[46];
+                content[0x08] = 0xFE;
+                content[0x22] = 0x10;
+
+                EFF_SPLIT.TableEffectType table7 = null;
+                EFF_SPLIT.TableEffectType table8 = null;
+
+                {
+                    //table7
+                    var selectedtable7 = DataBase.FileEFF._TableEffectEntry.EffectEntry.Where(x => x.Value.TableID == EffectEntryTableID.Table7);
+                    int table7GroupCount = selectedtable7.Count() != 0 ? selectedtable7.Max(x => x.Value.GroupOrderID) + 1 : 0;
+                    if (DataBase.FileEFF._Table7_Effect0_Group.Table_Effect_Group.Count > table7GroupCount)
+                    {
+                        table7GroupCount = DataBase.FileEFF._Table7_Effect0_Group.Table_Effect_Group.Count;
+                    }
+
+                    table7 = new EFF_SPLIT.TableEffectType((uint)table7GroupCount);
+
+                    for (int i = 0; i < table7GroupCount; i++)
+                    {
+                        var selectedtable7GroupEntries = selectedtable7.Where(x => x.Value.GroupOrderID == i);
+                        int selectedtable7GroupEntriesCount = selectedtable7GroupEntries.Count() != 0 ? selectedtable7GroupEntries.Max(x => x.Value.EntryOrderID) + 1 : 0;
+
+                        byte[] header = DataBase.FileEFF._Table7_Effect0_Group.Table_Effect_Group.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? content;
+                        byte[] headerFix = new byte[48];
+                        EndianBitConverter.GetBytes((ushort)selectedtable7GroupEntriesCount, DataBase.FileEFF.Endian).CopyTo(headerFix, 0);
+                        header.CopyTo(headerFix, 2);
+
+                        table7.Groups[i] = new EFF_SPLIT.EffectGroup((uint)selectedtable7GroupEntriesCount);
+                        table7.Groups[i].Header = headerFix;
+
+                        for (int j = 0; j < selectedtable7GroupEntriesCount; j++)
+                        {
+                            var Entry = selectedtable7GroupEntries.Where(x => x.Value.EntryOrderID == j).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[300];
+                            table7.Groups[i].Entries[j] = new EFF_SPLIT.EffectEntry();
+                            table7.Groups[i].Entries[j].Value = Entry;
+                        }
+                    }
+                }
+
+                {
+                    //table8
+                    var selectedtable8 = DataBase.FileEFF._TableEffectEntry.EffectEntry.Where(x => x.Value.TableID == EffectEntryTableID.Table8);
+                    int table8GroupCount = selectedtable8.Count() != 0 ? selectedtable8.Max(x => x.Value.GroupOrderID) + 1 : 0;
+                    if (DataBase.FileEFF._Table8_Effect1_Group.Table_Effect_Group.Count > table8GroupCount)
+                    {
+                        table8GroupCount = DataBase.FileEFF._Table8_Effect1_Group.Table_Effect_Group.Count;
+                    }
+
+                    table8 = new EFF_SPLIT.TableEffectType((uint)table8GroupCount);
+
+                    for (int i = 0; i < table8GroupCount; i++)
+                    {
+                        var selectedtable8GroupEntries = selectedtable8.Where(x => x.Value.GroupOrderID == i);
+                        int selectedtable8GroupEntriesCount = selectedtable8GroupEntries.Count() != 0 ? selectedtable8GroupEntries.Max(x => x.Value.EntryOrderID) + 1 : 0;
+
+                        byte[] header = DataBase.FileEFF._Table8_Effect1_Group.Table_Effect_Group.Where(x => x.Value.OrderID == i).Select(x => x.Value.Line).FirstOrDefault() ?? content;
+                        byte[] headerFix = new byte[48];
+                        EndianBitConverter.GetBytes((ushort)selectedtable8GroupEntriesCount, DataBase.FileEFF.Endian).CopyTo(headerFix, 0);
+                        header.CopyTo(headerFix, 2);
+
+                        table8.Groups[i] = new EFF_SPLIT.EffectGroup((uint)selectedtable8GroupEntriesCount);
+                        table8.Groups[i].Header = headerFix;
+
+                        for (int j = 0; j < selectedtable8GroupEntriesCount; j++)
+                        {
+                            var Entry = selectedtable8GroupEntries.Where(x => x.Value.EntryOrderID == j).Select(x => x.Value.Line).FirstOrDefault() ?? new byte[300];
+                            table8.Groups[i].Entries[j] = new EFF_SPLIT.EffectEntry();
+                            table8.Groups[i].Entries[j].Value = Entry;
+                        }
+                    }
+
+                }
+
+                EFF_SPLIT.TablesGroup tablesGroup = new EFF_SPLIT.TablesGroup();
+                tablesGroup.Table00 = table0;
+                tablesGroup.Table01 = table1;
+                tablesGroup.Table02 = table2;
+                tablesGroup.Table03 = table3;
+                tablesGroup.Table04 = table4;
+                tablesGroup.Table06 = table6;
+                tablesGroup.Table09 = table9;
+                tablesGroup.Table07_Effect_0_Type = table7;
+                tablesGroup.Table08_Effect_1_Type = table8;
+
+                EFF_SPLIT.Join join = new EFF_SPLIT.Join(tablesGroup);
+                join.Create_EFF_File(stream, DataBase.FileEFF.Endian);
+
             }
         }
 

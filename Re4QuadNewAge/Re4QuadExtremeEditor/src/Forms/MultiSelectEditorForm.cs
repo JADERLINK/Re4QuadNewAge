@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Re4QuadExtremeEditor.src.Class;
 using Re4QuadExtremeEditor.src.Class.MyProperty;
+using Re4QuadExtremeEditor.src.Class.MyProperty._EFF_Property;
 using Re4QuadExtremeEditor.src.Class.TreeNodeObj;
 using Re4QuadExtremeEditor.src.Class.MyProperty.CustomAttribute;
 using Re4QuadExtremeEditor.src.Class.ObjMethods;
@@ -36,7 +37,7 @@ namespace Re4QuadExtremeEditor.src.Forms
 
         Type selectedType = null;
         /// <summary>
-        ///  Nota: o Centeudo dessa classe foi feito de modo provisorio permanente (Então tem a tal da "Gambiarra")
+        ///  Nota: o Conteudo dessa classe foi feito de modo provisorio permanente (Então tem a tal da "Gambiarra")
         /// </summary>
         /// <param name="obj"></param>
         public MultiSelectEditorForm(ref MultiSelectObjInfoToProperty objM)
@@ -62,6 +63,16 @@ namespace Re4QuadExtremeEditor.src.Forms
             var Object3D_LIT_ENTRYS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_ENTRYS).Cast<Object3D>();
             var Object3D_LIT_GROUPS = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.LIT_GROUPS).Cast<Object3D>();
             var Object3D_QuadCustom = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.QUAD_CUSTOM).Cast<Object3D>();
+            var Object3D_EFF_Table0 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table0).Cast<Object3D>();
+            var Object3D_EFF_Table1 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table1).Cast<Object3D>();
+            var Object3D_EFF_Table2 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table2).Cast<Object3D>();
+            var Object3D_EFF_Table3 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table3).Cast<Object3D>();
+            var Object3D_EFF_Table4 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table4).Cast<Object3D>();
+            var Object3D_EFF_Table6 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table6).Cast<Object3D>();
+            var Object3D_EFF_Table9 = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_Table9).Cast<Object3D>();
+            var Object3D_EFF_EffectEntry = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && g.Group == GroupType.EFF_EffectEntry).Cast<Object3D>();
+            var Object3D_EFF_EffectGroup = Selecteds.FindAll(o => o.Parent != null && o.Parent is TreeNodeGroup g && (g.Group == GroupType.EFF_Table7_Effect_0|| g.Group == GroupType.EFF_Table8_Effect_1)).Cast<Object3D>();
+
 
             var PropertyList_ESL = (from obj in Object3D_ESL select new EnemyProperty(obj.ObjLineRef, updateMethods, ((EnemyNodeGroup)obj.Parent).PropertyMethods, true));
             var PropertyList_ETS = (from obj in Object3D_ETS select new EtcModelProperty(obj.ObjLineRef, updateMethods, ((EtcModelNodeGroup)obj.Parent).PropertyMethods, true));
@@ -73,8 +84,18 @@ namespace Re4QuadExtremeEditor.src.Forms
             var PropertyList_EMI = (from obj in Object3D_EMI select new NewAge_EMI_Property(obj.ObjLineRef, updateMethods, ((NewAge_EMI_NodeGroup)obj.Parent).PropertyMethods, true));
             var PropertyList_LIT_ENTRYS = (from obj in Object3D_LIT_ENTRYS select new NewAge_LIT_Entry_Property(obj.ObjLineRef, updateMethods, ((NewAge_LIT_Entrys_NodeGroup)obj.Parent).PropertyMethods, true));
             var PropertyList_LIT_GROUPS = (from obj in Object3D_LIT_GROUPS select new NewAge_LIT_Group_Property(obj.ObjLineRef, updateMethods, ((NewAge_LIT_Groups_NodeGroup)obj.Parent).PropertyMethods, true));
-            var PropertyList_QuadCustom = (from obj in Object3D_QuadCustom select new QuadCustomProperty(obj.ObjLineRef, updateMethods, ((QuadCustomNodeGroup)obj.Parent).PropertyMethods, true));
-            
+            var PropertyList_QuadCustom = (from obj in Object3D_QuadCustom select new QuadCustomProperty(obj.ObjLineRef, updateMethods, ((QuadCustomNodeGroup)obj.Parent).PropertyMethods, true)); 
+            var PropertyList_EFF_Table0 = (from obj in Object3D_EFF_Table0 select new EFF_Table0_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_Table1 = (from obj in Object3D_EFF_Table1 select new EFF_Table1_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_Table2 = (from obj in Object3D_EFF_Table2 select new EFF_Table2_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_Table3 = (from obj in Object3D_EFF_Table3 select new EFF_Table3_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_Table4 = (from obj in Object3D_EFF_Table4 select new EFF_Table4_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_Table6 = (from obj in Object3D_EFF_Table6 select new EFF_Table6_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_Table9 = (from obj in Object3D_EFF_Table9 select new EFF_Table9_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_Table9Entry_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_EffectEntry = (from obj in Object3D_EFF_EffectEntry select new EFF_TableEffectEntry_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_EffectEntry_NodeGroup)obj.Parent).PropertyMethods, true));
+            var PropertyList_EFF_EffectGroup = (from obj in Object3D_EFF_EffectGroup select new EFF_TableEffectGroup_Property(obj.ObjLineRef, updateMethods, ((NewAge_EFF_EffectGroup_NodeGroup)obj.Parent).PropertyMethods, true));
+
+
             All_List.AddRange(PropertyList_ESL);
             All_List.AddRange(PropertyList_ETS);
             All_List.AddRange(PropertyList_Special);
@@ -86,6 +107,15 @@ namespace Re4QuadExtremeEditor.src.Forms
             All_List.AddRange(PropertyList_LIT_ENTRYS);
             All_List.AddRange(PropertyList_LIT_GROUPS);
             All_List.AddRange(PropertyList_QuadCustom);
+            All_List.AddRange(PropertyList_EFF_Table0);
+            All_List.AddRange(PropertyList_EFF_Table1);
+            All_List.AddRange(PropertyList_EFF_Table2);
+            All_List.AddRange(PropertyList_EFF_Table3);
+            All_List.AddRange(PropertyList_EFF_Table4);
+            All_List.AddRange(PropertyList_EFF_Table6);
+            All_List.AddRange(PropertyList_EFF_Table9);
+            All_List.AddRange(PropertyList_EFF_EffectEntry);
+            All_List.AddRange(PropertyList_EFF_EffectGroup);
             ALL = All_List.ToArray();
 
 
@@ -166,7 +196,70 @@ namespace Re4QuadExtremeEditor.src.Forms
                 var prop = p.GetProperties();
                 PopulateMultiSelectObjsList(prop);
             }
-     
+
+            if (PropertyList_EFF_Table0.Count() > 0)
+            {
+                EFF_Table0_Property p = new EFF_Table0_Property(PropertyList_EFF_Table0.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_Table1.Count() > 0)
+            {
+                EFF_Table1_Property p = new EFF_Table1_Property(PropertyList_EFF_Table1.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_Table2.Count() > 0)
+            {
+                EFF_Table2_Property p = new EFF_Table2_Property(PropertyList_EFF_Table2.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_Table3.Count() > 0)
+            {
+                EFF_Table3_Property p = new EFF_Table3_Property(PropertyList_EFF_Table3.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_Table4.Count() > 0)
+            {
+                EFF_Table4_Property p = new EFF_Table4_Property(PropertyList_EFF_Table4.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_Table6.Count() > 0)
+            {
+                EFF_Table6_Property p = new EFF_Table6_Property(PropertyList_EFF_Table6.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_Table9.Count() > 0)
+            {
+                EFF_Table9_Property p = new EFF_Table9_Property(PropertyList_EFF_Table9.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_EffectGroup.Count() > 0)
+            {
+                EFF_TableEffectGroup_Property p = new EFF_TableEffectGroup_Property(PropertyList_EFF_EffectGroup.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
+            if (PropertyList_EFF_EffectEntry.Count() > 0)
+            {
+                EFF_TableEffectEntry_Property p = new EFF_TableEffectEntry_Property(PropertyList_EFF_EffectEntry.First());
+                var prop = p.GetProperties();
+                PopulateMultiSelectObjsList(prop);
+            }
+
 
             comboBoxPropertyList.Items.Add("");
             comboBoxPropertyList.Items.AddRange(multiSelectObjs.Values.ToList().Cast<object>().ToArray());

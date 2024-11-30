@@ -83,6 +83,16 @@ namespace Re4QuadExtremeEditor.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Byte[].
         /// </summary>
+        internal static byte[] BoundaryBoxShaderPlusVert {
+            get {
+                object obj = ResourceManager.GetObject("BoundaryBoxShaderPlusVert", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
         internal static byte[] BoundaryBoxShaderVert {
             get {
                 object obj = ResourceManager.GetObject("BoundaryBoxShaderVert", resourceCulture);
@@ -306,6 +316,16 @@ namespace Re4QuadExtremeEditor.Properties {
         internal static byte[] ObjModelShaderFrag {
             get {
                 object obj = ResourceManager.GetObject("ObjModelShaderFrag", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
+        internal static byte[] ObjModelShaderPlusVert {
+            get {
+                object obj = ResourceManager.GetObject("ObjModelShaderPlusVert", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -70,6 +70,16 @@ namespace Re4QuadExtremeEditor.src
         public const string NodeLIT_GROUPS = "NodeLIT_GROUPS";
         public const string NodeLIT_ENTRYS = "NodeLIT_ENTRYS";
         public const string NodeQuadCustom = "NodeQuadCustom";
+        public const string NodeEFF_Table0 = "NodeEFF_Table0";
+        public const string NodeEFF_Table1 = "NodeEFF_Table1";
+        public const string NodeEFF_Table2 = "NodeEFF_Table2";
+        public const string NodeEFF_Table3 = "NodeEFF_Table3";
+        public const string NodeEFF_Table4 = "NodeEFF_Table4";
+        public const string NodeEFF_Table6 = "NodeEFF_Table6";
+        public const string NodeEFF_Table7_Effect_0 = "NodeEFF_Table7_Effect_0";
+        public const string NodeEFF_Table8_Effect_1 = "NodeEFF_Table8_Effect_1";
+        public const string NodeEFF_EffectEntry = "NodeEFF_EffectEntry";
+        public const string NodeEFF_Table9 = "NodeEFF_Table9";
 
         // nomes dos modelos internos usados nos objetos extras
         public const string ModelKeyWarpPoint = "warparrow.json";
@@ -83,6 +93,9 @@ namespace Re4QuadExtremeEditor.src
         public const string ModelKey_ESE_Point = "ese_point.json";
         public const string ModelKey_EMI_Point = "emi_point.json";
         public const string ModelKey_LIT_Point = "lit_point.json";
+        public const string ModelKey_EFF_EntryPoint = "effentrypoint.json";
+        public const string ModelKey_EFF_GroupPoint = "effgrouppoint.json";
+        public const string ModelKey_EFF_Table9 = "efftable9.json";
 
         //quantidade limite de objetos de cada arquivo
         public const ushort AmountLimitETS = 5000;
@@ -97,9 +110,18 @@ namespace Re4QuadExtremeEditor.src
         public const ushort AmountLimitQuadCustom = 5000;
 
         public const ushort AmountLimitLIT_Groups = 500;
-        public const ushort AmountLimitLIT_Entrys_on_load = 1000;
         public const ushort AmountLimitLIT_Entrys = 5000;
 
+        public const ushort AmountLimitEFF_Table0 = 1000;
+        public const ushort AmountLimitEFF_Table1 = 1000;
+        public const ushort AmountLimitEFF_Table2 = 1000;
+        public const ushort AmountLimitEFF_Table3 = 1000;
+        public const ushort AmountLimitEFF_Table4 = 1000;
+        public const ushort AmountLimitEFF_Table6 = 1000;
+        public const ushort AmountLimitEFF_Table7and8 = 1000;
+        public const ushort AmountLimitEFF_Table9_Group = 1000;
+        public const ushort AmountLimitEFF_Table9_entry = 5000;
+        public const ushort AmountLimitEFF_EffectEntry = 10000;
 
         public const ushort QuadCustomLineArrayLength = 92;
         public const ushort QuadCustomTextLength = 500;

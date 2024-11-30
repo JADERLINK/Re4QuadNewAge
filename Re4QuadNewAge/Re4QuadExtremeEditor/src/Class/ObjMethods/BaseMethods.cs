@@ -9,6 +9,8 @@ namespace Re4QuadExtremeEditor.src.Class.ObjMethods
 {
     public abstract class BaseMethods
     {
+        public Func<SimpleEndianBinaryIO.Endianness> GetEndianness;
+
         public ReturnByteFromPosition ReturnByteFromPosition;
         public SetByteFromPosition SetByteFromPosition;
 

@@ -10,7 +10,7 @@ using Re4QuadExtremeEditor.src.Class.Interfaces;
 
 namespace Re4QuadExtremeEditor.src.Class.TreeNodeObj
 {
-    public class NewAge_LIT_Entrys_NodeGroup : TreeNodeGroup, INodeChangeAmount
+    public class NewAge_LIT_Entrys_NodeGroup : TreeNodeGroup, INodeChangeAmount, IChangeAmountIndexFix
     {
         public NewAge_LIT_Entrys_NodeGroup() : base() { }
         public NewAge_LIT_Entrys_NodeGroup(string text) : base(text) { }
@@ -35,12 +35,12 @@ namespace Re4QuadExtremeEditor.src.Class.TreeNodeObj
             }
         }
 
-        private void OnDeleteNode()
+        public void OnDeleteNode()
         {
             OnNodeChange();
         }
 
-        private void OnMoveNode() 
+        public void OnMoveNode()
         {
             OnNodeChange();
         }
@@ -73,7 +73,7 @@ namespace Re4QuadExtremeEditor.src.Class.TreeNodeObj
                     }
                 }
             }
-
         }
+
     }
 }

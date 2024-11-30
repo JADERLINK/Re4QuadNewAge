@@ -60,6 +60,11 @@ namespace NewAgeTheRender
             ObjModelDic[ModelKey]?.Render(obj);
         }
 
+        public void RenderModel(string ModelKey, RspFix entry, RspFix group)
+        {
+            ObjModelDic[ModelKey]?.Render(entry, group);
+        }
+
         public bool ContainsKey(string ModelKey) 
         {
             return ObjModelDic.ContainsKey(ModelKey);

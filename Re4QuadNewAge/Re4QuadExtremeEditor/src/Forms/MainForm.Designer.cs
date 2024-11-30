@@ -33,62 +33,84 @@ namespace Re4QuadExtremeEditor
             this.menuStripMenu = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewBigEndianFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewEFFBLOBBIG = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewCAM_BIG = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewESL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewEFFBLOB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewDSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewFSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewSAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewEAR = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorNew1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemNewLIT_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewITA_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewAEV_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewCAM_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemNewLIT_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewETS_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewEMI_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewESE_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorNew2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemNewLIT_UHD = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewITA_UHD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewAEV_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemNewETS_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemNewEMI_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemNewESE_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorNew3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemNewCAM_UHD = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemNewLIT_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewETS_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewEMI_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewESE_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewITA_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewAEV_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorNew4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemNewCAM_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorNew7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewQuadCustom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenBigEndianFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenEFFBLOBBIG = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenCAM_BIG = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenESL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenEFFBLOB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenDSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenFSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenSAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenEAR = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorOpen1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemOpenLIT_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenITA_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenAEV_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenCAM_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemOpenLIT_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenETS_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenEMI_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenESE_2007_PS2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorOpen2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemOpenLIT_UHD = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenITA_UHD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenAEV_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOpenETS_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOpenEMI_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOpenESE_UHD = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorOpen3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemOpenCAM_UHD = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemOpenLIT_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenETS_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenEMI_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpenESE_UHD_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenITA_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenAEV_PS4_NS = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorOpen4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemOpenCAM_PS4NS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorOpen7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenQuadCustom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveESL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSaveEFFBLOB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveDSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveFSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveSAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveEAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorSave1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemSaveLIT = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveITA = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAEV = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveETS = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,10 +121,12 @@ namespace Re4QuadExtremeEditor
             this.toolStripSeparatorSave3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSaveDirectories = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_ESL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDirectory_EFFBLOB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_DSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_FSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_SAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_EAR = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDirectory_LIT = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_ITA = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_AEV = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDirectory_ETS = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,11 +135,13 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemDirectory_QuadCustom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsESL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSaveAsEFFBLOB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsDSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsFSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsSAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsEAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorSaveAs1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemSaveAsLIT = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsITA = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsAEV = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveAsETS = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,6 +157,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemSaveConverterESE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemClearESL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemClearEFFBLOB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemClearDSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemClearFSE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemClearSAR = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,8 +193,9 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemHideFileEAR = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHideFileESE = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHideFileEMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemHideFileLIT = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHideQuadCustom = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHideFileLIT = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHideFileEFF = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHideLateralMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHideBottomMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSubMenuRoom = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,6 +243,15 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemSelectedGroupDown = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorLight1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemEnableLightColor = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSubMenuEffect = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBoxSelectedGroupValue_EFF = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItemSelectedGroupUp_EFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSelectedGroupDown_EFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorSubMenuEffect1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemHideTable7_EFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHideTable8_EFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHideTable9_EFF = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorView2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNodeDisplayNameInHex = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorView3 = new System.Windows.Forms.ToolStripSeparator();
@@ -255,15 +292,19 @@ namespace Re4QuadExtremeEditor
             this.saveFileDialogQuadCustom = new System.Windows.Forms.SaveFileDialog();
             this.splitContainerRight = new System.Windows.Forms.SplitContainer();
             this.splitContainerLeft = new System.Windows.Forms.SplitContainer();
-            this.treeViewObjs = new NsMultiselectTreeView.MultiselectTreeView();
             this.propertyGridObjs = new System.Windows.Forms.PropertyGrid();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.openFileDialogLIT = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogEFFBLOB = new System.Windows.Forms.OpenFileDialog();
-            this.toolStripMenuItemSaveLIT = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDirectory_LIT = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSaveAsLIT = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogLIT = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogEFFBLOBBIG = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogCAM = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogCAM = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogEFFBLOB = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialogEFFBLOBBIG = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripMenuItemDisableGroupPositionEFF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorSubMenuEffect2 = new System.Windows.Forms.ToolStripSeparator();
+            this.treeViewObjs = new NsMultiselectTreeView.MultiselectTreeView();
             this.menuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).BeginInit();
             this.splitContainerRight.SuspendLayout();
@@ -311,382 +352,546 @@ namespace Re4QuadExtremeEditor
             // toolStripMenuItemNewFile
             // 
             this.toolStripMenuItemNewFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemNewBigEndianFiles,
+            this.toolStripSeparatorNew1,
             this.toolStripMenuItemNewESL,
+            this.toolStripMenuItemNewEFFBLOB,
             this.toolStripMenuItemNewDSE,
             this.toolStripMenuItemNewFSE,
             this.toolStripMenuItemNewSAR,
             this.toolStripMenuItemNewEAR,
-            this.toolStripSeparatorNew1,
-            this.toolStripMenuItemNewLIT_2007_PS2,
+            this.toolStripSeparatorNew2,
             this.toolStripMenuItemNewITA_2007_PS2,
             this.toolStripMenuItemNewAEV_2007_PS2,
+            this.toolStripMenuItemNewCAM_2007_PS2,
+            this.toolStripSeparatorNew3,
+            this.toolStripMenuItemNewLIT_2007_PS2,
             this.toolStripMenuItemNewETS_2007_PS2,
             this.toolStripMenuItemNewEMI_2007_PS2,
             this.toolStripMenuItemNewESE_2007_PS2,
-            this.toolStripSeparatorNew2,
-            this.toolStripMenuItemNewLIT_UHD,
+            this.toolStripSeparatorNew4,
             this.toolStripMenuItemNewITA_UHD,
             this.toolStripMenuItemNewAEV_UHD,
-            this.toolStripMenuItemNewETS_UHD,
-            this.toolStripMenuItemNewEMI_UHD,
-            this.toolStripMenuItemNewESE_UHD,
-            this.toolStripSeparatorNew3,
+            this.toolStripMenuItemNewCAM_UHD,
+            this.toolStripSeparatorNew5,
+            this.toolStripMenuItemNewLIT_UHD_PS4NS,
+            this.toolStripMenuItemNewETS_UHD_PS4NS,
+            this.toolStripMenuItemNewEMI_UHD_PS4NS,
+            this.toolStripMenuItemNewESE_UHD_PS4NS,
+            this.toolStripSeparatorNew6,
             this.toolStripMenuItemNewITA_PS4_NS,
             this.toolStripMenuItemNewAEV_PS4_NS,
-            this.toolStripSeparatorNew4,
+            this.toolStripMenuItemNewCAM_PS4NS,
+            this.toolStripSeparatorNew7,
             this.toolStripMenuItemNewQuadCustom});
             this.toolStripMenuItemNewFile.Name = "toolStripMenuItemNewFile";
-            this.toolStripMenuItemNewFile.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemNewFile.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItemNewFile.Text = "New";
+            // 
+            // toolStripMenuItemNewBigEndianFiles
+            // 
+            this.toolStripMenuItemNewBigEndianFiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemNewEFFBLOBBIG,
+            this.toolStripMenuItemNewCAM_BIG});
+            this.toolStripMenuItemNewBigEndianFiles.Name = "toolStripMenuItemNewBigEndianFiles";
+            this.toolStripMenuItemNewBigEndianFiles.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewBigEndianFiles.Text = "New Big Endian Files";
+            // 
+            // toolStripMenuItemNewEFFBLOBBIG
+            // 
+            this.toolStripMenuItemNewEFFBLOBBIG.Name = "toolStripMenuItemNewEFFBLOBBIG";
+            this.toolStripMenuItemNewEFFBLOBBIG.Size = new System.Drawing.Size(287, 22);
+            this.toolStripMenuItemNewEFFBLOBBIG.Text = "New Effect EFFBLOBBIG File (Big Endian)";
+            this.toolStripMenuItemNewEFFBLOBBIG.Click += new System.EventHandler(this.toolStripMenuItemNewEFFBLOBBIG_Click);
+            // 
+            // toolStripMenuItemNewCAM_BIG
+            // 
+            this.toolStripMenuItemNewCAM_BIG.Enabled = false;
+            this.toolStripMenuItemNewCAM_BIG.Name = "toolStripMenuItemNewCAM_BIG";
+            this.toolStripMenuItemNewCAM_BIG.Size = new System.Drawing.Size(287, 22);
+            this.toolStripMenuItemNewCAM_BIG.Text = "New Camera CAM (Big Endian)";
+            this.toolStripMenuItemNewCAM_BIG.Visible = false;
+            this.toolStripMenuItemNewCAM_BIG.Click += new System.EventHandler(this.toolStripMenuItemNewCAM_BIG_Click);
+            // 
+            // toolStripSeparatorNew1
+            // 
+            this.toolStripSeparatorNew1.Name = "toolStripSeparatorNew1";
+            this.toolStripSeparatorNew1.Size = new System.Drawing.Size(325, 6);
             // 
             // toolStripMenuItemNewESL
             // 
             this.toolStripMenuItemNewESL.Name = "toolStripMenuItemNewESL";
-            this.toolStripMenuItemNewESL.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewESL.Text = "New Enemy ESL File";
+            this.toolStripMenuItemNewESL.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewESL.Text = "New Enemy ESL File (Little Endian)";
             this.toolStripMenuItemNewESL.Click += new System.EventHandler(this.toolStripMenuItemNewESL_Click);
+            // 
+            // toolStripMenuItemNewEFFBLOB
+            // 
+            this.toolStripMenuItemNewEFFBLOB.Name = "toolStripMenuItemNewEFFBLOB";
+            this.toolStripMenuItemNewEFFBLOB.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewEFFBLOB.Text = "New Effect EFFBLOB File (Little Endian)";
+            this.toolStripMenuItemNewEFFBLOB.Click += new System.EventHandler(this.toolStripMenuItemNewEFFBLOB_Click);
             // 
             // toolStripMenuItemNewDSE
             // 
             this.toolStripMenuItemNewDSE.Name = "toolStripMenuItemNewDSE";
-            this.toolStripMenuItemNewDSE.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewDSE.Text = "New Door Sound DSE File";
+            this.toolStripMenuItemNewDSE.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewDSE.Text = "New Door Sound DSE File (Little Endian)";
             this.toolStripMenuItemNewDSE.Click += new System.EventHandler(this.toolStripMenuItemNewDSE_Click);
             // 
             // toolStripMenuItemNewFSE
             // 
             this.toolStripMenuItemNewFSE.Name = "toolStripMenuItemNewFSE";
-            this.toolStripMenuItemNewFSE.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewFSE.Text = "New Floor Sound FSE File";
+            this.toolStripMenuItemNewFSE.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewFSE.Text = "New Floor Sound FSE File (Little Endian)";
             this.toolStripMenuItemNewFSE.Click += new System.EventHandler(this.toolStripMenuItemNewFSE_Click);
             // 
             // toolStripMenuItemNewSAR
             // 
             this.toolStripMenuItemNewSAR.Name = "toolStripMenuItemNewSAR";
-            this.toolStripMenuItemNewSAR.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewSAR.Text = "New Ctrl Light Group SAR File";
+            this.toolStripMenuItemNewSAR.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewSAR.Text = "New Ctrl Light Group SAR File (Little Endian)";
             this.toolStripMenuItemNewSAR.Click += new System.EventHandler(this.toolStripMenuItemNewSAR_Click);
             // 
             // toolStripMenuItemNewEAR
             // 
             this.toolStripMenuItemNewEAR.Name = "toolStripMenuItemNewEAR";
-            this.toolStripMenuItemNewEAR.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewEAR.Text = "New Ctrl Effect Group EAR File";
+            this.toolStripMenuItemNewEAR.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewEAR.Text = "New Ctrl Effect Group EAR File (Little Endian)";
             this.toolStripMenuItemNewEAR.Click += new System.EventHandler(this.toolStripMenuItemNewEAR_Click);
             // 
-            // toolStripSeparatorNew1
+            // toolStripSeparatorNew2
             // 
-            this.toolStripSeparatorNew1.Name = "toolStripSeparatorNew1";
-            this.toolStripSeparatorNew1.Size = new System.Drawing.Size(304, 6);
-            // 
-            // toolStripMenuItemNewLIT_2007_PS2
-            // 
-            this.toolStripMenuItemNewLIT_2007_PS2.Name = "toolStripMenuItemNewLIT_2007_PS2";
-            this.toolStripMenuItemNewLIT_2007_PS2.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewLIT_2007_PS2.Text = "New Light LIT File (2007/PS2)";
-            this.toolStripMenuItemNewLIT_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewLIT_2007_PS2_Click);
+            this.toolStripSeparatorNew2.Name = "toolStripSeparatorNew2";
+            this.toolStripSeparatorNew2.Size = new System.Drawing.Size(325, 6);
             // 
             // toolStripMenuItemNewITA_2007_PS2
             // 
             this.toolStripMenuItemNewITA_2007_PS2.Name = "toolStripMenuItemNewITA_2007_PS2";
-            this.toolStripMenuItemNewITA_2007_PS2.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewITA_2007_PS2.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewITA_2007_PS2.Text = "New Itens ITA File (2007/PS2)";
             this.toolStripMenuItemNewITA_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewITA_2007_PS2_Click);
             // 
             // toolStripMenuItemNewAEV_2007_PS2
             // 
             this.toolStripMenuItemNewAEV_2007_PS2.Name = "toolStripMenuItemNewAEV_2007_PS2";
-            this.toolStripMenuItemNewAEV_2007_PS2.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewAEV_2007_PS2.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewAEV_2007_PS2.Text = "New Events AEV File (2007/PS2)";
             this.toolStripMenuItemNewAEV_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewAEV_2007_PS2_Click);
+            // 
+            // toolStripMenuItemNewCAM_2007_PS2
+            // 
+            this.toolStripMenuItemNewCAM_2007_PS2.Enabled = false;
+            this.toolStripMenuItemNewCAM_2007_PS2.Name = "toolStripMenuItemNewCAM_2007_PS2";
+            this.toolStripMenuItemNewCAM_2007_PS2.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewCAM_2007_PS2.Text = "New Camera CAM (2007/PS2)";
+            this.toolStripMenuItemNewCAM_2007_PS2.Visible = false;
+            this.toolStripMenuItemNewCAM_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewCAM_2007_PS2_Click);
+            // 
+            // toolStripSeparatorNew3
+            // 
+            this.toolStripSeparatorNew3.Name = "toolStripSeparatorNew3";
+            this.toolStripSeparatorNew3.Size = new System.Drawing.Size(325, 6);
+            // 
+            // toolStripMenuItemNewLIT_2007_PS2
+            // 
+            this.toolStripMenuItemNewLIT_2007_PS2.Name = "toolStripMenuItemNewLIT_2007_PS2";
+            this.toolStripMenuItemNewLIT_2007_PS2.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewLIT_2007_PS2.Text = "New Light LIT File (2007/PS2)";
+            this.toolStripMenuItemNewLIT_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewLIT_2007_PS2_Click);
             // 
             // toolStripMenuItemNewETS_2007_PS2
             // 
             this.toolStripMenuItemNewETS_2007_PS2.Name = "toolStripMenuItemNewETS_2007_PS2";
-            this.toolStripMenuItemNewETS_2007_PS2.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewETS_2007_PS2.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewETS_2007_PS2.Text = "New EtcModel ETS File (2007/PS2)";
             this.toolStripMenuItemNewETS_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewETS_2007_PS2_Click);
             // 
             // toolStripMenuItemNewEMI_2007_PS2
             // 
             this.toolStripMenuItemNewEMI_2007_PS2.Name = "toolStripMenuItemNewEMI_2007_PS2";
-            this.toolStripMenuItemNewEMI_2007_PS2.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewEMI_2007_PS2.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewEMI_2007_PS2.Text = "New Interaction Point EMI File (2007/PS2)";
             this.toolStripMenuItemNewEMI_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewEMI_2007_PS2_Click);
             // 
             // toolStripMenuItemNewESE_2007_PS2
             // 
             this.toolStripMenuItemNewESE_2007_PS2.Name = "toolStripMenuItemNewESE_2007_PS2";
-            this.toolStripMenuItemNewESE_2007_PS2.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewESE_2007_PS2.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewESE_2007_PS2.Text = "New Environment Sound ESE File (2007/PS2)";
             this.toolStripMenuItemNewESE_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemNewESE_2007_PS2_Click);
             // 
-            // toolStripSeparatorNew2
+            // toolStripSeparatorNew4
             // 
-            this.toolStripSeparatorNew2.Name = "toolStripSeparatorNew2";
-            this.toolStripSeparatorNew2.Size = new System.Drawing.Size(304, 6);
-            // 
-            // toolStripMenuItemNewLIT_UHD
-            // 
-            this.toolStripMenuItemNewLIT_UHD.Name = "toolStripMenuItemNewLIT_UHD";
-            this.toolStripMenuItemNewLIT_UHD.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewLIT_UHD.Text = "New Light LIT File (UHD)";
-            this.toolStripMenuItemNewLIT_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewLIT_UHD_Click);
+            this.toolStripSeparatorNew4.Name = "toolStripSeparatorNew4";
+            this.toolStripSeparatorNew4.Size = new System.Drawing.Size(325, 6);
             // 
             // toolStripMenuItemNewITA_UHD
             // 
             this.toolStripMenuItemNewITA_UHD.Name = "toolStripMenuItemNewITA_UHD";
-            this.toolStripMenuItemNewITA_UHD.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewITA_UHD.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewITA_UHD.Text = "New Itens ITA File (UHD)";
             this.toolStripMenuItemNewITA_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewITA_UHD_Click);
             // 
             // toolStripMenuItemNewAEV_UHD
             // 
             this.toolStripMenuItemNewAEV_UHD.Name = "toolStripMenuItemNewAEV_UHD";
-            this.toolStripMenuItemNewAEV_UHD.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewAEV_UHD.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewAEV_UHD.Text = "New Events AEV File (UHD)";
             this.toolStripMenuItemNewAEV_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewAEV_UHD_Click);
             // 
-            // toolStripMenuItemNewETS_UHD
+            // toolStripMenuItemNewCAM_UHD
             // 
-            this.toolStripMenuItemNewETS_UHD.Name = "toolStripMenuItemNewETS_UHD";
-            this.toolStripMenuItemNewETS_UHD.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewETS_UHD.Text = "New EtcModel ETS File (UHD)";
-            this.toolStripMenuItemNewETS_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewETS_UHD_Click);
+            this.toolStripMenuItemNewCAM_UHD.Enabled = false;
+            this.toolStripMenuItemNewCAM_UHD.Name = "toolStripMenuItemNewCAM_UHD";
+            this.toolStripMenuItemNewCAM_UHD.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewCAM_UHD.Text = "New Camera CAM (UHD)";
+            this.toolStripMenuItemNewCAM_UHD.Visible = false;
+            this.toolStripMenuItemNewCAM_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewCAM_UHD_Click);
             // 
-            // toolStripMenuItemNewEMI_UHD
+            // toolStripSeparatorNew5
             // 
-            this.toolStripMenuItemNewEMI_UHD.Name = "toolStripMenuItemNewEMI_UHD";
-            this.toolStripMenuItemNewEMI_UHD.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewEMI_UHD.Text = "New Interaction Point EMI File (UHD)";
-            this.toolStripMenuItemNewEMI_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewEMI_UHD_Click);
+            this.toolStripSeparatorNew5.Name = "toolStripSeparatorNew5";
+            this.toolStripSeparatorNew5.Size = new System.Drawing.Size(325, 6);
             // 
-            // toolStripMenuItemNewESE_UHD
+            // toolStripMenuItemNewLIT_UHD_PS4NS
             // 
-            this.toolStripMenuItemNewESE_UHD.Name = "toolStripMenuItemNewESE_UHD";
-            this.toolStripMenuItemNewESE_UHD.Size = new System.Drawing.Size(307, 22);
-            this.toolStripMenuItemNewESE_UHD.Text = "New Environment Sound ESE File (UHD)";
-            this.toolStripMenuItemNewESE_UHD.Click += new System.EventHandler(this.toolStripMenuItemNewESE_UHD_Click);
+            this.toolStripMenuItemNewLIT_UHD_PS4NS.Name = "toolStripMenuItemNewLIT_UHD_PS4NS";
+            this.toolStripMenuItemNewLIT_UHD_PS4NS.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewLIT_UHD_PS4NS.Text = "New Light LIT File (UHD/PS4/NS)";
+            this.toolStripMenuItemNewLIT_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemNewLIT_UHD_Click);
             // 
-            // toolStripSeparatorNew3
+            // toolStripMenuItemNewETS_UHD_PS4NS
             // 
-            this.toolStripSeparatorNew3.Name = "toolStripSeparatorNew3";
-            this.toolStripSeparatorNew3.Size = new System.Drawing.Size(304, 6);
+            this.toolStripMenuItemNewETS_UHD_PS4NS.Name = "toolStripMenuItemNewETS_UHD_PS4NS";
+            this.toolStripMenuItemNewETS_UHD_PS4NS.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewETS_UHD_PS4NS.Text = "New EtcModel ETS File (UHD/PS4/NS)";
+            this.toolStripMenuItemNewETS_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemNewETS_UHD_Click);
+            // 
+            // toolStripMenuItemNewEMI_UHD_PS4NS
+            // 
+            this.toolStripMenuItemNewEMI_UHD_PS4NS.Name = "toolStripMenuItemNewEMI_UHD_PS4NS";
+            this.toolStripMenuItemNewEMI_UHD_PS4NS.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewEMI_UHD_PS4NS.Text = "New Interaction Point EMI File (UHD/PS4/NS)";
+            this.toolStripMenuItemNewEMI_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemNewEMI_UHD_Click);
+            // 
+            // toolStripMenuItemNewESE_UHD_PS4NS
+            // 
+            this.toolStripMenuItemNewESE_UHD_PS4NS.Name = "toolStripMenuItemNewESE_UHD_PS4NS";
+            this.toolStripMenuItemNewESE_UHD_PS4NS.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewESE_UHD_PS4NS.Text = "New Environment Sound ESE File (UHD/PS4/NS)";
+            this.toolStripMenuItemNewESE_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemNewESE_UHD_Click);
+            // 
+            // toolStripSeparatorNew6
+            // 
+            this.toolStripSeparatorNew6.Name = "toolStripSeparatorNew6";
+            this.toolStripSeparatorNew6.Size = new System.Drawing.Size(325, 6);
             // 
             // toolStripMenuItemNewITA_PS4_NS
             // 
             this.toolStripMenuItemNewITA_PS4_NS.Name = "toolStripMenuItemNewITA_PS4_NS";
-            this.toolStripMenuItemNewITA_PS4_NS.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewITA_PS4_NS.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewITA_PS4_NS.Text = "New Itens ITA File (PS4/NS) {Adapted}";
             this.toolStripMenuItemNewITA_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemNewITA_PS4_NS_Click);
             // 
             // toolStripMenuItemNewAEV_PS4_NS
             // 
             this.toolStripMenuItemNewAEV_PS4_NS.Name = "toolStripMenuItemNewAEV_PS4_NS";
-            this.toolStripMenuItemNewAEV_PS4_NS.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewAEV_PS4_NS.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewAEV_PS4_NS.Text = "New Events AEV File (PS4/NS) {Adapted}";
             this.toolStripMenuItemNewAEV_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemNewAEV_PS4_NS_Click);
             // 
-            // toolStripSeparatorNew4
+            // toolStripMenuItemNewCAM_PS4NS
             // 
-            this.toolStripSeparatorNew4.Name = "toolStripSeparatorNew4";
-            this.toolStripSeparatorNew4.Size = new System.Drawing.Size(304, 6);
+            this.toolStripMenuItemNewCAM_PS4NS.Enabled = false;
+            this.toolStripMenuItemNewCAM_PS4NS.Name = "toolStripMenuItemNewCAM_PS4NS";
+            this.toolStripMenuItemNewCAM_PS4NS.Size = new System.Drawing.Size(328, 22);
+            this.toolStripMenuItemNewCAM_PS4NS.Text = "New Camera CAM (PS4/NS)";
+            this.toolStripMenuItemNewCAM_PS4NS.Visible = false;
+            this.toolStripMenuItemNewCAM_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemNewCAM_PS4NS_Click);
+            // 
+            // toolStripSeparatorNew7
+            // 
+            this.toolStripSeparatorNew7.Name = "toolStripSeparatorNew7";
+            this.toolStripSeparatorNew7.Size = new System.Drawing.Size(325, 6);
             // 
             // toolStripMenuItemNewQuadCustom
             // 
             this.toolStripMenuItemNewQuadCustom.Name = "toolStripMenuItemNewQuadCustom";
-            this.toolStripMenuItemNewQuadCustom.Size = new System.Drawing.Size(307, 22);
+            this.toolStripMenuItemNewQuadCustom.Size = new System.Drawing.Size(328, 22);
             this.toolStripMenuItemNewQuadCustom.Text = "New Quad Custom File";
             this.toolStripMenuItemNewQuadCustom.Click += new System.EventHandler(this.toolStripMenuItemNewQuadCustom_Click);
             // 
             // toolStripMenuItemOpen
             // 
             this.toolStripMenuItemOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemOpenBigEndianFiles,
+            this.toolStripSeparatorOpen1,
             this.toolStripMenuItemOpenESL,
+            this.toolStripMenuItemOpenEFFBLOB,
             this.toolStripMenuItemOpenDSE,
             this.toolStripMenuItemOpenFSE,
             this.toolStripMenuItemOpenSAR,
             this.toolStripMenuItemOpenEAR,
-            this.toolStripSeparatorOpen1,
-            this.toolStripMenuItemOpenLIT_2007_PS2,
+            this.toolStripSeparatorOpen2,
             this.toolStripMenuItemOpenITA_2007_PS2,
             this.toolStripMenuItemOpenAEV_2007_PS2,
+            this.toolStripMenuItemOpenCAM_2007_PS2,
+            this.toolStripSeparatorOpen3,
+            this.toolStripMenuItemOpenLIT_2007_PS2,
             this.toolStripMenuItemOpenETS_2007_PS2,
             this.toolStripMenuItemOpenEMI_2007_PS2,
             this.toolStripMenuItemOpenESE_2007_PS2,
-            this.toolStripSeparatorOpen2,
-            this.toolStripMenuItemOpenLIT_UHD,
+            this.toolStripSeparatorOpen4,
             this.toolStripMenuItemOpenITA_UHD,
             this.toolStripMenuItemOpenAEV_UHD,
-            this.toolStripMenuItemOpenETS_UHD,
-            this.toolStripMenuItemOpenEMI_UHD,
-            this.toolStripMenuItemOpenESE_UHD,
-            this.toolStripSeparatorOpen3,
+            this.toolStripMenuItemOpenCAM_UHD,
+            this.toolStripSeparatorOpen5,
+            this.toolStripMenuItemOpenLIT_UHD_PS4NS,
+            this.toolStripMenuItemOpenETS_UHD_PS4NS,
+            this.toolStripMenuItemOpenEMI_UHD_PS4NS,
+            this.toolStripMenuItemOpenESE_UHD_PS4NS,
+            this.toolStripSeparatorOpen6,
             this.toolStripMenuItemOpenITA_PS4_NS,
             this.toolStripMenuItemOpenAEV_PS4_NS,
-            this.toolStripSeparatorOpen4,
+            this.toolStripMenuItemOpenCAM_PS4NS,
+            this.toolStripSeparatorOpen7,
             this.toolStripMenuItemOpenQuadCustom});
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItemOpen.Text = "Open";
+            // 
+            // toolStripMenuItemOpenBigEndianFiles
+            // 
+            this.toolStripMenuItemOpenBigEndianFiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemOpenEFFBLOBBIG,
+            this.toolStripMenuItemOpenCAM_BIG});
+            this.toolStripMenuItemOpenBigEndianFiles.Name = "toolStripMenuItemOpenBigEndianFiles";
+            this.toolStripMenuItemOpenBigEndianFiles.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenBigEndianFiles.Text = "Open Big Endian Files";
+            // 
+            // toolStripMenuItemOpenEFFBLOBBIG
+            // 
+            this.toolStripMenuItemOpenEFFBLOBBIG.Name = "toolStripMenuItemOpenEFFBLOBBIG";
+            this.toolStripMenuItemOpenEFFBLOBBIG.Size = new System.Drawing.Size(292, 22);
+            this.toolStripMenuItemOpenEFFBLOBBIG.Text = "Open Effect EFFBLOBBIG File (Big Endian)";
+            this.toolStripMenuItemOpenEFFBLOBBIG.Click += new System.EventHandler(this.toolStripMenuItemOpenEFFBLOBBIG_Click);
+            // 
+            // toolStripMenuItemOpenCAM_BIG
+            // 
+            this.toolStripMenuItemOpenCAM_BIG.Enabled = false;
+            this.toolStripMenuItemOpenCAM_BIG.Name = "toolStripMenuItemOpenCAM_BIG";
+            this.toolStripMenuItemOpenCAM_BIG.Size = new System.Drawing.Size(292, 22);
+            this.toolStripMenuItemOpenCAM_BIG.Text = "Open Camera CAM (Big Endian)";
+            this.toolStripMenuItemOpenCAM_BIG.Visible = false;
+            this.toolStripMenuItemOpenCAM_BIG.Click += new System.EventHandler(this.toolStripMenuItemOpenCAM_BIG_Click);
+            // 
+            // toolStripSeparatorOpen1
+            // 
+            this.toolStripSeparatorOpen1.Name = "toolStripSeparatorOpen1";
+            this.toolStripSeparatorOpen1.Size = new System.Drawing.Size(330, 6);
             // 
             // toolStripMenuItemOpenESL
             // 
             this.toolStripMenuItemOpenESL.Name = "toolStripMenuItemOpenESL";
-            this.toolStripMenuItemOpenESL.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenESL.Text = "Open Enemy ESL File";
+            this.toolStripMenuItemOpenESL.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenESL.Text = "Open Enemy ESL File (Little Endian)";
             this.toolStripMenuItemOpenESL.Click += new System.EventHandler(this.toolStripMenuItemOpenESL_Click);
+            // 
+            // toolStripMenuItemOpenEFFBLOB
+            // 
+            this.toolStripMenuItemOpenEFFBLOB.Name = "toolStripMenuItemOpenEFFBLOB";
+            this.toolStripMenuItemOpenEFFBLOB.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenEFFBLOB.Text = "Open Effect EFFBLOB File (Little Endian)";
+            this.toolStripMenuItemOpenEFFBLOB.Click += new System.EventHandler(this.toolStripMenuItemOpenEFFBLOB_Click);
             // 
             // toolStripMenuItemOpenDSE
             // 
             this.toolStripMenuItemOpenDSE.Name = "toolStripMenuItemOpenDSE";
-            this.toolStripMenuItemOpenDSE.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenDSE.Text = "Open Door Sound DSE File";
+            this.toolStripMenuItemOpenDSE.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenDSE.Text = "Open Door Sound DSE File (Little Endian)";
             this.toolStripMenuItemOpenDSE.Click += new System.EventHandler(this.toolStripMenuItemOpenDSE_Click);
             // 
             // toolStripMenuItemOpenFSE
             // 
             this.toolStripMenuItemOpenFSE.Name = "toolStripMenuItemOpenFSE";
-            this.toolStripMenuItemOpenFSE.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenFSE.Text = "Open Floor Sound FSE File";
+            this.toolStripMenuItemOpenFSE.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenFSE.Text = "Open Floor Sound FSE File (Little Endian)";
             this.toolStripMenuItemOpenFSE.Click += new System.EventHandler(this.toolStripMenuItemOpenFSE_Click);
             // 
             // toolStripMenuItemOpenSAR
             // 
             this.toolStripMenuItemOpenSAR.Name = "toolStripMenuItemOpenSAR";
-            this.toolStripMenuItemOpenSAR.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenSAR.Text = "Open Ctrl Light Group SAR File";
+            this.toolStripMenuItemOpenSAR.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenSAR.Text = "Open Ctrl Light Group SAR File (Little Endian)";
             this.toolStripMenuItemOpenSAR.Click += new System.EventHandler(this.toolStripMenuItemOpenSAR_Click);
             // 
             // toolStripMenuItemOpenEAR
             // 
             this.toolStripMenuItemOpenEAR.Name = "toolStripMenuItemOpenEAR";
-            this.toolStripMenuItemOpenEAR.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenEAR.Text = "Open Ctrl Effect Group EAR File";
+            this.toolStripMenuItemOpenEAR.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenEAR.Text = "Open Ctrl Effect Group EAR File (Little Endian)";
             this.toolStripMenuItemOpenEAR.Click += new System.EventHandler(this.toolStripMenuItemOpenEAR_Click);
             // 
-            // toolStripSeparatorOpen1
+            // toolStripSeparatorOpen2
             // 
-            this.toolStripSeparatorOpen1.Name = "toolStripSeparatorOpen1";
-            this.toolStripSeparatorOpen1.Size = new System.Drawing.Size(309, 6);
-            // 
-            // toolStripMenuItemOpenLIT_2007_PS2
-            // 
-            this.toolStripMenuItemOpenLIT_2007_PS2.Name = "toolStripMenuItemOpenLIT_2007_PS2";
-            this.toolStripMenuItemOpenLIT_2007_PS2.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenLIT_2007_PS2.Text = "Open Light LIT File (2007/PS2)";
-            this.toolStripMenuItemOpenLIT_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenLIT_2007_PS2_Click);
+            this.toolStripSeparatorOpen2.Name = "toolStripSeparatorOpen2";
+            this.toolStripSeparatorOpen2.Size = new System.Drawing.Size(330, 6);
             // 
             // toolStripMenuItemOpenITA_2007_PS2
             // 
             this.toolStripMenuItemOpenITA_2007_PS2.Name = "toolStripMenuItemOpenITA_2007_PS2";
-            this.toolStripMenuItemOpenITA_2007_PS2.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenITA_2007_PS2.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenITA_2007_PS2.Text = "Open Itens ITA File (2007/PS2)";
             this.toolStripMenuItemOpenITA_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenITA_2007_PS2_Click);
             // 
             // toolStripMenuItemOpenAEV_2007_PS2
             // 
             this.toolStripMenuItemOpenAEV_2007_PS2.Name = "toolStripMenuItemOpenAEV_2007_PS2";
-            this.toolStripMenuItemOpenAEV_2007_PS2.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenAEV_2007_PS2.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenAEV_2007_PS2.Text = "Open Events AEV File (2007/PS2)";
             this.toolStripMenuItemOpenAEV_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenAEV_2007_PS2_Click);
+            // 
+            // toolStripMenuItemOpenCAM_2007_PS2
+            // 
+            this.toolStripMenuItemOpenCAM_2007_PS2.Enabled = false;
+            this.toolStripMenuItemOpenCAM_2007_PS2.Name = "toolStripMenuItemOpenCAM_2007_PS2";
+            this.toolStripMenuItemOpenCAM_2007_PS2.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenCAM_2007_PS2.Text = "Open Camera CAM (2007/PS2)";
+            this.toolStripMenuItemOpenCAM_2007_PS2.Visible = false;
+            this.toolStripMenuItemOpenCAM_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenCAM_2007_PS2_Click);
+            // 
+            // toolStripSeparatorOpen3
+            // 
+            this.toolStripSeparatorOpen3.Name = "toolStripSeparatorOpen3";
+            this.toolStripSeparatorOpen3.Size = new System.Drawing.Size(330, 6);
+            // 
+            // toolStripMenuItemOpenLIT_2007_PS2
+            // 
+            this.toolStripMenuItemOpenLIT_2007_PS2.Name = "toolStripMenuItemOpenLIT_2007_PS2";
+            this.toolStripMenuItemOpenLIT_2007_PS2.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenLIT_2007_PS2.Text = "Open Light LIT File (2007/PS2)";
+            this.toolStripMenuItemOpenLIT_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenLIT_2007_PS2_Click);
             // 
             // toolStripMenuItemOpenETS_2007_PS2
             // 
             this.toolStripMenuItemOpenETS_2007_PS2.Name = "toolStripMenuItemOpenETS_2007_PS2";
-            this.toolStripMenuItemOpenETS_2007_PS2.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenETS_2007_PS2.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenETS_2007_PS2.Text = "Open EtcModel ETS File (2007/PS2)";
             this.toolStripMenuItemOpenETS_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenETS_2007_PS2_Click);
             // 
             // toolStripMenuItemOpenEMI_2007_PS2
             // 
             this.toolStripMenuItemOpenEMI_2007_PS2.Name = "toolStripMenuItemOpenEMI_2007_PS2";
-            this.toolStripMenuItemOpenEMI_2007_PS2.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenEMI_2007_PS2.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenEMI_2007_PS2.Text = "Open Interaction Point EMI File (2007/PS2)";
             this.toolStripMenuItemOpenEMI_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenEMI_2007_PS2_Click);
             // 
             // toolStripMenuItemOpenESE_2007_PS2
             // 
             this.toolStripMenuItemOpenESE_2007_PS2.Name = "toolStripMenuItemOpenESE_2007_PS2";
-            this.toolStripMenuItemOpenESE_2007_PS2.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenESE_2007_PS2.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenESE_2007_PS2.Text = "Open Environment Sound ESE File (2007/PS2)";
             this.toolStripMenuItemOpenESE_2007_PS2.Click += new System.EventHandler(this.toolStripMenuItemOpenESE_2007_PS2_Click);
             // 
-            // toolStripSeparatorOpen2
+            // toolStripSeparatorOpen4
             // 
-            this.toolStripSeparatorOpen2.Name = "toolStripSeparatorOpen2";
-            this.toolStripSeparatorOpen2.Size = new System.Drawing.Size(309, 6);
-            // 
-            // toolStripMenuItemOpenLIT_UHD
-            // 
-            this.toolStripMenuItemOpenLIT_UHD.Name = "toolStripMenuItemOpenLIT_UHD";
-            this.toolStripMenuItemOpenLIT_UHD.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenLIT_UHD.Text = "Open Light LIT File (UHD)";
-            this.toolStripMenuItemOpenLIT_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenLIT_UHD_Click);
+            this.toolStripSeparatorOpen4.Name = "toolStripSeparatorOpen4";
+            this.toolStripSeparatorOpen4.Size = new System.Drawing.Size(330, 6);
             // 
             // toolStripMenuItemOpenITA_UHD
             // 
             this.toolStripMenuItemOpenITA_UHD.Name = "toolStripMenuItemOpenITA_UHD";
-            this.toolStripMenuItemOpenITA_UHD.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenITA_UHD.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenITA_UHD.Text = "Open Itens ITA File (UHD)";
             this.toolStripMenuItemOpenITA_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenITA_UHD_Click);
             // 
             // toolStripMenuItemOpenAEV_UHD
             // 
             this.toolStripMenuItemOpenAEV_UHD.Name = "toolStripMenuItemOpenAEV_UHD";
-            this.toolStripMenuItemOpenAEV_UHD.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenAEV_UHD.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenAEV_UHD.Text = "Open Events AEV File (UHD)";
             this.toolStripMenuItemOpenAEV_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenAEV_UHD_Click);
             // 
-            // toolStripMenuItemOpenETS_UHD
+            // toolStripMenuItemOpenCAM_UHD
             // 
-            this.toolStripMenuItemOpenETS_UHD.Name = "toolStripMenuItemOpenETS_UHD";
-            this.toolStripMenuItemOpenETS_UHD.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenETS_UHD.Text = "Open EtcModel ETS File (UHD)";
-            this.toolStripMenuItemOpenETS_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenETS_UHD_Click);
+            this.toolStripMenuItemOpenCAM_UHD.Enabled = false;
+            this.toolStripMenuItemOpenCAM_UHD.Name = "toolStripMenuItemOpenCAM_UHD";
+            this.toolStripMenuItemOpenCAM_UHD.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenCAM_UHD.Text = "Open Camera CAM (UHD)";
+            this.toolStripMenuItemOpenCAM_UHD.Visible = false;
+            this.toolStripMenuItemOpenCAM_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenCAM_UHD_Click);
             // 
-            // toolStripMenuItemOpenEMI_UHD
+            // toolStripSeparatorOpen5
             // 
-            this.toolStripMenuItemOpenEMI_UHD.Name = "toolStripMenuItemOpenEMI_UHD";
-            this.toolStripMenuItemOpenEMI_UHD.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenEMI_UHD.Text = "Open Interaction Point EMI File (UHD)";
-            this.toolStripMenuItemOpenEMI_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenEMI_UHD_Click);
+            this.toolStripSeparatorOpen5.Name = "toolStripSeparatorOpen5";
+            this.toolStripSeparatorOpen5.Size = new System.Drawing.Size(330, 6);
             // 
-            // toolStripMenuItemOpenESE_UHD
+            // toolStripMenuItemOpenLIT_UHD_PS4NS
             // 
-            this.toolStripMenuItemOpenESE_UHD.Name = "toolStripMenuItemOpenESE_UHD";
-            this.toolStripMenuItemOpenESE_UHD.Size = new System.Drawing.Size(312, 22);
-            this.toolStripMenuItemOpenESE_UHD.Text = "Open Environment Sound ESE File (UHD)";
-            this.toolStripMenuItemOpenESE_UHD.Click += new System.EventHandler(this.toolStripMenuItemOpenESE_UHD_Click);
+            this.toolStripMenuItemOpenLIT_UHD_PS4NS.Name = "toolStripMenuItemOpenLIT_UHD_PS4NS";
+            this.toolStripMenuItemOpenLIT_UHD_PS4NS.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenLIT_UHD_PS4NS.Text = "Open Light LIT File (UHD/PS4/NS)";
+            this.toolStripMenuItemOpenLIT_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemOpenLIT_UHD_Click);
             // 
-            // toolStripSeparatorOpen3
+            // toolStripMenuItemOpenETS_UHD_PS4NS
             // 
-            this.toolStripSeparatorOpen3.Name = "toolStripSeparatorOpen3";
-            this.toolStripSeparatorOpen3.Size = new System.Drawing.Size(309, 6);
+            this.toolStripMenuItemOpenETS_UHD_PS4NS.Name = "toolStripMenuItemOpenETS_UHD_PS4NS";
+            this.toolStripMenuItemOpenETS_UHD_PS4NS.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenETS_UHD_PS4NS.Text = "Open EtcModel ETS File (UHD/PS4/NS)";
+            this.toolStripMenuItemOpenETS_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemOpenETS_UHD_Click);
+            // 
+            // toolStripMenuItemOpenEMI_UHD_PS4NS
+            // 
+            this.toolStripMenuItemOpenEMI_UHD_PS4NS.Name = "toolStripMenuItemOpenEMI_UHD_PS4NS";
+            this.toolStripMenuItemOpenEMI_UHD_PS4NS.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenEMI_UHD_PS4NS.Text = "Open Interaction Point EMI File (UHD/PS4/NS)";
+            this.toolStripMenuItemOpenEMI_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemOpenEMI_UHD_Click);
+            // 
+            // toolStripMenuItemOpenESE_UHD_PS4NS
+            // 
+            this.toolStripMenuItemOpenESE_UHD_PS4NS.Name = "toolStripMenuItemOpenESE_UHD_PS4NS";
+            this.toolStripMenuItemOpenESE_UHD_PS4NS.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenESE_UHD_PS4NS.Text = "Open Environment Sound ESE File (UHD/PS4/NS)";
+            this.toolStripMenuItemOpenESE_UHD_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemOpenESE_UHD_Click);
+            // 
+            // toolStripSeparatorOpen6
+            // 
+            this.toolStripSeparatorOpen6.Name = "toolStripSeparatorOpen6";
+            this.toolStripSeparatorOpen6.Size = new System.Drawing.Size(330, 6);
             // 
             // toolStripMenuItemOpenITA_PS4_NS
             // 
             this.toolStripMenuItemOpenITA_PS4_NS.Name = "toolStripMenuItemOpenITA_PS4_NS";
-            this.toolStripMenuItemOpenITA_PS4_NS.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenITA_PS4_NS.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenITA_PS4_NS.Text = "Open Itens ITA File (PS4/NS) {Adapted}";
             this.toolStripMenuItemOpenITA_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemOpenITA_PS4_NS_Click);
             // 
             // toolStripMenuItemOpenAEV_PS4_NS
             // 
             this.toolStripMenuItemOpenAEV_PS4_NS.Name = "toolStripMenuItemOpenAEV_PS4_NS";
-            this.toolStripMenuItemOpenAEV_PS4_NS.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenAEV_PS4_NS.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenAEV_PS4_NS.Text = "Open Events AEV File (PS4/NS) {Adapted}";
             this.toolStripMenuItemOpenAEV_PS4_NS.Click += new System.EventHandler(this.toolStripMenuItemOpenAEV_PS4_NS_Click);
             // 
-            // toolStripSeparatorOpen4
+            // toolStripMenuItemOpenCAM_PS4NS
             // 
-            this.toolStripSeparatorOpen4.Name = "toolStripSeparatorOpen4";
-            this.toolStripSeparatorOpen4.Size = new System.Drawing.Size(309, 6);
+            this.toolStripMenuItemOpenCAM_PS4NS.Enabled = false;
+            this.toolStripMenuItemOpenCAM_PS4NS.Name = "toolStripMenuItemOpenCAM_PS4NS";
+            this.toolStripMenuItemOpenCAM_PS4NS.Size = new System.Drawing.Size(333, 22);
+            this.toolStripMenuItemOpenCAM_PS4NS.Text = "Open Camera CAM (PS4/NS)";
+            this.toolStripMenuItemOpenCAM_PS4NS.Visible = false;
+            this.toolStripMenuItemOpenCAM_PS4NS.Click += new System.EventHandler(this.toolStripMenuItemOpenCAM_PS4NS_Click);
+            // 
+            // toolStripSeparatorOpen7
+            // 
+            this.toolStripSeparatorOpen7.Name = "toolStripSeparatorOpen7";
+            this.toolStripSeparatorOpen7.Size = new System.Drawing.Size(330, 6);
             // 
             // toolStripMenuItemOpenQuadCustom
             // 
             this.toolStripMenuItemOpenQuadCustom.Name = "toolStripMenuItemOpenQuadCustom";
-            this.toolStripMenuItemOpenQuadCustom.Size = new System.Drawing.Size(312, 22);
+            this.toolStripMenuItemOpenQuadCustom.Size = new System.Drawing.Size(333, 22);
             this.toolStripMenuItemOpenQuadCustom.Text = "Open Quad Custom File";
             this.toolStripMenuItemOpenQuadCustom.Click += new System.EventHandler(this.toolStripMenuItemOpenQuadCustom_Click);
             // 
@@ -694,6 +899,7 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripMenuItemSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemSaveESL,
+            this.toolStripMenuItemSaveEFFBLOB,
             this.toolStripMenuItemSaveDSE,
             this.toolStripMenuItemSaveFSE,
             this.toolStripMenuItemSaveSAR,
@@ -710,7 +916,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripSeparatorSave3,
             this.toolStripMenuItemSaveDirectories});
             this.toolStripMenuItemSave.Name = "toolStripMenuItemSave";
-            this.toolStripMenuItemSave.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemSave.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItemSave.Text = "Save";
             this.toolStripMenuItemSave.DropDownOpening += new System.EventHandler(this.toolStripMenuItemSave_DropDownOpening);
             // 
@@ -721,6 +927,14 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemSaveESL.Size = new System.Drawing.Size(248, 22);
             this.toolStripMenuItemSaveESL.Text = "Save Enemy ESL File";
             this.toolStripMenuItemSaveESL.Click += new System.EventHandler(this.toolStripMenuItemSaveESL_Click);
+            // 
+            // toolStripMenuItemSaveEFFBLOB
+            // 
+            this.toolStripMenuItemSaveEFFBLOB.Enabled = false;
+            this.toolStripMenuItemSaveEFFBLOB.Name = "toolStripMenuItemSaveEFFBLOB";
+            this.toolStripMenuItemSaveEFFBLOB.Size = new System.Drawing.Size(248, 22);
+            this.toolStripMenuItemSaveEFFBLOB.Text = "Save Effect EFFBLOB File";
+            this.toolStripMenuItemSaveEFFBLOB.Click += new System.EventHandler(this.toolStripMenuItemSaveEFFBLOB_Click);
             // 
             // toolStripMenuItemSaveDSE
             // 
@@ -758,6 +972,14 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripSeparatorSave1.Name = "toolStripSeparatorSave1";
             this.toolStripSeparatorSave1.Size = new System.Drawing.Size(245, 6);
+            // 
+            // toolStripMenuItemSaveLIT
+            // 
+            this.toolStripMenuItemSaveLIT.Enabled = false;
+            this.toolStripMenuItemSaveLIT.Name = "toolStripMenuItemSaveLIT";
+            this.toolStripMenuItemSaveLIT.Size = new System.Drawing.Size(248, 22);
+            this.toolStripMenuItemSaveLIT.Text = "Save Light LIT File";
+            this.toolStripMenuItemSaveLIT.Click += new System.EventHandler(this.toolStripMenuItemSaveLIT_Click);
             // 
             // toolStripMenuItemSaveITA
             // 
@@ -821,6 +1043,7 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripMenuItemSaveDirectories.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemDirectory_ESL,
+            this.toolStripMenuItemDirectory_EFFBLOB,
             this.toolStripMenuItemDirectory_DSE,
             this.toolStripMenuItemDirectory_FSE,
             this.toolStripMenuItemDirectory_SAR,
@@ -843,6 +1066,13 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemDirectory_ESL.Name = "toolStripMenuItemDirectory_ESL";
             this.toolStripMenuItemDirectory_ESL.Size = new System.Drawing.Size(202, 22);
             this.toolStripMenuItemDirectory_ESL.Text = "ESL File Patch:";
+            // 
+            // toolStripMenuItemDirectory_EFFBLOB
+            // 
+            this.toolStripMenuItemDirectory_EFFBLOB.Enabled = false;
+            this.toolStripMenuItemDirectory_EFFBLOB.Name = "toolStripMenuItemDirectory_EFFBLOB";
+            this.toolStripMenuItemDirectory_EFFBLOB.Size = new System.Drawing.Size(202, 22);
+            this.toolStripMenuItemDirectory_EFFBLOB.Text = "EFFBLOB File Patch:";
             // 
             // toolStripMenuItemDirectory_DSE
             // 
@@ -871,6 +1101,13 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemDirectory_EAR.Name = "toolStripMenuItemDirectory_EAR";
             this.toolStripMenuItemDirectory_EAR.Size = new System.Drawing.Size(202, 22);
             this.toolStripMenuItemDirectory_EAR.Text = "EAR File Patch:";
+            // 
+            // toolStripMenuItemDirectory_LIT
+            // 
+            this.toolStripMenuItemDirectory_LIT.Enabled = false;
+            this.toolStripMenuItemDirectory_LIT.Name = "toolStripMenuItemDirectory_LIT";
+            this.toolStripMenuItemDirectory_LIT.Size = new System.Drawing.Size(202, 22);
+            this.toolStripMenuItemDirectory_LIT.Text = "LIT File Patch:";
             // 
             // toolStripMenuItemDirectory_ITA
             // 
@@ -918,6 +1155,7 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripMenuItemSaveAs.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemSaveAsESL,
+            this.toolStripMenuItemSaveAsEFFBLOB,
             this.toolStripMenuItemSaveAsDSE,
             this.toolStripMenuItemSaveAsFSE,
             this.toolStripMenuItemSaveAsSAR,
@@ -932,7 +1170,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripSeparatorSaveAs2,
             this.toolStripMenuItemSaveAsQuadCustom});
             this.toolStripMenuItemSaveAs.Name = "toolStripMenuItemSaveAs";
-            this.toolStripMenuItemSaveAs.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemSaveAs.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItemSaveAs.Text = "Save As...";
             this.toolStripMenuItemSaveAs.DropDownOpening += new System.EventHandler(this.toolStripMenuItemSaveAs_DropDownOpening);
             // 
@@ -943,6 +1181,14 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemSaveAsESL.Size = new System.Drawing.Size(264, 22);
             this.toolStripMenuItemSaveAsESL.Text = "Save As Enemy ESL File";
             this.toolStripMenuItemSaveAsESL.Click += new System.EventHandler(this.toolStripMenuItemSaveAsESL_Click);
+            // 
+            // toolStripMenuItemSaveAsEFFBLOB
+            // 
+            this.toolStripMenuItemSaveAsEFFBLOB.Enabled = false;
+            this.toolStripMenuItemSaveAsEFFBLOB.Name = "toolStripMenuItemSaveAsEFFBLOB";
+            this.toolStripMenuItemSaveAsEFFBLOB.Size = new System.Drawing.Size(264, 22);
+            this.toolStripMenuItemSaveAsEFFBLOB.Text = "Save As Effect EFFBLOB File";
+            this.toolStripMenuItemSaveAsEFFBLOB.Click += new System.EventHandler(this.toolStripMenuItemSaveAsEFFBLOB_Click);
             // 
             // toolStripMenuItemSaveAsDSE
             // 
@@ -980,6 +1226,14 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripSeparatorSaveAs1.Name = "toolStripSeparatorSaveAs1";
             this.toolStripSeparatorSaveAs1.Size = new System.Drawing.Size(261, 6);
+            // 
+            // toolStripMenuItemSaveAsLIT
+            // 
+            this.toolStripMenuItemSaveAsLIT.Enabled = false;
+            this.toolStripMenuItemSaveAsLIT.Name = "toolStripMenuItemSaveAsLIT";
+            this.toolStripMenuItemSaveAsLIT.Size = new System.Drawing.Size(264, 22);
+            this.toolStripMenuItemSaveAsLIT.Text = "Save As Light LIT File";
+            this.toolStripMenuItemSaveAsLIT.Click += new System.EventHandler(this.toolStripMenuItemSaveAsLIT_Click);
             // 
             // toolStripMenuItemSaveAsITA
             // 
@@ -1043,7 +1297,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemSaveConverterEMI,
             this.toolStripMenuItemSaveConverterESE});
             this.toolStripMenuItemSaveConverter.Name = "toolStripMenuItemSaveConverter";
-            this.toolStripMenuItemSaveConverter.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemSaveConverter.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItemSaveConverter.Text = "Save As (Covert)";
             this.toolStripMenuItemSaveConverter.DropDownOpening += new System.EventHandler(this.toolStripMenuItemSaveConverter_DropDownOpening);
             // 
@@ -1091,6 +1345,7 @@ namespace Re4QuadExtremeEditor
             // 
             this.toolStripMenuItemClear.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemClearESL,
+            this.toolStripMenuItemClearEFFBLOB,
             this.toolStripMenuItemClearDSE,
             this.toolStripMenuItemClearFSE,
             this.toolStripMenuItemClearSAR,
@@ -1116,6 +1371,14 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemClearESL.Size = new System.Drawing.Size(251, 22);
             this.toolStripMenuItemClearESL.Text = "Clear Enemy ESL List";
             this.toolStripMenuItemClearESL.Click += new System.EventHandler(this.toolStripMenuItemClearESL_Click);
+            // 
+            // toolStripMenuItemClearEFFBLOB
+            // 
+            this.toolStripMenuItemClearEFFBLOB.Enabled = false;
+            this.toolStripMenuItemClearEFFBLOB.Name = "toolStripMenuItemClearEFFBLOB";
+            this.toolStripMenuItemClearEFFBLOB.Size = new System.Drawing.Size(251, 22);
+            this.toolStripMenuItemClearEFFBLOB.Text = "Clear Effect EFFBLOB List";
+            this.toolStripMenuItemClearEFFBLOB.Click += new System.EventHandler(this.toolStripMenuItemClearEFFBLOB_Click);
             // 
             // toolStripMenuItemClearDSE
             // 
@@ -1218,13 +1481,13 @@ namespace Re4QuadExtremeEditor
             // toolStripSeparatorFileMenu
             // 
             this.toolStripSeparatorFileMenu.Name = "toolStripSeparatorFileMenu";
-            this.toolStripSeparatorFileMenu.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparatorFileMenu.Size = new System.Drawing.Size(157, 6);
             // 
             // toolStripMenuItemClose
             // 
             this.toolStripMenuItemClose.Name = "toolStripMenuItemClose";
             this.toolStripMenuItemClose.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.toolStripMenuItemClose.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemClose.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItemClose.Text = "Close";
             this.toolStripMenuItemClose.Click += new System.EventHandler(this.toolStripMenuItemClose_Click);
             // 
@@ -1306,6 +1569,7 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemSubMenuQuadCustom,
             this.toolStripMenuItemSubMenuEtcModel,
             this.toolStripMenuItemSubMenuLight,
+            this.toolStripMenuItemSubMenuEffect,
             this.toolStripSeparatorView2,
             this.toolStripMenuItemNodeDisplayNameInHex,
             this.toolStripSeparatorView3,
@@ -1330,8 +1594,9 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemHideFileEAR,
             this.toolStripMenuItemHideFileESE,
             this.toolStripMenuItemHideFileEMI,
-            this.toolStripMenuItemHideFileLIT,
             this.toolStripMenuItemHideQuadCustom,
+            this.toolStripMenuItemHideFileLIT,
+            this.toolStripMenuItemHideFileEFF,
             this.toolStripMenuItemHideLateralMenu,
             this.toolStripMenuItemHideBottomMenu});
             this.toolStripMenuItemSubMenuHide.Name = "toolStripMenuItemSubMenuHide";
@@ -1423,6 +1688,14 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemHideFileEMI.Text = "Hide Interaction Point .EMI";
             this.toolStripMenuItemHideFileEMI.Click += new System.EventHandler(this.toolStripMenuItemHideFileEMI_Click);
             // 
+            // toolStripMenuItemHideQuadCustom
+            // 
+            this.toolStripMenuItemHideQuadCustom.Name = "toolStripMenuItemHideQuadCustom";
+            this.toolStripMenuItemHideQuadCustom.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D1)));
+            this.toolStripMenuItemHideQuadCustom.Size = new System.Drawing.Size(303, 22);
+            this.toolStripMenuItemHideQuadCustom.Text = "Hide QuadCustom";
+            this.toolStripMenuItemHideQuadCustom.Click += new System.EventHandler(this.toolStripMenuItemHideQuadCustom_Click);
+            // 
             // toolStripMenuItemHideFileLIT
             // 
             this.toolStripMenuItemHideFileLIT.Name = "toolStripMenuItemHideFileLIT";
@@ -1431,13 +1704,13 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemHideFileLIT.Text = "Hide Light .LIT";
             this.toolStripMenuItemHideFileLIT.Click += new System.EventHandler(this.toolStripMenuItemHideFileLIT_Click);
             // 
-            // toolStripMenuItemHideQuadCustom
+            // toolStripMenuItemHideFileEFF
             // 
-            this.toolStripMenuItemHideQuadCustom.Name = "toolStripMenuItemHideQuadCustom";
-            this.toolStripMenuItemHideQuadCustom.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D1)));
-            this.toolStripMenuItemHideQuadCustom.Size = new System.Drawing.Size(303, 22);
-            this.toolStripMenuItemHideQuadCustom.Text = "Hide QuadCustom";
-            this.toolStripMenuItemHideQuadCustom.Click += new System.EventHandler(this.toolStripMenuItemHideQuadCustom_Click);
+            this.toolStripMenuItemHideFileEFF.Name = "toolStripMenuItemHideFileEFF";
+            this.toolStripMenuItemHideFileEFF.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D3)));
+            this.toolStripMenuItemHideFileEFF.Size = new System.Drawing.Size(303, 22);
+            this.toolStripMenuItemHideFileEFF.Text = "Hide Effect .EFF";
+            this.toolStripMenuItemHideFileEFF.Click += new System.EventHandler(this.toolStripMenuItemHideFileEFF_Click);
             // 
             // toolStripMenuItemHideLateralMenu
             // 
@@ -1640,7 +1913,6 @@ namespace Re4QuadExtremeEditor
             // 
             // toolStripTextBoxDefinedRoom
             // 
-            this.toolStripTextBoxDefinedRoom.BackColor = System.Drawing.SystemColors.Window;
             this.toolStripTextBoxDefinedRoom.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.toolStripTextBoxDefinedRoom.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toolStripTextBoxDefinedRoom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1855,6 +2127,96 @@ namespace Re4QuadExtremeEditor
             this.toolStripMenuItemEnableLightColor.Size = new System.Drawing.Size(256, 22);
             this.toolStripMenuItemEnableLightColor.Text = "Enable Light Display Color";
             this.toolStripMenuItemEnableLightColor.Click += new System.EventHandler(this.toolStripMenuItemEnableLightColor_Click);
+            // 
+            // toolStripMenuItemSubMenuEffect
+            // 
+            this.toolStripMenuItemSubMenuEffect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF,
+            this.toolStripTextBoxSelectedGroupValue_EFF,
+            this.toolStripMenuItemSelectedGroupUp_EFF,
+            this.toolStripMenuItemSelectedGroupDown_EFF,
+            this.toolStripSeparatorSubMenuEffect1,
+            this.toolStripMenuItemHideTable7_EFF,
+            this.toolStripMenuItemHideTable8_EFF,
+            this.toolStripMenuItemHideTable9_EFF,
+            this.toolStripSeparatorSubMenuEffect2,
+            this.toolStripMenuItemDisableGroupPositionEFF});
+            this.toolStripMenuItemSubMenuEffect.Name = "toolStripMenuItemSubMenuEffect";
+            this.toolStripMenuItemSubMenuEffect.Size = new System.Drawing.Size(262, 22);
+            this.toolStripMenuItemSubMenuEffect.Text = "Effect Options";
+            // 
+            // toolStripMenuItemShowOnlySelectedGroup_EFF
+            // 
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF.Name = "toolStripMenuItemShowOnlySelectedGroup_EFF";
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.D0)));
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF.Text = "Show Only Selected Group:";
+            this.toolStripMenuItemShowOnlySelectedGroup_EFF.Click += new System.EventHandler(this.toolStripMenuItemShowOnlySelectedGroup_EFF_Click);
+            // 
+            // toolStripTextBoxSelectedGroupValue_EFF
+            // 
+            this.toolStripTextBoxSelectedGroupValue_EFF.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.toolStripTextBoxSelectedGroupValue_EFF.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.toolStripTextBoxSelectedGroupValue_EFF.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripTextBoxSelectedGroupValue_EFF.HideSelection = false;
+            this.toolStripTextBoxSelectedGroupValue_EFF.MaxLength = 3;
+            this.toolStripTextBoxSelectedGroupValue_EFF.Name = "toolStripTextBoxSelectedGroupValue_EFF";
+            this.toolStripTextBoxSelectedGroupValue_EFF.ShortcutsEnabled = false;
+            this.toolStripTextBoxSelectedGroupValue_EFF.Size = new System.Drawing.Size(100, 16);
+            this.toolStripTextBoxSelectedGroupValue_EFF.Text = "000";
+            this.toolStripTextBoxSelectedGroupValue_EFF.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBoxSelectedGroupValue_EFF_KeyPress);
+            this.toolStripTextBoxSelectedGroupValue_EFF.TextChanged += new System.EventHandler(this.toolStripTextBoxSelectedGroupValue_EFF_TextChanged);
+            // 
+            // toolStripMenuItemSelectedGroupUp_EFF
+            // 
+            this.toolStripMenuItemSelectedGroupUp_EFF.Name = "toolStripMenuItemSelectedGroupUp_EFF";
+            this.toolStripMenuItemSelectedGroupUp_EFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Oemplus)));
+            this.toolStripMenuItemSelectedGroupUp_EFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemSelectedGroupUp_EFF.Text = "Selected Group ++";
+            this.toolStripMenuItemSelectedGroupUp_EFF.Click += new System.EventHandler(this.toolStripMenuItemSelectedGroupUp_EFF_Click);
+            // 
+            // toolStripMenuItemSelectedGroupDown_EFF
+            // 
+            this.toolStripMenuItemSelectedGroupDown_EFF.Name = "toolStripMenuItemSelectedGroupDown_EFF";
+            this.toolStripMenuItemSelectedGroupDown_EFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.OemMinus)));
+            this.toolStripMenuItemSelectedGroupDown_EFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemSelectedGroupDown_EFF.Text = "Selected Group --";
+            this.toolStripMenuItemSelectedGroupDown_EFF.Click += new System.EventHandler(this.toolStripMenuItemSelectedGroupDown_EFF_Click);
+            // 
+            // toolStripSeparatorSubMenuEffect1
+            // 
+            this.toolStripSeparatorSubMenuEffect1.Name = "toolStripSeparatorSubMenuEffect1";
+            this.toolStripSeparatorSubMenuEffect1.Size = new System.Drawing.Size(280, 6);
+            // 
+            // toolStripMenuItemHideTable7_EFF
+            // 
+            this.toolStripMenuItemHideTable7_EFF.Name = "toolStripMenuItemHideTable7_EFF";
+            this.toolStripMenuItemHideTable7_EFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.D7)));
+            this.toolStripMenuItemHideTable7_EFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemHideTable7_EFF.Text = "Hide Table7 Effect0";
+            this.toolStripMenuItemHideTable7_EFF.Click += new System.EventHandler(this.toolStripMenuItemHideTable7_EFF_Click);
+            // 
+            // toolStripMenuItemHideTable8_EFF
+            // 
+            this.toolStripMenuItemHideTable8_EFF.Name = "toolStripMenuItemHideTable8_EFF";
+            this.toolStripMenuItemHideTable8_EFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.D8)));
+            this.toolStripMenuItemHideTable8_EFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemHideTable8_EFF.Text = "Hide Table8 Effect1";
+            this.toolStripMenuItemHideTable8_EFF.Click += new System.EventHandler(this.toolStripMenuItemHideTable8_EFF_Click);
+            // 
+            // toolStripMenuItemHideTable9_EFF
+            // 
+            this.toolStripMenuItemHideTable9_EFF.Name = "toolStripMenuItemHideTable9_EFF";
+            this.toolStripMenuItemHideTable9_EFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.D9)));
+            this.toolStripMenuItemHideTable9_EFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemHideTable9_EFF.Text = "Hide Table9";
+            this.toolStripMenuItemHideTable9_EFF.Click += new System.EventHandler(this.toolStripMenuItemHideTable9_EFF_Click);
             // 
             // toolStripSeparatorView2
             // 
@@ -2179,23 +2541,6 @@ namespace Re4QuadExtremeEditor
             this.splitContainerLeft.TabIndex = 0;
             this.splitContainerLeft.TabStop = false;
             // 
-            // treeViewObjs
-            // 
-            this.treeViewObjs.BackColor = System.Drawing.SystemColors.Control;
-            this.treeViewObjs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeViewObjs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewObjs.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.treeViewObjs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
-            this.treeViewObjs.HideSelection = false;
-            this.treeViewObjs.LineColor = System.Drawing.Color.DarkGray;
-            this.treeViewObjs.Location = new System.Drawing.Point(0, 0);
-            this.treeViewObjs.Name = "treeViewObjs";
-            this.treeViewObjs.SelectedNodeBackColor = System.Drawing.SystemColors.Highlight;
-            this.treeViewObjs.SelectedNodes = ((System.Collections.Generic.Dictionary<int, System.Windows.Forms.TreeNode>)(resources.GetObject("treeViewObjs.SelectedNodes")));
-            this.treeViewObjs.Size = new System.Drawing.Size(208, 215);
-            this.treeViewObjs.TabIndex = 0;
-            this.treeViewObjs.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewObjs_AfterSelect);
-            // 
             // propertyGridObjs
             // 
             this.propertyGridObjs.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -2258,35 +2603,78 @@ namespace Re4QuadExtremeEditor
             this.openFileDialogEFFBLOB.Title = "Open Effect EFFBLOB File";
             this.openFileDialogEFFBLOB.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogEFFBLOB_FileOk);
             // 
-            // toolStripMenuItemSaveLIT
-            // 
-            this.toolStripMenuItemSaveLIT.Enabled = false;
-            this.toolStripMenuItemSaveLIT.Name = "toolStripMenuItemSaveLIT";
-            this.toolStripMenuItemSaveLIT.Size = new System.Drawing.Size(248, 22);
-            this.toolStripMenuItemSaveLIT.Text = "Save Light LIT File";
-            this.toolStripMenuItemSaveLIT.Click += new System.EventHandler(this.toolStripMenuItemSaveLIT_Click);
-            // 
-            // toolStripMenuItemDirectory_LIT
-            // 
-            this.toolStripMenuItemDirectory_LIT.Enabled = false;
-            this.toolStripMenuItemDirectory_LIT.Name = "toolStripMenuItemDirectory_LIT";
-            this.toolStripMenuItemDirectory_LIT.Size = new System.Drawing.Size(202, 22);
-            this.toolStripMenuItemDirectory_LIT.Text = "LIT File Patch:";
-            // 
-            // toolStripMenuItemSaveAsLIT
-            // 
-            this.toolStripMenuItemSaveAsLIT.Enabled = false;
-            this.toolStripMenuItemSaveAsLIT.Name = "toolStripMenuItemSaveAsLIT";
-            this.toolStripMenuItemSaveAsLIT.Size = new System.Drawing.Size(264, 22);
-            this.toolStripMenuItemSaveAsLIT.Text = "Save As Light LIT File";
-            this.toolStripMenuItemSaveAsLIT.Click += new System.EventHandler(this.toolStripMenuItemSaveAsLIT_Click);
-            // 
             // saveFileDialogLIT
             // 
             this.saveFileDialogLIT.DefaultExt = "LIT";
             this.saveFileDialogLIT.Filter = "LIT File|*.LIT";
             this.saveFileDialogLIT.Title = "Save Light LIT File";
             this.saveFileDialogLIT.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogLIT_FileOk);
+            // 
+            // openFileDialogEFFBLOBBIG
+            // 
+            this.openFileDialogEFFBLOBBIG.DefaultExt = "EFFBLOBBIG";
+            this.openFileDialogEFFBLOBBIG.Filter = "EFFBLOBBIG File|*.EFFBLOBBIG";
+            this.openFileDialogEFFBLOBBIG.Title = "Open Effect EFFBLOBBIG File";
+            this.openFileDialogEFFBLOBBIG.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogEFFBLOBBIG_FileOk);
+            // 
+            // saveFileDialogCAM
+            // 
+            this.saveFileDialogCAM.DefaultExt = "CAM";
+            this.saveFileDialogCAM.Filter = "CAM File|*.CAM";
+            this.saveFileDialogCAM.Title = "Save Camera CAM File";
+            this.saveFileDialogCAM.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogCAM_FileOk);
+            // 
+            // openFileDialogCAM
+            // 
+            this.openFileDialogCAM.DefaultExt = "CAM";
+            this.openFileDialogCAM.Filter = "CAM File|*.CAM";
+            this.openFileDialogCAM.Title = "Open Camera CAM File";
+            this.openFileDialogCAM.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogCAM_FileOk);
+            // 
+            // saveFileDialogEFFBLOB
+            // 
+            this.saveFileDialogEFFBLOB.DefaultExt = "EFFBLOB";
+            this.saveFileDialogEFFBLOB.Filter = "EFFBLOB File|*.EFFBLOB";
+            this.saveFileDialogEFFBLOB.Title = "Save Effect EFFBLOB File";
+            this.saveFileDialogEFFBLOB.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogEFFBLOB_FileOk);
+            // 
+            // saveFileDialogEFFBLOBBIG
+            // 
+            this.saveFileDialogEFFBLOBBIG.DefaultExt = "EFFBLOBBIG";
+            this.saveFileDialogEFFBLOBBIG.Filter = "EFFBLOBBIG File|*.EFFBLOBBIG";
+            this.saveFileDialogEFFBLOBBIG.Title = "Save Effect EFFBLOBBIG File";
+            this.saveFileDialogEFFBLOBBIG.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogEFFBLOBBIG_FileOk);
+            // 
+            // toolStripMenuItemDisableGroupPositionEFF
+            // 
+            this.toolStripMenuItemDisableGroupPositionEFF.Name = "toolStripMenuItemDisableGroupPositionEFF";
+            this.toolStripMenuItemDisableGroupPositionEFF.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.D6)));
+            this.toolStripMenuItemDisableGroupPositionEFF.Size = new System.Drawing.Size(283, 22);
+            this.toolStripMenuItemDisableGroupPositionEFF.Text = "Disable Group Position";
+            this.toolStripMenuItemDisableGroupPositionEFF.Click += new System.EventHandler(this.toolStripMenuItemDisableGroupPositionEFF_Click);
+            // 
+            // toolStripSeparatorSubMenuEffect2
+            // 
+            this.toolStripSeparatorSubMenuEffect2.Name = "toolStripSeparatorSubMenuEffect2";
+            this.toolStripSeparatorSubMenuEffect2.Size = new System.Drawing.Size(280, 6);
+            // 
+            // treeViewObjs
+            // 
+            this.treeViewObjs.BackColor = System.Drawing.SystemColors.Control;
+            this.treeViewObjs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeViewObjs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewObjs.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.treeViewObjs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.treeViewObjs.HideSelection = false;
+            this.treeViewObjs.LineColor = System.Drawing.Color.DarkGray;
+            this.treeViewObjs.Location = new System.Drawing.Point(0, 0);
+            this.treeViewObjs.Name = "treeViewObjs";
+            this.treeViewObjs.SelectedNodeBackColor = System.Drawing.SystemColors.Highlight;
+            this.treeViewObjs.SelectedNodes = ((System.Collections.Generic.Dictionary<int, System.Windows.Forms.TreeNode>)(resources.GetObject("treeViewObjs.SelectedNodes")));
+            this.treeViewObjs.Size = new System.Drawing.Size(208, 215);
+            this.treeViewObjs.TabIndex = 0;
+            this.treeViewObjs.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewObjs_AfterSelect);
             // 
             // MainForm
             // 
@@ -2300,7 +2688,7 @@ namespace Re4QuadExtremeEditor
             this.MinimumSize = new System.Drawing.Size(900, 538);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RE4 QUAD EXTREME EDITOR [NEW AGE] | V.1.2.3 | YOUTUBE.COM/@JADERLINK";
+            this.Text = "RE4 QUAD EXTREME EDITOR [NEW AGE] | V.1.2.4 | YOUTUBE.COM/@JADERLINK";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
@@ -2338,20 +2726,20 @@ namespace Re4QuadExtremeEditor
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClear;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClose;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorFileMenu;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenETS_2007_PS2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenITA_2007_PS2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenAEV_2007_PS2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenITA_UHD;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenETS_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenETS_UHD_PS4NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewESL;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewETS_2007_PS2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewITA_2007_PS2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewAEV_2007_PS2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewETS_UHD;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewETS_UHD_PS4NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewITA_UHD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewAEV_UHD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveESL;
@@ -2452,15 +2840,15 @@ namespace Re4QuadExtremeEditor
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenSAR;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenESE_2007_PS2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenEMI_2007_PS2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenESE_UHD;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenEMI_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenESE_UHD_PS4NS;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenEMI_UHD_PS4NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearDSE;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearFSE;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearSAR;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearEAR;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearEMI;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearESE;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenQuadCustom;
         private System.Windows.Forms.OpenFileDialog openFileDialogDSE;
         private System.Windows.Forms.OpenFileDialog openFileDialogFSE;
@@ -2485,9 +2873,9 @@ namespace Re4QuadExtremeEditor
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewEAR;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewEMI_2007_PS2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewESE_2007_PS2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewEMI_UHD;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewESE_UHD;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewEMI_UHD_PS4NS;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewESE_UHD_PS4NS;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewQuadCustom;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveAsSAR;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveAsEAR;
@@ -2532,17 +2920,17 @@ namespace Re4QuadExtremeEditor
         private System.Windows.Forms.OpenFileDialog openFileDialogEFFBLOB;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewITA_PS4_NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewAEV_PS4_NS;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenAEV_UHD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenITA_PS4_NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenAEV_PS4_NS;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRoomTextureNearestLinear;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemModelsTextureNearestLinear;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewLIT_2007_PS2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewLIT_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewLIT_UHD_PS4NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenLIT_2007_PS2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenLIT_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenLIT_UHD_PS4NS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearLIT;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHideFileLIT;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSubMenuLight;
@@ -2557,6 +2945,47 @@ namespace Re4QuadExtremeEditor
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveAsLIT;
         private System.Windows.Forms.SaveFileDialog saveFileDialogLIT;
         private System.Windows.Forms.OpenFileDialog openFileDialogLIT;
+        private System.Windows.Forms.OpenFileDialog openFileDialogEFFBLOBBIG;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogCAM;
+        private System.Windows.Forms.OpenFileDialog openFileDialogCAM;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogEFFBLOB;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogEFFBLOBBIG;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenEFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenCAM_2007_PS2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenCAM_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenCAM_PS4NS;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenBigEndianFiles;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenEFFBLOBBIG;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenCAM_BIG;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorOpen5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewBigEndianFiles;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewEFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCAM_UHD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCAM_2007_PS2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCAM_PS4NS;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorNew5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewEFFBLOBBIG;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCAM_BIG;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearEFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveEFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDirectory_EFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveAsEFFBLOB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHideFileEFF;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSubMenuEffect;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowOnlySelectedGroup_EFF;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSelectedGroupValue_EFF;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedGroupUp_EFF;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSelectedGroupDown_EFF;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSubMenuEffect1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHideTable7_EFF;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHideTable8_EFF;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHideTable9_EFF;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSubMenuEffect2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDisableGroupPositionEFF;
     }
 }
 

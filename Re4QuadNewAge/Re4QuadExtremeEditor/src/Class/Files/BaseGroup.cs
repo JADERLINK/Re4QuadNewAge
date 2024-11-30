@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using SimpleEndianBinaryIO;
 
 namespace Re4QuadExtremeEditor.src.Class.Files
 {
@@ -14,14 +15,20 @@ namespace Re4QuadExtremeEditor.src.Class.Files
     public abstract class BaseGroup
     {
         /// <summary>
-        /// tem que retorna a referencia
+        /// tem que retornar a referencia
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
         protected abstract byte[] GetInternalLine(ushort ID);
+        /// <summary>
+        /// return Endianness
+        /// </summary>
+        /// <returns></returns>
+        protected abstract Endianness GetEndianness();
 
         protected void SetBaseMethods(BaseMethods Methods) 
         {
+            Methods.GetEndianness = GetEndianness;
             Methods.ReturnByteFromPosition = ReturnByteFromPosition;
             Methods.SetByteFromPosition = SetByteFromPosition;
             Methods.SetSbyteFromPosition = SetSbyteFromPosition;
@@ -40,83 +47,82 @@ namespace Re4QuadExtremeEditor.src.Class.Files
             Methods.SetByteArrayFromPosition = SetByteArrayFromPosition;
         }
 
-        private byte ReturnByteFromPosition(ushort ID, int FromPosition)
+        protected byte ReturnByteFromPosition(ushort ID, int FromPosition)
         {
             return GetInternalLine(ID)[FromPosition];
         }
 
-        private void SetByteFromPosition(ushort ID, int FromPosition, byte value)
+        protected void SetByteFromPosition(ushort ID, int FromPosition, byte value)
         {
             GetInternalLine(ID)[FromPosition] = value;
         }
 
-        private sbyte ReturnSbyteFromPosition(ushort ID, int FromPosition)
+        protected sbyte ReturnSbyteFromPosition(ushort ID, int FromPosition)
         {
             return (sbyte)GetInternalLine(ID)[FromPosition];
         }
 
-        private void SetSbyteFromPosition(ushort ID, int FromPosition, sbyte value)
+        protected void SetSbyteFromPosition(ushort ID, int FromPosition, sbyte value)
         {
             GetInternalLine(ID)[FromPosition] = (byte)value;
         }
 
-        private short ReturnShortFromPosition(ushort ID, int FromPosition)
+        protected short ReturnShortFromPosition(ushort ID, int FromPosition)
         {
-            return BitConverter.ToInt16(GetInternalLine(ID), FromPosition);
+            return EndianBitConverter.ToInt16(GetInternalLine(ID), FromPosition, GetEndianness());
         }
 
-        private void SetShortFromPosition(ushort ID, int FromPosition, short value)
+        protected void SetShortFromPosition(ushort ID, int FromPosition, short value)
         {
-            BitConverter.GetBytes(value).CopyTo(GetInternalLine(ID), FromPosition);
+            EndianBitConverter.GetBytes(value, GetEndianness()).CopyTo(GetInternalLine(ID), FromPosition);
         }
 
-        private ushort ReturnUshortFromPosition(ushort ID, int FromPosition)
+        protected ushort ReturnUshortFromPosition(ushort ID, int FromPosition)
         {
-            return BitConverter.ToUInt16(GetInternalLine(ID), FromPosition);
+            return EndianBitConverter.ToUInt16(GetInternalLine(ID), FromPosition, GetEndianness());
         }
 
-        private void SetUshortFromPosition(ushort ID, int FromPosition, ushort value)
+        protected void SetUshortFromPosition(ushort ID, int FromPosition, ushort value)
         {
-            BitConverter.GetBytes(value).CopyTo(GetInternalLine(ID), FromPosition);
+            EndianBitConverter.GetBytes(value, GetEndianness()).CopyTo(GetInternalLine(ID), FromPosition);
         }
 
-
-        private int ReturnIntFromPosition(ushort ID, int FromPosition)
+        protected int ReturnIntFromPosition(ushort ID, int FromPosition)
         {
-            return BitConverter.ToInt32(GetInternalLine(ID), FromPosition);
+            return EndianBitConverter.ToInt32(GetInternalLine(ID), FromPosition, GetEndianness());
         }
 
-        private void SetIntFromPosition(ushort ID, int FromPosition, int value)
+        protected void SetIntFromPosition(ushort ID, int FromPosition, int value)
         {
-            BitConverter.GetBytes(value).CopyTo(GetInternalLine(ID), FromPosition);
+            EndianBitConverter.GetBytes(value, GetEndianness()).CopyTo(GetInternalLine(ID), FromPosition);
         }
 
-        private uint ReturnUintFromPosition(ushort ID, int FromPosition)
+        protected uint ReturnUintFromPosition(ushort ID, int FromPosition)
         {
-            return BitConverter.ToUInt32(GetInternalLine(ID), FromPosition);
+            return EndianBitConverter.ToUInt32(GetInternalLine(ID), FromPosition, GetEndianness());
         }
 
-        private void SetUintFromPosition(ushort ID, int FromPosition, uint value)
+        protected void SetUintFromPosition(ushort ID, int FromPosition, uint value)
         {
-            BitConverter.GetBytes(value).CopyTo(GetInternalLine(ID), FromPosition);
+            EndianBitConverter.GetBytes(value, GetEndianness()).CopyTo(GetInternalLine(ID), FromPosition);
         }
 
-        private float ReturnFloatFromPosition(ushort ID, int FromPosition)
+        protected float ReturnFloatFromPosition(ushort ID, int FromPosition)
         {
-            return BitConverter.ToSingle(GetInternalLine(ID), FromPosition);
+            return EndianBitConverter.ToSingle(GetInternalLine(ID), FromPosition, GetEndianness());
         }
 
-        private void SetFloatFromPosition(ushort ID, int FromPosition, float value)
+        protected void SetFloatFromPosition(ushort ID, int FromPosition, float value)
         {
-            BitConverter.GetBytes(value).CopyTo(GetInternalLine(ID), FromPosition);
+            EndianBitConverter.GetBytes(value, GetEndianness()).CopyTo(GetInternalLine(ID), FromPosition);
         }
 
-        private byte[] ReturnByteArrayFromPosition(ushort ID, int FromPosition, int Count)
+        protected byte[] ReturnByteArrayFromPosition(ushort ID, int FromPosition, int Count)
         {
             return GetInternalLine(ID).Skip(FromPosition).Take(Count).ToArray();
         }
 
-        private void SetByteArrayFromPosition(ushort ID, int FromPosition, byte[] value)
+        protected void SetByteArrayFromPosition(ushort ID, int FromPosition, byte[] value)
         {
             value.CopyTo(GetInternalLine(ID), FromPosition);
         }

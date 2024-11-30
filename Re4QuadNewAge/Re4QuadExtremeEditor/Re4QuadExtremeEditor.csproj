@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="src\Class\Enums\aLang.cs" />
     <Compile Include="src\Class\Enums\ConfigFrationalSymbol.cs" />
+    <Compile Include="src\Class\Enums\EffectEntryTableID.cs" />
     <Compile Include="src\Class\Enums\eLang.cs" />
     <Compile Include="src\Class\Enums\GroupType.cs" />
     <Compile Include="src\Class\Enums\ItemAuraType.cs" />
@@ -111,12 +112,15 @@
     <Compile Include="src\Class\Files\FileEtcModelEtsGroup.cs" />
     <Compile Include="src\Class\Files\FileQuadCustomGroup.cs" />
     <Compile Include="src\Class\Files\FileSpecialGroup.cs" />
+    <Compile Include="src\Class\Files\File_CAM_Group.cs" />
     <Compile Include="src\Class\Files\File_DSE_Group.cs" />
+    <Compile Include="src\Class\Files\File_EFFBLOB_Group.cs" />
     <Compile Include="src\Class\Files\File_EMI_Group.cs" />
     <Compile Include="src\Class\Files\File_ESAR_Group.cs" />
     <Compile Include="src\Class\Files\File_ESE_Group.cs" />
     <Compile Include="src\Class\Files\File_FSE_Group.cs" />
     <Compile Include="src\Class\Files\File_LIT_Group.cs" />
+    <Compile Include="src\Class\Interfaces\IChangeAmountIndexFix.cs" />
     <Compile Include="src\Class\Interfaces\IDisplay.cs" />
     <Compile Include="src\Class\Interfaces\INodeChangeAmount.cs" />
     <Compile Include="src\Class\Interfaces\IInternalID.cs" />
@@ -166,6 +170,15 @@
     <Compile Include="src\Class\MyProperty\NewAge_LIT_Group_Property.cs" />
     <Compile Include="src\Class\MyProperty\NoneProperty.cs" />
     <Compile Include="src\Class\MyProperty\QuadCustomProperty.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table4_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table2_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table3_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table1_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_TableEffectEntry_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_TableEffectGroup_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table9_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table6_Property.cs" />
+    <Compile Include="src\Class\MyProperty\_EFF_Property\EFF_Table0_Property.cs" />
     <Compile Include="src\Class\ObjForListBox.cs" />
     <Compile Include="src\Class\Enums\Re4Version.cs" />
     <Compile Include="src\Class\ObjMethods\BaseMethods.cs" />
@@ -178,6 +191,7 @@
     <Compile Include="src\Class\ObjMethods\EnemyMethodsForGL.cs" />
     <Compile Include="src\Class\ObjMethods\ExtrasMethodsForGL.cs" />
     <Compile Include="src\Class\ObjMethods\NewAge_DSE_Methods.cs" />
+    <Compile Include="src\Class\ObjMethods\NewAge_EFF_Methods.cs" />
     <Compile Include="src\Class\ObjMethods\NewAge_EMI_Methods.cs" />
     <Compile Include="src\Class\ObjMethods\NewAge_EMI_MethodsForGL.cs" />
     <Compile Include="src\Class\ObjMethods\NewAge_ESAR_Methods.cs" />
@@ -210,6 +224,7 @@
     <Compile Include="src\Class\TreeNodeObj\EnemyNodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\EtcModelNodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\ExtraNodeGroup.cs" />
+    <Compile Include="src\Class\TreeNodeObj\NewAge_EFF_NodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\NewAge_LIT_Entrys_NodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\NewAge_LIT_Groups_NodeGroup.cs" />
     <Compile Include="src\Class\TreeNodeObj\Object3D.cs" />
@@ -375,6 +390,7 @@
     <None Include="Resources\Hex3D\LIT_Point.hex" />
     <None Include="Resources\Hex3D\Plane.hex" />
     <None Include="Resources\Shader\BoundaryBoxShaderFrag.frag" />
+    <None Include="Resources\Shader\BoundaryBoxShaderPlusVert.vert" />
     <None Include="Resources\Shader\BoundaryBoxShaderVert.vert" />
     <None Include="Resources\Shader\CircleTriggerZoneShaderFrag.frag" />
     <None Include="Resources\Shader\CircleTriggerZoneShaderVert.vert" />
@@ -385,6 +401,7 @@
     <None Include="Resources\Shader\LitPointShaderFrag.frag" />
     <None Include="Resources\Shader\LitPointShaderVert.vert" />
     <None Include="Resources\Shader\ObjModelShaderFrag.frag" />
+    <None Include="Resources\Shader\ObjModelShaderPlusVert.vert" />
     <None Include="Resources\Shader\ObjModelShaderVert.vert" />
     <None Include="Resources\Shader\PlaneZoneShaderFrag.frag" />
     <None Include="Resources\Shader\PlaneZoneShaderVert.vert" />
@@ -435,5 +452,7 @@
   <Import Project="..\Re4ViewerRender\Re4ViewerRender.projitems" Label="Shared" />
   <Import Project="..\ControlUtils\ControlUtils.projitems" Label="Shared" />
   <Import Project="..\ScarletLibrary\ScarletLibrary.projitems" Label="Shared" />
+  <Import Project="..\SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems" Label="Shared" />
+  <Import Project="..\EFF_FILE\EFF_FILE.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
